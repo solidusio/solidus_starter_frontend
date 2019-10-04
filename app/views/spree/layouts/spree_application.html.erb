@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <%= render partial: 'spree/shared/head' %>
+  </head>
+  <body class="<%= body_class %>" id="<%= @body_id || 'default' %>">
+    <%= render partial: 'spree/shared/header' %>
+    <%= taxon_breadcrumbs(@taxon) %>
+    <%= render partial: 'spree/shared/sidebar' if content_for? :sidebar %>
+    <%= flash_messages %>
+    <main>
+      <%= yield %>
+    </main>
+    <%= yield :templates %>
+    <%= render partial: 'spree/shared/footer' %>
+  </body>
+</html>

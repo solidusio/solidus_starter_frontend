@@ -1,0 +1,14 @@
+<h1><%= @taxon.name %></h1>
+
+<% content_for :sidebar do %>
+  <%= render partial: 'spree/shared/taxonomies' %>
+  <%= render partial: 'spree/shared/filters' if @taxon.children.empty? %>
+<% end %>
+
+<%= render partial: 'spree/shared/products', locals: { products: @products, taxon: @taxon } %>
+
+<% unless params[:keywords].present? %>
+  <% cache [I18n.locale, @taxon] do %>
+    <%= render partial: 'taxon', collection: @taxon.children %>
+  <% end %>
+<% end %>

@@ -1,0 +1,100 @@
+<fieldset>
+  <legend>
+    <%= t('spree.delivery') %>
+  </legend>
+
+    <%= form.fields_for :shipments do |ship_form| %>
+      <h3>
+        <%= t('spree.package_from') %>
+        <strong>
+          <%= ship_form.object.stock_location.name %>
+        </strong>
+      </h3>
+
+      <table>
+        <colgroup>
+          <col />
+          <col />
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <th></th>
+          <th><%= t('spree.item') %></th>
+          <th><%= t('spree.qty') %></th>
+          <th><%= t('spree.price') %></th>
+        </thead>
+        <tbody>
+          <% ship_form.object.manifest.each do |item| %>
+            <tr>
+              <td>
+                <%= render 'spree/shared/image',
+                  image: item.variant.gallery.images.first || item.variant.product.gallery.images.first,
+                  size: :mini %>
+              </td>
+              <td><%= item.variant.name %></td>
+              <td><%= item.quantity %></td>
+              <td><%= display_price(item.variant) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <h5><%= t('spree.shipping_method') %></h5>
+
+      <ul>
+        <% ship_form.object.shipping_rates.each do |rate| %>
+          <li>
+            <label>
+              <%= ship_form.radio_button :selected_shipping_rate_id, rate.id %>
+              <%= rate.name %>
+              <%= rate.display_cost %>
+            </label>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if @differentiator.try(:missing?) %>
+      <h3>
+        <%= t('spree.unshippable_items') %>
+      </h3>
+      <table>
+        <colgroup>
+          <col />
+          <col />
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <th></th>
+          <th><%= t('spree.item') %></th>
+          <th><%= t('spree.qty') %></th>
+          <th><%= t('spree.price') %></th>
+        </thead>
+        <tbody>
+          <% @differentiator.missing.each do |variant, quantity| %>
+            <tr>
+              <td>
+                <%= render 'spree/shared/image',
+                  image: variant.gallery.images.first || variant.product.gallery.images.first,
+                  size: :mini %>
+              </td>
+              <td><%= variant.name %></td>
+              <td><%= quantity %></td>
+              <td><%= display_price(variant) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+  <% if Spree::Config[:shipping_instructions] %>
+    <p>
+      <%= form.label :special_instructions, t('spree.shipping_instructions') %>
+      <%= form.text_area :special_instructions, cols: 40, rows: 7 %>
+    </p>
+  <% end %>
+</fieldset>
+
+<%= submit_tag t('spree.save_and_continue'), class: 'continue button primary' %>

@@ -1,0 +1,20 @@
+<%# no need for thumbnails unless there is more than one image %>
+<% if @product.gallery.images.size > 1 %>
+  <ul>
+    <% @product.gallery.images.each do |image| %>
+      <% next if image.viewable_id != @product.master.id %>
+      <li>
+        <%= link_to(image_tag(image.url(:mini)), image.url(:product)) %>
+      </li>
+    <% end %>
+
+    <% if @product.has_variants? %>
+      <% @product.gallery.images.each do |image| %>
+        <% next if image.viewable_id == @product.master.id %>
+        <li>
+          <%= link_to(image_tag(image.url(:mini)), image.url(:product)) %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

@@ -1,0 +1,16 @@
+<% unless @product_properties.empty? %>
+  <h2>
+    <%= t('spree.properties')%>
+  </h2>
+  <table>
+    <tbody>
+      <% @product_properties.each do |product_property| %>
+        <tr>
+          <td><%= product_property.property.presentation %></td>
+          <td><%= product_property.value %></td>
+        </tr>
+      <% end %>
+      <% reset_cycle('properties') %>
+    </tbody>
+  </table>
+<% end %>
