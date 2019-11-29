@@ -1,0 +1,42 @@
+<% order = order_form.object %>
+
+<%= render 'spree/shared/error_messages', target: order %>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2"><%= t('spree.item') %></th>
+      <th><%= t('spree.price') %></th>
+      <th><%= t('spree.qty') %></th>
+      <th><%= t('spree.total') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: 'spree/orders/line_item', collection: order.line_items, locals: { order_form: order_form } %>
+  </tbody>
+
+  <% if order.adjustments.nonzero.exists? || order.line_item_adjustments.nonzero.exists? || order.shipment_adjustments.nonzero.exists? || order.shipments.any? %>
+    <tr>
+      <td>
+        <h5><%= t('spree.cart_subtotal', count: order.line_items.sum(:quantity)) %></h5>
+      </td>
+      <td>
+        <h5><%= order.display_item_total %></h5>
+      </td>
+      <td></td>
+    </tr>
+    <%= render "spree/orders/adjustments" %>
+  <% end %>
+
+  <tr>
+    <td colspan="4">
+      <h5><%= t('spree.total') %></h5>
+    </td>
+    <td>
+      <h5><%= order.display_total %></h5>
+    </td>
+    <td></td>
+  </tr>
+</table>

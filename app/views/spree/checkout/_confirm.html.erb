@@ -1,0 +1,22 @@
+<fieldset>
+  <legend><%= t('spree.confirm') %></legend>
+  <%= render 'spree/shared/order_details', order: @order %>
+</fieldset>
+
+<% Spree::Frontend::Config[:require_terms_and_conditions_acceptance].tap do |requires_acceptance| %>
+  <% if requires_acceptance %>
+    <div class="terms_and_conditions">
+      <%= render partial: "spree/checkout/terms_and_conditions" %>
+      <%= check_box_tag :accept_terms_and_conditions, 'accepted', false %>
+      <%= label_tag :accept_terms_and_conditions, t('spree.agree_to_terms_of_service') %>
+    </div>
+  <% end %>
+
+  <%= submit_tag t('spree.place_order'),
+    disabled: requires_acceptance,
+    class: "continue button primary #{ 'disabled' if requires_acceptance }" %>
+<% end %>
+
+<script>
+  Spree.disableSaveOnClick();
+</script>

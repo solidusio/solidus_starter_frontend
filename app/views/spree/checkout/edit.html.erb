@@ -1,0 +1,27 @@
+<article>
+  <%= render partial: 'spree/shared/error_messages', locals: { target: @order } %>
+
+  <header>
+    <h1><%= t('spree.checkout') %></h1>
+    <%= checkout_progress %>
+  </header>
+
+  <%= form_for @order, url: update_checkout_path(@order.state), html: { id: "checkout_form_#{@order.state}" } do |form| %>
+    <% if @order.state == 'address' || !@order.email? %>
+      <div class="field field-required">
+        <%= form.label :email %>
+        <%= form.email_field :email, required: true %>
+      </div>
+    <% end %>
+    <%= render @order.state, form: form %>
+  <% end %>
+
+  <% if @order.state != 'confirm' %>
+    <%= render partial: 'summary', locals: { order: @order } %>
+  <% end %>
+</article>
+
+<script>
+  Spree.current_order_id = '<%= @order.number %>'
+  Spree.current_order_token = '<%= @order.guest_token %>'
+</script>

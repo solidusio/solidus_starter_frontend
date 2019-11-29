@@ -1,0 +1,26 @@
+<% @body_id = 'cart' %>
+
+<h1>
+  <%= t('spree.shopping_cart') %>
+</h1>
+
+<% if @order.line_items.empty? %>
+  <p><%= t('spree.your_cart_is_empty') %></p>
+  <%= link_to t('spree.continue_shopping'), products_path, class: 'button continue' %>
+<% else %>
+  <%= form_for @order, url: update_cart_path, html: {id: 'update-cart'} do |order_form| %>
+    <%= render 'spree/orders/form', order_form: order_form %>
+    <%= button_tag t("spree.update"), class: "primary", id: "update-button" %>
+    <%= button_tag class: 'button checkout primary', id: 'checkout-link', name: 'checkout' do %>
+      <%= t('spree.checkout') %>
+    <% end %>
+  <% end %>
+
+  <%= form_tag empty_cart_path, method: :put do %>
+    <%= submit_tag t('spree.empty_cart'), class: 'button gray' %>
+    <%= t('spree.or') %>
+    <%= link_to t('spree.continue_shopping'), products_path, class: 'continue button gray' %>
+  <% end %>
+
+  <%= render template: 'spree/coupon_codes/new' %>
+<% end %>

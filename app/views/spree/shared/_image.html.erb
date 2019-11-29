@@ -1,0 +1,12 @@
+<% size ||= :mini %>
+<% itemprop ||= nil %>
+
+<% if image_url = image.try(:url, size) %>
+  <% if image_alt = image.try(:alt) %>
+    <%= image_tag image_url, alt: image_alt, itemprop: itemprop %>
+  <% else %>
+    <%= image_tag image_url, itemprop: itemprop %>
+  <% end %>
+<% else %>
+  <div class="image-placeholder <%= size %>"></div>
+<% end %>
