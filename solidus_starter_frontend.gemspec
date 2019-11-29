@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = 'solidus_starter_frontend'
   s.version     = SolidusStarterFrontend::VERSION
   s.summary     = 'Cart and storefront for the Solidus e-commerce project.'
-  s.description = 'TODO'
+  s.description = 'Placeholder description.'
   s.license     = 'BSD-3-Clause'
 
   s.author    = 'Nebulab'
@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", 'LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['spec/**/*']
 
-  s.add_dependency 'solidus_api', '>=2.5'
-  s.add_dependency 'solidus_core', '>=2.5'
+  s.add_dependency 'solidus_api'
+  s.add_dependency 'solidus_core'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'ffaker'
