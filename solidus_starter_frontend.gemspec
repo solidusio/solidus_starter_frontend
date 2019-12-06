@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'solidus_api'
   s.add_dependency 'solidus_core'
+  s.add_dependency 'actionview-component'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'ffaker'
