@@ -9,5 +9,8 @@
     <%= select_tag(:taxon, options_for_select(options, selected), 'aria-label' => 'Taxon') %>
   <% end %>
   <%= search_field_tag :keywords, params[:keywords], placeholder: t('spree.search') %>
-  <%= submit_tag t('spree.search'), name: nil %>
+
+  <%= render(Buttons::PrimaryComponent, type: :button) do %>
+    <%= t('spree.search') %>
+  <% end %>
 <% end %>
