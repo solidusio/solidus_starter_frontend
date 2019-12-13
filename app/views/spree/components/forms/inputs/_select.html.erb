@@ -1,0 +1,18 @@
+<%
+  base_class = "select-input".freeze
+
+  # Optional props
+  disabled = false if local_assigns[:disabled].nil?
+  selected = nil if local_assigns[:selected].nil?
+
+  # Classes
+  class_names = [base_class]
+  class_names = class_names.join(" ")
+%>
+
+<%= select_tag(
+  name,
+  options_for_select(options, selected),
+  class: class_names,
+  disabled: disabled
+) %>
