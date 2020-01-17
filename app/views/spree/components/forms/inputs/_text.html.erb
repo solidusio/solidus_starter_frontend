@@ -1,0 +1,20 @@
+<%
+  base_class = "text-input".freeze
+
+  # Optional props
+  disabled = false if local_assigns[:disabled].nil?
+  placeholder = "" if local_assigns[:placeholder].nil?
+  type = :text if local_assigns[:type].nil?
+
+  # Classes
+  class_names = [base_class]
+  class_names = class_names.join(" ")
+%>
+
+<input
+  class=<%= class_names %>
+  name=<%= name %>
+  placeholder=<%= placeholder %>
+  type=<%= type %>
+  <%= disabled ? "disabled" : "" %>
+/>

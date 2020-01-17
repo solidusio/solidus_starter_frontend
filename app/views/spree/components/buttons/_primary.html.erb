@@ -1,0 +1,21 @@
+<%
+  base_class = "button".freeze
+
+  # Optional props
+  disabled = false if local_assigns[:disabled].nil?
+  name = nil if local_assigns[:name].nil?
+  type = "button" if local_assigns[:type].nil?
+
+  # Classes
+  class_names = [base_class]
+  class_names = class_names.join(" ")
+%>
+
+<%= button_tag(
+  class: class_names,
+  disabled: disabled,
+  name: name,
+  type: type
+) do %>
+  <%= content %>
+<% end %>
