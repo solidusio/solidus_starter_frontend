@@ -16,11 +16,7 @@
 <% end %>
 
 <% if products.any? %>
-  <ul>
-    <% products.each do |product| %>
-      <%= render 'spree/shared/product', product: product %>
-    <% end %>
-  </ul>
+  <%= render 'spree/components/products/products-grid', products: products %>
 <% end %>
 
 <% if paginated_products.respond_to?(:total_pages) %>

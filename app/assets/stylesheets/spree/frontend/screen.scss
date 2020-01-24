@@ -1,0 +1,27 @@
+/*--------------------------------------*/
+/* General
+/*--------------------------------------*/
+
+@import "spree/frontend/variables/colors";
+
+/*--------------------------------------*/
+/* Base
+/*--------------------------------------*/
+
+@import "spree/frontend/base/base";
+
+/*--------------------------------------*/
+/* Components
+/*--------------------------------------*/
+
+@import "spree/frontend/components/brand/logo";
+@import "spree/frontend/components/cart/cart_link";
+@import "spree/frontend/components/layout/footer";
+@import "spree/frontend/components/layout/header";
+@import "spree/frontend/components/navigation/auth_link";
+@import "spree/frontend/components/navigation/categories";
+@import "spree/frontend/components/presentation/hero";
+@import "spree/frontend/components/products/product_card";
+@import "spree/frontend/components/products/products_grid";
+@import "spree/frontend/components/typography/hero_title";
+@import "spree/frontend/components/typography/subtitle";

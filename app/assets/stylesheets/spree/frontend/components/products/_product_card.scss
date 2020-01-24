@@ -1,0 +1,35 @@
+.product-card {
+  &_image {
+    transition: transform .2s;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &_header {
+    text-align: center;
+    position: relative;
+
+    h2 {
+      font-weight: 600;
+      margin: 0;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  &_price {
+    color: $color_accent;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  &:hover &_image {
+    transform: scale(1.1);
+  }
+}

@@ -1,6 +1,4 @@
-<% content_for :sidebar do %>
-  <%= render partial: 'spree/shared/taxonomies' %>
-<% end %>
+<%= render partial: 'spree/components/presentation/hero' %>
 
 <article>
   <% cache(cache_key_for_products) do %>

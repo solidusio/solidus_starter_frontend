@@ -1,0 +1,17 @@
+.hero {
+  background: $color_background_dark;
+  color: $color_copy_bright;
+  padding: 10rem 0;
+
+  &_container {
+    display: flex;
+    margin: 0 auto;
+    max-width: 114rem;
+    padding: 0 2rem;
+  }
+
+  &_message {
+    padding-right: 2rem;
+    width: 50%;
+  }
+}

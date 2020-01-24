@@ -1,0 +1,18 @@
+.categories {
+  display: flex;
+  justify-content: center;
+
+  > ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    font-size: 1.7rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin: 0 2rem;
+  }
+}
