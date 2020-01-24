@@ -1,0 +1,8 @@
+<% categories = Spree::Taxonomy.includes(root: :children).first %>
+
+<nav class="categories">
+  <a href="/products">All</a>
+  <% cache [I18n.locale, categories, @taxon] do %>
+    <%= taxons_tree(categories.root, @taxon, 1) %>
+  <% end %>
+</nav>
