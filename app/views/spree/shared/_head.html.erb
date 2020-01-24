@@ -5,9 +5,8 @@
 <%= canonical_tag(current_store.url) %>
 <%= csrf_meta_tags %>
 
-<%= favicon_link_tag 'favicon.ico' %>
-
-<%= stylesheet_link_tag 'spree/frontend/all', media: 'screen' %>
 <%= javascript_include_tag 'spree/frontend/all' %>
+<%= stylesheet_link_tag 'spree/frontend/all', media: 'screen' %>
 
+<%= favicon_link_tag 'favicon.ico' %>
 <%= yield :head %>

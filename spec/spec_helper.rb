@@ -1,50 +1,57 @@
-# frozen_string_literal: true
+# Run Coverage report
+require 'simplecov'
 
-if ENV["COVERAGE"]
-  require 'simplecov'
-  SimpleCov.start('rails')
+SimpleCov.start do
+  add_filter 'spec/dummy'
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Helpers', 'app/helpers'
+  add_group 'Mailers', 'app/mailers'
+  add_group 'Models', 'app/models'
+  add_group 'Views', 'app/views'
+  add_group 'Libraries', 'lib'
 end
 
-# This file is copied to ~/spec when you run 'ruby script/generate rspec'
-# from the project root directory.
-ENV["RAILS_ENV"] ||= 'test'
+# Configure Rails Environment
+ENV['RAILS_ENV'] = 'test'
 
-require 'solidus_frontend'
-require 'spree/testing_support/dummy_app'
-DummyApp.setup(
-  gem_root: File.expand_path('..', __dir__),
-  lib_name: 'solidus_frontend'
-)
+require File.expand_path('../dummy/config/environment.rb', __FILE__)
 
 require 'rails-controller-testing'
-require 'rspec/rails'
+# # require 'rspec/rails'
 require 'rspec-activemodel-mocks'
-
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
-
-require 'database_cleaner'
-
-require 'spree/testing_support/partial_double_verification'
-require 'spree/testing_support/authorization_helpers'
-require 'spree/testing_support/capybara_ext'
-require 'spree/testing_support/factories'
-require 'spree/testing_support/preferences'
-require 'spree/testing_support/controller_requests'
-require 'spree/testing_support/flash'
-require 'spree/testing_support/url_helpers'
+# require 'database_cleaner'
+# require 'spree/testing_support/partial_double_verification'
+# require 'spree/testing_support/authorization_helpers'
+# require 'spree/testing_support/capybara_ext'
+# require 'spree/testing_support/factories'
+# require 'spree/testing_support/preferences'
+# require 'spree/testing_support/controller_requests'
+# require 'spree/testing_support/flash'
+# require 'spree/testing_support/url_helpers'
 require 'spree/testing_support/order_walkthrough'
 require 'spree/testing_support/caching'
 
-require 'capybara-screenshot/rspec'
-Capybara.save_path = ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
-Capybara.default_max_wait_time = ENV['DEFAULT_MAX_WAIT_TIME'].to_f if ENV['DEFAULT_MAX_WAIT_TIME'].present?
+# require 'capybara-screenshot/rspec'
+# Capybara.save_path = ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
+# Capybara.default_max_wait_time = ENV['DEFAULT_MAX_WAIT_TIME'].to_f if ENV['DEFAULT_MAX_WAIT_TIME'].present?
 
-require "selenium/webdriver"
-Capybara.javascript_driver = (ENV['CAPYBARA_DRIVER'] || :selenium_chrome_headless).to_sym
+require 'solidus_dev_support/rspec/feature_helper'
+#
+Capybara.register_driver :apparition do |app|
+  Capybara::Apparition::Driver.new(app, headless: false)
+end
 
-ActiveJob::Base.queue_adapter = :test
+# Capybara.javascript_driver = (ENV['CAPYBARA_DRIVER'] || :selenium_chrome_headless).to_sym
+
+# Requires factories and other useful helpers defined in spree_core.
+# require 'solidus_support/extension/feature_helper'
+
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each {|f| require f }
+
+# Requires factories defined in lib/solidus_starter_frontend/factories.rb
+# require 'solidus_starter_frontend/factories'
 
 RSpec.configure do |config|
   config.color = true
@@ -62,12 +69,6 @@ RSpec.configure do |config|
   # examples within a transaction, comment the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
-
-  if ENV['WEBDRIVER'] == 'accessible'
-    config.around(:each, inaccessible: true) do |example|
-      Capybara::Accessible.skip_audit { example.run }
-    end
-  end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
@@ -96,7 +97,9 @@ RSpec.configure do |config|
   config.include Spree::TestingSupport::Preferences
   config.include Spree::TestingSupport::UrlHelpers
   config.include Spree::TestingSupport::ControllerRequests, type: :controller
-  config.include Spree::TestingSupport::Flash
+  # config.include Spree::TestingSupport::Flash
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.example_status_persistence_file_path = "./spec/examples.txt"
 
