@@ -1,0 +1,13 @@
+<%
+  base_class = "products-grid".freeze
+
+  # Classes
+  class_names = [base_class]
+  class_names = class_names.join(" ")
+%>
+
+<ul class=<%= class_names %>>
+  <% products.each do |product| %>
+    <%= render 'spree/components/products/product-card', product: product %>
+  <% end %>
+</ul>
