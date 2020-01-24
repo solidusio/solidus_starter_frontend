@@ -1,0 +1,20 @@
+.header {
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  max-width: 114rem;
+  padding: 2rem;
+
+  &_branding {
+    line-height: 1;
+  }
+
+  &_primary-navigation {
+    flex-grow: 1;
+  }
+
+  &_secondary-navigation {
+    align-items: center;
+    display: flex;
+  }
+}
