@@ -14,6 +14,7 @@ gem 'solidus_sample', github: 'solidusio/solidus', branch: branch
 gem 'solidus_auth_devise'
 
 gem 'factory_bot', '> 4.10.0'
+gem 'generator_spec'
 
 if ENV['DB'] == 'mysql'
   gem 'mysql2', '~> 0.4.10'
