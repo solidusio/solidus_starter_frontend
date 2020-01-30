@@ -28,6 +28,5 @@ Spree::Core::Engine.routes.draw do
   get '/t/*id', to: 'taxons#show', as: :nested_taxons
 
   get '/unauthorized', to: 'home#unauthorized', as: :unauthorized
-  get '/content/cvv', to: 'content#cvv', as: :cvv
   get '/cart_link', to: 'store#cart_link', as: :cart_link
 end

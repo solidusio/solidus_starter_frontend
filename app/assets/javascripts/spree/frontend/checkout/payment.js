@@ -38,14 +38,6 @@ Spree.ready(function($) {
         }
       });
 
-      $("#cvv_link").on("click", function(event) {
-        var windowName = "cvv_info";
-        var windowOptions =
-          "left=20,top=20,width=500,height=500,toolbar=0,resizable=0,scrollbars=1";
-        window.open($(this).attr("href"), windowName, windowOptions);
-        event.preventDefault();
-      });
-
       // Activate already checked payment method if form is re-rendered
       // i.e. if user enters invalid data
       $('input[type="radio"]:checked').click();
