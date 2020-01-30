@@ -47,22 +47,6 @@ describe 'orders', type: :feature do
     end
   end
 
-  # Regression test for https://github.com/spree/spree/issues/2282
-  context "can support a credit card with blank information" do
-    before do
-      credit_card = create(:credit_card)
-      credit_card.update_column(:cc_type, '')
-      payment = order.payments.first
-      payment.source = credit_card
-      payment.save!
-    end
-
-    specify do
-      visit spree.order_path(order)
-      expect(find('.payment-info')).to have_no_css('img')
-    end
-  end
-
   it "should return the correct title when displaying a completed order" do
     visit spree.order_path(order)
 

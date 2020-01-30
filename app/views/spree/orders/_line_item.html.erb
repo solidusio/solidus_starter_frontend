@@ -18,6 +18,7 @@
     <td><%= line_item.single_money.to_html %></td>
     <td><%= item_form.number_field :quantity, min: 0, class: "line_item_quantity", size: 5 %></td>
     <td><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></td>
-    <td><%= link_to image_tag('icons/delete.png'), '#', class: 'delete', id: "delete_#{dom_id(line_item)}" %></td>
+    <td><%= link_to 'Remove', '#', class: 'delete', id: "delete_#{dom_id(line_item)}" %></td>
+
   </tr>
 <% end %>

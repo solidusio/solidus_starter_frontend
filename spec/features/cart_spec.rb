@@ -21,7 +21,7 @@ describe "Cart", type: :feature, inaccessible: true do
     page.execute_script("$('#update-cart').submit(function(){return false;})")
 
     expect(page).not_to have_selector('button#update-button[disabled]')
-    page.find(:css, '.delete img').click
+    page.find('Remove').click
     expect(page).to have_selector('button#update-button[disabled]')
   end
 
