@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 require 'generator_spec'
-require 'generators/solidus/views/override_generator'
+require 'generators/solidus_starter_frontend/views/override_generator'
 
-RSpec.describe Solidus::Views::OverrideGenerator, type: :generator do
+RSpec.describe SolidusStarterFrontend::Views::OverrideGenerator, type: :generator do
   destination Rails.root.join('app', 'views', 'spree')
 
   before(:all) do
@@ -16,7 +16,7 @@ RSpec.describe Solidus::Views::OverrideGenerator, type: :generator do
   end
 
   let(:src) do
-    Spree::Frontend::Engine.root.join('app', 'views', 'spree')
+    ::SolidusStarterFrontend::Engine.root.join('app', 'views', 'spree')
   end
 
   let(:dest) do
