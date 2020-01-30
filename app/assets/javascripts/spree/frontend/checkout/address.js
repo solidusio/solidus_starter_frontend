@@ -3,44 +3,40 @@ Spree.ready(function($) {
     // Hidden by default to support browsers with javascript disabled
     $(".js-address-fields").show();
 
-    var getCountryId = function(region) {
-      return $("#" + region + "country select").val();
+    var getCountryId = function(countrySelect) {
+      return countrySelect.val();
     };
 
     var statesByCountry = {};
 
-    var updateState = function(region) {
-      var countryId = getCountryId(region);
-      if (countryId != null) {
-        if (statesByCountry[countryId] == null) {
-          $.get(
-            Spree.routes.states_search,
-            {
-              country_id: countryId
-            },
-            function(data) {
-              statesByCountry[countryId] = {
-                states: data.states,
-                states_required: data.states_required
-              };
-              fillStates(region);
-            }
-          );
-        } else {
-          fillStates(region);
-        }
+    var updateState = function(stateContainer, countryId) {
+      if (statesByCountry[countryId] == null) {
+        $.get(
+          Spree.routes.states_search,
+          {
+            country_id: countryId
+          },
+          function(data) {
+            statesByCountry[countryId] = {
+              states: data.states,
+              states_required: data.states_required
+            };
+            fillStates(stateContainer, countryId);
+          }
+        );
+      } else {
+        fillStates(stateContainer, countryId);
       }
     };
 
-    var fillStates = function(region) {
-      var countryId = getCountryId(region);
+    var fillStates = function(stateContainer, countryId) {
       var data = statesByCountry[countryId];
       if (data == null) {
         return;
       }
       var statesRequired = data.states_required;
       var states = data.states;
-      var statePara = $("#" + region + "state");
+      var statePara = stateContainer
       var stateSelect = statePara.find("select");
       var stateInput = statePara.find("input");
       if (states.length > 0) {
@@ -90,15 +86,15 @@ Spree.ready(function($) {
       }
     };
 
-    $("#bcountry select").change(function() {
-      updateState("b");
+    $(".js-trigger-state-change").change(function() {
+      var stateContainer = $( $(this).data("state-container")) ;
+      if (stateContainer.is("*")) {
+        countryId = getCountryId($(this));
+        updateState(stateContainer, countryId);
+      }
     });
 
-    $("#scountry select").change(function() {
-      updateState("s");
-    });
-
-    updateState("b");
+    $(".js-trigger-state-change:visible").trigger("change");
 
     var order_use_billing = $("input#order_use_billing");
     order_use_billing.change(function() {
@@ -118,7 +114,7 @@ Spree.ready(function($) {
           "disabled",
           false
         );
-        updateState("s");
+        $("#shipping .js-trigger-state-change").trigger("change");
       }
     };
 

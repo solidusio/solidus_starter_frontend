@@ -2,8 +2,6 @@
 
 require 'solidus_starter_frontend_configuration'
 
-module Spree
-  module SolidusStarterFrontend
-    Config = SolidusStarterFrontendConfiguration.new
-  end
+module SolidusStarterFrontend
+  Config = SolidusStarterFrontendConfiguration.new
 end

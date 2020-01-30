@@ -33,9 +33,10 @@
 <div class="field field-required">
   <%= form.label :country_id, t('spree.country') %>
   <%= form.collection_select :country_id, available_countries, :id, :name, {},
-    class: 'required',
+    class: 'required js-trigger-state-change',
     autocomplete: address_type + ' country-name',
-    required: true
+    required: true,
+    "data-state-container": "##{address_type} .js-address-fields"
   %>
 </div>
 

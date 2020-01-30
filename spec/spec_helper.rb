@@ -36,7 +36,7 @@ require 'spree/testing_support/caching'
 # Capybara.default_max_wait_time = ENV['DEFAULT_MAX_WAIT_TIME'].to_f if ENV['DEFAULT_MAX_WAIT_TIME'].present?
 
 require 'solidus_dev_support/rspec/feature_helper'
-#
+
 Capybara.register_driver :apparition do |app|
   Capybara::Apparition::Driver.new(app, headless: false)
 end
