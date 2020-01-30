@@ -13,3 +13,4 @@ nbproject
 pkg
 *.swp
 spec/dummy
+spec/examples.txt
