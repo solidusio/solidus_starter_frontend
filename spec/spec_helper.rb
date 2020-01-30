@@ -71,6 +71,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.before(:suite) do
+    Spree::TestingSupport::Preferences.freeze_preferences(SolidusStarterFrontend::Config)
     DatabaseCleaner.clean_with :truncation
   end
 
