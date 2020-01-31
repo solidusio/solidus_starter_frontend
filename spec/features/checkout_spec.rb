@@ -58,7 +58,7 @@ describe "Checkout", type: :feature, inaccessible: true do
         click_button "Save and Continue"
         expect(page).not_to have_content("undefined method `promotion'")
         click_button "Save and Continue"
-        expect(page).to have_content("Shipping total: $10.00")
+        expect(page).to have_content("Shipping total:\t$10.00")
       end
     end
 
@@ -569,7 +569,7 @@ describe "Checkout", type: :feature, inaccessible: true do
       end
 
       it 'should be displayed' do
-        expect(page).to have_css("[data-hook=save_user_address]")
+        expect(page).to have_css(".save-user-address")
       end
     end
   end
