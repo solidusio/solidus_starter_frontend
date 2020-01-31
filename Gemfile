@@ -10,9 +10,6 @@ gem 'solidus_api', github: 'solidusio/solidus', branch: branch
 gem 'solidus_backend', github: 'solidusio/solidus', branch: branch
 gem 'solidus_sample', github: 'solidusio/solidus', branch: branch
 
-# Provides basic authentication functionality for testing parts of your engine
-gem 'solidus_auth_devise'
-
 gem 'factory_bot', '> 4.10.0'
 gem 'generator_spec'
 
