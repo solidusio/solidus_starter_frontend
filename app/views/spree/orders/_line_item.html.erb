@@ -1,7 +1,7 @@
 <% variant = line_item.variant %>
 
 <%= order_form.fields_for :line_items, line_item do |item_form| %>
-  <tr>
+  <tr class="line-item">
     <td>
       <%= link_to(render('spree/shared/image',
         image: (variant.gallery.images.first || variant.product.gallery.images.first),
@@ -19,6 +19,5 @@
     <td><%= item_form.number_field :quantity, min: 0, class: "line_item_quantity", size: 5 %></td>
     <td><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></td>
     <td><%= link_to 'Remove', '#', class: 'delete', id: "delete_#{dom_id(line_item)}" %></td>
-
   </tr>
 <% end %>

@@ -78,8 +78,4 @@ describe "Cart", type: :feature, inaccessible: true do
       expect(page).to have_content(product.name)
     end
   end
-  it "should have a surrounding element with data-hook='cart_container'" do
-    visit spree.cart_path
-    expect(page).to have_selector("div[data-hook='cart_container']")
-  end
 end
