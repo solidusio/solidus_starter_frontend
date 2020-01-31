@@ -16,9 +16,9 @@ module Spree
 
     private
 
-    # def config_locale
-    #   SolidusStarterFrontend::Config[:locale]
-    # end
+    def config_locale
+      SolidusStarterFrontend::Config[:locale]
+    end
 
     def lock_order
       Spree::OrderMutex.with_lock!(@order) { yield }
