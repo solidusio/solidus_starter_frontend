@@ -43,10 +43,8 @@ describe "Visiting Products", type: :feature, inaccessible: true do
     it 'should return the correct title when displaying a single product' do
       click_link jersey.name
       expect(page).to have_title('Ruby on Rails Baseball Jersey - ' + store_name)
-      within('div#product-description') do
-        within('h1.product-title') do
-          expect(page).to have_content('Ruby on Rails Baseball Jersey')
-        end
+      within('h1.product-title') do
+        expect(page).to have_content('Ruby on Rails Baseball Jersey')
       end
     end
 
@@ -133,7 +131,7 @@ describe "Visiting Products", type: :feature, inaccessible: true do
         visit spree.product_path(product)
         click_button "Add To Cart"
         click_button "Checkout"
-        within("tr[data-hook=item_total]") do
+        within("#item-total") do
           expect(page).to have_content("19.99 ₽")
         end
       end
@@ -282,10 +280,8 @@ describe "Visiting Products", type: :feature, inaccessible: true do
     product = Spree::Product.find_by(name: "Ruby on Rails Baseball Jersey")
     click_link product.name
 
-    within("div#product-description") do
-      within("h1.product-title") do
-        expect(page).to have_content("Ruby on Rails Baseball Jersey")
-      end
+    within("h1.product-title") do
+      expect(page).to have_content("Ruby on Rails Baseball Jersey")
     end
   end
 end
