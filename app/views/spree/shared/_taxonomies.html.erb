@@ -1,6 +1,6 @@
 <% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
 
-<nav>
+<nav id="taxonomies">
   <% @taxonomies.each do |taxonomy| %>
     <% cache [I18n.locale, taxonomy, @taxon, max_level] do %>
       <h6>
