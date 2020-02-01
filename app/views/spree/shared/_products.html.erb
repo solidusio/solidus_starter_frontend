@@ -9,7 +9,11 @@
   <% end %>
 <% end %>
 
-<% if params.key?(:keywords) %>
+<% if products.empty? %>
+  <h6>
+    <%= t('spree.no_products_found') %>
+  </h6>
+<% elsif params.key?(:keywords) %>
   <h6>
     <%= t('spree.search_results', keywords: h(params[:keywords])) %>
   </h6>
