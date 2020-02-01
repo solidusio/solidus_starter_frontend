@@ -19,11 +19,9 @@
   </h6>
 <% end %>
 
-<div class="product-listing">
-  <% if products.any? %>
-    <%= render 'spree/components/products/products-grid', products: products %>
-  <% end %>
-</div>
+<% if products.any? %>
+  <%= render 'spree/components/products/products-grid', products: products %>
+<% end %>
 
 <% if paginated_products.respond_to?(:total_pages) %>
   <%= paginate paginated_products %>

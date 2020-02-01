@@ -70,10 +70,10 @@ describe "viewing products", type: :feature, inaccessible: true do
     end
 
     it "should be able to visit brand Ruby on Rails" do
-      within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+      within(:css, '.taxonomies') { click_link "Ruby on Rails" }
 
-      expect(page.all('ul.product-listing li').size).to eq(7)
-      tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
+      expect(page.all('ul.products-grid li').size).to eq(7)
+      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
       tmp.delete("")
       array = ["Ruby on Rails Bag",
                "Ruby on Rails Baseball Jersey",
@@ -86,19 +86,19 @@ describe "viewing products", type: :feature, inaccessible: true do
     end
 
     it "should be able to visit brand Ruby" do
-      within(:css, '#taxonomies') { click_link "Ruby" }
+      within(:css, '.taxonomies') { click_link "Ruby" }
 
-      expect(page.all('ul.product-listing li').size).to eq(1)
-      tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
+      expect(page.all('ul.products-grid li').size).to eq(1)
+      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
       tmp.delete("")
       expect(tmp.sort!).to eq(["Ruby Baseball Jersey"])
     end
 
     it "should be able to visit brand Apache" do
-      within(:css, '#taxonomies') { click_link "Apache" }
+      within(:css, '.taxonomies') { click_link "Apache" }
 
-      expect(page.all('ul.product-listing li').size).to eq(1)
-      tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
+      expect(page.all('ul.products-grid li').size).to eq(1)
+      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
       tmp.delete("")
       expect(tmp.sort!).to eq(["Apache Baseball Jersey"])
     end
@@ -106,8 +106,8 @@ describe "viewing products", type: :feature, inaccessible: true do
     it "should be able to visit category Clothing" do
       click_link "Clothing"
 
-      expect(page.all('ul.product-listing li').size).to eq(5)
-      tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
+      expect(page.all('ul.products-grid li').size).to eq(5)
+      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
       tmp.delete("")
       expect(tmp.sort!).to eq(["Apache Baseball Jersey",
                                "Ruby Baseball Jersey",
@@ -119,8 +119,8 @@ describe "viewing products", type: :feature, inaccessible: true do
     it "should be able to visit category Mugs" do
       click_link "Mugs"
 
-      expect(page.all('ul.product-listing li').size).to eq(2)
-      tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
+      expect(page.all('ul.products-grid li').size).to eq(2)
+      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
       tmp.delete("")
       expect(tmp.sort!).to eq(["Ruby on Rails Mug", "Ruby on Rails Stein"])
     end
@@ -128,8 +128,8 @@ describe "viewing products", type: :feature, inaccessible: true do
     it "should be able to visit category Bags" do
       click_link "Bags"
 
-      expect(page.all('ul.product-listing li').size).to eq(2)
-      tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
+      expect(page.all('ul.products-grid li').size).to eq(2)
+      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
       tmp.delete("")
       expect(tmp.sort!).to eq(["Ruby on Rails Bag", "Ruby on Rails Tote"])
     end
@@ -140,7 +140,7 @@ describe "viewing products", type: :feature, inaccessible: true do
     it "shows taxon previews" do
       visit spree.nested_taxons_path(taxonomy.root)
 
-      expect(page).to have_css('ul.product-listing li', count: 2)
+      expect(page).to have_css('ul.products-grid li', count: 2)
       expect(page).to have_content("Superman T-Shirt", count: 2)
     end
 
@@ -150,7 +150,7 @@ describe "viewing products", type: :feature, inaccessible: true do
       it "shows no products" do
         visit spree.nested_taxons_path(taxonomy.root)
 
-        expect(page).to have_css('ul.product-listing li', count: 0)
+        expect(page).to have_css('ul.products-grid li', count: 0)
         expect(page).to have_no_content("Superman T-Shirt")
       end
     end

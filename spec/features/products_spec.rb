@@ -142,7 +142,7 @@ describe "Visiting Products", type: :feature, inaccessible: true do
     fill_in "keywords", with: "shirt"
     click_button "Search"
 
-    expect(page.all('ul.product-listing li').size).to eq(1)
+    expect(page.all('ul.products-grid li').size).to eq(1)
   end
 
   context "a product with variants" do
@@ -196,54 +196,54 @@ describe "Visiting Products", type: :feature, inaccessible: true do
   end
 
   it "should be able to hide products without price" do
-    expect(page.all('ul.product-listing li').size).to eq(9)
+    expect(page.all('ul.products-grid li').size).to eq(9)
     stub_spree_preferences(show_products_without_price: false)
     stub_spree_preferences(currency: "CAN")
     visit spree.root_path
-    expect(page.all('ul.product-listing li').size).to eq(0)
+    expect(page.all('ul.products-grid li').size).to eq(0)
   end
 
   it "should be able to display products priced under 10 dollars" do
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within(:css, '.taxonomies') { click_link "Ruby on Rails" }
     check "Price_Range_Under_$10.00"
     within(:css, '#sidebar_products_search') { click_button "Search" }
     expect(page).to have_content("No products found")
   end
 
   it "should be able to display products priced between 15 and 18 dollars" do
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within(:css, '.taxonomies') { click_link "Ruby on Rails" }
     check "Price_Range_$15.00_-_$18.00"
     within(:css, '#sidebar_products_search') { click_button "Search" }
 
-    expect(page.all('ul.product-listing li').size).to eq(3)
-    tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
+    expect(page.all('ul.products-grid li').size).to eq(3)
+    tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
     tmp.delete("")
     expect(tmp.sort!).to eq(["Ruby on Rails Mug", "Ruby on Rails Stein", "Ruby on Rails Tote"])
   end
 
   it "should be able to display products priced between 15 and 18 dollars across multiple pages" do
     stub_spree_preferences(products_per_page: 2)
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within(:css, '.taxonomies') { click_link "Ruby on Rails" }
     check "Price_Range_$15.00_-_$18.00"
     within(:css, '#sidebar_products_search') { click_button "Search" }
 
-    expect(page.all('ul.product-listing li').size).to eq(2)
-    products = page.all('ul.product-listing li a[itemprop=name]')
+    expect(page.all('ul.products-grid li').size).to eq(2)
+    products = page.all('ul.products-grid li a[itemprop=name]')
     expect(products.count).to eq(2)
 
     find('nav.pagination .next a').click
-    products = page.all('ul.product-listing li a[itemprop=name]')
+    products = page.all('ul.products-grid li a[itemprop=name]')
     expect(products.count).to eq(1)
   end
 
   it "should be able to display products priced 18 dollars and above" do
-    within(:css, '#taxonomies') { click_link "Ruby on Rails" }
+    within(:css, '.taxonomies') { click_link "Ruby on Rails" }
     check "Price_Range_$18.00_-_$20.00"
     check "Price_Range_$20.00_or_over"
     within(:css, '#sidebar_products_search') { click_button "Search" }
 
-    expect(page.all('ul.product-listing li').size).to eq(4)
-    tmp = page.all('ul.product-listing li a').map(&:text).flatten.compact
+    expect(page.all('ul.products-grid li').size).to eq(4)
+    tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
     tmp.delete("")
     expect(tmp.sort!).to eq(["Ruby on Rails Bag",
                              "Ruby on Rails Baseball Jersey",
