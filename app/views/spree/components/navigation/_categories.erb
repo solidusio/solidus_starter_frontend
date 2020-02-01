@@ -3,6 +3,6 @@
 <nav class="categories">
   <a href="/products">All</a>
   <% cache [I18n.locale, categories, @taxon] do %>
-    <%= taxons_tree(categories.root, @taxon, 1) %>
+    <%= taxons_tree(categories.root, @taxon, 1) if categories %>
   <% end %>
 </nav>
