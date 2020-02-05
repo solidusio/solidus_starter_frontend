@@ -9,10 +9,11 @@
   cached = @taxon.present? ?
     [I18n.locale, current_pricing_options, @taxon, product] :
     [I18n.locale, current_pricing_options, product]
+  product_id = "product_#{product.id}"
 %>
 
 <% cache cached do %>
-  <li class=<%= class_names %> itemscope itemtype="http://schema.org/Product">
+  <li class=<%= class_names %> itemscope itemtype="http://schema.org/Product" id=<%= product_id %>>
     <article>
       <section class="product-card_image">
         <%= link_to render('spree/shared/image', image: product.gallery.images.first, size: :small, itemprop: "image"), url, itemprop: 'url' %>
