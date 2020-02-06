@@ -4,14 +4,11 @@ Bundler::GemHelper.install_tasks
 
 begin
   require 'spree/testing_support/extension_rake'
-  require 'rubocop/rake_task'
   require 'rspec/core/rake_task'
 
   RSpec::Core::RakeTask.new(:spec)
 
-  RuboCop::RakeTask.new
-
-  task default: %i(first_run rubocop spec)
+  task default: %i[first_run spec]
 rescue LoadError
   # no rspec available
 end
