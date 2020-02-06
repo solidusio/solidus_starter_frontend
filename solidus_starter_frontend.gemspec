@@ -28,4 +28,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'rspec-activemodel-mocks'
+  s.add_development_dependency 'rubocop-performance'
+  s.add_development_dependency 'rubocop-rails'
+  s.add_development_dependency 'rubocop-rspec'
+  s.add_development_dependency 'rubocop-i18n'
 end

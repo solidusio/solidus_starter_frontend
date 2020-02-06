@@ -1,0 +1,7 @@
+erblint:
+  enabled: true
+  config_file: .erb-lint.yml
+
+rubocop:
+  version: 0.75.0
+  config_file: .rubocop.yml
