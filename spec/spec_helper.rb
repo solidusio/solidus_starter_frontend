@@ -25,6 +25,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
 
+  config.include Spree::TestingSupport::Preferences
   config.before(:suite) do
     Spree::TestingSupport::Preferences.freeze_preferences(SolidusStarterFrontend::Config)
   end
@@ -40,6 +41,4 @@ RSpec.configure do |config|
       puts "In spec: #{example.location}"
     end
   end
-
-  # config.include Devise::Test::ControllerHelpers, type: :controller
 end
