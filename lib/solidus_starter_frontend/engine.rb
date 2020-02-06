@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusStarterFrontend
   class Engine < Rails::Engine
     require 'spree/core'

@@ -48,7 +48,9 @@
             <label>
               <%= ship_form.radio_button :selected_shipping_rate_id, rate.id %>
               <%= rate.name %>
-              <%= rate.display_cost %>
+              <span class="rate-cost">
+                <%= rate.display_cost %>
+              </span>
             </label>
           </li>
         <% end %>

@@ -7,7 +7,7 @@ describe "Cart", type: :feature, inaccessible: true do
 
   it "shows cart icon on non-cart pages" do
     visit spree.root_path
-    expect(page).to have_selector("li#link-to-cart a", visible: true)
+    expect(page).to have_selector("#link-to-cart a", visible: true)
   end
 
   it "prevents double clicking the remove button on cart", js: true do
@@ -21,7 +21,7 @@ describe "Cart", type: :feature, inaccessible: true do
     page.execute_script("$('#update-cart').submit(function(){return false;})")
 
     expect(page).not_to have_selector('button#update-button[disabled]')
-    page.find(:css, '.delete img').click
+    find('.delete').click
     expect(page).to have_selector('button#update-button[disabled]')
   end
 
@@ -38,13 +38,13 @@ describe "Cart", type: :feature, inaccessible: true do
     visit spree.root_path
     click_link "RoR Mug"
     click_button "add-to-cart-button"
-    find('.cart-item-delete .delete').click
+    find('.delete').click
     expect(page).not_to have_content("Line items quantity must be an integer")
     expect(page).not_to have_content("RoR Mug")
     expect(page).to have_content("Your cart is empty")
 
     within "#link-to-cart" do
-      expect(page).to have_content("EMPTY")
+      expect(page).to have_content("Empty")
     end
   end
 
@@ -59,7 +59,7 @@ describe "Cart", type: :feature, inaccessible: true do
     expect(page).to have_content("Your cart is empty")
 
     within "#link-to-cart" do
-      expect(page).to have_content("EMPTY")
+      expect(page).to have_content("Empty")
     end
   end
 
@@ -77,9 +77,5 @@ describe "Cart", type: :feature, inaccessible: true do
       visit spree.cart_path
       expect(page).to have_content(product.name)
     end
-  end
-  it "should have a surrounding element with data-hook='cart_container'" do
-    visit spree.cart_path
-    expect(page).to have_selector("div[data-hook='cart_container']")
   end
 end

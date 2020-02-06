@@ -5,7 +5,7 @@
     [I18n.locale, current_pricing_options, product]
 %>
 
-<li data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
+<li id="product_<%= product.id %>" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
   <% cache cached do %>
     <article>
       <section class="product-image">

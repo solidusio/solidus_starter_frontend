@@ -3,9 +3,6 @@
 <% if source.is_a?(Spree::CreditCard) %>
   <ul>
     <li>
-      <% unless (cc_type = source.cc_type).blank? %>
-        <%= image_tag "credit_cards/icons/#{cc_type}.png" %>
-      <% end %>
       <% if source.last_digits %>
         <%= t('spree.ending_in') %> <%= source.last_digits %>
       <% end %>

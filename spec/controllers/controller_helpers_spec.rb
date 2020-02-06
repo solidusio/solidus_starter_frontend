@@ -8,7 +8,7 @@ require 'spec_helper'
 describe Spree::ProductsController, type: :controller do
   before do
     I18n.enforce_available_locales = false
-    stub_spree_preferences(Spree::Frontend::Config, locale: :de)
+    stub_spree_preferences(SolidusStarterFrontend::Config, locale: :de)
     I18n.backend.store_translations(:de, spree: {
       i18n: { this_file_language: "Deutsch (DE)" }
     })
@@ -21,7 +21,7 @@ describe Spree::ProductsController, type: :controller do
   end
 
   # Regression test for https://github.com/spree/spree/issues/1184
-  it "sets the default locale based off Spree::Frontend::Config[:locale]" do
+  it "sets the default locale based off SolidusStarterFrontend::Config[:locale]" do
     expect(I18n.locale).to eq(:en)
     get :index
     expect(I18n.locale).to eq(:de)

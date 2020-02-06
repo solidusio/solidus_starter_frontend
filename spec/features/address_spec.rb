@@ -15,12 +15,11 @@ describe "Address", type: :feature, inaccessible: true do
     click_button "add-to-cart-button"
 
     address = "order_bill_address_attributes"
-    @country_css = "#{address}_country_id"
     @state_select_css = "##{address}_state_id"
     @state_name_css = "##{address}_state_name"
   end
 
-  context "country requires state", js: true, focus: true do
+  context "country requires state", js: true do
     let!(:canada) { create(:country, name: "Canada", states_required: true, iso: "CA") }
     let!(:uk) { create(:country, name: "United Kingdom", states_required: true, iso: "GB") }
 
@@ -30,9 +29,11 @@ describe "Address", type: :feature, inaccessible: true do
       it "shows the state input field" do
         click_button "Checkout"
 
-        select canada.name, from: @country_css
-        expect(page).to have_no_css(@state_select_css)
-        expect(page).to have_css("#{@state_name_css}.required")
+        within('#billing') do
+          select canada.name, from: 'Country'
+          expect(page).to have_no_css(@state_select_css)
+          expect(page).to have_css("#{@state_name_css}.required")
+        end
       end
     end
 
@@ -42,9 +43,11 @@ describe "Address", type: :feature, inaccessible: true do
       it "shows the state collection selection" do
         click_button "Checkout"
 
-        select canada.name, from: @country_css
-        expect(page).to have_no_css(@state_name_css)
-        expect(page).to have_css("#{@state_select_css}.required")
+        within('#billing') do
+          select canada.name, from: 'Country'
+          expect(page).to have_no_css(@state_name_css)
+          expect(page).to have_css("#{@state_select_css}.required")
+        end
       end
     end
 
@@ -53,13 +56,16 @@ describe "Address", type: :feature, inaccessible: true do
 
       it "clears the state name" do
         click_button "Checkout"
-        select canada.name, from: @country_css
-        page.find(@state_name_css).set("Toscana")
+        within('#billing') do
+          select canada.name, from: 'Country'
 
-        select france.name, from: @country_css
+          page.find(@state_name_css).set("Toscana")
 
-        expect(page).to have_no_css(@state_name_css)
-        expect(page).to have_no_css(@state_select_css)
+          select france.name, from: 'Country'
+
+          expect(page).to have_no_css(@state_name_css)
+          expect(page).to have_no_css(@state_select_css)
+        end
       end
     end
   end
@@ -70,9 +76,12 @@ describe "Address", type: :feature, inaccessible: true do
     it "shows a disabled state input field" do
        click_button "Checkout"
 
-       select france.name, from: @country_css
-       expect(page).to have_no_css(@state_name_css)
-       expect(page).to have_css("#{@state_select_css}[disabled]", visible: false)
+       within('#billing') do
+         select france.name, from: 'Country'
+
+         expect(page).to have_no_css(@state_name_css)
+         expect(page).to have_css("#{@state_select_css}[disabled]", visible: false)
+       end
     end
   end
 end

@@ -1,4 +1,4 @@
-<article>
+<article class="order">
   <%= render partial: 'spree/shared/error_messages', locals: { target: @order } %>
 
   <header>
@@ -17,7 +17,9 @@
   <% end %>
 
   <% if @order.state != 'confirm' %>
-    <%= render partial: 'summary', locals: { order: @order } %>
+    <div id="checkout-summary">
+      <%= render partial: 'summary', locals: { order: @order } %>
+    </div>
   <% end %>
 </article>
 
