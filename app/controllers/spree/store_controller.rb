@@ -4,8 +4,7 @@ module Spree
   class StoreController < Spree::BaseController
     include Spree::Core::ControllerHelpers::Pricing
     include Spree::Core::ControllerHelpers::Order
-
-    helper_method :taxonomies
+    include SolidusStarterFrontend::Taxonomies
 
     def unauthorized
       render 'spree/shared/unauthorized', layout: Spree::Config[:layout], status: 401
@@ -17,10 +16,6 @@ module Spree
     end
 
     private
-
-    def taxonomies
-      @taxonomies ||= Spree::Taxonomy.includes(root: :children)
-    end
 
     def config_locale
       SolidusStarterFrontend::Config[:locale]

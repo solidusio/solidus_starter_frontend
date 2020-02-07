@@ -1,0 +1,40 @@
+<%
+  html = { class: "auth-form" }
+  url = spree.update_password_path
+%>
+
+<%= form_for @spree_user, as: :spree_user, url: url, method: :put, html: html do |f| %>
+  <div class="auth-form__input-wrapper">
+    <%= render(
+      "spree/components/forms/inputs/text",
+      id: :spree_user_password,
+      label: I18n.t("spree.password"),
+      name: "spree_user[password]",
+      placeholder: "p455w0rd",
+      type: :password
+    ) %>
+  </div>
+  <div class="auth-form__input-wrapper">
+    <%= render(
+      "spree/components/forms/inputs/text",
+      id: :spree_user_password_confirmation,
+      label: I18n.t("spree.confirm_password"),
+      name: "spree_user[password_confirmation]",
+      placeholder: "p455w0rd",
+      type: :password
+    ) %>
+  </div>
+  <div class="auth-form__input-wrapper">
+    <%= render(
+      "spree/components/buttons/primary",
+      content: I18n.t("spree.update"),
+      full_width: true,
+      name: :commit,
+      type: :submit
+    ) %>
+  </div>
+
+  <%= f.hidden_field :reset_password_token %>
+
+  <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.create_a_new_account"), spree.signup_path %>
+<% end %>

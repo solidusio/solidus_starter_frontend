@@ -1,0 +1,25 @@
+.text-input {
+  > label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+  }
+
+  > input {
+    border: solid 1px $color-border;
+    border-radius: 1px;
+    display: block;
+    font-size: 1.3rem;
+    height: 3.8rem;
+    padding: 0 1rem;
+    width: 100%;
+
+    &:focus {
+      border-color: transparent;
+      box-shadow: none;
+      outline: solid 1px $color-border-dark;
+    }
+  }
+}

@@ -14,8 +14,13 @@
 /* Components
 /*--------------------------------------*/
 
+@import "spree/frontend/components/auth/auth_container";
+@import "spree/frontend/components/auth/auth_form";
 @import "spree/frontend/components/brand/logo";
+@import "spree/frontend/components/buttons/button_primary";
 @import "spree/frontend/components/cart/cart_link";
+@import "spree/frontend/components/forms/inputs/text";
+@import "spree/frontend/components/general/flash";
 @import "spree/frontend/components/layout/footer";
 @import "spree/frontend/components/layout/header";
 @import "spree/frontend/components/navigation/auth_link";
