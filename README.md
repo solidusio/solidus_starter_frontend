@@ -22,15 +22,38 @@ All of this while keeping and improving on the functionality of the current
 
 ## Installation
 
-Add this line to your application's Gemfile:
+By default, the `solidus` gem also includes the standard frontend via
+the `solidus_frontend` gem. To make this extension work, you need to
+exclude it and manually include all the other Solidus componenents.
+
+You need to replace:
+
 ```
+gem 'solidus'
+```
+
+with:
+
+```
+gem 'solidus_core'
+gem 'solidus_api'
+gem 'solidus_backend'
+gem 'solidus_sample'
 gem "solidus_starter_frontend"
 ```
 
-Then execute:
+If Solidus was already installed, you have to run:
+
 ```
 bundle
+bundle exec rails g solidus_starter_frontend:install
 ```
+
+and change all `Spree::Frontend::Config` in `SolidusStarterFrontend::Config`.
+
+If it's the first Solidus installation you need to run the Solidus install
+before `bundle exec rails g solidus_starter_frontend:install`.
+Please, take a look at the [Solidus README](https://github.com/solidusio/solidus#installation-options).
 
 ## Customization
 
