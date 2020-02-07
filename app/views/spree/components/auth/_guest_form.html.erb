@@ -1,0 +1,31 @@
+<%
+  html = {
+    class: "auth-form",
+    id: "checkout_form_registration"
+  }
+  url = update_checkout_registration_path
+%>
+
+<%= form_for @order, as: :spree_user, url: url, method: :put, html: html do |f| %>
+  <div class="auth-form__input-wrapper">
+    <%= render(
+      "spree/components/forms/inputs/text",
+      id: :spree_user_email,
+      label: I18n.t("spree.email"),
+      name: :email,
+      placeholder: "name@example.com",
+      type: :email
+    ) %>
+  </div>
+  <div class="auth-form__input-wrapper">
+    <%= render(
+      "spree/components/buttons/primary",
+      content: I18n.t("spree.continue"),
+      full_width: true,
+      name: :commit,
+      type: :submit
+    ) %>
+  </div>
+
+  <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.create_a_new_account"), spree.signup_path %>
+<% end %>
