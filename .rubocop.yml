@@ -1,10 +1,11 @@
-inherit_from: .rubocop_todo.yml
+inherit_from:
+  - .rubocop_todo.yml
 
 require:
-  - solidus_dev_support/rubocop
-
-inherit_gem:
-  solidus_dev_support: .rubocop.yml
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-i18n
 
 AllCops:
   TargetRubyVersion: 2.5
