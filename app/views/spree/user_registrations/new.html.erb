@@ -1,0 +1,9 @@
+<% @body_id = 'signup' %>
+
+<%= render 'spree/shared/error_messages', target: resource %>
+
+<article class="auth-container" id="new-customer">
+  <h1><%= I18n.t('spree.new_customer') %></h1>
+
+  <%= render partial: 'spree/components/auth/signup_form' %>
+</article>
