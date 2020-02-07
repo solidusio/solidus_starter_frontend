@@ -17,6 +17,21 @@ module SolidusStarterFrontend
       end
     end
 
+    config.after_initialize do
+      if defined?(Spree::Auth::Engine)
+        [
+          Spree::UserConfirmationsController,
+          Spree::UserPasswordsController,
+          Spree::UserRegistrationsController,
+          Spree::UserSessionsController,
+          Spree::UsersController
+        ].each do |auth_controller|
+          auth_controller.include SolidusStarterFrontend::Taxonomies
+          auth_controller.include SolidusStarterFrontend::AuthViews
+        end
+      end
+    end
+
     config.to_prepare(&method(:activate).to_proc)
   end
 end

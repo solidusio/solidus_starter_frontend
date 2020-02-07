@@ -13,6 +13,9 @@ AllCops:
     - spec/dummy/**/*
     - vendor/**/*
 
+Documentation:
+  Enabled: false
+
 Rails/SkipsModelValidations:
   Exclude:
     - db/migrate/**/*
