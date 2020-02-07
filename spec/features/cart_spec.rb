@@ -44,7 +44,7 @@ describe "Cart", type: :feature, inaccessible: true do
     expect(page).to have_content("Your cart is empty")
 
     within "#link-to-cart" do
-      expect(page).to have_content("Empty")
+      expect(page).to have_content(/empty/i)
     end
   end
 
@@ -59,7 +59,7 @@ describe "Cart", type: :feature, inaccessible: true do
     expect(page).to have_content("Your cart is empty")
 
     within "#link-to-cart" do
-      expect(page).to have_content("Empty")
+      expect(page).to have_content(/empty/i)
     end
   end
 
