@@ -29,6 +29,8 @@ module SolidusStarterFrontend
           auth_controller.include SolidusStarterFrontend::Taxonomies
           auth_controller.include SolidusStarterFrontend::AuthViews
         end
+
+        Spree::StoreController.include SolidusStarterFrontend::AuthViews
       end
     end
 
