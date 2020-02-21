@@ -1,0 +1,9 @@
+<header class="product-info">
+  <h1 class="product-info__title" itemprop="name">
+    <%= @product.name %>
+  </h1>
+
+  <p class="product-info__description" itemprop="description">
+    <%= product_description(@product) rescue t('spree.product_has_no_description') %>
+  </p>
+</header>
