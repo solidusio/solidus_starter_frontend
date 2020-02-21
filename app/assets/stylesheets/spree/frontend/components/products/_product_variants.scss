@@ -1,0 +1,20 @@
+.product-variants {
+  margin: 2rem 0;
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+  }
+
+  &__list {
+    font-size: 1.3rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      margin: 0.5rem 0;
+    }
+  }
+}
