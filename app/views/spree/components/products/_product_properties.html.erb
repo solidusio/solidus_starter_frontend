@@ -1,0 +1,19 @@
+<% unless @product_properties.empty? %>
+  <section class="product-properties">
+    <h2 class="product-properties__title">
+      <%= t('spree.properties')%>
+    </h2>
+
+    <table class="product-properties__table">
+      <tbody>
+        <% @product_properties.each do |product_property| %>
+          <tr>
+            <td><%= product_property.property.presentation %></td>
+            <td><%= product_property.value %></td>
+          </tr>
+        <% end %>
+        <% reset_cycle('properties') %>
+      </tbody>
+    </table>
+  </section>
+<% end %>

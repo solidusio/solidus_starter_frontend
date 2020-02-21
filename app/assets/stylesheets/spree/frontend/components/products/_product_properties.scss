@@ -1,0 +1,23 @@
+.product-properties {
+  margin: 2rem 0;
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+  }
+
+  &__table {
+    border-collapse: collapse;
+    font-size: 1.3rem;
+
+    tr {
+      height: 1.8rem;
+    }
+
+    td:first-child {
+      font-weight: 500;
+      padding-right: 1rem;
+    }
+  }
+}
