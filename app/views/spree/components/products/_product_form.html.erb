@@ -1,0 +1,21 @@
+<%
+  schema_properties = {
+    itemprop: 'offers',
+    itemscope: true,
+    itemtype: 'http://schema.org/Offer'
+  }
+%>
+
+<%= form_for :order, url: populate_orders_path, html: schema_properties do |f| %>
+  <%= render 'spree/components/products/product_variants' %>
+
+  <% if @product.price_for(current_pricing_options) and !@product.price.nil? %>
+    <%= render 'spree/components/products/product_submit' %>
+  <% else %>
+    <div id="product-price">
+      <p class="price selling" itemprop="price">
+        <%= t('spree.product_not_available_in_this_currency') %>
+      </p>
+    </div>
+  <% end %>
+<% end %>
