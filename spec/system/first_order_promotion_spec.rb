@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.feature "First Order promotion" do
+describe 'First Order promotion', type: :system do
   given!(:promotion) do
     FactoryBot.create(
       :promotion_with_first_order_rule,

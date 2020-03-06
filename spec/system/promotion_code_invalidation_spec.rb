@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.feature "Promotion Code Invalidation", js: true do
+describe 'Promotion Code Invalidation', type: :system, js: true do
   given!(:promotion) do
     FactoryBot.create(
       :promotion_with_item_adjustment,
