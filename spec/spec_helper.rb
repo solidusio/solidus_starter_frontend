@@ -43,7 +43,15 @@ RSpec.configure do |config|
     Rails.cache.clear
   end
 
-  config.after(:each, type: :feature) do |example|
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :apparition
+  end
+
+  config.after(:each, type: :system) do |example|
     missing_translations = page.body.scan(/translation missing: #{I18n.locale}\.(.*?)[\s<\"&]/)
     if missing_translations.any?
       puts "Found missing translations: #{missing_translations.inspect}"

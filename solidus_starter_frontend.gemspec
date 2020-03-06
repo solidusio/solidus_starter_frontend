@@ -38,5 +38,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'rails-controller-testing'
   spec.add_development_dependency 'rspec-activemodel-mocks'
+  spec.add_development_dependency 'selenium-webdriver'
   spec.add_development_dependency 'solidus_dev_support'
 end
