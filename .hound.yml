@@ -5,3 +5,8 @@ erblint:
 rubocop:
   version: 0.75.0
   config_file: .rubocop.yml
+
+scss-lint:
+  enabled: true
+  version: 0.50.2
+  config_file: .scss-lint.yml
