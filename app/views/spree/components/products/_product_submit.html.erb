@@ -1,0 +1,39 @@
+<div class="product-submit" id="product-price">
+  <h2 class="product-submit__title">
+    <span
+      class="price selling"
+      itemprop="price"
+      content="<%= @product.price_for(current_pricing_options).to_d %>"
+    >
+      <%= display_price(@product) %>
+    </span>
+    <span
+      itemprop="priceCurrency"
+      content="<%= current_pricing_options.currency %>"
+    ></span>
+  </h2>
+
+  <%= render 'spree/components/products/product_availability', product: @product %>
+
+  <div class="horizontal-input-group">
+    <div class="horizontal-input-group__input">
+      <%= render(
+        "spree/components/forms/inputs/text",
+        id: :quantity,
+        min: 1,
+        name: :quantity,
+        type: :number,
+        value: 1
+      ) %>
+    </div>
+    <div class="horizontal-input-group__action">
+      <%= render(
+        'spree/components/buttons/button_primary',
+        content: t('spree.add_to_cart'),
+        id: 'add-to-cart-button',
+        name: :button,
+        type: :submit
+      ) %>
+    </div>
+  </div>
+</div>

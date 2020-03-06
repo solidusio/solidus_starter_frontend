@@ -1,0 +1,27 @@
+.product-taxons {
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.5rem;
+  }
+
+  &__list {
+    display: flex;
+    font-size: 1.3rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      margin: 0.5rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

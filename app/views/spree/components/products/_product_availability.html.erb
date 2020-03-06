@@ -1,0 +1,19 @@
+<%
+  base_class = "product-availability".freeze
+
+  # Classes
+  class_names = [base_class]
+  class_names = class_names.join(" ")
+%>
+
+<% if product.master.can_supply? %>
+  <link itemprop="availability" href="http://schema.org/InStock" />
+<% elsif product.variants.empty? %>
+  <span
+    class="<%= class_names %>"
+    itemprop="availability"
+    href="http://schema.org/OutOfStock"
+  >
+    <%= t('spree.out_of_stock') %>
+  </span>
+<% end %>
