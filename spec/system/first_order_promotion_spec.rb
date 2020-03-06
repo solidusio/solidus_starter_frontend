@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'First Order promotion', type: :system do
-  given!(:promotion) do
+  let!(:promotion) do
     FactoryBot.create(
       :promotion_with_first_order_rule,
       :with_order_adjustment,
@@ -12,7 +12,7 @@ describe 'First Order promotion', type: :system do
     )
   end
 
-  background do
+  before do
     create(:store)
     product = FactoryBot.create(:product)
     visit spree.root_path
@@ -20,7 +20,7 @@ describe 'First Order promotion', type: :system do
     click_button "Add To Cart"
   end
 
-  scenario "Adding first order promotion to cart and checking out as guest" do
+  it 'Adding first order promotion to cart and checking out as guest' do
     fill_in "Coupon code", with: "FIRSTONEFREE"
     click_button "Apply Code"
     expect(page).to have_content("The coupon code was successfully applied to your order")
@@ -30,7 +30,7 @@ describe 'First Order promotion', type: :system do
     end
   end
 
-  scenario 'Trying to reuse first order promotion', js: true do
+  it 'Trying to reuse first order promotion', js: true do
     previous_user = FactoryBot.create(
       :user,
       email: "sam@tom.com"

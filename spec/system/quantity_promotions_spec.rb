@@ -3,17 +3,17 @@
 require 'spec_helper'
 
 describe 'Quantity Promotions', type: :system, js: true do
-  given(:action) do
+  let(:action) do
     Spree::Promotion::Actions::CreateQuantityAdjustments.create(
       calculator: calculator,
       preferred_group_size: 2
     )
   end
 
-  given(:promotion) { FactoryBot.create(:promotion, code: "PROMO") }
-  given(:calculator) { FactoryBot.create(:calculator, preferred_amount: 5) }
+  let(:promotion) { FactoryBot.create(:promotion, code: 'PROMO') }
+  let(:calculator) { FactoryBot.create(:calculator, preferred_amount: 5) }
 
-  background do
+  before do
     create(:store)
     FactoryBot.create(:product, name: "DL-44")
     FactoryBot.create(:product, name: "E-11")
@@ -24,7 +24,7 @@ describe 'Quantity Promotions', type: :system, js: true do
     click_button "Add To Cart"
   end
 
-  scenario "adding and removing items from the cart" do
+  it 'adding and removing items from the cart' do
     # Attempt to use the code with too few items.
     fill_in "coupon_code", with: "PROMO"
     click_button "Apply Code"
@@ -64,7 +64,7 @@ describe 'Quantity Promotions', type: :system, js: true do
   end
 
   # Catches an earlier issue with quantity calculation.
-  scenario "adding odd numbers of items to the cart" do
+  it 'adding odd numbers of items to the cart' do
     # Bump quantity to 3
     fill_in "order_line_items_attributes_0_quantity", with: 3
     click_button "Update"
@@ -90,16 +90,16 @@ describe 'Quantity Promotions', type: :system, js: true do
   end
 
   context "with a group size of 3" do
-    given(:action) do
+    let(:action) do
       Spree::Promotion::Actions::CreateQuantityAdjustments.create(
         calculator: calculator,
         preferred_group_size: 3
       )
     end
 
-    background { FactoryBot.create(:product, name: "DC-15A") }
+    before { FactoryBot.create(:product, name: 'DC-15A') }
 
-    scenario "odd number of changes to quantities" do
+    it 'odd number of changes to quantities' do
       fill_in "order_line_items_attributes_0_quantity", with: 3
       click_button "Update"
 
