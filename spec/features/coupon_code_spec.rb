@@ -205,7 +205,7 @@ describe "Coupon code promotions", type: :feature, js: true do
             expect(page).to have_content("Promotion (Onetwo) -$12.00", normalize_ws: true)
           end
 
-          within '.cart-total' do
+          within '.cart-footer__total' do
             expect(page).to have_content("$48.00")
           end
         end
@@ -233,7 +233,7 @@ describe "Coupon code promotions", type: :feature, js: true do
 
           visit spree.cart_path
 
-          within '.cart-total' do
+          within '.cart-footer__total' do
             expect(page).to have_content("$30.00")
           end
 
@@ -244,7 +244,7 @@ describe "Coupon code promotions", type: :feature, js: true do
             expect(page).to have_content("Promotion (Onetwo) -$30.00", normalize_ws: true)
           end
 
-          within '.cart-total' do
+          within '.cart-footer__total' do
             expect(page).to have_content("$0.00")
           end
 
@@ -256,7 +256,7 @@ describe "Coupon code promotions", type: :feature, js: true do
             expect(page).to have_content("Promotion (Onetwo) -$60.00", normalize_ws: true)
           end
 
-          within '.cart-total' do
+          within '.cart-footer__total' do
             expect(page).to have_content("$0.00")
           end
         end
