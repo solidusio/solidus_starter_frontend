@@ -13,13 +13,12 @@
       ) %>
     </div>
 
-    <section class="cart-item__description">
-      <h2><%= link_to line_item.name, product_path(variant.product) %></h2>
-      <p><%= variant.options_text %></p>
-      <% if line_item.insufficient_stock? %>
-        <p><%= t('spree.out_of_stock') %></p>
-      <% end %>
-      <p><%= line_item_description_text(line_item.description) %></p>
+    <section class="cart-item__info">
+      <%= render(
+        'spree/components/cart/item_info',
+        line_item: line_item,
+        variant: variant
+      ) %>
     </section>
 
     <div class="cart-item__price-single">
@@ -29,6 +28,7 @@
     <div class="cart-item__quantity">
       <%= render(
         'spree/components/forms/inputs/text',
+        id: "order_line_items_attributes_#{item_form.options[:child_index]}_quantity",
         min: 0,
         name: "order[line_items_attributes][#{item_form.options[:child_index]}][quantity]",
         type: :number,
