@@ -7,11 +7,13 @@
   label = false if local_assigns[:label].nil?
   min = false if local_assigns[:min].nil?
   placeholder = "" if local_assigns[:placeholder].nil?
+  small = false if local_assigns[:small].nil?
   type = :text if local_assigns[:type].nil?
   value = "" if local_assigns[:value].nil?
 
   # Classes
   class_names = [base_class]
+  class_names.push("#{base_class}--small") if small
   class_names = class_names.join(" ")
 %>
 

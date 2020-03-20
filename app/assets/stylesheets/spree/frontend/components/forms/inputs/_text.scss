@@ -22,4 +22,11 @@
       outline: solid 1px $color-border-dark;
     }
   }
+
+  &--small {
+    > input {
+      font-size: 1.2rem;
+      height: 3.2rem;
+    }
+  }
 }
