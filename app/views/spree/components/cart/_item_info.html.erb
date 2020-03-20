@@ -1,0 +1,19 @@
+<div class="item-info">
+  <h2 class="item-info__name">
+    <%= link_to line_item.name, product_path(variant.product) %>
+  </h2>
+
+  <p class="item-info__options">
+    <%= variant.options_text %>
+  </p>
+
+  <% if line_item.insufficient_stock? %>
+    <p class="item-info__stock">
+      <%= t('spree.out_of_stock') %>
+    </p>
+  <% end %>
+
+  <p class="item-info__description">
+    <%= line_item_description_text(line_item.description) %>
+  </p>
+</div>
