@@ -1,0 +1,15 @@
+<footer class="cart-footer">
+  <p class="cart-footer__total">
+    <%= t('spree.total') %>: <strong><%= order.display_total %></strong>
+  </p>
+
+  <div class="cart-footer__primary-action">
+    <%= render(
+      'spree/components/buttons/button_primary',
+      content: I18n.t('spree.checkout'),
+      id: 'checkout-link',
+      name: :checkout,
+      type: :submit
+    ) %>
+  <div>
+</footer>
