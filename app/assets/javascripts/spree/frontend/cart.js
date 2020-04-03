@@ -4,9 +4,9 @@ Spree.ready(function($) {
       .show()
       .one("click", function() {
         $(this)
-          .parents(".line-item")
+          .parents(".cart-item")
           .first()
-          .find("input.line_item_quantity")
+          .find(".cart-item__quantity input")
           .val(0);
         $(this)
           .parents("form")
