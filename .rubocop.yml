@@ -1,6 +1,3 @@
-require:
-  - solidus_dev_support/rubocop
-
 inherit_from:
   - .rubocop_todo.yml
 
@@ -20,12 +17,3 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Enabled: true
   Max: 190
-
-RSpec/ExampleLength:
-  Enabled: true
-  Max: 20
-
-Rails/SkipsModelValidations:
-  Exclude:
-    - db/migrate/**/*
-    - spec/**/*
