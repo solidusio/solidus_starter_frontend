@@ -30,7 +30,7 @@ RSpec.feature "First Order promotion" do
     end
   end
 
-  scenario "Trying to reuse first order promotion" do
+  scenario 'Trying to reuse first order promotion', js: true do
     previous_user = FactoryBot.create(
       :user,
       email: "sam@tom.com"

@@ -2,15 +2,19 @@
   base_class = "button-primary".freeze
 
   # Optional props
+  bordered = false if local_assigns[:bordered].nil?
   disabled = false if local_assigns[:disabled].nil?
   full_width = false if local_assigns[:full_width].nil?
-  id = false if local_assigns[:id].nil?
+  id = nil if local_assigns[:id].nil?
   name = nil if local_assigns[:name].nil?
+  small = false if local_assigns[:small].nil?
   type = "button" if local_assigns[:type].nil?
 
   # Classes
   class_names = [base_class]
+  class_names.push("#{base_class}--bordered") if bordered
   class_names.push("#{base_class}--full-width") if full_width
+  class_names.push("#{base_class}--small") if small
   class_names = class_names.join(" ")
 %>
 

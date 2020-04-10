@@ -1,0 +1,19 @@
+.cart-secondary-actions {
+  display: flex;
+  font-size: 1.3rem;
+  margin-top: 10rem;
+
+  &__continue {
+    &::before {
+      content: "←";
+      font-size: 1.2rem;
+      margin-right: 0.3rem;
+    }
+
+    &::after {
+      content: "or";
+      margin-left: 1rem;
+      margin-right: 0.8rem;
+    }
+  }
+}

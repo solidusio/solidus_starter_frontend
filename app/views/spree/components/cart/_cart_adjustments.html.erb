@@ -1,0 +1,35 @@
+<div class="cart-adjustments" id="cart_adjustments">
+  <% if @order.line_item_adjustments.exists? %>
+    <% @order.line_item_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+      <%= render(
+        "spree/components/cart/cart_adjustment",
+        label: label,
+        adjustments: adjustments,
+        type: t('spree.promotion')
+      ) %>
+    <% end %>
+  <% end %>
+
+  <% @order.all_adjustments.tax.eligible.group_by(&:label).each do |label, adjustments| %>
+    <%= render(
+      "spree/components/cart/cart_adjustment",
+      label: label,
+      adjustments: adjustments,
+      type: t('spree.tax')
+    ) %>
+  <% end %>
+
+  <% @order.shipments.each do |shipment| %>
+    <h5><%= t('spree.shipping') %>: <%= shipment.shipping_method.name %></h5>
+    <p><%= shipment.display_total_before_tax %></p>
+  <% end %>
+
+  <% @order.adjustments.eligible.group_by(&:label).each do |label, adjustments| %>
+    <%= render(
+      "spree/components/cart/cart_adjustment",
+      label: label,
+      adjustments: adjustments,
+      type: t('spree.adjustment')
+    ) %>
+  <% end %>
+</div>

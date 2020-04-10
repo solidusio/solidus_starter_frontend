@@ -16,6 +16,18 @@ AllCops:
 Documentation:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Metrics/LineLength:
+  Enabled: true
+  Max: 120
+
+RSpec/ExampleLength:
+  Enabled: true
+  Max: 20
+
 Rails/SkipsModelValidations:
   Exclude:
     - db/migrate/**/*

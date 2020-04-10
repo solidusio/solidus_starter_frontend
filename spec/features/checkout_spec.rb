@@ -17,7 +17,7 @@ describe "Checkout", type: :feature, inaccessible: true do
         click_button "Checkout"
       end
 
-      it "should default checkbox to checked", inaccessible: true do
+      it 'should default checkbox to checked', js: true, inaccessible: true do
         expect(find('input#order_use_billing')).to be_checked
       end
 
@@ -34,7 +34,7 @@ describe "Checkout", type: :feature, inaccessible: true do
         click_button "Checkout"
       end
 
-      specify do
+      it 'goes to address state', js: true do
         expect(Spree::Order.count).to eq(1)
         expect(Spree::Order.last.state).to eq("address")
       end
@@ -69,7 +69,7 @@ describe "Checkout", type: :feature, inaccessible: true do
         click_button "Checkout"
       end
 
-      it "should not show 'Free Shipping' when there are no shipments" do
+      it "should not show 'Free Shipping' when there are no shipments", js: true do
         within("#checkout-summary") do
           expect(page).to_not have_content('Free Shipping')
         end
@@ -116,7 +116,7 @@ describe "Checkout", type: :feature, inaccessible: true do
         let(:saved_bill_address) { create(:address, firstname: 'Bill') }
         let(:saved_ship_address) { create(:address, firstname: 'Steve') }
 
-        it "shows the saved addresses" do
+        it 'shows the saved addresses', js: true do
           within("#billing") do
             expect(find_field('First Name').value).to eq 'Bill'
           end
@@ -131,13 +131,13 @@ describe "Checkout", type: :feature, inaccessible: true do
         let(:saved_bill_address) { nil }
         let(:saved_ship_address) { nil }
 
-        it 'shows an empty address' do
+        it 'shows an empty address', js: true do
           within("#billing") do
-            expect(find_field('First Name').value).to be_nil
+            expect(find_field('First Name').value).to be_blank
           end
 
           within("#shipping") do
-            expect(find_field('First Name').value).to be_nil
+            expect(find('input[name*="firstname"]', visible: :hidden).value).to be_blank
           end
         end
       end
@@ -145,16 +145,16 @@ describe "Checkout", type: :feature, inaccessible: true do
 
     context "when user is not logged in" do
       context "and proceeds with guest checkout" do
-        it 'shows empty addresses' do
+        it 'shows empty addresses', js: true do
           add_mug_to_cart
           click_button "Checkout"
 
           within("#billing") do
-            expect(find_field('First Name').value).to be_nil
+            expect(find_field('First Name').value).to be_blank
           end
 
           within("#shipping") do
-            expect(find_field('First Name').value).to be_nil
+            expect(find('input[name*="firstname"]', visible: :hidden).value).to be_blank
           end
         end
       end
@@ -181,13 +181,13 @@ describe "Checkout", type: :feature, inaccessible: true do
           let(:saved_bill_address) { nil }
           let(:saved_ship_address) { nil }
 
-          it 'shows empty addresses' do
+          it 'shows empty addresses', js: true do
             within("#billing") do
-              expect(find_field('First Name').value).to be_nil
+              expect(find_field('First Name').value).to be_blank
             end
 
             within("#shipping") do
-              expect(find_field('First Name').value).to be_nil
+              expect(find('input[name*="firstname"]', visible: :hidden).value).to be_blank
             end
           end
         end
@@ -197,7 +197,7 @@ describe "Checkout", type: :feature, inaccessible: true do
           let(:saved_bill_address) { create(:address, firstname: 'Bill') }
           let(:saved_ship_address) { create(:address, firstname: 'Steve') }
 
-          it 'shows empty addresses' do
+          it 'shows empty addresses', js: true do
             within("#billing") do
               expect(find_field('First Name').value).to eq 'Bill'
             end
@@ -420,7 +420,7 @@ describe "Checkout", type: :feature, inaccessible: true do
     context "and updates line item quantity and try to reach payment page" do
       before do
         visit spree.cart_path
-        within ".cart-item-quantity" do
+        within '.cart-item__quantity' do
           fill_in first("input")["name"], with: 3
         end
 
@@ -554,7 +554,7 @@ describe "Checkout", type: :feature, inaccessible: true do
         click_button "Checkout"
       end
 
-      it 'should not be displayed' do
+      it 'should not be displayed', js: true do
         expect(page).to_not have_css("[data-hook=save_user_address]")
       end
     end
@@ -568,7 +568,7 @@ describe "Checkout", type: :feature, inaccessible: true do
         click_button "Checkout"
       end
 
-      it 'should be displayed' do
+      it 'should be displayed', js: true do
         expect(page).to have_css(".save-user-address")
       end
     end
