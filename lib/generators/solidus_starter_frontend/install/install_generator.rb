@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusStarterFrontend
   module Generators
     class InstallGenerator < Rails::Generators::Base
@@ -6,7 +8,7 @@ module SolidusStarterFrontend
       end
 
       def add_stylesheets
-        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/solidus_starter_frontend\n", before: /\*\//, verbose: true
+        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/solidus_starter_frontend\n", before: %r{\*/}, verbose: true
       end
     end
   end

@@ -1,15 +1,12 @@
+require:
+  - solidus_dev_support/rubocop
+
 inherit_from:
   - .rubocop_todo.yml
 
-require:
-  - rubocop-performance
-  - rubocop-rails
-  - rubocop-rspec
-  - rubocop-i18n
-
 AllCops:
-  TargetRubyVersion: 2.5
   Exclude:
+    - sandbox/**/*
     - spec/dummy/**/*
     - vendor/**/*
 
@@ -22,7 +19,7 @@ Metrics/BlockLength:
 
 Metrics/LineLength:
   Enabled: true
-  Max: 120
+  Max: 190
 
 RSpec/ExampleLength:
   Enabled: true
