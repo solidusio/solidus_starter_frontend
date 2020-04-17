@@ -10,13 +10,13 @@
 <% end %>
 
 <% if products.empty? %>
-  <h6>
+  <h2 class="products__results-title">
     <%= t('spree.no_products_found') %>
-  </h6>
+  </h2>
 <% elsif params.key?(:keywords) %>
-  <h6>
+  <h1 class="products__results-title">
     <%= t('spree.search_results', keywords: h(params[:keywords])) %>
-  </h6>
+  </h1>
 <% end %>
 
 <% if products.any? %>

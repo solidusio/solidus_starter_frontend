@@ -51,7 +51,7 @@ describe "viewing products", type: :feature, inaccessible: true do
     it "doesn't use meta_title as heading on page" do
       t_shirts.update metas
       visit '/t/category/super-clothing/t-shirts'
-      within("h1.taxon-title") do
+      within("h1.products__taxon-title") do
         expect(page).to have_content(t_shirts.name)
       end
     end
@@ -66,7 +66,7 @@ describe "viewing products", type: :feature, inaccessible: true do
   context "taxon pages" do
     include_context "custom products"
     before do
-      visit spree.root_path
+      visit spree.products_path
     end
 
     it "should be able to visit brand Ruby on Rails" do

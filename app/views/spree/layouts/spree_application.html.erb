@@ -5,9 +5,8 @@
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>">
     <%= render partial: 'spree/components/layout/header' %>
-    <%= taxon_breadcrumbs(@taxon) %>
-    <%= render partial: 'spree/shared/sidebar' if content_for? :sidebar %>
     <%= flash_messages %>
+    <%= render 'spree/components/navigation/breadcrumbs', taxon: @taxon, base_class: 'breadcrumbs' %>
     <main>
       <%= yield %>
     </main>

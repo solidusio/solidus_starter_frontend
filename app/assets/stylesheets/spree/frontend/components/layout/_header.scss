@@ -1,20 +1,22 @@
 .header {
-  align-items: center;
-  display: flex;
-  margin: 0 auto;
-  max-width: 114rem;
-  padding: 2rem;
+  border-bottom: 1px solid $color-border-light;
 
-  &_branding {
-    line-height: 1;
+  &__primary-navigation {
+    border-top: 1px solid $color-border-light;
+
+    &__content {
+      @extend %section-spacings;
+    }
   }
 
-  &_primary-navigation {
-    flex-grow: 1;
-  }
+  &__secondary-navigation {
+    margin: 0 auto;
+    max-width: 114rem;
 
-  &_secondary-navigation {
-    align-items: center;
-    display: flex;
+    &__content {
+      align-items: center;
+      display: flex;
+      padding: 2rem 3rem;
+    }
   }
 }
