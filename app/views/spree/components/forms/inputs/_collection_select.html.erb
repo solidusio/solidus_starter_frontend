@@ -1,0 +1,42 @@
+<%
+  base_class = "select-input".freeze
+
+  # Optional props
+  autocomplete = nil if local_assigns[:autocomplete].nil?
+  disabled = false if local_assigns[:disabled].nil?
+  id = nil if local_assigns[:id].nil?
+  input_class = nil if local_assigns[:input_class].nil?
+  label = false if local_assigns[:label].nil?
+  options = {} if local_assigns[:options].nil?
+  required = false if local_assigns[:required].nil?
+  state_container = nil if local_assigns[:state_container].nil?
+
+  # Classes
+  class_names = [base_class]
+  class_names = class_names.join(" ")
+%>
+
+<div class="<%= class_names %>">
+  <% if label %>
+    <label
+      <% if id %>
+        for="<%= id %>"
+      <% end %>
+    >
+      <%= label %>:
+    </label>
+  <% end %>
+
+  <%= form.collection_select(
+    method,
+    collection,
+    value_method,
+    text_method,
+    options,
+    autocomplete: autocomplete,
+    class: input_class,
+    disabled: disabled,
+    required: required,
+    "data-state-container": state_container
+  ) %>
+</div>
