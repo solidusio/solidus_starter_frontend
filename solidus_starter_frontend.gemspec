@@ -1,36 +1,42 @@
-# encoding: UTF-8
-$:.push File.expand_path('../lib', __FILE__)
-require 'solidus_starter_frontend/version'
+# frozen_string_literal: true
 
-Gem::Specification.new do |s|
-  s.name        = 'solidus_starter_frontend'
-  s.version     = SolidusStarterFrontend::VERSION
-  s.summary     = 'Cart and storefront for the Solidus e-commerce project.'
-  s.description = 'Placeholder description.'
-  s.license     = 'BSD-3-Clause'
+require_relative 'lib/solidus_starter_frontend/version'
 
-  s.author    = 'Nebulab'
-  s.email     = 'hello@nebulab.it'
-  s.homepage  = 'https://www.nebulab.it'
+Gem::Specification.new do |spec|
+  spec.name = 'solidus_starter_frontend'
+  spec.version = SolidusStarterFrontend::VERSION
+  spec.authors = ['Nebulab']
+  spec.email = 'hello@nebulab.it'
 
-  s.files = Dir["{app,config,db,lib}/**/*", 'LICENSE', 'Rakefile', 'README.md']
-  s.test_files = Dir['spec/**/*']
+  spec.summary = 'Cart and storefront for the Solidus e-commerce project.'
+  spec.description = spec.summary
+  spec.homepage = 'https://www.nebulab.it'
+  spec.license = 'BSD-3-Clause'
 
-  s.add_dependency 'solidus_core', ['>= 2.0', '< 3']
-  s.add_dependency 'solidus_api', ['>= 2.0', '< 3']
-  s.add_dependency 'canonical-rails', '~> 0.2.0'
-  s.add_dependency 'truncate_html', '~> 0.9', '>= 0.9.2'
-  s.add_dependency 'solidus_support', '~> 0.4'
+  spec.metadata['homepage_uri'] = spec.homepage
+  spec.metadata['source_code_uri'] = 'https://www.nebulab.it'
+  # spec.metadata['changelog_uri'] = ''
 
-  s.add_development_dependency 'solidus_dev_support'
-  s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'byebug'
-  s.add_development_dependency 'coffee-rails'
-  s.add_development_dependency 'sass-rails'
-  s.add_development_dependency 'rails-controller-testing'
-  s.add_development_dependency 'rspec-activemodel-mocks'
-  s.add_development_dependency 'rubocop-performance'
-  s.add_development_dependency 'rubocop-rails'
-  s.add_development_dependency 'rubocop-rspec'
-  s.add_development_dependency 'rubocop-i18n'
+  spec.required_ruby_version = Gem::Requirement.new('~> 2.4')
+
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  files = Dir.chdir(__dir__) { `git ls-files -z`.split("\x0") }
+
+  spec.files = files.grep_v(%r{^(test|spec|features)/})
+  spec.test_files = files.grep(%r{^(test|spec|features)/})
+  spec.bindir = "exe"
+  spec.executables = files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
+
+  spec.add_dependency 'canonical-rails', '~> 0.2.0'
+  spec.add_dependency 'generator_spec'
+  spec.add_dependency 'solidus_api', ['>= 2.0', '< 3']
+  spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 3']
+  spec.add_dependency 'solidus_support', '~> 0.4.0'
+  spec.add_dependency 'truncate_html', '~> 0.9', '>= 0.9.2'
+
+  spec.add_development_dependency 'rails-controller-testing'
+  spec.add_development_dependency 'rspec-activemodel-mocks'
+  spec.add_development_dependency 'solidus_dev_support'
 end

@@ -1,15 +1,9 @@
 inherit_from:
   - .rubocop_todo.yml
 
-require:
-  - rubocop-performance
-  - rubocop-rails
-  - rubocop-rspec
-  - rubocop-i18n
-
 AllCops:
-  TargetRubyVersion: 2.5
   Exclude:
+    - sandbox/**/*
     - spec/dummy/**/*
     - vendor/**/*
 
@@ -22,13 +16,4 @@ Metrics/BlockLength:
 
 Metrics/LineLength:
   Enabled: true
-  Max: 120
-
-RSpec/ExampleLength:
-  Enabled: true
-  Max: 20
-
-Rails/SkipsModelValidations:
-  Exclude:
-    - db/migrate/**/*
-    - spec/**/*
+  Max: 190
