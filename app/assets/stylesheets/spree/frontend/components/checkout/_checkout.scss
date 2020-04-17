@@ -1,0 +1,20 @@
+.checkout {
+  margin: 0 auto;
+  max-width: 86rem;
+  padding: 8rem 2rem;
+
+  &__main {
+    display: flex;
+  }
+
+  &__step {
+    flex-grow: 1;
+  }
+
+  &__summary {
+    flex-basis: 24rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-left: 2rem;
+  }
+}
