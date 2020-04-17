@@ -2,14 +2,14 @@
   base_class = "text-input".freeze
 
   # Optional props
-  id = false if local_assigns[:id].nil?
-  disabled = false if local_assigns[:disabled].nil?
-  label = false if local_assigns[:label].nil?
-  min = false if local_assigns[:min].nil?
-  placeholder = "" if local_assigns[:placeholder].nil?
-  small = false if local_assigns[:small].nil?
-  type = :text if local_assigns[:type].nil?
-  value = "" if local_assigns[:value].nil?
+  id = local_assigns.fetch(:id, false)
+  disabled = local_assigns.fetch(:disabled, false)
+  label = local_assigns.fetch(:label, false)
+  min = local_assigns.fetch(:min, false)
+  placeholder = local_assigns.fetch(:placeholder, '')
+  small = local_assigns.fetch(:small, false)
+  type = local_assigns.fetch(:type, :text)
+  value = local_assigns.fetch(:value, '')
 
   # Classes
   class_names = [base_class]
