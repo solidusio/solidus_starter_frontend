@@ -1,20 +1,14 @@
-/*--------------------------------------*/
-/* General
-/*--------------------------------------*/
-
+// General
 @import "spree/frontend/variables/colors";
 
-/*--------------------------------------*/
-/* Base
-/*--------------------------------------*/
-
+// Base
 @import "spree/frontend/base/reset";
 @import "spree/frontend/base/base";
 
-/*--------------------------------------*/
-/* Components
-/*--------------------------------------*/
+// Placeholders
+@import "spree/frontend/placeholders/main";
 
+// Components
 @import "spree/frontend/components/auth/auth_container";
 @import "spree/frontend/components/auth/auth_form";
 @import "spree/frontend/components/brand/logo";
@@ -31,8 +25,8 @@
 @import "spree/frontend/components/cart/item_info";
 @import "spree/frontend/components/forms/inputs/text";
 @import "spree/frontend/components/general/flash";
-@import "spree/frontend/components/layout/footer";
 @import "spree/frontend/components/layout/header";
+@import "spree/frontend/components/layout/footer";
 @import "spree/frontend/components/layout/horizontal_input_group";
 @import "spree/frontend/components/navigation/auth_link";
 @import "spree/frontend/components/navigation/categories";
@@ -47,5 +41,6 @@
 @import "spree/frontend/components/products/product_thumbnails";
 @import "spree/frontend/components/products/product_variants";
 @import "spree/frontend/components/products/products_grid";
+@import "spree/frontend/components/search/search_bar";
 @import "spree/frontend/components/typography/hero_title";
 @import "spree/frontend/components/typography/subtitle";

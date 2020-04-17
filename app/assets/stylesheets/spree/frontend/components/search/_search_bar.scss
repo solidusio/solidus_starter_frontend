@@ -1,0 +1,35 @@
+.search-bar {
+  border: solid 1px $color-border-medium;
+  border-radius: 2px;
+  display: flex;
+  font-size: 1.3rem;
+  height: 4.6rem;
+  margin-right: 2rem;
+  max-width: 60rem;
+  position: relative;
+
+  &__select {
+    appearance: none;
+    background: $color-background-light;
+    border: 0;
+    border-radius: 0;
+    border-right: solid 1px $color-accent;
+    display: none;
+    padding: 0 2rem;
+  }
+
+  &__input {
+    border: 0;
+    flex-grow: 1;
+    padding: 0 2rem;
+  }
+
+  &__button {
+    background: $color-background-light;
+    border: 0;
+    border-left: 1px solid $color-border-medium;
+    color: $color-copy-light;
+    font-weight: 500;
+    padding: 0 2rem;
+  }
+}
