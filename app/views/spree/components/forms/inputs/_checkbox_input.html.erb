@@ -1,0 +1,29 @@
+<%
+  base_class = "checkbox-input".freeze
+
+  # Optional props
+  checked = false if local_assigns[:checked].nil?
+  disabled = false if local_assigns[:disabled].nil?
+  id = nil if local_assigns[:id].nil?
+  value = nil if local_assigns[:value].nil?
+
+  # Classes
+  class_names = [base_class]
+  class_names = class_names.join(" ")
+%>
+
+<label
+  class="<%= class_names %>"
+  <% if id %>
+    for="<%= id %>"
+  <% end %>
+>
+  <%= check_box_tag(
+    name,
+    value,
+    checked,
+    disabled: disabled,
+    id: id
+  ) %>
+  <%= label %>
+</label>
