@@ -103,14 +103,14 @@ Spree.ready(function($) {
 
     var update_shipping_form_state = function(order_use_billing) {
       if (order_use_billing.is(":checked")) {
-        $("#shipping .inner").hide();
-        $("#shipping .inner input, #shipping .inner select").prop(
+        $("#shipping .address-inputs").hide();
+        $("#shipping .address-inputs input, #shipping .address-inputs select").prop(
           "disabled",
           true
         );
       } else {
-        $("#shipping .inner").show();
-        $("#shipping .inner input, #shipping .inner select").prop(
+        $("#shipping .address-inputs").show();
+        $("#shipping .address-inputs input, #shipping .address-inputs select").prop(
           "disabled",
           false
         );
