@@ -1,0 +1,20 @@
+<% filters = applicable_filters_for(@taxon) %>
+
+<% unless filters.empty? %>
+  <%= form_tag '', method: :get, id: 'sidebar_products_search' do %>
+    <%= hidden_field_tag 'per_page', params[:per_page] %>
+
+    <% filters.each do |filter| %>
+      <%= render(
+        'spree/components/search/filter',
+        title: filter[:name],
+        filter: filter,
+        base_class: 'filter') %>
+    <% end %>
+
+    <%= render 'spree/components/buttons/button_primary',
+      content: t('spree.search'),
+      type: :submit,
+      full_width: true %>
+  <% end %>
+<% end %>

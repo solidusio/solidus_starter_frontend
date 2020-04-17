@@ -1,0 +1,32 @@
+.filter {
+  margin-bottom: 2rem;
+
+  &__title {
+    font-size: 1.3rem;
+    margin: 2rem 0 0;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: .5rem 0;
+    padding: 0;
+
+    li {
+      align-items: center;
+      display: flex;
+      margin: .5rem 0;
+
+      &.current {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__list:last-of-type {
+    margin-bottom: 1.5rem;
+  }
+}
