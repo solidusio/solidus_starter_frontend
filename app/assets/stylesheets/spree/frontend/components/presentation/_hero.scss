@@ -3,14 +3,12 @@
   color: $color-copy-bright;
   padding: 10rem 0;
 
-  &_container {
+  &__container {
+    @extend %section-spacings;
     display: flex;
-    margin: 0 auto;
-    max-width: 114rem;
-    padding: 0 2rem;
   }
 
-  &_message {
+  &__message {
     padding-right: 2rem;
     width: 50%;
   }
