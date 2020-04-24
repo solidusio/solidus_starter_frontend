@@ -1,8 +1,15 @@
+<%
+  # Optional props
+  button_id = local_assigns.fetch(:button_id, nil)
+  input_id = local_assigns.fetch(:input_id, nil)
+%>
+
 <%= form_tag order_coupon_codes_path(@order), method: :post, class: "coupon-code" do %>
   <div class="coupon-code__input">
     <%= render(
       'spree/components/forms/inputs/text',
-      name: :coupon_code,
+      id: input_id,
+      name: name,
       placeholder: t("spree.coupon_code"),
       small: true
     ) %>
@@ -12,6 +19,7 @@
     <%= render(
       'spree/components/buttons/button_primary',
       content: t('spree.apply_code'),
+      id: button_id,
       name: :commit,
       small: true,
       type: :submit
