@@ -9,6 +9,8 @@
 @import "spree/frontend/placeholders/main";
 
 // Components
+@import "spree/frontend/components/account/account_summary";
+@import "spree/frontend/components/account/account_order";
 @import "spree/frontend/components/auth/auth_container";
 @import "spree/frontend/components/auth/auth_form";
 @import "spree/frontend/components/brand/logo";
