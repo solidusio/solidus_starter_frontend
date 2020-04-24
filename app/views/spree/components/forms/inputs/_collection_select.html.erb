@@ -2,14 +2,14 @@
   base_class = "select-input".freeze
 
   # Optional props
-  autocomplete = nil if local_assigns[:autocomplete].nil?
-  disabled = false if local_assigns[:disabled].nil?
-  id = nil if local_assigns[:id].nil?
-  input_class = nil if local_assigns[:input_class].nil?
-  label = false if local_assigns[:label].nil?
-  options = {} if local_assigns[:options].nil?
-  required = false if local_assigns[:required].nil?
-  state_container = nil if local_assigns[:state_container].nil?
+  autocomplete = local_assigns.fetch(:autocomplete, nil)
+  disabled = local_assigns.fetch(:disabled, false)
+  id = local_assigns.fetch(:id, nil)
+  input_class = local_assigns.fetch(:input_class, nil)
+  label = local_assigns.fetch(:label, false)
+  options = local_assigns.fetch(:options, {})
+  required = local_assigns.fetch(:required, false)
+  state_container = local_assigns.fetch(:state_container, nil)
 
   # Classes
   class_names = [base_class]
