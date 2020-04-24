@@ -2,8 +2,8 @@
   base_class = "select-input".freeze
 
   # Optional props
-  disabled = false if local_assigns[:disabled].nil?
-  selected = nil if local_assigns[:selected].nil?
+  disabled = local_assigns.fetch(:disabled, false)
+  selected = local_assigns.fetch(:selected, nil)
 
   # Classes
   class_names = [base_class]
