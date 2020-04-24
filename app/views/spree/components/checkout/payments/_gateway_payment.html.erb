@@ -1,0 +1,43 @@
+<div class="gateway-method">
+  <% param_prefix = "payment_source[#{payment_method.id}]" %>
+
+  <%= render(
+    "spree/components/forms/inputs/text",
+    autocomplete: "cc-name",
+    id: "name_on_card_#{payment_method.id}",
+    label: t('spree.name_on_card'),
+    name: "#{param_prefix}[name]",
+    value: @order.billing_name
+  ) %>
+
+  <%= render(
+    "spree/components/forms/inputs/text",
+    autocomplete: "cc-number",
+    id: 'card_number',
+    label: t('spree.card_number'),
+    name: "#{param_prefix}[number]"
+  ) %>
+
+  <%= render(
+    "spree/components/forms/inputs/text",
+    id: "card_expiry",
+    label: t('spree.expiration'),
+    name: "#{param_prefix}[expiry]",
+    placeholder: "MM / YY"
+  ) %>
+
+  <%= render(
+    "spree/components/forms/inputs/text",
+    id: "card_code",
+    label: t('spree.card_code'),
+    name: "#{param_prefix}[verification_value]"
+  ) %>
+
+  <% if @order.bill_address %>
+    <%= fields_for "#{param_prefix}[address_attributes]", @order.bill_address do |f| %>
+      <%= render partial: 'spree/address/form_hidden', locals: { form: f } %>
+    <% end %>
+  <% end %>
+
+  <%= hidden_field_tag "#{param_prefix}[cc_type]", '', id: "cc_type", class: 'ccType' %>
+</div>
