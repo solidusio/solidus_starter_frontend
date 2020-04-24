@@ -283,9 +283,9 @@ describe 'Checkout', type: :system, inaccessible: true do
       # prevent form submit to verify button is disabled
       page.execute_script("$('#checkout_form_payment').submit(function(){return false;})")
 
-      expect(page).not_to have_selector('input.button[disabled]')
+      expect(page).not_to have_selector('button[disabled]')
       click_button "Save and Continue"
-      expect(page).to have_selector('input.button[disabled]')
+      expect(page).to have_selector('button[disabled]')
     end
 
     it "prevents double clicking the confirm button on checkout", js: true do
@@ -485,7 +485,7 @@ describe 'Checkout', type: :system, inaccessible: true do
     end
 
     it "applies them & refreshes the page on user clicking the Apply Code button" do
-      fill_in "Coupon Code", with: promotion.codes.first.value
+      fill_in "order_coupon_code", with: promotion.codes.first.value
       click_on "Apply Code"
 
       expect(page).to have_content(promotion.name)
@@ -494,7 +494,7 @@ describe 'Checkout', type: :system, inaccessible: true do
 
     context "with invalid coupon" do
       it "doesnt apply the promotion" do
-        fill_in "Coupon Code", with: 'invalid'
+        fill_in "order_coupon_code", with: 'invalid'
         click_on "Apply Code"
 
         expect(page).to have_content(I18n.t('spree.coupon_code_not_found'))
