@@ -18,11 +18,11 @@ Spree.ready(function($) {
         });
       }
 
-      $(".cardNumber").payment("formatCardNumber");
-      $(".cardExpiry").payment("formatCardExpiry");
-      $(".cardCode").payment("formatCardCVC");
+      $("#card_number").payment("formatCardNumber");
+      $("#card_expiry").payment("formatCardExpiry");
+      $("#card_code").payment("formatCardCVC");
 
-      $(".cardNumber").change(function() {
+      $("#card_number").change(function() {
         $(this)
           .parent()
           .siblings(".ccType")
