@@ -65,6 +65,12 @@
   </dl>
 
   <% if order.state == 'payment' %>
-    <%= render 'coupon_code', order: order %>
+    <%= render(
+      'spree/components/cart/coupon_code',
+      button_id: 'coupon-code-apply-button',
+      input_id: :order_coupon_code,
+      name: 'order[coupon_code]'
+    ) %>
+    <p id="coupon_status"></p>
   <% end %>
 </section>
