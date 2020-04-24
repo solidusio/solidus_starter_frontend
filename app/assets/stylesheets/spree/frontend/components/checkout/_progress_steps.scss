@@ -1,0 +1,39 @@
+.progress-steps {
+  display: flex;
+  font-size: 1.3rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    margin: 0 1rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.completed,
+    &.completed-first {
+      font-weight: 500;
+    }
+
+    &.current,
+    &.current-first {
+      color: $color-accent;
+      font-weight: 600;
+
+      &::before {
+        content: "➝";
+        margin-right: .5rem;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

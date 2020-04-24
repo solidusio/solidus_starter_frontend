@@ -2,11 +2,14 @@
   base_class = "text-input".freeze
 
   # Optional props
+  autocomplete = local_assigns.fetch(:autocomplete, false)
+  autofocus = local_assigns.fetch(:autofocus, false)
   id = local_assigns.fetch(:id, false)
   disabled = local_assigns.fetch(:disabled, false)
   label = local_assigns.fetch(:label, false)
   min = local_assigns.fetch(:min, false)
-  placeholder = local_assigns.fetch(:placeholder, '')
+  placeholder = local_assigns.fetch(:placeholder, false)
+  required = local_assigns.fetch(:required, false)
   small = local_assigns.fetch(:small, false)
   type = local_assigns.fetch(:type, :text)
   value = local_assigns.fetch(:value, '')
@@ -20,7 +23,6 @@
 <div class="<%= class_names %>">
   <% if label %>
     <label
-      class="<%= class_names %>"
       <% if id %>
         for="<%= id %>"
       <% end %>
@@ -31,15 +33,22 @@
 
   <input
     name="<%= name %>"
-    placeholder="<%= placeholder %>"
     type="<%= type %>"
     value="<%= value %>"
+    <% if autocomplete%>
+      autocomplete="<%= autocomplete %>"
+    <% end %>
     <% if id %>
       id="<%= id %>"
     <% end %>
     <% if min %>
       min="<%= min %>"
     <% end %>
+    <% if placeholder %>
+      placeholder="<%= placeholder %>"
+    <% end %>
+    <%= autofocus ? "autofocus" : "" %>
     <%= disabled ? "disabled" : "" %>
+    <%= required ? "required" : "" %>
   >
 </div>

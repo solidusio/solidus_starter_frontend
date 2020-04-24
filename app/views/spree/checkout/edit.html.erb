@@ -1,26 +1,18 @@
-<article class="order">
-  <%= render partial: 'spree/shared/error_messages', locals: { target: @order } %>
+<article class="checkout">
+  <%= render "spree/shared/error_messages", target: @order %>
+  <%= render "spree/components/checkout/checkout_header" %>
 
-  <header>
-    <h1><%= t('spree.checkout') %></h1>
-    <%= checkout_progress %>
-  </header>
+  <div class="checkout__main">
+    <section class="checkout__step">
+      <%= render "spree/components/checkout/checkout_step" %>
+    </section>
 
-  <%= form_for @order, url: update_checkout_path(@order.state), html: { id: "checkout_form_#{@order.state}" } do |form| %>
-    <% if @order.state == 'address' || !@order.email? %>
-      <div class="field field-required">
-        <%= form.label :email %>
-        <%= form.email_field :email, required: true %>
+    <% if @order.state != "confirm" %>
+      <div class="checkout__summary">
+        <%= render "spree/components/checkout/checkout_summary", order: @order %>
       </div>
     <% end %>
-    <%= render @order.state, form: form %>
-  <% end %>
-
-  <% if @order.state != 'confirm' %>
-    <div id="checkout-summary">
-      <%= render partial: 'summary', locals: { order: @order } %>
-    </div>
-  <% end %>
+  </div>
 </article>
 
 <script>
