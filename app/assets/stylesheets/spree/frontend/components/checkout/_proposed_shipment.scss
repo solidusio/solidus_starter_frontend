@@ -1,0 +1,18 @@
+.proposed-shipment {
+  margin-bottom: 4rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &__title {
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__secondary-title {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}
