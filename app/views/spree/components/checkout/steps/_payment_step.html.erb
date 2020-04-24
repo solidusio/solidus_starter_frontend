@@ -1,59 +1,24 @@
-<fieldset>
-  <legend>
-    <%= t('spree.payment_information') %>
-  </legend>
+<div class="payment-step">
+  <fieldset class="payment-step__payment">
+    <legend>
+      <%= t('spree.payment_information') %>
+    </legend>
 
-  <% if @wallet_payment_sources.present? %>
-    <div>
-      <%= radio_button_tag 'use_existing_card', 'yes', true %>
-      <label for="use_existing_card_yes">
-        <%= t('spree.use_existing_cc') %>
-      </label>
-      <%= radio_button_tag 'use_existing_card', 'no' %>
-      <label for="use_existing_card_no">
-        <%= t('spree.use_new_cc_or_payment_method') %>
-      </label>
-    </div>
+    <%= render 'spree/components/checkout/payment_selector', methods: @order.available_payment_methods %>
+    <%= render 'spree/components/checkout/payment_controls', methods: @order.available_payment_methods %>
 
-    <table id="existing_cards">
-      <tbody>
-        <% @wallet_payment_sources.each do |wallet_payment_source| %>
-          <%= render(
-            partial: "spree/checkout/existing_payment/#{wallet_payment_source.payment_source.payment_method.partial_name}",
-            locals: {
-              wallet_payment_source: wallet_payment_source,
-              default: wallet_payment_source == @default_wallet_payment_source,
-            }
-          ) %>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
-
-  <% @order.available_payment_methods.each do |method| %>
-    <p>
-      <label>
-        <%= radio_button_tag(
-          "order[payments_attributes][][payment_method_id]",
-          method.id, method == @order.available_payment_methods.first
-        ) %>
-        <%= t(method.name, scope: 'spree.payment_methods', default: method.name) %>
-      </label>
-    </p>
-  <% end %>
-
-  <ul id="payment-methods">
-    <% @order.available_payment_methods.each do |method| %>
-      <li id="payment_method_<%= method.id %>">
-        <fieldset>
-          <%= render "spree/checkout/payment/#{method.partial_name}", payment_method: method %>
-        </fieldset>
-      </li>
+    <% if @wallet_payment_sources.present? %>
+      <%= render 'spree/components/checkout/existing_cards', wallet_payment_sources: @wallet_payment_sources %>
     <% end %>
-  </ul>
-</fieldset>
+  </fieldset>
 
-<%= submit_tag t('spree.save_and_continue'), class: 'continue button primary' %>
+  <%= render(
+    'spree/components/buttons/button_primary',
+    content: I18n.t('spree.save_and_continue'),
+    name: :commit,
+    type: :submit
+  ) %>
+</div>
 
 <script>
   Spree.disableSaveOnClick();
