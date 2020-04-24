@@ -1,0 +1,10 @@
+<ul class="payment-controls" id="payment-methods">
+  <% methods.each do |method| %>
+    <li id="payment_method_<%= method.id %>">
+      <%= render(
+        "spree/components/checkout/payments/#{method.partial_name}_payment",
+        payment_method: method
+      ) %>
+    </li>
+  <% end %>
+</ul>
