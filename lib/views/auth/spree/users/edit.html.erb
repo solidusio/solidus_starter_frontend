@@ -1,0 +1,45 @@
+<%= render partial: 'spree/shared/error_messages', locals: { target: @user } %>
+
+<article class="auth-container" id="edit-account">
+  <h1><%= I18n.t('spree.editing_user') %></h1>
+
+  <%= form_for Spree::User.new, as: @user, url: spree.user_path(@user), method: :put do |f| %>
+    <div class="auth-form__input-wrapper">
+      <%= render(
+        "spree/components/forms/inputs/text",
+        id: :spree_user_email,
+        label: I18n.t("spree.email"),
+        name: 'user[email]',
+        type: :email,
+        value: @user.email
+      ) %>
+    </div>
+    <div class="auth-form__input-wrapper">
+      <%= render(
+        "spree/components/forms/inputs/text",
+        id: :password,
+        label: I18n.t("spree.password"),
+        name: 'user[password]',
+        type: :password
+      ) %>
+    </div>
+    <div class="auth-form__input-wrapper">
+      <%= render(
+        "spree/components/forms/inputs/text",
+        id: :password_confirmation,
+        label: I18n.t("spree.confirm_password"),
+        name: 'user[password_confirmation]',
+        type: :password
+      ) %>
+    </div>
+    <div class="auth-form__input-wrapper">
+      <%= render(
+        "spree/components/buttons/button_primary",
+        content: I18n.t('spree.update'),
+        full_width: true,
+        name: :commit,
+        type: :submit
+      ) %>
+    </div>
+  <% end %>
+</article>
