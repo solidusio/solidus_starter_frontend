@@ -13,7 +13,8 @@
     background: $color-background-error;
   }
 
-  &.notice {
+  &.notice,
+  &.success {
     background: $color-background-success;
   }
 }
