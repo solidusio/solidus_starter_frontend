@@ -24,16 +24,15 @@
   <ul class="existing-cards__cards" id="existing_cards">
     <% wallet_payment_sources.each do |wallet_payment_source| %>
       <li id="<%= dom_id(wallet_payment_source, 'spree')%>">
-        <% source = wallet_payment_source.payment_source %>
-
-        <%= render(
-          'spree/components/forms/inputs/radio_input',
-          checked: wallet_payment_source == @default_wallet_payment_source,
-          id: "order_wallet_payment_source_id_#{wallet_payment_source.id}",
-          label: "#{source.name} #{source.display_number} #{source.month}/#{source.year}",
-          name: "order[wallet_payment_source_id]",
-          value: wallet_payment_source.id
-        ) %>
+        <%=
+          render(
+            partial: "spree/checkout/existing_payment/#{wallet_payment_source.payment_source.payment_method.partial_name}",
+            locals: {
+              wallet_payment_source: wallet_payment_source,
+              default: wallet_payment_source == @default_wallet_payment_source,
+            }
+          )
+        %>
       </li>
     <% end %>
   </ul>
