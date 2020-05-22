@@ -13,14 +13,14 @@
   <%= render(
     "spree/components/forms/inputs/text",
     autocomplete: "cc-number",
-    id: 'card_number',
+    id: "card_number_#{payment_method.id}",
     label: t('spree.card_number'),
     name: "#{param_prefix}[number]"
   ) %>
 
   <%= render(
     "spree/components/forms/inputs/text",
-    id: "card_expiry",
+    id: "card_expiry_#{payment_method.id}",
     label: t('spree.expiration'),
     name: "#{param_prefix}[expiry]",
     placeholder: "MM / YY"
@@ -28,7 +28,7 @@
 
   <%= render(
     "spree/components/forms/inputs/text",
-    id: "card_code",
+    id: "card_code_#{payment_method.id}",
     label: t('spree.card_code'),
     name: "#{param_prefix}[verification_value]"
   ) %>
