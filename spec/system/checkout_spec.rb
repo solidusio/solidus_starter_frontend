@@ -250,7 +250,7 @@ describe 'Checkout', type: :system, inaccessible: true do
       click_button "Save and Continue"
       choose "Credit Card"
       fill_in "Card Number", with: '123'
-      fill_in "card_expiry", with: '04 / 20'
+      fill_in "Expiration", with: '04 / 20'
       fill_in "Card Code", with: '123'
       click_button "Save and Continue"
       click_button "Place Order"
