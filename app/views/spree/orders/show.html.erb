@@ -1,21 +1,29 @@
-<fieldset id="order_summary">
-  <legend>
-    <%= t('spree.order_number', number: @order.number) %>
-  </legend>
-
-  <h1><%= accurate_title %></h1>
+<div class="order-page">
+  <h1 class="order-page__title">
+    <%= accurate_title %>
+  </h1>
 
   <% if order_just_completed?(@order) %>
-    <strong><%= t('spree.thank_you_for_your_order') %></strong>
+    <p class="order-page__completed">
+      <%= t('spree.thank_you_for_your_order') %>
+    </p>
   <% end %>
 
-  <%= render 'spree/components/orders/order_details', order: @order %>
+  <fieldset class="order-page__info" id="order_summary">
+    <legend>
+      <%= t('spree.order_number', number: @order.number) %>
+    </legend>
 
-  <%= link_to t('spree.back_to_store'), spree.root_path, class: "button" %>
+    <%= render 'spree/components/orders/order_details', order: @order %>
+  </fieldset>
 
-  <% unless order_just_completed?(@order) %>
-    <% if try_spree_current_user && respond_to?(:account_path) %>
-      <%= link_to t('spree.my_account'), spree.account_path, class: "button" %>
+  <div class="order-page__actions">
+    <%= link_to t('spree.back_to_store'), spree.root_path, class: "button" %>
+
+    <% unless order_just_completed?(@order) %>
+      <% if try_spree_current_user && respond_to?(:account_path) %>
+        <%= link_to t('spree.my_account'), spree.account_path, class: "button" %>
+      <% end %>
     <% end %>
-  <% end %>
-</fieldset>
+  </div>
+</div>
