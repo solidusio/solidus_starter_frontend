@@ -1,0 +1,27 @@
+.address-overview {
+  &__title {
+    display: inline;
+    font-size: 1.3rem;
+  }
+
+  &__edit {
+    font-size: 1.1rem;
+    margin-left: .3rem;
+    text-decoration: none;
+  }
+
+  &__info {
+    font-size: 1.2rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    padding-left: 1.8rem;
+
+    > li {
+      margin: .5rem 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
