@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe "Checkout", type: :feature, inaccessible: true do
+describe 'Checkout', type: :system, inaccessible: true do
   include_context 'checkout setup'
 
   context "visitor makes checkout as guest without registration" do

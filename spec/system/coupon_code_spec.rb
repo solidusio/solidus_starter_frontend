@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe "Coupon code promotions", type: :feature, js: true do
+describe 'Coupon code promotions', type: :system, js: true do
   let!(:store) { create(:store) }
   let!(:country) { create(:country, name: "United States of America", states_required: true) }
   let!(:state) { create(:state, name: "Alabama", country: country) }

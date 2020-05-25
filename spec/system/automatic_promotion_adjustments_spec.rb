@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe "Automatic promotions", type: :feature, js: true do
+describe 'Automatic promotions', type: :system, js: true do
   let!(:store) { create(:store) }
   let!(:country) { create(:country, name: "United States of America", states_required: true) }
   let!(:state) { create(:state, name: "Alabama", country: country) }

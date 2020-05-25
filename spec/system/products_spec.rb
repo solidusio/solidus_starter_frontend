@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe 'Visiting Products', type: :feature, inaccessible: true do
-  include_context 'custom products'
+describe 'Visiting Products', type: :system, inaccessible: true do
+  include_context "custom products"
 
   let(:store_name) do
     ((first_store = Spree::Store.first) && first_store.name).to_s

@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.feature "Promotion Code Invalidation", js: true do
-  given!(:promotion) do
+describe 'Promotion Code Invalidation', type: :system, js: true do
+  let!(:promotion) do
     FactoryBot.create(
       :promotion_with_item_adjustment,
       code: "PROMO",
@@ -12,7 +12,7 @@ RSpec.feature "Promotion Code Invalidation", js: true do
     )
   end
 
-  background do
+  before do
     create(:store)
     FactoryBot.create(:product, name: "DL-44")
     FactoryBot.create(:product, name: "E-11")
@@ -26,7 +26,7 @@ RSpec.feature "Promotion Code Invalidation", js: true do
     click_button "Add To Cart"
   end
 
-  scenario "adding the promotion to a cart with two applicable items" do
+  it 'adding the promotion to a cart with two applicable items' do
     fill_in "Coupon code", with: "PROMO"
     click_button "Apply Code"
 
