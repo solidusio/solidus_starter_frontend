@@ -55,10 +55,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system) do
-    driven_by :rack_test
+    driven_by((ENV['CAPYBARA_DRIVER'] || :rack_test).to_sym)
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by :apparition
+    driven_by((ENV['CAPYBARA_JS_DRIVER'] || :apparition).to_sym)
   end
 end
