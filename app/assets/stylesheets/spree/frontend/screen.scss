@@ -29,11 +29,16 @@
 @import "spree/frontend/components/checkout/checkout_header";
 @import "spree/frontend/components/checkout/checkout_summary";
 @import "spree/frontend/components/checkout/proposed_shipment";
+@import "spree/frontend/components/checkout/existing_cards";
+@import "spree/frontend/components/checkout/payment_method_controls";
+@import "spree/frontend/components/checkout/payment_method_selector";
 @import "spree/frontend/components/checkout/progress_steps";
 @import "spree/frontend/components/checkout/shipment_items";
 @import "spree/frontend/components/checkout/shipping_methods";
+@import "spree/frontend/components/checkout/payments/gateway_payment_method";
 @import "spree/frontend/components/checkout/steps/address_step";
 @import "spree/frontend/components/checkout/steps/delivery_step";
+@import "spree/frontend/components/checkout/steps/payment_step";
 @import "spree/frontend/components/forms/address_inputs";
 @import "spree/frontend/components/forms/inputs/checkbox_input";
 @import "spree/frontend/components/forms/inputs/radio_input";
@@ -50,6 +55,7 @@
 @import "spree/frontend/components/navigation/categories";
 @import "spree/frontend/components/navigation/taxonomies";
 @import "spree/frontend/components/navigation/taxonomy";
+@import "spree/frontend/components/orders/coupon_codes";
 @import "spree/frontend/components/presentation/hero";
 @import "spree/frontend/components/products/products";
 @import "spree/frontend/components/products/product_card";

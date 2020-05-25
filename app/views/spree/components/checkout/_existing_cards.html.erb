@@ -1,0 +1,39 @@
+<div class="existing-cards">
+  <ul class="existing-cards__options">
+    <li>
+      <%= render(
+        'spree/components/forms/inputs/radio_input',
+        checked: true,
+        id: 'use_existing_card_yes',
+        label: t('spree.use_existing_cc'),
+        name: "use_existing_card",
+        value: 'yes'
+      ) %>
+    </li>
+    <li>
+      <%= render(
+        'spree/components/forms/inputs/radio_input',
+        id: 'use_existing_card_no',
+        label: t('spree.use_new_cc_or_payment_method'),
+        name: "use_existing_card",
+        value: 'no'
+      ) %>
+    </li>
+  </ul>
+
+  <ul class="existing-cards__cards" id="existing_cards">
+    <% wallet_payment_sources.each do |wallet_payment_source| %>
+      <li id="<%= dom_id(wallet_payment_source, 'spree')%>">
+        <%=
+          render(
+            partial: "spree/checkout/existing_payment/#{wallet_payment_source.payment_source.payment_method.partial_name}",
+            locals: {
+              wallet_payment_source: wallet_payment_source,
+              default: wallet_payment_source == @default_wallet_payment_source,
+            }
+          )
+        %>
+      </li>
+    <% end %>
+  </ul>
+</div>
