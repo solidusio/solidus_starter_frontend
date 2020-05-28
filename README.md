@@ -66,19 +66,19 @@ app.
 
 Simply call the generator to copy all views into your host app:
 ```bash
-$ bundle exec rails g solidus:views:override
+$ bundle exec rails g solidus_starter_frontend:views:override
 ```
 
 If you only want to copy certain views into your host app, you can provide the
 `--only` argument:
 ```bash
-$ bundle exec rails g solidus:views:override --only products/show
+$ bundle exec rails g solidus_starter_frontend:views:override --only products/show
 ```
 
 The argument to `--only` can also be a substring of the name of the view from
 the `app/views/spree` folder:
 ```bash
-$ bundle exec rails g solidus:views:override --only product
+$ bundle exec rails g solidus_starter_frontend:views:override --only product
 ```
 
 ## About
