@@ -14,7 +14,7 @@ module SolidusStarterFrontend
       g.test_framework :rspec
     end
 
-    config.after_initialize do
+    config.to_prepare do
       if defined?(Spree::Auth::Engine)
         [
           Spree::UserConfirmationsController,
