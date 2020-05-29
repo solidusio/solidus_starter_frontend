@@ -1,0 +1,48 @@
+.order-item {
+  align-items: center;
+  border-bottom: solid 1px $color-border-light;
+  display: flex;
+  font-size: 1.2rem;
+  padding: 1rem 0;
+
+  &:first-child {
+    border-top: solid 1px $color-border-light;
+  }
+
+  &__image {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 18%;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &__info {
+    flex-grow: 1;
+    padding-left: 4rem;
+    padding-right: 2rem;
+  }
+
+  &__price-single,
+  &__price {
+    padding: 0 1rem;
+  }
+
+  &__price {
+    font-size: 1.5rem;
+  }
+
+  &__quantity {
+    flex-grow: 0;
+    flex-shrink: 0;
+    text-align: center;
+    width: 6%;
+  }
+
+  &__remove {
+    text-align: right;
+    width: 12%;
+  }
+}

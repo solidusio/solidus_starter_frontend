@@ -1,0 +1,33 @@
+<article class="order-item">
+  <div class="order-item__image">
+    <%= link_to(
+      render(
+        'spree/shared/image',
+        image: item.variant.gallery.images.first || item.variant.product.gallery.images.first,
+        size: :small
+      ),
+      item.variant.product
+    ) %>
+  </div>
+
+  <section class="order-item__info">
+    <%= render(
+      'spree/components/cart/item_info',
+      line_item: item.variant.product,
+      stock_info: false,
+      variant: item.variant
+    ) %>
+  </section>
+
+  <div class="order-item__price-single">
+    <%= item.single_money.to_html %>
+  </div>
+
+  <div class="order-item__quantity">
+    &#10005;<%= item.quantity %>
+  </div>
+
+  <div class="order-item__price">
+    <strong><%= item.display_amount.to_html %></strong>
+  </div>
+</article>

@@ -26,7 +26,7 @@ describe 'orders', type: :system do
     visit spree.order_path(order)
 
     # Tests view spree/shared/_order_details
-    within 'td.price' do
+    within '.order-item__price-single' do
       expect(page).to have_content "19.00"
     end
   end

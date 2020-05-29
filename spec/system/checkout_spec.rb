@@ -295,9 +295,9 @@ describe 'Checkout', type: :system, inaccessible: true do
       # prevent form submit to verify button is disabled
       page.execute_script("$('#checkout_form_confirm').submit(function(){return false;})")
 
-      expect(page).not_to have_selector('input.button[disabled]')
+      expect(page).not_to have_selector('button.button-primary[disabled]')
       click_button "Place Order"
-      expect(page).to have_selector('input.button[disabled]')
+      expect(page).to have_selector('button.button-primary[disabled]')
     end
   end
 

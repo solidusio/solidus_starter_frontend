@@ -1,3 +1,8 @@
+<%
+  # Optional props
+  stock_info = local_assigns.fetch(:stock_info, true)
+%>
+
 <div class="item-info">
   <h2 class="item-info__name">
     <%= link_to line_item.name, product_path(variant.product) %>
@@ -7,13 +12,15 @@
     <%= variant.options_text %>
   </p>
 
-  <% if line_item.insufficient_stock? %>
+  <% if stock_info && line_item.insufficient_stock? %>
     <p class="item-info__stock">
       <%= t('spree.out_of_stock') %>
     </p>
   <% end %>
 
   <p class="item-info__description">
-    <%= line_item_description_text(line_item.description) %>
+    <%= variant.product.description.nil? ||  variant.product.description.empty? ?
+      t('spree.product_has_no_description') :
+      truncated_product_description(variant.product) %>
   </p>
 </div>
