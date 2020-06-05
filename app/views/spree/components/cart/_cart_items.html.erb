@@ -18,8 +18,6 @@
   ) %>
 
   <% if is_order_empty %>
-    <p><%= t('spree.cart_subtotal', count: order.line_items.sum(:quantity)) %></p>
-    <p><%= order.display_item_total %></p>
     <%= render 'spree/components/cart/cart_adjustments' %>
   <% end %>
 </section>
