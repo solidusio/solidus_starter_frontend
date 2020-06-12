@@ -39,9 +39,13 @@ module Spree
 
     # Shows the current incomplete order from the session
     def edit
-      @order = current_order || Spree::Order.incomplete.find_or_initialize_by(guest_token: cookies.signed[:guest_token])
+      @order = current_order(build_order_if_necessary: true)
       authorize! :read, @order, cookies.signed[:guest_token]
       associate_user
+      if params[:id] && @order.number != params[:id]
+        flash[:error] = t('spree.cannot_edit_orders')
+        redirect_to cart_path
+      end
     end
 
     # Adds a new item to the order (creating a new order if none already exists)
@@ -55,12 +59,12 @@ module Spree
       # 2,147,483,647 is crazy. See issue https://github.com/spree/spree/issues/2695.
       if !quantity.between?(1, 2_147_483_647)
         @order.errors.add(:base, t('spree.please_enter_reasonable_quantity'))
-      end
-
-      begin
-        @line_item = @order.contents.add(variant, quantity)
-      rescue ActiveRecord::RecordInvalid => e
-        @order.errors.add(:base, e.record.errors.full_messages.join(", "))
+      else
+        begin
+          @line_item = @order.contents.add(variant, quantity)
+        rescue ActiveRecord::RecordInvalid => e
+          @order.errors.add(:base, e.record.errors.full_messages.join(", "))
+        end
       end
 
       respond_with(@order) do |format|
