@@ -1,30 +1,26 @@
-Spree.ready(function($) {
-  if ($("form#update-cart").is("*")) {
-    $("form#update-cart a.delete")
-      .show()
-      .one("click", function() {
-        $(this)
-          .parents(".cart-item")
-          .first()
-          .find(".cart-item__quantity input")
-          .val(0);
-        $(this)
-          .parents("form")
-          .first()
-          .submit();
-        return false;
+Spree.ready(() => {
+  const cartForm = document.getElementById('update-cart');
+
+  if (cartForm) {
+    const deleteButtons = cartForm.querySelectorAll('input.delete');
+
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.addEventListener('click', () => {
+        const lineItem = deleteButton.parentNode.parentNode;
+        lineItem.querySelector('.cart-item__quantity input').setAttribute('value', 0);
       });
+    });
+
+    cartForm.addEventListener('submit', () => {
+      document.getElementById('update-button').setAttribute('disabled', true);
+    });
   }
-  $("form#update-cart").submit(function() {
-    $("form#update-cart #update-button").attr("disabled", true);
-  });
 });
 
-Spree.fetch_cart = function(cartLinkUrl) {
-  Spree.ajax({
-    url: cartLinkUrl || Spree.pathFor("cart_link"),
-    success: function(data) {
-      $("#link-to-cart").html(data);
-    }
-  });
+Spree.fetch_cart = (cartLinkUrl) => {
+  fetch(cartLinkUrl || Spree.pathFor('cart_link'))
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('link-to-cart').innerHTML = html;
+    });
 };

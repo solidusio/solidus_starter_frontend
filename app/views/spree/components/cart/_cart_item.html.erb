@@ -41,7 +41,12 @@
     </div>
 
     <div class="cart-item__remove">
-      <%= link_to 'Remove', '#', class: 'delete', id: "delete_#{dom_id(line_item)}" %>
+      <%= submit_tag(
+        'Remove',
+        class: 'delete',
+        id: "delete_#{dom_id(line_item)}",
+        data: { disable_with: 'Remove' }
+      ) %>
     </div>
   </article>
 <% end %>

@@ -43,5 +43,12 @@
   &__remove {
     text-align: right;
     width: 12%;
+
+    > input {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 }
