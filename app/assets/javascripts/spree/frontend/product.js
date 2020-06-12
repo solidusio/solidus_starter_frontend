@@ -1,20 +1,21 @@
-Spree.ready(function($) {
-  Spree.updateVariantPrice = function(variant) {
-    var variantPrice = variant.data("price");
+Spree.ready(() => {
+  function updateVariantPrice(variant) {
+    const variantPrice = variant.dataset.price;
     if (variantPrice) {
-      $(".price.selling").text(variantPrice);
+      document.querySelector('.price.selling').innerHTML = variantPrice;
     }
   };
 
-  var radios = $('#product-variants input[type="radio"]');
+  const radios = document.querySelectorAll('#product-variants input[type="radio"]');
+
   if (radios.length > 0) {
-    var selectedRadio = $(
-      '#product-variants input[type="radio"][checked="checked"]'
-    );
-    Spree.updateVariantPrice(selectedRadio);
+    const selectedRadio = document
+      .querySelector('#product-variants input[type="radio"][checked="checked"]');
+
+    updateVariantPrice(selectedRadio);
   }
 
-  radios.click(function(event) {
-    Spree.updateVariantPrice($(this));
+  radios.forEach(radio => {
+    radio.addEventListener('click', () => updateVariantPrice(radio));
   });
 });
