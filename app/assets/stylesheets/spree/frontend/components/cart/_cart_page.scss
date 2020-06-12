@@ -4,6 +4,12 @@
   padding: 8rem 2rem;
 
   &__coupon-code {
-    margin-top: -7.5rem;
+    display: flex;
+    justify-content: flex-end;
+
+    @include desktop {
+      display: block;
+      margin-top: -7.5rem;
+    }
   }
 }
