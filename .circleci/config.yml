@@ -20,12 +20,29 @@ jobs:
       - checkout
       - solidusio_extensions/run-tests-solidus-master
       - solidusio_extensions/store-test-results
+  solidus-compare:
+    docker:
+      - image: circleci/ruby:latest
+    steps:
+      - checkout
+      - run:
+          name: Prepare compare diff
+          command: bin/solidus_compare > /tmp/solidus_compare_results.diff
+      - store_artifacts:
+          path: /tmp/solidus_compare_results.diff
+          destination: solidus_compare_results.diff
+      - run:
+          name: Prepare test results
+          command: mkdir -p /tmp/test_results && bin/solidus_compare -r > /tmp/test_results/results.xml
+      - store_test_results:
+          path: /tmp/test_results
 
 workflows:
   "Run specs on supported Solidus versions":
     jobs:
       - run-specs-with-postgres
       - run-specs-with-mysql
+      - solidus-compare
   "Weekly run specs against master":
     triggers:
       - schedule:
@@ -37,3 +54,4 @@ workflows:
     jobs:
       - run-specs-with-postgres
       - run-specs-with-mysql
+      - solidus-compare
