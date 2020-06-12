@@ -169,40 +169,6 @@ describe Spree::OrdersController, type: :controller do
               expect(response).to redirect_to(spree.cart_path)
             end
           end
-
-          context "when coupon code is applied" do
-            let(:promotion_handler) { instance_double('Spree::PromotionHandler::Coupon', error: nil, success: 'Coupon Applied!') }
-
-            it "continues checkout flow normally" do
-              expect(Spree::Deprecation).to receive(:warn)
-
-              expect(Spree::PromotionHandler::Coupon)
-                .to receive_message_chain(:new, :apply)
-                .and_return(promotion_handler)
-
-              put :update, params: { state: order.state, order: { coupon_code: coupon_code } }
-
-              expect(response).to redirect_to(spree.cart_path)
-              expect(flash.now[:success]).to eq('Coupon Applied!')
-            end
-
-            context "when coupon code is not applied" do
-              let(:promotion_handler) { instance_double('Spree::PromotionHandler::Coupon', error: 'Some error', success: false) }
-
-              it "render cart with coupon error" do
-                expect(Spree::Deprecation).to receive(:warn)
-
-                expect(Spree::PromotionHandler::Coupon)
-                  .to receive_message_chain(:new, :apply)
-                  .and_return(promotion_handler)
-
-                put :update, params: { state: order.state, order: { coupon_code: coupon_code } }
-
-                expect(response).to render_template :edit
-                expect(flash.now[:error]).to eq('Some error')
-              end
-            end
-          end
         end
       end
     end
