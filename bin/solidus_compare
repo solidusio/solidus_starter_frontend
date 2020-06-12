@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+PATHS = [
+  'app/controllers',
+  'app/helpers',
+]
+REMOTE_REPO = 'https://github.com/solidusio/solidus.git'
+REMOTE_SOURCE = 'solidus'
+
+if `git remote`.split("\n").none? REMOTE_SOURCE
+  `git remote add -f #{REMOTE_SOURCE} #{REMOTE_REPO}`
+  puts('error with git remote add') & exit if $?.exitstatus != 0
+
+  `git remote update`
+  puts('error with git remote update') & exit if $?.exitstatus != 0
+end
+
+diff = PATHS.map do |path|
+  list = `git diff master:#{path} remotes/#{REMOTE_SOURCE}/master:frontend/#{path} --name-only`
+  puts("error with git diff #{path}") & exit if $?.exitstatus != 0
+
+  next if list.empty?
+
+  puts "\n> #{path} changed files"
+  puts list
+  path
+end.compact
+
+if diff.any?
+  path = diff.first
+  cmd = "git diff master:#{path} remotes/#{REMOTE_SOURCE}/master:frontend/#{path}"
+  puts "\n#{cmd}\n  to check the changes"
+end
