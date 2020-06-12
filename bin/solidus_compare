@@ -2,12 +2,17 @@
 
 # frozen_string_literal: true
 
+require 'json'
+require 'time'
+
 PATHS = [
   'app/controllers',
   'app/helpers',
 ]
 REMOTE_REPO = 'https://github.com/solidusio/solidus.git'
 REMOTE_SOURCE = 'solidus'
+
+options = ARGV.any? && ARGV[0] == '-r' ? ' --name-only' : nil
 
 if `git remote`.split("\n").none? REMOTE_SOURCE
   `git remote add -f #{REMOTE_SOURCE} #{REMOTE_REPO}`
@@ -18,18 +23,34 @@ if `git remote`.split("\n").none? REMOTE_SOURCE
 end
 
 diff = PATHS.map do |path|
-  list = `git diff master:#{path} remotes/#{REMOTE_SOURCE}/master:frontend/#{path} --name-only`
+  list = `git diff master:#{path} remotes/#{REMOTE_SOURCE}/master:frontend/#{path}#{options}`
   puts("error with git diff #{path}") & exit if $?.exitstatus != 0
 
   next if list.empty?
 
-  puts "\n> #{path} changed files"
-  puts list
-  path
+  puts list unless options
+  {
+    id: path,
+    description: "Compared: #{path}",
+    file_path: path,
+    diff: list,
+    status: :failed
+  }
 end.compact
 
-if diff.any?
-  path = diff.first
-  cmd = "git diff master:#{path} remotes/#{REMOTE_SOURCE}/master:frontend/#{path}"
-  puts "\n#{cmd}\n  to check the changes"
+if options
+  testcases = diff.map do |testcase|
+    <<~EOS
+    <testcase name="Changes detected in #{testcase[:file_path]}" file="#{testcase[:file_path]}" time="0">
+      <failure>#{testcase[:diff]}</failure>
+    </testcase>
+    EOS
+  end.join("\n")
+  output = <<~EOS
+    <?xml version="1.0" encoding="UTF-8"?>
+    <testsuite name="solidus_compare" tests="#{PATHS.size}" skipped="0" failures="#{diff.size}" errors="#{diff.size}" time="1" timestamp="#{Time.now.iso8601}">
+    #{testcases}
+    </testsuite>
+  EOS
+  puts output
 end
