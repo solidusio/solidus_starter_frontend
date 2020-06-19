@@ -6,13 +6,13 @@
   url = update_checkout_registration_path
 %>
 
-<%= form_for @order, as: :spree_user, url: url, method: :put, html: html do |f| %>
+<%= form_for @order, url: url, method: :put, html: html do |f| %>
   <div class="auth-form__input-wrapper">
     <%= render(
       "spree/components/forms/inputs/text",
       id: :spree_user_email,
       label: I18n.t("spree.email"),
-      name: :email,
+      name: 'order[email]',
       placeholder: "name@example.com",
       type: :email
     ) %>
