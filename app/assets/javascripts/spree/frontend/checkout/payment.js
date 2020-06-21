@@ -1,47 +1,44 @@
-Spree.ready(function($) {
-  Spree.onPayment = function() {
-    if ($("#checkout_form_payment").is("*")) {
-      if ($("#existing_cards").is("*")) {
-        $("#payment-method-fields").hide();
-        $(".payment-method-controls").hide();
+Spree.ready(() => {
+  const form = document.querySelector('#checkout_form_payment');
+  const existingCards = document.querySelector('#existing_cards');
 
-        $("#use_existing_card_yes").click(function() {
-          $("#payment-method-fields").hide();
-          $(".payment-method-controls").hide();
-          $(".existing-cc-radio").prop("disabled", false);
-        });
+  if (form) {
+    if (existingCards) {
+      const paymentMethodControls = document.querySelector('.payment-method-controls');
+      const useExistingCardYes = document.querySelector('#use_existing_card_yes');
+      const useExistingCardNo = document.querySelector('#use_existing_card_no');
+      const existingCcRadios = document.querySelectorAll('.existing-cc-radio');
 
-        $("#use_existing_card_no").click(function() {
-          $("#payment-method-fields").show();
-          $(".payment-method-controls").show();
-          $(".existing-cc-radio").prop("disabled", true);
-        });
-      }
+      paymentMethodControls.style.display = 'none';
 
-      $("#card_number").payment("formatCardNumber");
-      $("#card_expiry").payment("formatCardExpiry");
-      $("#card_code").payment("formatCardCVC");
-
-      $("#card_number").change(function() {
-        $(this)
-          .parent()
-          .siblings(".ccType")
-          .val($.payment.cardType(this.value));
+      useExistingCardYes.addEventListener('click', () => {
+        paymentMethodControls.style.display = 'none';
+        existingCcRadios.forEach(radio => radio.removeAttribute('disabled'));
       });
 
-      $(
-        'input[type="radio"][name="order[payments_attributes][][payment_method_id]"]'
-      ).click(function() {
-        $(".payment-method-controls li").hide();
-        if (this.checked) {
-          $("#payment_method_" + this.value).show();
+      useExistingCardNo.addEventListener('click', () => {
+        paymentMethodControls.style.display = 'block';
+        existingCcRadios.forEach(radio => radio.setAttribute('disabled', true));
+      });
+    }
+
+    const selectors = document
+      .querySelectorAll('input[type="radio"][name="order[payments_attributes][][payment_method_id]"]');
+
+    selectors.forEach(selector => {
+      selector.addEventListener('click', () => {
+        const controls = document.querySelectorAll('.payment-method-controls li');
+        controls.forEach(control => control.style.display = 'none');
+
+        if (selector.checked) {
+          const selectedControl = document.querySelector(`#payment_method_${selector.value}`);
+          selectedControl.style.display = 'block';
         }
       });
+    });
 
-      // Activate already checked payment method if form is re-rendered
-      // i.e. if user enters invalid data
-      $('input[type="radio"]:checked').click();
-    }
-  };
-  Spree.onPayment();
+    // Activate already checked payment method if form is re-rendered
+    // i.e. if user enters invalid data
+    document.querySelector('input[type="radio"]:checked').click();
+  }
 });
