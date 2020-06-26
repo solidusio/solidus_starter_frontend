@@ -87,6 +87,7 @@ describe 'Coupon code promotions', type: :system, js: true do
         before do
           allow_any_instance_of(Spree::CheckoutController).to receive_messages(try_spree_current_user: user)
           allow_any_instance_of(Spree::OrdersController).to receive_messages(try_spree_current_user: user)
+          allow_any_instance_of(Spree::CouponCodesController).to receive_messages(try_spree_current_user: user)
         end
 
         context 'with saved credit card' do

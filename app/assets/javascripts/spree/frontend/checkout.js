@@ -2,7 +2,6 @@
 //= require_self
 //= require spree/frontend/checkout/address
 //= require spree/frontend/checkout/payment
-//= require spree/frontend/checkout/coupon-code
 
 Spree.disableSaveOnClick = function() {
   $("form.edit_order").submit(function() {

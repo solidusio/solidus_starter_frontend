@@ -16,11 +16,11 @@ module Spree
           format.html do
             if handler.successful?
               flash[:success] = handler.success
-              redirect_to cart_path
             else
-              flash.now[:error] = handler.error
-              render 'spree/coupon_codes/new'
+              flash[:error] = handler.error
             end
+
+            redirect_back fallback_location: cart_path
           end
         end
       end
