@@ -8,17 +8,6 @@ require 'time'
 require 'yaml'
 require 'zlib'
 
-PROJECT_PATHS = [
-  'app/controllers',
-  'app/helpers',
-]
-PROJECT_BRANCH = 'master'
-
-SOURCE_REPO = 'https://github.com/solidusio/solidus.git'
-SOURCE_NAME = 'solidus'
-SOURCE_BRANCH = 'master'
-SOURCE_BASE_PATH = 'frontend/'
-
 CONFIG_PATH = 'config/solidus_compare.yml'
 
 @config = {}
@@ -35,8 +24,6 @@ end
 # ---------------------------------------------------------------------------- #
 
 def generate_comparison(report)
-  @config = YAML.load_file(CONFIG_PATH).deep_symbolize_keys if File.exists?(CONFIG_PATH)
-  @config[:ignore] ||= []
   report.each do |data|
     conf = @config[:ignore].find { |cfg| cfg[:path] == data[:path] }
     diffs = conf ? ( conf[:diffs] || [] ) : []
@@ -65,12 +52,23 @@ def generate_summary(report)
   puts output
 end
 
+def load_config
+  @config = YAML.load_file(CONFIG_PATH).deep_symbolize_keys if File.exists?(CONFIG_PATH)
+  @config[:ignore] ||= []
+  @config[:project_paths] ||= []
+  @config[:project_branch] ||= 'master'
+  @config[:source_repo] ||= 'https://github.com/solidusio/solidus.git'
+  @config[:source_name] ||= 'solidus'
+  @config[:source_branch] ||= 'master'
+  @config[:source_base_path] ||= 'frontend/'
+end
+
 def solidus_compare
-  report = PROJECT_PATHS.map do |path|
+  report = @config[:project_paths].map do |path|
     extra = ''
     extra += ' --compact-summary' if @cmd_options[:summary]
-    remote_source = "remotes/#{SOURCE_NAME}/#{SOURCE_BRANCH}:#{SOURCE_BASE_PATH}#{path}"
-    result = `git diff #{PROJECT_BRANCH}:#{path} #{remote_source}#{extra}`
+    remote_source = "remotes/#{@config[:source_name]}/#{@config[:source_branch]}:#{@config[:source_base_path]}#{path}"
+    result = `git diff #{@config[:project_branch]}:#{path} #{remote_source}#{extra}`
     puts("error with git diff #{path}") & exit if $?.exitstatus != 0
 
     if @cmd_options[:summary]
@@ -112,8 +110,8 @@ def update_ignore(report)
 end
 
 def update_source
-  if `git remote`.split("\n").none? SOURCE_NAME
-    `git remote add -f #{SOURCE_NAME} #{SOURCE_REPO}`
+  if `git remote`.split("\n").none? @config[:source_name]
+    `git remote add -f #{@config[:source_name]} #{@config[:source_repo]}`
     puts('error with git remote add') & exit if $?.exitstatus != 0
   end
 
@@ -123,5 +121,6 @@ end
 
 # ---------------------------------------------------------------------------- #
 
+load_config
 update_source
 solidus_compare

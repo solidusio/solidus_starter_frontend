@@ -1,4 +1,12 @@
 ---
+project_paths:
+- app/controllers
+- app/helpers
+project_branch: master
+source_repo: https://github.com/solidusio/solidus.git
+source_name: solidus
+source_branch: master
+source_base_path: frontend/
 ignore:
 - path: app/controllers
   diffs:
