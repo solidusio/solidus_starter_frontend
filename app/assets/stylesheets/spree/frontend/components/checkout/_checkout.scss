@@ -1,20 +1,27 @@
 .checkout {
   margin: 0 auto;
   max-width: 86rem;
-  padding: 8rem 2rem;
+  padding: 1rem 3rem;
 
-  &__main {
-    display: flex;
-  }
+  @include desktop {
+    padding: 8rem 3rem;
 
-  &__step {
-    flex-grow: 1;
+    &__main {
+      display: flex;
+    }
+
+    &__step {
+      flex-grow: 1;
+    }
   }
 
   &__summary {
-    flex-basis: 28rem;
-    flex-grow: 0;
-    flex-shrink: 0;
-    padding-left: 2rem;
+    margin-top: 3rem;
+
+    @include desktop {
+      flex: 0 0 28rem;
+      margin-top: 0;
+      padding-left: 2rem;
+    }
   }
 }
