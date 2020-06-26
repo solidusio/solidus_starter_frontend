@@ -2,55 +2,126 @@
 
 # frozen_string_literal: true
 
+require 'active_support/core_ext/hash/keys'
 require 'json'
 require 'time'
+require 'yaml'
+require 'zlib'
 
-PATHS = [
+PROJECT_PATHS = [
   'app/controllers',
   'app/helpers',
 ]
-REMOTE_REPO = 'https://github.com/solidusio/solidus.git'
-REMOTE_SOURCE = 'solidus'
+PROJECT_BRANCH = 'master'
 
-options = ARGV.any? && ARGV[0] == '-r' ? ' --name-only' : nil
+SOURCE_REPO = 'https://github.com/solidusio/solidus.git'
+SOURCE_NAME = 'solidus'
+SOURCE_BRANCH = 'master'
+SOURCE_BASE_PATH = 'frontend/'
 
-if `git remote`.split("\n").none? REMOTE_SOURCE
-  `git remote add -f #{REMOTE_SOURCE} #{REMOTE_REPO}`
-  puts('error with git remote add') & exit if $?.exitstatus != 0
+CONFIG_PATH = 'config/solidus_compare.yml'
 
-  `git remote update`
-  puts('error with git remote update') & exit if $?.exitstatus != 0
+@config = {}
+@cmd_options = {}
+ARGV.each do |arg|
+  case arg
+  when '-s', '--summary'
+    @cmd_options[:summary] = true
+  when '-u', '--update-ignore'
+    @cmd_options[:update] = true
+  end
 end
 
-diff = PATHS.map do |path|
-  list = `git diff master:#{path} remotes/#{REMOTE_SOURCE}/master:frontend/#{path}#{options}`
-  puts("error with git diff #{path}") & exit if $?.exitstatus != 0
+# ---------------------------------------------------------------------------- #
 
-  next if list.empty?
+def generate_comparison(report)
+  @config = YAML.load_file(CONFIG_PATH).deep_symbolize_keys if File.exists?(CONFIG_PATH)
+  @config[:ignore] ||= []
+  report.each do |data|
+    conf = @config[:ignore].find { |cfg| cfg[:path] == data[:path] }
+    diffs = conf ? ( conf[:diffs] || [] ) : []
+    data[:diffs].each do |result|
+      next if diffs.find { |diff| diff[:hash] == result[:hash] }
 
-  puts list unless options
-  {
-    id: path,
-    description: "Compared: #{path}",
-    file_path: path,
-    diff: list,
-    status: :failed
-  }
-end.compact
+      puts result[:diff]
+    end
+  end
+  update_ignore(report) if @cmd_options[:update]
+end
 
-if options
-  testcases = diff.map do |testcase|
-    <<~EOS
-    <testcase name="Changes detected in #{testcase[:file_path]}" file="#{testcase[:file_path]}" time="0">
-      <failure>#{testcase[:diff]}</failure>
-    </testcase>
-    EOS
+def generate_summary(report)
+  testcases = report.map do |testcase|
+    name = testcase[:status] == :failed ? 'Changes detected ' : 'No changes '
+    name += "in #{testcase[:file_path]}"
+    "<testcase name=\"#{name}\" file=\"#{testcase[:file_path]}\" time=\"0\">#{testcase[:failure]}</testcase>"
   end.join("\n")
+  failures = report.count { |testcase| testcase[:status] == :failed }
   output = <<~EOS
     <?xml version="1.0" encoding="UTF-8"?>
-    <testsuite name="solidus_compare" tests="#{PATHS.size}" skipped="0" failures="#{diff.size}" errors="#{diff.size}" time="1" timestamp="#{Time.now.iso8601}">
+    <testsuite name="solidus_compare" tests="#{report.size}" skipped="0" failures="#{failures}" errors="#{failures}" time="1" timestamp="#{Time.now.iso8601}">
     #{testcases}
     </testsuite>
   EOS
   puts output
 end
+
+def solidus_compare
+  report = PROJECT_PATHS.map do |path|
+    extra = ''
+    extra += ' --compact-summary' if @cmd_options[:summary]
+    remote_source = "remotes/#{SOURCE_NAME}/#{SOURCE_BRANCH}:#{SOURCE_BASE_PATH}#{path}"
+    result = `git diff #{PROJECT_BRANCH}:#{path} #{remote_source}#{extra}`
+    puts("error with git diff #{path}") & exit if $?.exitstatus != 0
+
+    if @cmd_options[:summary]
+      {
+        path: path,
+        description: "Compared: #{path}",
+        file_path: path,
+        failure: result.empty? ? '' : "<failure>#{result}</failure>",
+        status: result.empty? ? :success : :failed
+      }
+    else
+      diffs = result.split(/diff --git /)[1..]
+      next unless diffs
+
+      {
+        path: path,
+        diffs: diffs.map do |diff|
+          {
+            hash: Zlib::crc32(diff),
+            file: diff.match(/a\/([^\s]+)/)&.send(:[], 1),
+            diff: 'diff --git ' + diff
+          }
+        end
+      }
+  end
+  end.compact
+
+  @cmd_options[:summary] ? generate_summary(report) : generate_comparison(report)
+end
+
+def update_ignore(report)
+  report.each do |data|
+    data[:diffs].each do |result|
+      result.delete(:diff)
+    end
+  end.compact
+  @config[:ignore] = report
+  File.open(CONFIG_PATH, 'w') { |f| f.puts(@config.deep_stringify_keys.to_yaml) }
+end
+
+def update_source
+  if `git remote`.split("\n").none? SOURCE_NAME
+    `git remote add -f #{SOURCE_NAME} #{SOURCE_REPO}`
+    puts('error with git remote add') & exit if $?.exitstatus != 0
+  end
+
+  `git remote update > /dev/null 2>&1`
+  puts('error with git remote update') & exit if $?.exitstatus != 0
+end
+
+# ---------------------------------------------------------------------------- #
+
+update_source
+solidus_compare

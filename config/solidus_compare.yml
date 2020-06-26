@@ -1,0 +1,8 @@
+---
+ignore:
+- path: app/controllers
+  diffs:
+  - hash: 3804005517
+    file: concerns/solidus_starter_frontend/auth_views.rb
+  - hash: 3208037425
+    file: concerns/solidus_starter_frontend/taxonomies.rb
