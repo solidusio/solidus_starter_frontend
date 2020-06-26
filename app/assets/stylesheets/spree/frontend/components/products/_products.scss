@@ -1,6 +1,5 @@
 .products {
   @extend %section-spacings;
-  display: flex;
   padding-top: 3rem;
 
   @include desktop {
