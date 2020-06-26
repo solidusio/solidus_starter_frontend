@@ -1,18 +1,23 @@
 .order-item {
-  align-items: center;
   border-bottom: solid 1px $color-border-light;
-  display: flex;
   font-size: 1.2rem;
   padding: 1rem 0;
+
+  @include desktop {
+    align-items: center;
+    display: flex;
+  }
 
   &:first-child {
     border-top: solid 1px $color-border-light;
   }
 
   &__image {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 18%;
+    @include desktop {
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 18%;
+    }
 
     img {
       max-width: 100%;
@@ -20,25 +25,57 @@
   }
 
   &__info {
-    flex-grow: 1;
-    padding-left: 4rem;
-    padding-right: 2rem;
+    @include desktop {
+      flex-grow: 1;
+      padding-left: 4rem;
+      padding-right: 2rem;
+    }
+  }
+
+  &__price-single {
+    float: left;
+    width: 90%;
+
+    @include desktop {
+      float: none;
+    }
   }
 
   &__price-single,
   &__price {
-    padding: 0 1rem;
+    text-align: right;
+
+    @include desktop {
+      padding: 0 1rem;
+      text-align: left;
+    }
   }
 
   &__price {
+    clear: both;
     font-size: 1.5rem;
   }
 
   &__quantity {
     flex-grow: 0;
     flex-shrink: 0;
+    float: right;
     text-align: center;
     width: 6%;
+
+    @include desktop {
+      float: none;
+    }
+  }
+
+  &__price-single,
+  &__quantity,
+  &__price {
+    padding-top: 1em;
+
+    @include desktop {
+      padding-top: 0;
+    }
   }
 
   &__remove {
