@@ -2,7 +2,6 @@
 
 # frozen_string_literal: true
 
-require 'active_support/core_ext/hash/keys'
 require 'json'
 require 'time'
 require 'yaml'
@@ -25,12 +24,12 @@ end
 
 def generate_comparison(report)
   report.each do |data|
-    conf = @config[:ignore].find { |cfg| cfg[:path] == data[:path] }
-    diffs = conf ? ( conf[:diffs] || [] ) : []
-    data[:diffs].each do |result|
-      next if diffs.find { |diff| diff[:hash] == result[:hash] }
+    conf = @config['ignore'].find { |cfg| cfg['path'] == data['path'] }
+    diffs = conf ? ( conf['diffs'] || [] ) : []
+    data['diffs'].each do |result|
+      next if diffs.find { |diff| diff['hash'] == result['hash'] }
 
-      puts result[:diff]
+      puts result['diff']
     end
   end
   update_ignore(report) if @cmd_options[:update]
@@ -38,11 +37,11 @@ end
 
 def generate_summary(report)
   testcases = report.map do |testcase|
-    name = testcase[:status] == :failed ? 'Changes detected ' : 'No changes '
-    name += "in #{testcase[:file_path]}"
-    "<testcase name=\"#{name}\" file=\"#{testcase[:file_path]}\" time=\"0\">#{testcase[:failure]}</testcase>"
+    name = testcase['status'] == :failed ? 'Changes detected ' : 'No changes '
+    name += "in #{testcase['file_path']}"
+    "<testcase name=\"#{name}\" file=\"#{testcase['file_path']}\" time=\"0\">#{testcase['failure']}</testcase>"
   end.join("\n")
-  failures = report.count { |testcase| testcase[:status] == :failed }
+  failures = report.count { |testcase| testcase['status'] == :failed }
   output = <<~EOS
     <?xml version="1.0" encoding="UTF-8"?>
     <testsuite name="solidus_compare" tests="#{report.size}" skipped="0" failures="#{failures}" errors="#{failures}" time="1" timestamp="#{Time.now.iso8601}">
@@ -53,43 +52,44 @@ def generate_summary(report)
 end
 
 def load_config
-  @config = YAML.load_file(CONFIG_PATH).deep_symbolize_keys if File.exists?(CONFIG_PATH)
-  @config[:ignore] ||= []
-  @config[:project_paths] ||= []
-  @config[:project_branch] ||= 'master'
-  @config[:source_repo] ||= 'https://github.com/solidusio/solidus.git'
-  @config[:source_name] ||= 'solidus'
-  @config[:source_branch] ||= 'master'
-  @config[:source_base_path] ||= 'frontend/'
+  @config = YAML.load_file(CONFIG_PATH) if File.exists?(CONFIG_PATH)
+  @config ||= {}
+  @config['ignore'] ||= []
+  @config['project_paths'] ||= []
+  @config['project_branch'] ||= 'master'
+  @config['source_repo'] ||= 'https://github.com/solidusio/solidus.git'
+  @config['source_name'] ||= 'solidus'
+  @config['source_branch'] ||= 'master'
+  @config['source_base_path'] ||= 'frontend/'
 end
 
 def solidus_compare
-  report = @config[:project_paths].map do |path|
+  report = @config['project_paths'].map do |path|
     extra = ''
     extra += ' --compact-summary' if @cmd_options[:summary]
-    remote_source = "remotes/#{@config[:source_name]}/#{@config[:source_branch]}:#{@config[:source_base_path]}#{path}"
-    result = `git diff #{@config[:project_branch]}:#{path} #{remote_source}#{extra}`
+    remote_source = "remotes/#{@config['source_name']}/#{@config['source_branch']}:#{@config['source_base_path']}#{path}"
+    result = `git diff #{@config['project_branch']}:#{path} #{remote_source}#{extra}`
     puts("error with git diff #{path}") & exit if $?.exitstatus != 0
 
     if @cmd_options[:summary]
       {
-        path: path,
-        description: "Compared: #{path}",
-        file_path: path,
-        failure: result.empty? ? '' : "<failure>#{result}</failure>",
-        status: result.empty? ? :success : :failed
+        'path' => path,
+        'description' => "Compared: #{path}",
+        'file_path' => path,
+        'failure' => result.empty? ? '' : "<failure>#{result}</failure>",
+        'status' => result.empty? ? :success : :failed
       }
     else
       diffs = result.split(/diff --git /)[1..]
       next unless diffs
 
       {
-        path: path,
-        diffs: diffs.map do |diff|
+        'path' => path,
+        'diffs' => diffs.map do |diff|
           {
-            hash: Zlib::crc32(diff),
-            file: diff.match(/a\/([^\s]+)/)&.send(:[], 1),
-            diff: 'diff --git ' + diff
+            'hash' => Zlib::crc32(diff),
+            'file' => diff.match(/a\/([^\s]+)/)&.send(:[], 1),
+            'diff' => 'diff --git ' + diff
           }
         end
       }
@@ -101,17 +101,17 @@ end
 
 def update_ignore(report)
   report.each do |data|
-    data[:diffs].each do |result|
-      result.delete(:diff)
+    data['diffs'].each do |result|
+      result.delete('diff')
     end
   end.compact
-  @config[:ignore] = report
-  File.open(CONFIG_PATH, 'w') { |f| f.puts(@config.deep_stringify_keys.to_yaml) }
+  @config['ignore'] = report
+  File.open(CONFIG_PATH, 'w') { |f| f.puts(@config.to_yaml) }
 end
 
 def update_source
-  if `git remote`.split("\n").none? @config[:source_name]
-    `git remote add -f #{@config[:source_name]} #{@config[:source_repo]}`
+  if `git remote`.split("\n").none? @config['source_name']
+    `git remote add -f #{@config['source_name']} #{@config['source_repo']}`
     puts('error with git remote add') & exit if $?.exitstatus != 0
   end
 
