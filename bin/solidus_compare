@@ -3,6 +3,7 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'pathname'
 require 'time'
 require 'yaml'
 require 'zlib'
@@ -36,19 +37,36 @@ def generate_comparison(report)
 end
 
 def generate_summary(report)
-  testcases = report.map do |testcase|
-    name = testcase['status'] == :failed ? 'Changes detected ' : 'No changes '
-    name += "in #{testcase['file_path']}"
-    "<testcase name=\"#{name}\" file=\"#{testcase['file_path']}\" time=\"0\">#{testcase['failure']}</testcase>"
+  summary = {}
+  report.each do |data|
+    path = data['path']
+    conf = @config['ignore'].find { |cfg| cfg['path'] == path }
+    diffs = conf ? ( conf['diffs'] || [] ) : []
+    data['diffs'].each do |result|
+      next if diffs.find { |diff| diff['hash'] == result['hash'] }
+
+      (summary[path] ||= {})[result['hash']] = result['file']
+    end
+  end
+
+  count = 0
+  testcases = summary.map do |file_path, value|
+    value.map do |hash, file|
+      count += 1
+      full_path = Pathname.new(file_path).join(file).to_s
+      "<testcase name=\"#{file}\" file=\"#{full_path}\" time=\"0\"><failure>hash: #{hash}\nfile: #{file}</failure></testcase>"
+    end
   end.join("\n")
-  failures = report.count { |testcase| testcase['status'] == :failed }
+
   output = <<~EOS
     <?xml version="1.0" encoding="UTF-8"?>
-    <testsuite name="solidus_compare" tests="#{report.size}" skipped="0" failures="#{failures}" errors="#{failures}" time="1" timestamp="#{Time.now.iso8601}">
+    <testsuite name="solidus_compare" tests="#{count}" skipped="0" failures="#{count}" errors="#{count}" time="1" timestamp="#{Time.now.iso8601}">
     #{testcases}
     </testsuite>
   EOS
   puts output
+
+  exit 1 if count.positive?
 end
 
 def load_config
@@ -65,35 +83,25 @@ end
 
 def solidus_compare
   report = @config['project_paths'].map do |path|
-    extra = ''
-    extra += ' --compact-summary' if @cmd_options[:summary]
     remote_source = "remotes/#{@config['source_name']}/#{@config['source_branch']}:#{@config['source_base_path']}#{path}"
-    result = `git diff #{@config['project_branch']}:#{path} #{remote_source}#{extra}`
+    result = `git diff #{@config['project_branch']}:#{path} #{remote_source}`
     puts("error with git diff #{path}") & exit if $?.exitstatus != 0
 
-    if @cmd_options[:summary]
-      {
-        'path' => path,
-        'description' => "Compared: #{path}",
-        'file_path' => path,
-        'failure' => result.empty? ? '' : "<failure>#{result}</failure>",
-        'status' => result.empty? ? :success : :failed
-      }
-    else
-      diffs = result.split(/diff --git /)[1..]
-      next unless diffs
+    diffs = result.split(/diff --git /)[1..]
+    next unless diffs
 
-      {
-        'path' => path,
-        'diffs' => diffs.map do |diff|
-          {
-            'hash' => Zlib::crc32(diff),
-            'file' => diff.match(/a\/([^\s]+)/)&.send(:[], 1),
-            'diff' => 'diff --git ' + diff
-          }
-        end
-      }
-  end
+    {
+      'path' => path,
+      'diffs' => diffs.map do |diff|
+        {
+          'hash' => Zlib::crc32(diff),
+          'file' => diff.match(/a\/([^\s]+)/)&.send(:[], 1),
+          'diff' => 'diff --git ' + diff
+        }
+      end
+    }
+
+    # end
   end.compact
 
   @cmd_options[:summary] ? generate_summary(report) : generate_comparison(report)
