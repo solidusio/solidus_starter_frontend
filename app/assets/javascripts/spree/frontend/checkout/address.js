@@ -1,123 +1,124 @@
-Spree.ready(function($) {
-  if ($("#checkout_form_address").is("*")) {
+Spree.ready(() => {
+  if (document.getElementById('checkout_form_address')) {
     // Hidden by default to support browsers with javascript disabled
-    $(".js-address-fields").show();
+    document.querySelectorAll('.js-address-fields')
+      .forEach(field => field.style.display = 'block');
 
-    var getCountryId = function(countrySelect) {
-      return countrySelect.val();
-    };
+    const statesCache = {};
 
-    var statesByCountry = {};
-
-    var updateState = function(stateContainer, countryId) {
-      if (statesByCountry[countryId] == null) {
-        $.get(
-          Spree.routes.states_search,
-          {
-            country_id: countryId
-          },
-          function(data) {
-            statesByCountry[countryId] = {
-              states: data.states,
-              states_required: data.states_required
-            };
-            fillStates(stateContainer, countryId);
-          }
-        );
-      } else {
+    function updateState(stateContainer, countryId) {
+      if (statesCache[countryId]) {
         fillStates(stateContainer, countryId);
-      }
-    };
-
-    var fillStates = function(stateContainer, countryId) {
-      var data = statesByCountry[countryId];
-      if (data == null) {
         return;
       }
-      var statesRequired = data.states_required;
-      var states = data.states;
-      var statePara = stateContainer
-      var stateSelect = statePara.find("select");
-      var stateInput = statePara.find("input");
-      if (states.length > 0) {
-        var selected = parseInt(stateSelect.val());
-        stateSelect.html("");
-        var statesWithBlank = [
-          {
-            name: "",
-            id: ""
-          }
-        ].concat(states);
-        $.each(statesWithBlank, function(idx, state) {
-          var opt;
-          opt = $(document.createElement("option"))
-            .attr("value", state.id)
-            .html(state.name);
-          if (selected === state.id) {
-            opt.prop("selected", true);
-          }
-          stateSelect.append(opt);
+
+      fetch(`${Spree.routes.states_search}?country_id=${countryId}`)
+        .then(response => response.json())
+        .then(data => {
+          statesCache[countryId] = {
+            states: data.states,
+            states_required: data.states_required
+          };
+          fillStates(stateContainer, countryId);
         });
-        stateSelect.prop("disabled", false).show();
-        stateInput.hide().prop("disabled", true);
-        statePara.show();
+    };
+
+    function fillStates(stateContainer, countryId) {
+      const stateData = statesCache[countryId];
+
+      if (!stateData) {
+        return;
+      }
+
+      const statesRequired = stateData.states_required;
+      const states = stateData.states;
+
+      const stateSelect = stateContainer.querySelector('select');
+      const stateInput = stateContainer.querySelector('input');
+
+      if (states.length > 0) {
+        const selected = parseInt(stateSelect.value);
+        stateSelect.innerHTML = '';
+        const statesWithBlank = [{ name: '', id: ''}].concat(states);
+        statesWithBlank.forEach(state => {
+          const selectOption = document.createElement('option');
+          selectOption.value = state.id;
+          selectOption.innerHTML = state.name;
+          if (selected === state.id) {
+            selectOption.setAttribute('selected', true);
+          }
+          stateSelect.appendChild(selectOption);
+        })
+        stateSelect.style.display = 'block';
+        stateSelect.removeAttribute('disabled');
+        stateInput.style.display = 'none';
+        stateInput.setAttribute('disabled', true);
+        stateContainer.style.display = 'block';
         if (statesRequired) {
-          stateSelect.addClass("required");
-          statePara.addClass("field-required");
+          stateSelect.classList.add('required');
+          stateContainer.classList.add('field-required');
         } else {
-          stateSelect.removeClass("required");
-          statePara.removeClass("field-required");
+          stateSelect.classList.remove('required');
+          stateContainer.classList.remove('field-required');
         }
-        stateInput.removeClass("required");
+        stateInput.classList.remove('required');
       } else {
-        stateSelect.hide().prop("disabled", true);
-        stateInput.show();
+        stateSelect.style.display = 'none';
+        stateSelect.setAttribute('disabled', true);
+        stateInput.style.display = 'block';
         if (statesRequired) {
-          statePara.addClass("field-required");
-          stateInput.addClass("required");
+          stateContainer.classList.add('field-required');
+          stateInput.classList.add('required');
         } else {
-          stateInput.val("");
-          statePara.removeClass("field-required");
-          stateInput.removeClass("required");
+          stateInput.value = '';
+          stateContainer.classList.remove('field-required');
+          stateInput.classList.remove('required');
         }
-        statePara.toggle(!!statesRequired);
-        stateInput.prop("disabled", !statesRequired);
-        stateSelect.removeClass("required");
+        stateContainer.style.display = !!statesRequired ? 'block' : 'none';
+        if (!statesRequired) {
+          stateInput.setAttribute('disabled', true);
+        } else {
+          stateInput.removeAttribute('disabled');
+        }
+        stateSelect.classList.remove('required');
       }
     };
 
-    $(".js-trigger-state-change").change(function() {
-      var stateContainer = $( $(this).data("state-container")) ;
-      if (stateContainer.is("*")) {
-        countryId = getCountryId($(this));
-        updateState(stateContainer, countryId);
-      }
+    document.querySelectorAll('.js-trigger-state-change').forEach(element => {
+      element.addEventListener('change', () => {
+        const stateContainer = document.querySelector(element.dataset.stateContainer);
+        if (stateContainer) {
+          const countryId = element.value;
+          updateState(stateContainer, countryId);
+        }
+      });
     });
 
-    $(".js-trigger-state-change:visible").trigger("change");
-
-    var order_use_billing = $("input#order_use_billing");
-    order_use_billing.change(function() {
-      update_shipping_form_state(order_use_billing);
+    document.querySelectorAll('.js-trigger-state-change:not([hidden])').forEach(element => {
+      element.dispatchEvent(new Event('change'));
     });
 
-    var update_shipping_form_state = function(order_use_billing) {
-      if (order_use_billing.is(":checked")) {
-        $("#shipping .address-inputs").hide();
-        $("#shipping .address-inputs input, #shipping .address-inputs select").prop(
-          "disabled",
-          true
-        );
+    const orderUseBilling = document.getElementById('order_use_billing');
+    orderUseBilling.addEventListener('change', function() {
+      update_shipping_form_state(orderUseBilling);
+    });
+
+    function update_shipping_form_state(order_use_billing) {
+      const addressInputs = document.querySelectorAll('#shipping .address-inputs');
+      const inputs = document.querySelectorAll('#shipping .address-inputs input');
+      const selects = document.querySelectorAll('#shipping .address-inputs select');
+      if (order_use_billing.checked) {
+        addressInputs.forEach(addressInput => addressInput.style.display = 'none');
+        inputs.forEach(input => input.setAttribute('disabled', true));
+        selects.forEach(sel => sel.setAttribute('disabled', true));
       } else {
-        $("#shipping .address-inputs").show();
-        $("#shipping .address-inputs input, #shipping .address-inputs select").prop(
-          "disabled",
-          false
-        );
-        $("#shipping .js-trigger-state-change").trigger("change");
+        addressInputs.forEach(addressInput => addressInput.style.display = 'block');
+        inputs.forEach(input => input.removeAttribute('disabled'));
+        selects.forEach(sel => sel.removeAttribute('disabled'));
+        document.querySelector('#shipping .js-trigger-state-change').dispatchEvent(new Event('change'));
       }
     };
 
-    update_shipping_form_state(order_use_billing);
+    update_shipping_form_state(orderUseBilling);
   }
 });
