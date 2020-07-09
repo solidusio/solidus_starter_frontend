@@ -7,7 +7,7 @@
     id: "name_on_card_#{payment_method.id}",
     label: t('spree.name_on_card'),
     name: "#{param_prefix}[name]",
-    value: @order.billing_name
+    value: "#{@order.billing_firstname} #{@order.billing_lastname}"
   ) %>
 
   <%= render(
