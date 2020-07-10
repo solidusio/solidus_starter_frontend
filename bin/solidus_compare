@@ -82,7 +82,6 @@ def load_config
   @config ||= {}
   @config['ignore'] ||= []
   @config['project_paths'] ||= []
-  @config['project_branch'] ||= 'master'
   @config['source_repo'] ||= 'https://github.com/solidusio/solidus.git'
   @config['source_name'] ||= 'solidus'
   @config['source_branch'] ||= 'master'
@@ -91,8 +90,9 @@ end
 
 def solidus_compare
   report = @config['project_paths'].map do |path|
-    remote_source = "remotes/#{@config['source_name']}/#{@config['source_branch']}:#{@config['source_base_path']}#{path}"
-    result = `git diff #{@config['project_branch']}:#{path} #{remote_source}`
+    remote_source = "remotes/#{@config['source_name']}/#{@config['source_branch']}"
+    remote_path = "#{@config['source_base_path']}#{path}"
+    result = `git diff "#{remote_source}" -- "#{remote_path}" "#{path}"`
     puts("error with git diff #{path}") & exit if $?.exitstatus != 0
 
     diffs = result.split(/diff --git /)[1..]
@@ -101,12 +101,14 @@ def solidus_compare
     {
       'path' => path,
       'diffs' => diffs.map do |diff|
+        next if diff.include? 'similarity index 100%'
+
         {
           'hash' => Zlib::crc32(diff),
           'file' => diff.match(/a\/([^\s]+)/)&.send(:[], 1),
           'diff' => 'diff --git ' + diff
         }
-      end
+      end.compact
     }
 
     # end
