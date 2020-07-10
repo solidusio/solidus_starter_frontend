@@ -8,7 +8,7 @@ rubocop:
 
 scss-lint:
   enabled: true
-  version: 0.50.2
+  version: 0.57.1 
   config_file: .scss-lint.yml
 
 eslint:

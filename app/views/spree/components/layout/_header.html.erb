@@ -1,15 +1,8 @@
 <header class="header">
   <div class="header__secondary-navigation">
-    <div class="header__secondary-navigation__content">
-      <%= render partial: 'spree/components/brand/logo' %>
-      <%= render partial: 'spree/components/search/search_bar' %>
-      <%= render partial: 'spree/components/navigation/auth_link' %>
-      <%= render partial: 'spree/components/cart/cart_link' %>
-    </div>
+    <%= render partial: 'spree/components/layout/top_bar' %>
   </div>
   <div class="header__primary-navigation">
-    <div class="header__primary-navigation__content">
-      <%= render partial: 'spree/components/navigation/categories' %>
-    </div>
+    <%= render partial: 'spree/components/layout/category_navigation' %>
   </div>
 </header>

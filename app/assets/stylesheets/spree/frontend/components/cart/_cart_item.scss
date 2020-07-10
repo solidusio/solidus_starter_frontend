@@ -1,53 +1,85 @@
 .cart-item {
-  align-items: center;
   border-bottom: solid 1px $color-border-light;
-  display: flex;
   font-size: 1.3rem;
   padding: 2rem 0;
+
+  @include desktop {
+    align-items: center;
+    display: flex;
+
+    > * {
+      margin-bottom: 0;
+    }
+
+    &__image {
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 20%;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    &__info {
+      flex-grow: 1;
+      padding-left: 4rem;
+      padding-right: 2rem;
+    }
+
+    &__price-single,
+    &__price {
+      padding: 0 1rem;
+    }
+
+    &__quantity,
+    &__price,
+    &__remove {
+      margin: 0;
+    }
+
+    &__price {
+      font-size: 1.5rem;
+    }
+
+    &__quantity {
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 10%;
+    }
+
+    &__remove {
+      text-align: right;
+      width: 12%;
+    }
+  }
+
+  > * {
+    margin-bottom: 1rem;
+  }
 
   &:first-child {
     border-top: solid 1px $color-border-light;
   }
 
   &__image {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 20%;
-
-    img {
-      max-width: 100%;
-    }
+    text-align: center;
   }
 
-  &__info {
-    flex-grow: 1;
-    padding-left: 4rem;
-    padding-right: 2rem;
-  }
-
-  &__price-single,
-  &__price {
-    padding: 0 1rem;
-  }
-
-  &__price {
-    font-size: 1.5rem;
-  }
-
-  &__quantity {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 6%;
+  &__quantity,
+  &__price,
+  &__remove {
+    margin: 10px 0 10px auto;
+    text-align: right;
+    width: 10rem;
   }
 
   &__remove {
-    text-align: right;
-    width: 12%;
-
     > input {
       background: transparent;
       border: 0;
       cursor: pointer;
+      padding: 0;
       text-decoration: underline;
     }
   }

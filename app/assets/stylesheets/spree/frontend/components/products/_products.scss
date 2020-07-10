@@ -1,7 +1,10 @@
 .products {
   @extend %section-spacings;
-  display: flex;
   padding-top: 3rem;
+
+  @include desktop {
+    display: flex;
+  }
 
   &__results-title,
   &__taxon-title {
