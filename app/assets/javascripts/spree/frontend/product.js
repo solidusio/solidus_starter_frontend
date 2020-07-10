@@ -1,4 +1,4 @@
-Spree.ready(() => {
+window.addEventListener('DOMContentLoaded', () => {
   function updateVariantPrice(variant) {
     const variantPrice = variant.dataset.price;
     if (variantPrice) {

@@ -14,7 +14,7 @@ Spree.disableSaveOnClick = () => {
   });
 };
 
-Spree.ready(() => {
+window.addEventListener('DOMContentLoaded', () => {
   const termsCheckbox = document.getElementById('accept_terms_and_conditions');
 
   if (termsCheckbox) {

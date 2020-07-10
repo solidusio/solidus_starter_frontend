@@ -1,4 +1,4 @@
-Spree.ready(() => {
+window.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('#checkout_form_payment');
   const existingCards = document.querySelector('#existing_cards');
 

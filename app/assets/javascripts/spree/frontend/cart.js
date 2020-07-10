@@ -1,4 +1,4 @@
-Spree.ready(() => {
+window.addEventListener('DOMContentLoaded', () => {
   const cartForm = document.getElementById('update-cart');
 
   if (cartForm) {
