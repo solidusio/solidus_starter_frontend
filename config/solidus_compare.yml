@@ -9,7 +9,25 @@ source_base_path: frontend/
 ignore:
 - path: app/controllers
   diffs:
-  - skip: true
-    file: app/controllers/concerns/solidus_starter_frontend/auth_views.rb
-  - skip: true
-    file: app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
+  - file: app/controllers/concerns/solidus_starter_frontend/auth_views.rb
+    skip: true
+  - file: app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
+    skip: true
+  - hash: 112670409
+    file: frontend/app/controllers/spree/checkout_controller.rb
+  - hash: 3472887099
+    file: frontend/app/controllers/spree/coupon_codes_controller.rb
+  - hash: 713879687
+    file: frontend/app/controllers/spree/home_controller.rb
+  - hash: 2321464385
+    file: frontend/app/controllers/spree/orders_controller.rb
+  - hash: 2868352283
+    file: frontend/app/controllers/spree/products_controller.rb
+  - hash: 3601491111
+    file: frontend/app/controllers/spree/store_controller.rb
+  - hash: 3320639898
+    file: frontend/app/controllers/spree/taxons_controller.rb
+  - hash: 3582561552
+    file: frontend/app/controllers/spree/content_controller.rb
+- path: app/helpers
+  diffs: []
