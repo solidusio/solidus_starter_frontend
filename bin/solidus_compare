@@ -28,7 +28,14 @@ def generate_comparison(report)
     conf = @config['ignore'].find { |cfg| cfg['path'] == data['path'] }
     diffs = conf ? ( conf['diffs'] || [] ) : []
     data['diffs'].each do |result|
-      next if diffs.find { |diff| diff['hash'] == result['hash'] }
+      info = diffs.find { |diff| diff['file'] == result['file'] } || {}
+      if info['skip']
+        result['skip'] = true
+        result.delete 'hash'
+        next
+      elsif info['hash'] == result['hash']
+        next
+      end
 
       puts result['diff']
     end
@@ -43,7 +50,8 @@ def generate_summary(report)
     conf = @config['ignore'].find { |cfg| cfg['path'] == path }
     diffs = conf ? ( conf['diffs'] || [] ) : []
     data['diffs'].each do |result|
-      next if diffs.find { |diff| diff['hash'] == result['hash'] }
+      info = diffs.find { |diff| diff['file'] == result['file'] } || {}
+      next if info['skip'] || info['hash'] == result['hash']
 
       (summary[path] ||= {})[result['hash']] = result['file']
     end
