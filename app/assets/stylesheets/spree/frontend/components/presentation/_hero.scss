@@ -10,6 +10,9 @@
 
   &__message {
     padding-right: 2rem;
-    width: 50%;
+
+    @include desktop {
+      width: 50%;
+    }
   }
 }
