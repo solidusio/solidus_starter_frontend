@@ -1,0 +1,15 @@
+---
+project_paths:
+- app/controllers
+- app/helpers
+source_repo: https://github.com/solidusio/solidus.git
+source_name: solidus
+source_branch: master
+source_base_path: frontend/
+ignore:
+- path: app/controllers
+  diffs:
+  - skip: true
+    file: app/controllers/concerns/solidus_starter_frontend/auth_views.rb
+  - skip: true
+    file: app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
