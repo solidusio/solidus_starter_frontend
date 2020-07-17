@@ -1,4 +1,4 @@
-Spree.ready(() => {
+window.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('checkout_form_address')) {
     // Hidden by default to support browsers with javascript disabled
     document.querySelectorAll('.js-address-fields')
@@ -12,7 +12,7 @@ Spree.ready(() => {
         return;
       }
 
-      fetch(`${Spree.routes.states_search}?country_id=${countryId}`)
+      fetch(`${Solidus.routes.states_search}?country_id=${countryId}`)
         .then(response => response.json())
         .then(data => {
           statesCache[countryId] = {
