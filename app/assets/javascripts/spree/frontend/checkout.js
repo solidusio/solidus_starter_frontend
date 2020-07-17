@@ -2,7 +2,7 @@
 //= require spree/frontend/checkout/address
 //= require spree/frontend/checkout/payment
 
-Spree.disableSaveOnClick = () => {
+Solidus.disableSaveOnClick = () => {
   const form = document.querySelector('form.edit_order');
   form.addEventListener('submit', () => {
     const elements = form.querySelectorAll('[type="submit"], [type="image"]');

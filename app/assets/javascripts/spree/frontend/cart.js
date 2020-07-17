@@ -17,8 +17,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-Spree.fetch_cart = (cartLinkUrl) => {
-  fetch(cartLinkUrl || Spree.pathFor('cart_link'))
+Solidus.fetch_cart = (cartLinkUrl) => {
+  fetch(cartLinkUrl || Solidus.pathFor('cart_link'))
     .then(response => response.text())
     .then(html => {
       document.getElementById('link-to-cart').innerHTML = html;

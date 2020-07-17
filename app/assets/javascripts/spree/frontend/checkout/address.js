@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      fetch(`${Spree.routes.states_search}?country_id=${countryId}`)
+      fetch(`${Solidus.routes.states_search}?country_id=${countryId}`)
         .then(response => response.json())
         .then(data => {
           statesCache[countryId] = {
