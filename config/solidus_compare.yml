@@ -13,7 +13,7 @@ ignore:
     skip: true
   - file: app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
     skip: true
-  - hash: 112670409
+  - hash: 1680624412
     file: frontend/app/controllers/spree/checkout_controller.rb
   - hash: 3472887099
     file: frontend/app/controllers/spree/coupon_codes_controller.rb
