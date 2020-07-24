@@ -28,32 +28,26 @@ exclude it and manually include all the other Solidus componenents.
 
 You need to replace:
 
-```
+```ruby
 gem 'solidus'
 ```
 
 with:
 
-```
+```ruby
 gem 'solidus_core'
 gem 'solidus_api'
 gem 'solidus_backend'
 gem 'solidus_sample'
-gem "solidus_starter_frontend"
 ```
 
-If Solidus was already installed, you have to run:
+Install our binary in the system: `gem install solidus_starter_frontend`
 
-```
-bundle
-bundle exec rails g solidus_starter_frontend:install
-```
+Execute our generator that will copy our component files in your project:
+`solidus_starter_frontend`
 
-and change all `Spree::Frontend::Config` in `SolidusStarterFrontend::Config`.
-
-If it's the first Solidus installation you need to run the Solidus install
-before `bundle exec rails g solidus_starter_frontend:install`.
-Please, take a look at the [Solidus README](https://github.com/solidusio/solidus#installation-options).
+If Solidus was already installed with solidus_frontend you will have to change
+all `Spree::Frontend::Config` in `SolidusStarterFrontend::Config`.
 
 ## Customization
 
