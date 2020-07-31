@@ -1,4 +1,4 @@
-<% categories = Spree::Taxonomy.includes(root: :children).first %>
+<% categories = taxonomies.first %>
 
 <nav class="categories">
   <% cache [I18n.locale, categories, @taxon] do %>
