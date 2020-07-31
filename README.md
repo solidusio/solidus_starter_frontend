@@ -44,36 +44,10 @@ gem 'solidus_sample'
 Install our binary in the system: `gem install solidus_starter_frontend`
 
 Execute our generator that will copy our component files in your project:
-`solidus_starter_frontend`
+`solidus_starter_frontend`. Now you can start to customize your local views.
 
 If Solidus was already installed with solidus_frontend you will have to change
 all `Spree::Frontend::Config` in `SolidusStarterFrontend::Config`.
-
-## Customization
-
-In order to customize a view you should copy the file into your host app.
-Using Deface is not recommended as it provides lots of headaches while
-debugging and degrades your shops performance.
-
-Solidus provides a generator to help with copying the right view into your host
-app.
-
-Simply call the generator to copy all views into your host app:
-```bash
-$ bundle exec rails g solidus_starter_frontend:views:override
-```
-
-If you only want to copy certain views into your host app, you can provide the
-`--only` argument:
-```bash
-$ bundle exec rails g solidus_starter_frontend:views:override --only products/show
-```
-
-The argument to `--only` can also be a substring of the name of the view from
-the `app/views/spree` folder:
-```bash
-$ bundle exec rails g solidus_starter_frontend:views:override --only product
-```
 
 ## About
 
