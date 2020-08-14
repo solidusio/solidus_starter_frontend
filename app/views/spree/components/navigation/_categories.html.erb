@@ -1,7 +1,6 @@
 <% categories = Spree::Taxonomy.includes(root: :children).first %>
 
 <nav class="categories">
-  <%= link_to 'All', products_path %>
   <% cache [I18n.locale, categories, @taxon] do %>
     <%= render(
       'spree/components/navigation/taxons_tree',
