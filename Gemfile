@@ -8,6 +8,7 @@ gem 'solidus_core', github: 'solidusio/solidus', branch: branch
 gem 'solidus_api', github: 'solidusio/solidus', branch: branch
 gem 'solidus_backend', github: 'solidusio/solidus', branch: branch
 gem 'solidus_sample', github: 'solidusio/solidus', branch: branch
+gem 'solidus_i18n', github: 'solidusio/solidus_i18n', branch: branch
 
 # Needed to help Bundler figure out how to resolve dependencies,
 # otherwise it takes forever to resolve them.
