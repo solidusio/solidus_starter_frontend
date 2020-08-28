@@ -10,7 +10,7 @@
 %>
 
 <% if available_locales.many? %>
-  <div class="locale-selector">
+  <div class="locale-selector" data-module="locale-selector">
     <%= form_tag spree.select_locale_path do %>
       <%= render(
         "spree/components/forms/inputs/select_input",
