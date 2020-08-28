@@ -25,7 +25,7 @@
       </header>
       <section class="product-card_price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <% if price = product.price_for(current_pricing_options) %>
-          <span class="price selling" itemprop="price" content="<%= price.to_d %>">
+          <span itemprop="price" content="<%= price.to_d %>">
             <%= price.to_html %>
           </span>
         <% end %>

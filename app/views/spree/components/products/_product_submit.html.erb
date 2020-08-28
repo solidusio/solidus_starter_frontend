@@ -1,7 +1,7 @@
 <div class="product-submit" id="product-price">
   <h2 class="product-submit__title">
     <span
-      class="price selling"
+      data-module="product-price"
       itemprop="price"
       content="<%= @product.price_for(current_pricing_options).to_d %>"
     >
