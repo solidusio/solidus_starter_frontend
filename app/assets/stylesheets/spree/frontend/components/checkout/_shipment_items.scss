@@ -1,7 +1,7 @@
 .shipment-items {
   font-size: 1.4rem;
   list-style-type: none;
-  margin: 0;
+  margin: 0 0 3rem;
   padding: 0;
 
   > li {
@@ -17,7 +17,7 @@
 
   &__name {
     flex-grow: 1;
-    font-weight: 500;
+    font-weight: $font-weight-bold;
     padding: 0 2rem;
   }
 
@@ -32,7 +32,7 @@
   }
 
   &__quantity {
-    font-size: 1.3rem;
+    font-weight: $font-weight-bold;
     text-align: right;
 
     &::before {

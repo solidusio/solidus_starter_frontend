@@ -1,20 +1,21 @@
 .order-shipments {
   &__title {
     display: inline;
-    font-size: 1.3rem;
+    font-size: $font-size-small - .1;
+    font-weight: $font-weight-bold;
   }
 
   &__edit {
-    font-size: 1.1rem;
+    font-size: $font-size-small - .1;
     margin-left: .3rem;
     text-decoration: none;
   }
 
   &__info {
-    font-size: 1.2rem;
-    margin: 1rem 0 0;
+    font-size: $font-size-small;
+    list-style-type: none;
+    margin: 0;
     padding: 0;
-    padding-left: 1.8rem;
 
     > li {
       margin: .5rem 0;

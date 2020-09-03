@@ -1,5 +1,5 @@
 .checkout-header {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 
   @include tablet {
     align-items: center;
@@ -8,8 +8,8 @@
   }
 
   &__title {
-    font-size: 2.6rem;
-    font-weight: 700;
+    font-size: $h4-font-size;
+    margin-bottom: 0;
     margin-right: 0;
 
     @include tablet {

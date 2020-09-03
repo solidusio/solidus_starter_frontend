@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   font-size: $font-size-small;
-  margin: 4rem 0;
+  margin: 3rem 0;
 
   &__total {
     flex-grow: 1;
@@ -11,7 +11,7 @@
 
     > strong {
       font-size: $font-size-large;
-      font-weight: $font-weight-bold;
+      font-weight: $font-weight-bolder;
     }
   }
 

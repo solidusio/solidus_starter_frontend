@@ -32,8 +32,12 @@ button {
 }
 
 label {
-  font-weight: $font-weight-bold;
+  font-weight: $label-font-weight;
   margin-bottom: 1rem;
+}
+
+legend {
+  font-weight: $legend-font-weight;
 }
 
 code,
