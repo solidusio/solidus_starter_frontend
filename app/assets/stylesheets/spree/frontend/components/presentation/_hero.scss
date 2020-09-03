@@ -7,12 +7,4 @@
     @extend %section-spacings;
     display: flex;
   }
-
-  &__message {
-    padding-right: 2rem;
-
-    @include desktop {
-      width: 50%;
-    }
-  }
 }

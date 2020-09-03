@@ -17,13 +17,15 @@
   }
 
   a {
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-decoration: none;
+    color: $color-copy;
     height: fit-content;
 
+    &:hover {
+      color: $color_accent;
+    }
+
     @include tablet {
-      font-size: 1.7rem;
+      font-size: $font-size-base;
     }
   }
 }

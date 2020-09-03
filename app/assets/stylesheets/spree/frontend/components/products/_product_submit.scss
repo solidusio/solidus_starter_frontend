@@ -1,9 +1,20 @@
 .product-submit {
-  margin: 2rem 0;
+  margin: 0 0 3rem;
 
   &__title {
     font-size: 1.8rem;
-    font-weight: 500;
-    margin: 0 0 1rem;
+    font-weight: $headings-font-weight;
+  }
+
+  .horizontal-input-group__input {
+    width: 26%;
+  }
+
+  .horizontal-input-group__action {
+    width: 100%;
+    
+    button {
+      width: 100%;
+    }
   }
 }

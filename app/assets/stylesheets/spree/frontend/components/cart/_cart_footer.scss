@@ -1,7 +1,7 @@
 .cart-footer {
   align-items: center;
   display: flex;
-  font-size: 1.3rem;
+  font-size: $font-size-small;
   margin: 4rem 0;
 
   &__total {
@@ -10,7 +10,8 @@
     text-align: right;
 
     > strong {
-      font-size: 1.8rem;
+      font-size: $font-size-large;
+      font-weight: $font-weight-bold;
     }
   }
 

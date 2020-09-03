@@ -1,20 +1,29 @@
 .product-variants {
-  margin: 2rem 0;
+  margin: 0 0 3rem;
 
   &__title {
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin: 0 0 1rem;
+    font-size: $font-size-small;
+    font-weight: $headings-font-weight;
+    text-transform: uppercase;
   }
 
   &__list {
-    font-size: 1.3rem;
+    font-size: $font-size-small;
     list-style-type: none;
     margin: 0;
     padding: 0;
 
     > li {
-      margin: 0.5rem 0;
+      margin: 0 0 1.2rem;
+
+      input,
+      label {
+        vertical-align: middle;
+      }
+    }
+
+    input[checked="checked"] + label {
+      font-weight: $font-weight-bolder;
     }
   }
 }

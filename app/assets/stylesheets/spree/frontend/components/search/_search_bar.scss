@@ -2,7 +2,7 @@
   border: solid 1px $color-border-medium;
   border-radius: 2px;
   display: flex;
-  font-size: 1.3rem;
+  font-size: $font-size-small;
   height: 4.6rem;
   position: relative;
 
@@ -28,7 +28,7 @@
     border: 0;
     border-left: 1px solid $color-border-medium;
     color: $color-copy-light;
-    font-weight: 500;
+    font-weight: $buttons-font-weight;
     padding: 0 2rem;
   }
 }

@@ -1,6 +1,6 @@
 .hero-title {
-  font-size: 4.4rem;
-  font-weight: 500;
-  line-height: 1.14;
+  font-size: $h1-font-size * 1.2;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
   margin: 0;
 }

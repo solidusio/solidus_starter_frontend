@@ -1,19 +1,19 @@
 .product-taxons {
   &__title {
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin: 0 0 0.5rem;
+    font-size: $font-size-small;
+    font-weight: $font-weight-bold;
+    margin-bottom: .5rem;
   }
 
   &__list {
     display: flex;
-    font-size: 1.3rem;
+    font-size: $font-size-small;
     list-style-type: none;
     margin: 0;
     padding: 0;
 
     > li {
-      margin: 0.5rem;
+      margin: .5rem;
 
       &:first-child {
         margin-left: 0;

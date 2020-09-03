@@ -1,8 +1,10 @@
 // General
 @import "spree/frontend/variables/colors";
+@import "spree/frontend/variables/typography";
 
 // Base
 @import "spree/frontend/base/reset";
+@import 'spree/frontend/base/fonts';
 @import "spree/frontend/base/base";
 @import 'spree/frontend/base/responsive';
 
