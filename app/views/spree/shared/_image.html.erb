@@ -1,11 +1,15 @@
-<% size ||= :mini %>
-<% itemprop ||= nil %>
+<%
+  # Optional props
+  size = local_assigns.fetch(:size, :mini)
+  itemprop = local_assigns.fetch(:itemprop, nil)
+  classes = local_assigns.fetch(:classes, '')
+%>
 
 <% if image_url = image.try(:url, size) %>
   <% if image_alt = image.try(:alt) %>
-    <%= image_tag image_url, alt: image_alt, itemprop: itemprop %>
+    <%= image_tag image_url, alt: image_alt, itemprop: itemprop, class: classes %>
   <% else %>
-    <%= image_tag image_url, itemprop: itemprop %>
+    <%= image_tag image_url, itemprop: itemprop, class: classes %>
   <% end %>
 <% else %>
   <div class="image-placeholder <%= size %>"></div>

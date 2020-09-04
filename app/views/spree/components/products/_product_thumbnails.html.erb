@@ -1,18 +1,27 @@
 <% if @product.gallery.images.size > 1 %>
   <ul class="product-thumbnails">
     <% @product.gallery.images.each do |image| %>
+
       <% next if image.viewable_id != @product.master.id %>
-      <li>
+      <%= content_tag(
+        :li,
+        class: 'product-thumbnails__all js-product-thumbnail',
+        data: { js_product_thumbnail_variant_id: image.viewable_id }
+      ) do %>
         <%= link_to(image_tag(image.url(:mini)), image.url(:product)) %>
-      </li>
+      <% end %>
     <% end %>
 
     <% if @product.has_variants? %>
       <% @product.gallery.images.each do |image| %>
         <% next if image.viewable_id == @product.master.id %>
-        <li>
+        <%= content_tag(
+          :li,
+          class: 'product-thumbnails__variant js-product-thumbnail js-variant-thumbnail',
+          data: { js_product_thumbnail_variant_id: image.viewable_id }
+        ) do %>
           <%= link_to(image_tag(image.url(:mini)), image.url(:product)) %>
-        </li>
+        <% end %>
       <% end %>
     <% end %>
   </ul>
