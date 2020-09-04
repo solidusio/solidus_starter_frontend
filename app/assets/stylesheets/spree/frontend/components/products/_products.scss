@@ -6,8 +6,12 @@
     display: flex;
   }
 
-  &__results-title,
   &__taxon-title {
-    margin-top: 0;
+    font-size: $h4-font-size;
+  }
+
+  &__results-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
   }
 }

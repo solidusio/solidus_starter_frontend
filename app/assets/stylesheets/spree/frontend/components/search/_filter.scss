@@ -1,9 +1,10 @@
 .filter {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 
   &__title {
-    font-size: 1.3rem;
-    margin: 2rem 0 0;
+    color: $color-copy-lighter;
+    font-size: $font-size-small - .1;
+    text-transform: uppercase;
 
     &:first-of-type {
       margin-top: 0;
@@ -11,22 +12,30 @@
   }
 
   &__list {
+    font-size: $font-size-small;
     list-style: none;
-    margin: .5rem 0;
+    margin: 0 0 3rem;
     padding: 0;
 
     li {
       align-items: center;
       display: flex;
-      margin: .5rem 0;
+      margin: 0 0 1.2rem;
+
+      input,
+      label {
+        vertical-align: middle;
+      }
+
+      label {
+        margin: 0 0 0 .5rem;
+      }
 
       &.current {
-        font-weight: bold;
+        label {
+          font-weight: $font-weight-bolder;
+        }
       }
     }
-  }
-
-  &__list:last-of-type {
-    margin-bottom: 1.5rem;
   }
 }

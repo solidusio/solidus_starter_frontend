@@ -1,6 +1,7 @@
 .breadcrumbs {
+  background: $color-background-lighter;
   border-bottom: 1px solid $color-border-light;
-  font-size: 1rem;
+  font-size: $font-size-small;
 
   &__content {
     @extend %section-spacings;
@@ -11,6 +12,14 @@
       list-style: none;
       margin: 0;
       padding: 0;
+    }
+
+    a {
+      color: $color-copy;
+
+      &:hover {
+        color: $color_accent;
+      }
     }
   }
 }

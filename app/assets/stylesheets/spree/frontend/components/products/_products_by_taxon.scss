@@ -1,6 +1,18 @@
 .products-by-taxon {
   &__title {
-    font-size: 1.8rem;
-    margin: 3rem 2rem;
+    border-bottom: 1px solid $color-border-light;
+    font-size: $font-size-large;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding-bottom: 1.5rem;
+
+    a {
+      color: $color-copy;
+      font-weight: $headings-font-weight;
+
+      &:hover {
+        color: $color_accent;
+      }
+    }
   }
 }
