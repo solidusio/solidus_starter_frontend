@@ -21,5 +21,8 @@ $color-copy-light: #777;
 $color-copy-lighter: #999;
 $color-copy-bright: #fff;
 
-$link-color:       $color_accent;
-$link-color-hover: $color-copy;
+$link-color:                $color-copy;
+$link-color-hover:          $color_accent;
+
+$link-color-accent:         $color_accent;
+$link-color-accent-hover:   darken($color_accent, 10%);

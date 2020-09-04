@@ -15,5 +15,13 @@
       margin-left: 1rem;
       margin-right: .6rem;
     }
+    
+    a {
+      color: $link-color-accent;
+
+      &:hover {
+        color: $link-color-accent-hover;
+      }
+    }
   }
 }

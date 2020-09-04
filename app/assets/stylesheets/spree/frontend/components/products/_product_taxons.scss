@@ -22,6 +22,14 @@
       &:last-child {
         margin-right: 0;
       }
+
+      a {
+        color: $link-color-accent;
+
+        &:hover {
+          color: $link-color-accent-hover;
+        }
+      }
     }
   }
 }

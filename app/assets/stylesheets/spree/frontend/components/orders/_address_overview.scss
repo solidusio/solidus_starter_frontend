@@ -1,12 +1,12 @@
 .address-overview {
   &__title {
     display: inline;
-    font-size: $font-size-small - .1;
+    font-size: $h6-font-size;
     font-weight: $font-weight-bold;
   }
 
   &__edit {
-    font-size: $font-size-small - .1;
+    font-size: $h6-font-size;
     margin-left: .3rem;
     text-decoration: none;
   }

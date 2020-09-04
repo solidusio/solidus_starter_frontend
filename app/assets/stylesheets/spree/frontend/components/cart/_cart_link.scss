@@ -1,12 +1,7 @@
 .cart-link {
   > a {
-    color: $color-copy;
     font-size: $font-size-small;
     text-transform: uppercase;
-
-    &:hover {
-      color: $color_accent;
-    }
 
     > span {
       color: #fff;
@@ -17,7 +12,7 @@
       padding: .5rem 1.2rem;
 
       .money-decimal {
-        font-size: 1.1rem;
+        font-size: $font-size-small - .2;
       }
     }
   }

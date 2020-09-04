@@ -7,8 +7,6 @@
   text-align: center;
 
   a {
-    color: $color-copy;
-
     &:hover {
       color: lighten($color-copy, 30%);
     }

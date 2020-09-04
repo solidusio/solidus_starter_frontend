@@ -4,12 +4,7 @@
     font-size: $font-size-base;
 
     a {
-      color: $color-copy;
       font-weight: $headings-font-weight;
-
-      &:hover {
-        color:  $color_accent;
-      }
     }
   }
 
@@ -19,7 +14,7 @@
 
   &__description {
     color: $color-copy-light;
-    font-size: $font-size-small - .1;
+    font-size: $h6-font-size;
     font-style: italic;
     margin: 0;
   }

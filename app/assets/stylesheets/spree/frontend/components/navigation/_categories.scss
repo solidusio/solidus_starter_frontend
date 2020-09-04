@@ -17,12 +17,7 @@
   }
 
   a {
-    color: $color-copy;
     height: fit-content;
-
-    &:hover {
-      color: $color_accent;
-    }
 
     @include tablet {
       font-size: $font-size-base;

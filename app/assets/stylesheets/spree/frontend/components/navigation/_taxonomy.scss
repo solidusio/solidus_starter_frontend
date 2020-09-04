@@ -3,7 +3,6 @@
 
   &__title {
     color: $color-copy-lighter;
-    font-size: $font-size-small - .1;
     text-transform: uppercase;
 
     &:first-of-type {
@@ -20,14 +19,6 @@
       align-items: center;
       display: flex;
       margin: .5rem 0;
-
-      a {
-        color: $color-copy;
-
-        &:hover {
-          color: $color_accent;
-        }
-      }
 
       &.current {
         font-weight: $font-weight-bold;
