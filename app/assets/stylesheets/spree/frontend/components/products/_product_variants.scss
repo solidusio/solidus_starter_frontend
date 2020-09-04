@@ -20,9 +20,5 @@
         vertical-align: middle;
       }
     }
-
-    input[checked="checked"] + label {
-      font-weight: $font-weight-bolder;
-    }
   }
 }

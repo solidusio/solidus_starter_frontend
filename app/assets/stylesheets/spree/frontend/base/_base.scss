@@ -1,12 +1,13 @@
 html {
+  // sass-lint:disable no-vendor-prefixes
   box-sizing: border-box;
   font-family: sans-serif;
-  line-height: 1.15;
   font-size: 62.5%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.15;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -92,8 +93,16 @@ a {
   color: $link-color;
   text-decoration: none;
   transition: all ease .2s;
-  
+
   &:hover {
     color: $link-color-hover;
+  }
+}
+
+.link-accent-color {
+  color: $link-color-accent;
+
+  &:hover {
+    color: $link-color-accent-hover;
   }
 }

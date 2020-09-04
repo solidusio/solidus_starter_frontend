@@ -2,6 +2,15 @@
   display: flex;
 
   &__input {
-    padding-right: 0.8rem;
+    padding-right: .8rem;
+    width: 26%;
+  }
+
+  &__action  {
+    width: 26%;
+
+    button {
+      width: 100%;
+    }
   }
 }

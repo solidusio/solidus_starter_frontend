@@ -5,10 +5,6 @@
     color: $color-copy-lighter;
     font-size: $h6-font-size;
     text-transform: uppercase;
-
-    &:first-of-type {
-      margin-top: 0;
-    }
   }
 
   &__list {
@@ -21,21 +17,10 @@
       align-items: center;
       display: flex;
       margin: 0 0 1.2rem;
+    }
 
-      input,
-      label {
-        vertical-align: middle;
-      }
-
-      label {
-        margin: 0 0 0 .5rem;
-      }
-
-      &.current {
-        label {
-          font-weight: $font-weight-bolder;
-        }
-      }
+    label {
+      margin: 0 0 0 .5rem;
     }
   }
 }

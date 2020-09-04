@@ -1,8 +1,5 @@
-/*--------------------------------------*/
-/* Colors
-/*--------------------------------------*/
-
-$color_accent: #3C76f0;
+// -- Colors
+$color-accent: #3c76f0;
 
 $color-background-alert:   #fdd200;
 $color-background-dark:    #24282f;
@@ -22,7 +19,7 @@ $color-copy-lighter: #999;
 $color-copy-bright: #fff;
 
 $link-color:                $color-copy;
-$link-color-hover:          $color_accent;
+$link-color-hover:          $color-accent;
 
-$link-color-accent:         $color_accent;
-$link-color-accent-hover:   darken($color_accent, 10%);
+$link-color-accent:         $color-accent;
+$link-color-accent-hover:   darken($color-accent, 10%);
