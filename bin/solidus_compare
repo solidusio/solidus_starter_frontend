@@ -95,6 +95,7 @@ def solidus_compare
     result = `git diff "#{remote_source}" -- "#{remote_path}" "#{path}"`
     puts("error with git diff #{path}") & exit if $?.exitstatus != 0
 
+    result.gsub!(/index\s[\w\d]+\.\.[\w\d]+\s[\w\d]+\n/, '')
     diffs = result.split(/diff --git /)[1..]
     next unless diffs
 
