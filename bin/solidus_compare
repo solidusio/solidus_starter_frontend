@@ -26,7 +26,7 @@ end
 def generate_comparison(report)
   report.each do |data|
     conf = @config['ignore'].find { |cfg| cfg['path'] == data['path'] }
-    diffs = conf ? ( conf['diffs'] || [] ) : []
+    diffs = conf ? (conf['diffs'] || []) : []
     data['diffs'].each do |result|
       info = diffs.find { |diff| diff['file'] == result['file'] } || {}
       if info['skip']
@@ -43,12 +43,12 @@ def generate_comparison(report)
   update_ignore(report) if @cmd_options[:update]
 end
 
-def generate_summary(report)
+def generate_summary(report) # rubocop:disable Metrics/MethodLength
   summary = {}
   report.each do |data|
     path = data['path']
     conf = @config['ignore'].find { |cfg| cfg['path'] == path }
-    diffs = conf ? ( conf['diffs'] || [] ) : []
+    diffs = conf ? (conf['diffs'] || []) : []
     data['diffs'].each do |result|
       info = diffs.find { |diff| diff['file'] == result['file'] } || {}
       next if info['skip'] || info['hash'] == result['hash']
@@ -66,19 +66,19 @@ def generate_summary(report)
     end
   end.join("\n")
 
-  output = <<~EOS
+  output = <<~SUMMARY
     <?xml version="1.0" encoding="UTF-8"?>
     <testsuite name="solidus_compare" tests="#{count}" skipped="0" failures="#{count}" errors="#{count}" time="1" timestamp="#{Time.now.iso8601}">
     #{testcases}
     </testsuite>
-  EOS
+  SUMMARY
   puts output
 
   exit 1 if count.positive?
 end
 
 def load_config
-  @config = YAML.load_file(CONFIG_PATH) if File.exists?(CONFIG_PATH)
+  @config = YAML.load_file(CONFIG_PATH) if File.exist?(CONFIG_PATH)
   @config ||= {}
   @config['ignore'] ||= []
   @config['project_paths'] ||= []
@@ -96,7 +96,7 @@ def solidus_compare
     puts("error with git diff #{path}") & exit if $?.exitstatus != 0
 
     result.gsub!(/index\s[\w\d]+\.\.[\w\d]+\s[\w\d]+\n/, '')
-    diffs = result.split(/diff --git /)[1..]
+    diffs = result.split(/diff --git /)[1..-1]
     next unless diffs
 
     {
@@ -105,8 +105,8 @@ def solidus_compare
         next if diff.include? 'similarity index 100%'
 
         {
-          'hash' => Zlib::crc32(diff),
-          'file' => diff.match(/a\/([^\s]+)/)&.send(:[], 1),
+          'hash' => Zlib.crc32(diff),
+          'file' => diff.match(%r{a/([^\s]+)})&.send(:[], 1),
           'diff' => 'diff --git ' + diff
         }
       end.compact
