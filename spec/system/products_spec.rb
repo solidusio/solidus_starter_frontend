@@ -119,7 +119,7 @@ describe 'Visiting Products', type: :system, inaccessible: true do
 
       it 'on product page' do
         visit spree.product_path(product)
-        within('.price') do
+        within("[data-js='price']") do
           expect(page).to have_content('19.99 ₽')
         end
       end
@@ -170,7 +170,7 @@ describe 'Visiting Products', type: :system, inaccessible: true do
 
     it 'displays price of first variant listed', js: true do
       click_link product.name
-      within('#product-price') do
+      within("[data-js='price']") do
         expect(page).to have_content variant.price
         expect(page).not_to have_content I18n.t('spree.out_of_stock')
       end
@@ -180,7 +180,7 @@ describe 'Visiting Products', type: :system, inaccessible: true do
       product.master.stock_items.update_all count_on_hand: 0, backorderable: false
 
       click_link product.name
-      within('#product-price') do
+      within("[data-js='price']") do
         expect(page).not_to have_content I18n.t('spree.out_of_stock')
       end
     end

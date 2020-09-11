@@ -5,8 +5,8 @@
       <% next if image.viewable_id != @product.master.id %>
       <%= content_tag(
         :li,
-        class: 'product-thumbnails__all js-product-thumbnail',
-        data: { js_product_thumbnail_variant_id: image.viewable_id }
+        class: 'product-thumbnails__all',
+        data: { js: 'product-thumbnail', js_id: image.viewable_id }
       ) do %>
         <%= link_to(image_tag(image.url(:mini)), image.url(:product)) %>
       <% end %>
@@ -17,8 +17,8 @@
         <% next if image.viewable_id == @product.master.id %>
         <%= content_tag(
           :li,
-          class: 'product-thumbnails__variant js-product-thumbnail js-variant-thumbnail',
-          data: { js_product_thumbnail_variant_id: image.viewable_id }
+          class: 'product-thumbnails__variant',
+          data: { js: 'variant-thumbnail', js_id: image.viewable_id }
         ) do %>
           <%= link_to(image_tag(image.url(:mini)), image.url(:product)) %>
         <% end %>

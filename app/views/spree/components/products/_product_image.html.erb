@@ -3,5 +3,6 @@
     image: defined?(image) && image || @product.gallery.images.first,
     size: :product,
     itemprop: "image",
-    classes: 'js-product-main-image' %>
+    data: { js: 'product-main-image' }
+  %>
 </picture>

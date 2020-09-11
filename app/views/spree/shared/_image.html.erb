@@ -3,13 +3,14 @@
   size = local_assigns.fetch(:size, :mini)
   itemprop = local_assigns.fetch(:itemprop, nil)
   classes = local_assigns.fetch(:classes, '')
+  data = local_assigns.fetch(:data, {})
 %>
 
 <% if image_url = image.try(:url, size) %>
   <% if image_alt = image.try(:alt) %>
-    <%= image_tag image_url, alt: image_alt, itemprop: itemprop, class: classes %>
+    <%= image_tag image_url, alt: image_alt, itemprop: itemprop, class: classes, data: data %>
   <% else %>
-    <%= image_tag image_url, itemprop: itemprop, class: classes %>
+    <%= image_tag image_url, itemprop: itemprop, class: classes, data: data %>
   <% end %>
 <% else %>
   <div class="image-placeholder <%= size %>"></div>

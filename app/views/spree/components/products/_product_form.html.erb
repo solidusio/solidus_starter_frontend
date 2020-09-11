@@ -13,7 +13,7 @@
     <%= render 'spree/components/products/product_submit' %>
   <% else %>
     <div id="product-price">
-      <p class="price selling" itemprop="price">
+      <p data-js="price" itemprop="price">
         <%= t('spree.product_not_available_in_this_currency') %>
       </p>
     </div>
