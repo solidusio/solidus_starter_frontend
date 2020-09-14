@@ -1,18 +1,23 @@
 .products {
   @extend %section-spacings;
-  padding: 8rem 3rem;
+  @extend %section-wrapper;
 
   @include desktop {
     display: flex;
   }
 
   &__taxon-title {
-    padding: 0 3rem;
+    @include desktop {
+      padding: 0 3rem;
+    }
   }
 
   &__results-title {
     font-size: $font-size-base;
     font-weight: $font-weight-base;
-    padding: 0 3rem;
+
+    @include desktop {
+      padding: 0 3rem;
+    }
   }
 }

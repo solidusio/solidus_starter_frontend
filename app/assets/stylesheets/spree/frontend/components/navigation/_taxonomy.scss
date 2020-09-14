@@ -21,7 +21,7 @@
       margin: .5rem 0;
 
       &.current {
-        font-weight: $font-weight-bold;
+        @extend %current-state-underlined;
       }
     }
   }

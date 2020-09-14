@@ -13,12 +13,12 @@
   .logo {
     order: 1;
 
-    img {
-      width: 10em;
+    a {
+      display: flex;
+    }
 
-      @include tablet {
-        width: auto;
-      }
+    img {
+      width: 125px;
     }
   }
 
