@@ -14,6 +14,16 @@ CONFIG_PATH = 'config/solidus_compare.yml'
 @cmd_options = {}
 ARGV.each do |arg|
   case arg
+  when '-h', '--help'
+    puts <<~HELP
+      Solidus Compare: a tool to detect changes between 2 repositories
+
+      Options:
+        -h or --help          : show this help
+        -s or --summary       : generate an XML summary of the files changed (used in CI)
+        -u or --update-ignore : update the config file setting the current hashes to ignore
+    HELP
+    exit 0
   when '-s', '--summary'
     @cmd_options[:summary] = true
   when '-u', '--update-ignore'
