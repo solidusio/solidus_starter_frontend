@@ -49,6 +49,11 @@ Execute our generator that will copy our component files in your project:
 If Solidus was already installed with solidus_frontend you will have to change
 all `Spree::Frontend::Config` in `SolidusStarterFrontend::Config`.
 
+## Development
+
+For information about contributing to this project please refer to this 
+[document](docs/development.md).
+
 ## About
 
 [![Nebulab][nebulab-logo]][nebulab]
