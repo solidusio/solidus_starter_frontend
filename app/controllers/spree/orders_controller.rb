@@ -61,8 +61,8 @@ module Spree
       else
         begin
           @line_item = @order.contents.add(variant, quantity)
-        rescue ActiveRecord::RecordInvalid => e
-          @order.errors.add(:base, e.record.errors.full_messages.join(", "))
+        rescue ActiveRecord::RecordInvalid => error
+          @order.errors.add(:base, error.record.errors.full_messages.join(", "))
         end
       end
 
