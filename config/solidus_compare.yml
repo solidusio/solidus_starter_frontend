@@ -19,7 +19,7 @@ ignore:
     file: frontend/app/controllers/spree/coupon_codes_controller.rb
   - hash: 2175977023
     file: frontend/app/controllers/spree/home_controller.rb
-  - hash: 2194836599
+  - hash: 1090075720
     file: frontend/app/controllers/spree/orders_controller.rb
   - hash: 61096156
     file: frontend/app/controllers/spree/products_controller.rb
