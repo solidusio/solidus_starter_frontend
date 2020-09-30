@@ -36,8 +36,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'solidus_support', '~> 0.5'
   spec.add_dependency 'truncate_html', '~> 0.9', '>= 0.9.2'
 
+  spec.add_development_dependency 'apparition'
   spec.add_development_dependency 'rails-controller-testing'
   spec.add_development_dependency 'rspec-activemodel-mocks'
-  spec.add_development_dependency 'selenium-webdriver'
   spec.add_development_dependency 'solidus_dev_support', '~> 2.0'
 end

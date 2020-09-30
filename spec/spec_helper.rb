@@ -34,12 +34,4 @@ RSpec.configure do |config|
   if Spree.solidus_gem_version < Gem::Version.new('2.11')
     config.extend Spree::TestingSupport::AuthorizationHelpers::Request, type: :system
   end
-
-  config.before(:each, type: :system) do
-    driven_by((ENV['CAPYBARA_DRIVER'] || :rack_test).to_sym)
-  end
-
-  config.before(:each, type: :system, js: true) do
-    driven_by((ENV['CAPYBARA_JS_DRIVER'] || :apparition).to_sym)
-  end
 end
