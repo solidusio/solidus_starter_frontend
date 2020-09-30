@@ -29,7 +29,7 @@ All of this while keeping and improving on the functionality of the current
 
 By default, the `solidus` gem also includes the standard frontend via
 the `solidus_frontend` gem. To make this extension work, you need to
-exclude it and manually include all the other Solidus componenents.
+exclude it and manually include all the other Solidus components.
 
 You need to replace:
 
