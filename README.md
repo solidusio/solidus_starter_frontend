@@ -54,6 +54,11 @@ Execute our generator that will copy our component files in your project:
 If Solidus was already installed with solidus_frontend you will have to change
 all `Spree::Frontend::Config` in `SolidusStarterFrontend::Config`.
 
+## Usage
+
+`solidus_starter_frontend` will just install a set of files in your solidus application
+and let you customize them to jump-start your custom store design.
+
 ## Development
 
 For information about contributing to this project please refer to this
