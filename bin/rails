@@ -1,7 +1,7 @@
-# This command will automatically be run when you run "rails" with Rails 3 gems installed from the root of your application.
+#!/usr/bin/env ruby
 
-ENGINE_ROOT = File.expand_path('../..', __FILE__)
-ENGINE_PATH = File.expand_path('../../lib/solidus_starter_frontend/engine', __FILE__)
-
-require 'rails/all'
-require 'rails/engine/commands'
+if %w[g generate].include? ARGV.first
+  exec "#{__dir__}/rails-engine", *ARGV
+else
+  exec "#{__dir__}/rails-sandbox", *ARGV
+end
