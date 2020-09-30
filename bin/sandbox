@@ -72,9 +72,11 @@ unbundled bundle exec rails generate spree:install \
   --user_class=Spree::User \
   --enforce_available_locales=true \
   --with-authentication=false \
+  --payment-method=none \
   $@
 
 unbundled bundle exec rails generate solidus:auth:install
+unbundled bundle exec rails generate ${extension_name}:install
 
 echo
 echo "🚀 Sandbox app successfully created for $extension_name!"
