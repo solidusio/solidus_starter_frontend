@@ -3,6 +3,7 @@ inherit_from:
 
 AllCops:
   Exclude:
+    - bin/*
     - sandbox/**/*
     - spec/dummy/**/*
     - vendor/**/*
