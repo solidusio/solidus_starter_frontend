@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Nebulab']
   spec.email = 'hello@nebulab.it'
 
-  spec.summary = 'Cart and storefront for the Solidus e-commerce project.'
-  spec.description = spec.summary
+  spec.summary = 'A starter storefront for the Solidus e-commerce project.'
+  spec.description = 'A modern, minimal, semantic and easy to extend frontend codebase for a more efficient bootstrapping experience with Solidus'
   spec.homepage = 'https://github.com/nebulab/solidus_starter_frontend/#readme'
   spec.license = 'BSD-3-Clause'
 
@@ -30,14 +30,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'canonical-rails', '~> 0.2.0'
-  spec.add_dependency 'generator_spec'
+  spec.add_dependency 'generator_spec', '~> 0.9.4'
   spec.add_dependency 'solidus_api', ['>= 2.0', '< 3']
   spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 3']
   spec.add_dependency 'solidus_support', '~> 0.5'
   spec.add_dependency 'truncate_html', '~> 0.9', '>= 0.9.2'
 
-  spec.add_development_dependency 'apparition'
-  spec.add_development_dependency 'rails-controller-testing'
-  spec.add_development_dependency 'rspec-activemodel-mocks'
+  spec.add_development_dependency 'apparition', '~> 0.6.0'
+  spec.add_development_dependency 'rails-controller-testing', '~> 1.0.5'
+  spec.add_development_dependency 'rspec-activemodel-mocks', '~> 1.1.0'
   spec.add_development_dependency 'solidus_dev_support', '~> 2.0'
 end
