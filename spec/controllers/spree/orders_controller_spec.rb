@@ -48,8 +48,7 @@ describe Spree::OrdersController, type: :controller do
             receive(:valid?).and_return(false)
           )
           allow_any_instance_of(Spree::LineItem).to(
-            receive_message_chain(:errors, :full_messages).
-              and_return(["Order population failed"])
+            receive_message_chain(:errors, :full_messages).and_return(["Order population failed"])
           )
 
           post :populate, params: { variant_id: variant.id, quantity: 5 }
