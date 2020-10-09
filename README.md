@@ -5,9 +5,6 @@
 extension aims to deliver a modern, minimal, semantic and easy to extend
 frontend codebase for a more efficient bootstrapping experience.
 
-**WARNING: this is an experimental extension and still in a very early stage of
-development.**
-
 ## Objectives
 
 We aim to deliver:
