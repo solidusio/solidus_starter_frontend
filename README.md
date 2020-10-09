@@ -6,9 +6,7 @@ extension aims to deliver a modern, minimal, semantic and easy to extend
 frontend codebase for a more efficient bootstrapping experience.
 
 ## Objectives
-
 We aim to deliver:
-
 - a minimal, semantic and accessible HTML skeleton
 - a reusable component based architecture
 - simple SASS styling strictly based on BEM
@@ -19,19 +17,16 @@ All of this while keeping and improving on the functionality of the current
 [Solidus][solidus] starter store.
 
 ## Installation
-
 By default, the `solidus` gem also includes the standard frontend via
 the `solidus_frontend` gem. To make this extension work, you need to
 exclude it and manually include all the other Solidus components.
 
 You need to replace:
-
 ```ruby
 gem 'solidus'
 ```
 
 with:
-
 ```ruby
 gem 'solidus_core'
 gem 'solidus_api'
@@ -48,20 +43,18 @@ If Solidus was already installed with solidus_frontend you will have to change
 all `Spree::Frontend::Config` in `SolidusStarterFrontend::Config`.
 
 ## Usage
-
-`solidus_starter_frontend` will just install a set of files in your solidus application
-and let you customize them to jump-start your custom store design.
+`solidus_starter_frontend` will just install a set of files in your solidus 
+application and let you customize them to jump-start your custom store design.
 
 ## Development
-
 For information about contributing to this project please refer to this
 [document](docs/development.md).
 
 ## About
-
 [![Nebulab][nebulab-logo]][nebulab]
 
-`solidus_starter_frontend` is funded and maintained by the [Nebulab][nebulab] team.
+`solidus_starter_frontend` is funded and maintained by the [Nebulab][nebulab] 
+team.
 
 We firmly believe in the power of open-source. [Contact us][contact-us] if you
 like our work and you need help with your project design or development.
@@ -72,5 +65,4 @@ like our work and you need help with your project design or development.
 [contact-us]: http://nebulab.it/contact-us/
 
 ## License
-
 Copyright (c) 2020 Nebulab SRLs, released under the New BSD License.
