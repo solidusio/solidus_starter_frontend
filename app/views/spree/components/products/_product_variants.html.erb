@@ -3,7 +3,7 @@
 %>
 
 <% if variants.any? %>
-  <section class="product-variants" id="product-variants">
+  <section class="product-variants">
     <h2 class="product-variants__title">
       <%= t('spree.variants') %>
     </h2>
@@ -15,7 +15,7 @@
             'variant_id',
             variant.id,
             index == 0,
-            'data-price' => variant.price_for(current_pricing_options)
+            data: { js: 'variant-radio', js_price: variant.price_for(current_pricing_options).to_s }
           ) %>
 
           <%= label_tag "variant_id_#{ variant.id }" do %>
