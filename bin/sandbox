@@ -49,18 +49,15 @@ fi
 
 cd ./sandbox
 cat <<RUBY >> Gemfile
-gem 'solidus', github: 'solidusio/solidus', branch: '$BRANCH'
-gem 'solidus_auth_devise', '>= 2.1.0'
-gem 'rails-i18n'
-gem 'solidus_i18n'
-
+# By default, the `solidus` gem also includes the standard frontend via
+# the `solidus_frontend` gem. To make this extension work, you need to
+# exclude it and manually include all the other Solidus components.
+gem 'solidus_core'
+gem 'solidus_api'
+gem 'solidus_backend'
+gem 'solidus_sample'
 gem '$extension_name', path: '..'
-
-group :test, :development do
-  platforms :mri do
-    gem 'pry-byebug'
-  end
-end
+gem 'solidus_auth_devise'
 RUBY
 
 unbundled bundle install --gemfile Gemfile
