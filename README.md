@@ -2,8 +2,12 @@
 [![Gem Version](https://badge.fury.io/rb/solidus_starter_frontend.svg)](https://badge.fury.io/rb/solidus_starter_frontend) [![CircleCI](https://circleci.com/gh/nebulab/solidus_starter_frontend.svg?style=shield)](https://circleci.com/gh/nebulab/solidus_starter_frontend)
 
 `solidus_starter_frontend` is a new starter store for [Solidus][solidus]. This
-extension aims to deliver a modern, minimal, semantic and easy to extend
+extension aims to deliver a modern, minimal, semantic, and easy to extend
 frontend codebase for a more efficient bootstrapping experience.
+
+**DISCLAIMER**: some Solidus extensions (the ones that depend on Solidus 
+Frontend) will not work with our component because they rely on defacing some
+views that don't exist here.
 
 ## Objectives
 We aim to deliver:
