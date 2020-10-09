@@ -7,7 +7,7 @@
     <ul class="product-taxons__list">
       <% @product.taxons.each do |taxon| %>
         <li>
-          <%= link_to taxon.name, seo_url(taxon), class: "link-accent-color" %>
+          <%= link_to taxon.name, seo_url(taxon) %>
         </li>
       <% end %>
     </ul>

@@ -14,5 +14,13 @@
       content: "or";
       margin-right: .5rem;
     }
+
+    a {
+      color: $link-color-accent;
+
+      &:hover {
+        color: $link-color-accent-hover;
+      }
+    }
   }
 }

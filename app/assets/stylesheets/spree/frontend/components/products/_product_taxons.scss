@@ -13,6 +13,14 @@
 
     li {
       padding: 0 1rem 0 0;
+
+      a {
+        color: $link-color-accent;
+
+        &:hover {
+          color: $link-color-accent-hover;
+        }
+      }
     }
   }
 }
