@@ -1,15 +1,11 @@
 .cart-item {
   border-bottom: solid 1px $color-border-light;
-  font-size: 1.3rem;
+  font-size: $font-size-small;
   padding: 2rem 0;
 
   @include desktop {
     align-items: center;
     display: flex;
-
-    > * {
-      margin-bottom: 0;
-    }
 
     &__image {
       flex-grow: 0;
@@ -52,10 +48,6 @@
       text-align: right;
       width: 12%;
     }
-  }
-
-  > * {
-    margin-bottom: 1rem;
   }
 
   &:first-child {

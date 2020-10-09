@@ -1,9 +1,9 @@
 .taxonomy {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 
   &__title {
-    font-size: 1.3rem;
-    margin: 2rem 0 0;
+    color: $color-copy-lighter;
+    text-transform: uppercase;
 
     &:first-of-type {
       margin-top: 0;
@@ -12,7 +12,7 @@
 
   &__list {
     list-style: none;
-    margin: .5rem 0;
+    margin: 0 0 3rem;
     padding: 0;
 
     li {
@@ -21,7 +21,7 @@
       margin: .5rem 0;
 
       &.current {
-        font-weight: bold;
+        @extend %current-state-underlined;
       }
     }
   }

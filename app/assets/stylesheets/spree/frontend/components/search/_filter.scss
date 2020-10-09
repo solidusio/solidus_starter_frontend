@@ -1,32 +1,26 @@
 .filter {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 
   &__title {
-    font-size: 1.3rem;
-    margin: 2rem 0 0;
-
-    &:first-of-type {
-      margin-top: 0;
-    }
+    color: $color-copy-lighter;
+    font-size: $h6-font-size;
+    text-transform: uppercase;
   }
 
   &__list {
+    font-size: $font-size-small;
     list-style: none;
-    margin: .5rem 0;
+    margin: 0 0 3rem;
     padding: 0;
 
     li {
       align-items: center;
       display: flex;
-      margin: .5rem 0;
-
-      &.current {
-        font-weight: bold;
-      }
+      margin: 0 0 1.2rem;
     }
-  }
 
-  &__list:last-of-type {
-    margin-bottom: 1.5rem;
+    label {
+      margin: 0 0 0 .5rem;
+    }
   }
 }

@@ -1,13 +1,11 @@
-/*--------------------------------------*/
-/* Colors
-/*--------------------------------------*/
+// -- Colors
+$color-accent: #3c76f0;
 
-$color_accent: #3C76f0;
-
-$color-background-alert: #fdd200;
-$color-background-dark: #24282f;
-$color-background-error: #e4361b;
-$color-background-light: #f2f2f2;
+$color-background-alert:   #fdd200;
+$color-background-dark:    #24282f;
+$color-background-error:   #e4361b;
+$color-background-light:   #f2f2f2;
+$color-background-lighter: #fafbfc;
 $color-background-success: #1bc16d;
 
 $color-border: #ddd;
@@ -17,4 +15,11 @@ $color-border-light: #f2f2f2;
 
 $color-copy: #222;
 $color-copy-light: #777;
+$color-copy-lighter: #999;
 $color-copy-bright: #fff;
+
+$link-color:                $color-copy;
+$link-color-hover:          $color-accent;
+
+$link-color-accent:         $color-accent;
+$link-color-accent-hover:   darken($color-accent, 10%);

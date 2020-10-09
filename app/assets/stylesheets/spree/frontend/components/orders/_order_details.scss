@@ -2,14 +2,12 @@
   &__info {
     @include desktop {
       display: flex;
-      margin: 0 -.8rem 3rem;
     }
 
     > * {
       margin-bottom: 2em;
 
       @include desktop {
-        margin-bottom: 0;
         padding: 0 .8rem;
         width: 25%;
       }

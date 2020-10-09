@@ -1,19 +1,18 @@
 .select-input {
   > label {
     display: block;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: $label-font-size;
+    font-weight: $label-font-weight;
     margin-bottom: .3rem;
-    text-transform: uppercase;
   }
 
   > select {
     appearance: none;
-    background: none;
+    background: $color-copy-bright;
     border: solid 1px $color-border;
     border-radius: 1px;
     display: block;
-    font-size: 1.3rem;
+    font-size: $input-font-size;
     height: 3.8rem;
     padding: 0 1rem;
     width: 100%;

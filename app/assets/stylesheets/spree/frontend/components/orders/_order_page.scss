@@ -4,34 +4,31 @@
   padding: 8rem 2rem;
 
   &__title {
-    color: $color-accent;
     margin: 0 0 5rem;
     text-align: center;
   }
 
   &__completed {
     color: $color-background-success;
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
     margin: -2.5rem 0 3rem;
     text-align: center;
   }
 
   &__info {
-    border: solid 1px $color-border;
+    border: solid 1px $color-border-light;
     margin-bottom: 2rem;
-    padding: 1.5rem;
+    padding: 3rem 1.5rem;
 
     > legend {
-      font-size: 1.2rem;
-      font-weight: 700;
-      text-transform: uppercase;
+      font-size: $font-size-small;
+      font-weight: $font-weight-bolder;
     }
   }
 
   &__actions {
-    font-size: 1.2rem;
-    margin-top: 4rem;
+    margin-top: 3rem;
     text-align: center;
 
     > a {

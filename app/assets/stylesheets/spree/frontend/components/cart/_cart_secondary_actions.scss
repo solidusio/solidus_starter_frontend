@@ -1,19 +1,26 @@
 .cart-secondary-actions {
   display: flex;
-  font-size: 1.3rem;
+  font-size: $font-size-small;
   margin-top: 10rem;
 
   &__continue {
     &::before {
       content: "←";
-      font-size: 1.2rem;
-      margin-right: 0.3rem;
+      font-size: $font-size-small - .2;
+      margin-right: .3rem;
     }
 
     &::after {
       content: "or";
-      margin-left: 1rem;
-      margin-right: 0.8rem;
+      margin-right: .5rem;
+    }
+
+    a {
+      color: $link-color-accent;
+
+      &:hover {
+        color: $link-color-accent-hover;
+      }
     }
   }
 }

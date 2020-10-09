@@ -1,23 +1,23 @@
 .product-properties {
-  margin: 2rem 0;
+  margin: 0 0 3rem;
 
   &__title {
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin: 0 0 1rem;
+    font-size: $h6-font-size;
+    text-transform: uppercase;
   }
 
   &__table {
     border-collapse: collapse;
-    font-size: 1.3rem;
+    font-size: $font-size-small;
 
     tr {
-      height: 1.8rem;
+      height: 2.8rem;
     }
 
     td:first-child {
-      font-weight: 500;
-      padding-right: 1rem;
+      color: $color-copy-lighter;
+      font-weight: $font-weight-bolder;
+      padding-right: 2.5rem;
     }
   }
 }

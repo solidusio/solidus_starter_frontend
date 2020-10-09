@@ -1,21 +1,18 @@
 .cart-link {
   > a {
-    font-size: 1.3rem;
-    text-decoration: none;
+    font-size: $font-size-small;
     text-transform: uppercase;
-    font-weight: 700;
 
     > span {
       color: #fff;
-      background: $color_accent;
+      background: $color-accent;
       border-radius: 2rem;
-      font-size: 1.4rem;
-      font-weight: 600;
+      font-weight: $font-weight-bolder;
       margin-left: .3rem;
       padding: .5rem 1.2rem;
 
       .money-decimal {
-        font-size: 1.1rem;
+        font-size: $font-size-small - .2;
       }
     }
   }

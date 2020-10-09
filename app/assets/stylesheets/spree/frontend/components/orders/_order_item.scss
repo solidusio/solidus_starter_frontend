@@ -1,6 +1,6 @@
 .order-item {
   border-bottom: solid 1px $color-border-light;
-  font-size: 1.2rem;
+  font-size: $font-size-small;
   padding: 1rem 0;
 
   @include desktop {
@@ -53,13 +53,14 @@
 
   &__price {
     clear: both;
-    font-size: 1.5rem;
+    font-size: $font-size-small;
   }
 
   &__quantity {
     flex-grow: 0;
     flex-shrink: 0;
     float: right;
+    font-weight: $font-weight-bold;
     text-align: center;
     width: 6%;
 

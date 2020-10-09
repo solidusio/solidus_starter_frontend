@@ -1,18 +1,20 @@
 .item-info {
-  line-height: 1.35;
-
   &__name {
-    font-size: 1.7rem;
-    font-weight: 400;
-    margin: 0;
+    font-size: $font-size-base;
+    margin-bottom: .5rem;
+
+    a {
+      font-weight: $headings-font-weight;
+    }
   }
 
   &__options {
-    margin: 0.8rem 0;
+    margin-bottom: 1rem;
   }
 
   &__description {
     color: $color-copy-light;
+    font-size: $h6-font-size;
     font-style: italic;
     margin: 0;
   }

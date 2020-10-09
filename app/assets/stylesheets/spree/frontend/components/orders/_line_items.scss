@@ -1,6 +1,6 @@
 .line-items {
-  font-size: 1.3rem;
-  margin-top: 2.5rem;
+  font-size: $font-size-small;
+  margin-top: 3rem;
 
   > div {
     display: flex;
@@ -13,6 +13,7 @@
   }
 
   dd {
+    font-weight: $font-weight-bold;
     margin-inline-start: 0;
     min-width: 8rem;
     text-align: right;

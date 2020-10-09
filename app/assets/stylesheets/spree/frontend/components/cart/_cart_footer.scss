@@ -1,8 +1,8 @@
 .cart-footer {
   align-items: center;
   display: flex;
-  font-size: 1.3rem;
-  margin: 4rem 0;
+  font-size: $font-size-small;
+  margin: 3rem 0;
 
   &__total {
     flex-grow: 1;
@@ -10,7 +10,8 @@
     text-align: right;
 
     > strong {
-      font-size: 1.8rem;
+      font-size: $font-size-large;
+      font-weight: $font-weight-bolder;
     }
   }
 

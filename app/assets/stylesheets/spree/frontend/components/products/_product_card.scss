@@ -12,20 +12,17 @@
     position: relative;
 
     h2 {
-      font-weight: 600;
-      margin: 0;
-    }
-
-    a {
-      text-decoration: none;
+      font-size: $font-size-small;
+      font-weight: $font-weight-bold;
+      margin: 0 0 1rem;
+      text-transform: uppercase;
     }
   }
 
   &_price {
-    color: $color_accent;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-top: 1rem;
+    color: $color-accent;
+    font-size: $font-size-small;
+    font-weight: $font-weight-bold;
     text-align: center;
   }
 

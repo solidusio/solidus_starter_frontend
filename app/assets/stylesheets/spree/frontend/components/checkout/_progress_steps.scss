@@ -1,7 +1,9 @@
 .progress-steps {
+  color: $color-copy-light;
   display: flex;
-  font-size: 1.3rem;
+  font-size: $h6-font-size;
   justify-content: space-between;
+  line-height: 2.2rem;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -13,24 +15,23 @@
   > li {
     &.completed,
     &.completed-first {
-      font-weight: 500;
+      font-weight: $font-weight-bold;
     }
 
     &.current,
     &.current-first {
       color: $color-accent;
-      font-weight: 600;
+      font-weight: $font-weight-bold;
 
       &::before {
         content: "➝";
+        font-size: $font-size-small;
         margin-right: .5rem;
       }
     }
   }
 
   a {
-    text-decoration: none;
-
     &:hover {
       text-decoration: underline;
     }

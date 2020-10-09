@@ -1,9 +1,8 @@
 .checkout-summary {
-  font-size: 1.3rem;
+  font-size: $h6-font-size;
 
   &__title {
-    font-size: 1.8rem;
-    margin: 1rem 0;
+    font-size: $font-size-base;
   }
 
   &__entry,
@@ -15,7 +14,7 @@
     }
 
     > dd {
-      font-weight: 600;
+      font-weight: $font-weight-bold;
     }
   }
 

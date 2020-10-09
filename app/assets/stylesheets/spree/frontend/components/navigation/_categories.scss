@@ -13,17 +13,18 @@
       list-style-type: none;
       margin: 0 1rem;
       padding: 0;
+
+      &.current {
+        @extend %current-state-color-accent;
+      }
     }
   }
 
   a {
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-decoration: none;
     height: fit-content;
 
     @include tablet {
-      font-size: 1.7rem;
+      font-size: $font-size-base;
     }
   }
 }
