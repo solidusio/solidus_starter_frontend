@@ -39,6 +39,8 @@ $ bin/rails server
 Use Ctrl-C to stop
 ```
 
+Default username and password for admin are: `admin@example.com` and `test123`.
+
 ### Updating the changelog
 Before and after releases the changelog should be updated to reflect the 
 up-to-date status of the project:

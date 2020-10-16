@@ -49,8 +49,8 @@ fi
 
 cd ./sandbox
 cat <<RUBY >> Gemfile
-# By default, the `solidus` gem also includes the standard frontend via
-# the `solidus_frontend` gem. To make this extension work, you need to
+# By default, the solidus gem also includes the standard frontend via
+# the solidus_frontend gem. To make this extension work, you need to
 # exclude it and manually include all the other Solidus components.
 gem 'solidus_core'
 gem 'solidus_api'
@@ -72,8 +72,8 @@ unbundled bundle exec rails generate spree:install \
   --payment-method=none \
   $@
 
-unbundled bundle exec rails generate solidus:auth:install
-unbundled bundle exec rails generate ${extension_name}:install
+unbundled bundle exec rails generate solidus:auth:install --auto-accept
+unbundled bundle exec rails generate ${extension_name}:install --auto-accept
 
 echo
 echo "🚀 Sandbox app successfully created for $extension_name!"
