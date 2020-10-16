@@ -12,7 +12,7 @@
 
     crumbs << [t('spree.products'), products_path]
     if taxon
-      crumbs += taxon.ancestors.collect { |ancestor| [ancestor.name, spree.nested_taxons_path(ancestor.permalink)] } unless taxon.ancestors.empty?
+      crumbs += taxon.ancestors.collect { |ancestor| [ancestor.name, spree.nested_taxons_path(ancestor.permalink)] }
       crumbs << [taxon.name, spree.nested_taxons_path(taxon.permalink)]
     end
 

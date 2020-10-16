@@ -1,6 +1,7 @@
 <%
   paginated_products = @searcher.retrieve_products if params.key?(:keywords)
   paginated_products ||= products
+  no_products_found = products.empty?
 %>
 
 <% content_for :head do %>
@@ -9,7 +10,7 @@
   <% end %>
 <% end %>
 
-<% if products.empty? %>
+<% if no_products_found %>
   <h2 class="products__results-title">
     <%= t('spree.no_products_found') %>
   </h2>
@@ -19,7 +20,7 @@
   </h1>
 <% end %>
 
-<% if products.any? %>
+<% if !no_products_found %>
   <%= render 'spree/components/products/products-grid', products: products %>
 <% end %>
 
