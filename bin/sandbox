@@ -49,8 +49,8 @@ fi
 
 cd ./sandbox
 cat <<RUBY >> Gemfile
-# By default, the `solidus` gem also includes the standard frontend via
-# the `solidus_frontend` gem. To make this extension work, you need to
+# By default, the solidus gem also includes the standard frontend via
+# the solidus_frontend gem. To make this extension work, you need to
 # exclude it and manually include all the other Solidus components.
 gem 'solidus_core'
 gem 'solidus_api'
