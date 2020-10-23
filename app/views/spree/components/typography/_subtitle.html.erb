@@ -2,10 +2,10 @@
   base_class = "subtitle".freeze
 
   # Classes
-  class_names = [base_class]
-  class_names = class_names.join(" ")
+  classes = local_assigns.fetch(:classes, [])
+  class_names = classes.push(base_class).join(" ")
 %>
 
-<p class="subtitle">
+<p class="<%= class_names %>">
   <%= content %>
 </p>

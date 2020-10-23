@@ -7,8 +7,8 @@
   selected = @taxon ? @taxon.id : params[:taxon]
 
   # Classes
-  class_names = [base_class]
-  class_names = class_names.join(" ")
+  classes = local_assigns.fetch(:classes, [])
+  class_names = classes.push(base_class).join(" ")
 %>
 
 <%= form_tag spree.products_path, class: class_names, method: :get do %>

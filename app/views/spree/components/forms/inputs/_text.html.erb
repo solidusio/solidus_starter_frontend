@@ -13,11 +13,12 @@
   small = local_assigns.fetch(:small, false)
   type = local_assigns.fetch(:type, :text)
   value = local_assigns.fetch(:value, '')
+  classes = local_assigns.fetch(:classes, [])
 
   # Classes
-  class_names = [base_class]
-  class_names.push("#{base_class}--small") if small
-  class_names = class_names.join(" ")
+  classes.push(base_class)
+  classes.push("#{base_class}--small") if small
+  class_names = classes.join(" ")
 %>
 
 <div class="<%= class_names %>">

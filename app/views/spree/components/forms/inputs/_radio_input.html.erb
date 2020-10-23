@@ -6,10 +6,10 @@
   disabled = local_assigns.fetch(:disabled, false)
   id = local_assigns.fetch(:id, nil)
   value = local_assigns.fetch(:value, nil)
+  classes = local_assigns.fetch(:classes, [])
 
   # Classes
-  class_names = [base_class]
-  class_names = class_names.join(" ")
+  class_names = classes.push(base_class).join(" ")
 %>
 
 <label
