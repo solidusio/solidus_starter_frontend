@@ -613,11 +613,11 @@ describe 'Checkout', type: :system, inaccessible: true do
         add_mug_to_cart
         visit spree.checkout_state_path(:address)
         fill_in_address
+        fill_in 'Customer E-Mail', with: 'test@example.com'
 
         state_name_css = "order_bill_address_attributes_state_name"
 
         select "Canada", from: "order_bill_address_attributes_country_id"
-        fill_in 'Customer E-Mail', with: 'test@example.com'
         fill_in state_name_css, with: xss_string
         fill_in "Zip", with: "H0H0H0"
 
