@@ -8,15 +8,7 @@ require 'spree/testing_support/order_walkthrough'
 require 'spree/testing_support/translations' unless Spree.solidus_gem_version < Gem::Version.new('2.11')
 
 RSpec.configure do |config|
-  if Spree.solidus_gem_version < Gem::Version.new('2.11')
-    config.after(:each, type: :system) do |example|
-      missing_translations = page.body.scan(/translation missing: #{I18n.locale}\.(.*?)[\s<\"&]/)
-      if missing_translations.any?
-        puts "Found missing translations: #{missing_translations.inspect}\n"
-        puts "In spec: #{example.location}"
-      end
-    end
-  end
+  config.include Spree::TestingSupport::Translations unless Spree.solidus_gem_version < Gem::Version.new('2.11')
 
   if SolidusSupport.reset_spree_preferences_deprecated?
     config.before :suite do
