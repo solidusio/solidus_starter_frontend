@@ -56,6 +56,8 @@ gem 'solidus_core'
 gem 'solidus_api'
 gem 'solidus_backend'
 gem 'solidus_sample'
+gem 'rails-i18n'
+gem 'solidus_i18n'
 gem '$extension_name', path: '..'
 gem 'solidus_auth_devise'
 RUBY
