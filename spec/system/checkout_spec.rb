@@ -281,7 +281,7 @@ describe 'Checkout', type: :system, inaccessible: true do
       visit spree.checkout_state_path(:payment)
 
       # prevent form submit to verify button is disabled
-      page.execute_script("$('#checkout_form_payment').submit(function(){return false;})")
+      page.execute_script("document.getElementById('checkout_form_payment').onsubmit = function(){return false;}")
 
       expect(page).not_to have_selector('button[disabled]')
       click_button "Save and Continue"
@@ -293,7 +293,7 @@ describe 'Checkout', type: :system, inaccessible: true do
       visit spree.checkout_state_path(:confirm)
 
       # prevent form submit to verify button is disabled
-      page.execute_script("$('#checkout_form_confirm').submit(function(){return false;})")
+      page.execute_script("document.getElementById('checkout_form_confirm').onsubmit = function(){return false;}")
 
       expect(page).not_to have_selector('button.button-primary[disabled]')
       click_button "Place Order"

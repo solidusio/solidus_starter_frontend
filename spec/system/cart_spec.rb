@@ -18,7 +18,7 @@ describe 'Cart', type: :system, inaccessible: true do
     click_button "add-to-cart-button"
 
     # prevent form submit to verify button is disabled
-    page.execute_script("$('#update-cart').submit(function(){return false;})")
+    page.execute_script("document.getElementById('update-cart').onsubmit = function(){return false;}")
 
     expect(page).not_to have_selector('button#update-button[disabled]')
     find('.delete').click
