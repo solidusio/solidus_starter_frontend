@@ -10,14 +10,12 @@
     ) %>
   </div>
 
-  <section class="order-item__info">
-    <%= render(
-      'spree/components/cart/item_info',
-      line_item: item.variant.product,
-      stock_info: false,
-      variant: item.variant
-    ) %>
-  </section>
+  <%= render(
+    'spree/components/orders/item_info',
+    line_item: item.variant.product,
+    stock_info: false,
+    variant: item.variant
+  ) %>
 
   <div class="order-item__price-single">
     <%= item.single_money.to_html %>

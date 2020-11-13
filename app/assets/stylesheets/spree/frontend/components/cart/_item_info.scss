@@ -18,4 +18,16 @@
     font-style: italic;
     margin: 0;
   }
+
+  .order-items--summary & {
+    &__name {
+      @include desktop {
+        font-size: $font-size-small;
+      }
+    }
+
+    &__description {
+      display: none;
+    }
+  }
 }
