@@ -16,7 +16,7 @@
 <%= form_tag spree.products_path, class: class_names, method: :get do %>
   <% cache [I18n.locale, @taxons] do %>
     <%= render(
-      "spree/components/forms/inputs/select",
+      "spree/components/forms/inputs/select_input",
       name: :taxon,
       options: options,
       selected: selected
