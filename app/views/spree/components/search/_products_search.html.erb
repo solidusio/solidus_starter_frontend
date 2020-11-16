@@ -1,20 +1,22 @@
 <%
   base_class = "products-search".freeze
 
+  # Optional props
+  classes = local_assigns.fetch(:classes, [])
+
   # Data
   @taxons = @taxon && @taxon.parent ? @taxon.parent.children : Spree::Taxon.roots
   options = [[t('spree.all_departments'), '']] + @taxons.map {|t| [t.name, t.id]}
   selected = @taxon ? @taxon.id : params[:taxon]
 
   # Classes
-  class_names = [base_class]
-  class_names = class_names.join(" ")
+  class_names = classes.push(base_class).join(" ")
 %>
 
 <%= form_tag spree.products_path, class: class_names, method: :get do %>
   <% cache [I18n.locale, @taxons] do %>
     <%= render(
-      "spree/components/forms/inputs/select",
+      "spree/components/forms/inputs/select_input",
       name: :taxon,
       options: options,
       selected: selected

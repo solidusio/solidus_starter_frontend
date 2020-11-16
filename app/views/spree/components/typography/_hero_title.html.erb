@@ -2,10 +2,10 @@
   base_class = "hero-title".freeze
 
   # Classes
-  class_names = [base_class]
-  class_names = class_names.join(" ")
+  classes = local_assigns.fetch(:classes, [])
+  class_names = classes.push(base_class).join(" ")
 %>
 
-<h1 class="hero-title">
+<h1 class="<%= class_names %>">
   <%= content %>
 </h1>

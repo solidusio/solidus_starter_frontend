@@ -10,10 +10,10 @@
   options = local_assigns.fetch(:options, {})
   required = local_assigns.fetch(:required, false)
   state_container = local_assigns.fetch(:state_container, nil)
+  classes = local_assigns.fetch(:classes, [])
 
   # Classes
-  class_names = [base_class]
-  class_names = class_names.join(" ")
+  class_names = classes.push(base_class).join(" ")
 %>
 
 <div class="<%= class_names %>">

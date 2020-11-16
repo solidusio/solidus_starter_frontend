@@ -1,9 +1,11 @@
 <%
   base_class = "product-card".freeze
 
+  # Optional props
+  classes = local_assigns.fetch(:classes, [])
+
   # Classes
-  class_names = [base_class]
-  class_names = class_names.join(" ")
+  class_names = classes.push(base_class).join(" ")
 
   url = spree.product_path(product, taxon_id: @taxon.try(:id))
   cached = @taxon.present? ?
@@ -13,7 +15,7 @@
 %>
 
 <% cache cached do %>
-  <li class=<%= class_names %> itemscope itemtype="http://schema.org/Product" id=<%= product_id %>>
+  <li class="<%= class_names %>" itemscope itemtype="http://schema.org/Product" id=<%= product_id %>>
     <article>
       <section class="product-card_image">
         <%= link_to render('spree/shared/image', image: product.gallery.images.first, size: :small, itemprop: "image"), url, itemprop: 'url' %>
