@@ -9,21 +9,11 @@
     "spree/components/forms/inputs/text",
     autocomplete: "#{address_type} given-name",
     autofocus: true,
-    id: generate_id(form, "firstname"),
-    label: I18n.t("spree.first_name"),
-    name: "#{form.object_name}[firstname]",
+    id: generate_id(form, "name"),
+    label: I18n.t("spree.name"),
+    name: "#{form.object_name}[name]",
     required: true,
-    value: address.firstname
-  ) %>
-
-  <%= render(
-    "spree/components/forms/inputs/text",
-    autocomplete: "#{address_type} family-name",
-    id: generate_id(form, "lastname"),
-    label: I18n.t("spree.last_name"),
-    name: "#{form.object_name}[lastname]",
-    required: false,
-    value: address.lastname
+    value: address.name
   ) %>
 
   <% if Spree::Config[:company] %>

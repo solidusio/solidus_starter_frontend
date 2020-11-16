@@ -10,7 +10,7 @@
   ) unless @order.completed? %>
 
   <ul class="address-overview__info">
-    <li><%= address.full_name %></li>
+    <li><%= address.name %></li>
     <% unless address.company.blank? %>
       <li><%= address.company %></li>
     <% end %>
