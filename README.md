@@ -60,6 +60,10 @@ $ solidus_starter_frontend
 
 The last command will copy all the necessary files.
 
+**IMPORTANT**: if you plan to use `solidus_auth_devise` you also need to patch
+`SolidusSupport.frontend_available?` so it returns `true`, otherwise authentication
+routes and controllers from that extension will not be loaded.
+
 ### (2) Add our component as gem in your project
 With this method, you simply add our gem to your application and it behaves like
 a Rails engine. In this case, our files remain in the gem and you will need to
