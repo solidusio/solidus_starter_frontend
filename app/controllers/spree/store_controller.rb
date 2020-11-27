@@ -11,8 +11,8 @@ module Spree
     end
 
     def cart_link
-      render partial: 'spree/shared/link_to_cart'
-      fresh_when(current_order, template: 'spree/shared/_link_to_cart')
+      render partial: 'spree/components/navigation/link_to_cart'
+      fresh_when(current_order, template: 'spree/components/navigation/_link_to_cart')
     end
 
     private
