@@ -2,7 +2,7 @@
   <div class="order-item__image">
     <%= link_to(
       render(
-        'spree/shared/image',
+        'spree/components/image',
         image: item.variant.gallery.images.first || item.variant.product.gallery.images.first,
         size: :small
       ),
