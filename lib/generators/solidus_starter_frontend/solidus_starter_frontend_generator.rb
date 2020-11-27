@@ -9,8 +9,14 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     directory 'lib/views', 'lib/views'
 
     # Copy files
-    copy_file 'lib/solidus_starter_frontend/config.rb', 'lib/solidus_starter_frontend/config.rb'
     copy_file 'lib/solidus_starter_frontend_configuration.rb', 'lib/solidus_starter_frontend_configuration.rb'
+    copy_file 'lib/solidus_starter_frontend/config.rb', 'lib/solidus_starter_frontend/config.rb'
+    copy_file 'lib/solidus_starter_frontend/solidus_support_extensions.rb', 'lib/solidus_starter_frontend/solidus_support_extensions.rb'
+
+    # Initializer
+    initializer 'solidus_starter_frontend.rb' do
+      "require 'solidus_starter_frontend/solidus_support_extensions'"
+    end
 
     # Routes
     copy_file 'config/routes.rb', 'tmp/routes.rb'
