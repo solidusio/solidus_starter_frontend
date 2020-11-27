@@ -37,4 +37,18 @@ RSpec.configure do |config|
   else
     config.include Spree::TestingSupport::Translations
   end
+
+  config.before(:each, with_signed_in_user: true) do
+    Spree::StoreController.define_method(:spree_current_user) do
+      Spree.user_class.find_by(spree_api_key: 'fake api key')
+    end
+
+    allow(Spree.user_class).to receive(:find_by)
+      .with(hash_including(:spree_api_key))
+      .and_return(user)
+  end
+
+  config.before(:each, with_guest_session: true) do
+    allow_any_instance_of(ActionDispatch::Cookies::CookieJar).to receive(:signed) { { guest_token: order.guest_token } }
+  end
 end
