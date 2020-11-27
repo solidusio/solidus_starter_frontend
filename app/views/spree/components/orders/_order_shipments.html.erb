@@ -21,5 +21,5 @@
     <% end %>
   </ul>
 
-  <%= render 'spree/shared/shipment_tracking', order: order if order.shipped? %>
+  <%= render 'spree/components/orders/shipment_tracking', order: order if order.shipped? %>
 </div>
