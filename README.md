@@ -68,6 +68,7 @@ monkey-patch the classes that we previously defined.
 
 Installation steps:
 - add to your _Gemfile_: `gem 'solidus_starter_frontend'`
+- run `rails g solidus_starter_frontend:install`
 
 **IMPORTANT**: put this line before `gem 'solidus_auth_devise'` (if you are 
 using this gem) because our component has conditional references to it.
