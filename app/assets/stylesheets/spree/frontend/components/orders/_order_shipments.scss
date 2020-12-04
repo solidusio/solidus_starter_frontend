@@ -18,10 +18,34 @@
     padding: 0;
 
     > li {
+      border-top: solid 1px $color-border-light;
       margin: .5rem 0;
+      padding: .5rem;
 
       &:last-child {
         margin-bottom: 0;
+      }
+
+      &:first-child {
+        border-top: 0;
+      }
+    }
+
+    &__tracking {
+      margin-top: 1rem;
+
+      h4 {
+        font-size: $h6-font-size;
+        font-weight: $font-weight-bold;
+        margin: 0;
+      }
+
+      p {
+        font-size: $font-size-small;
+        margin: .5rem 0 0;
+        overflow: auto;
+        padding-bottom: 1rem;
+        white-space: nowrap;
       }
     }
   }
