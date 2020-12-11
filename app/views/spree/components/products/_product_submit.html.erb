@@ -1,18 +1,4 @@
-<div class="product-submit" id="product-price">
-  <h2 class="product-submit__title">
-    <%= content_tag(
-      :span,
-      display_price(@product),
-      itemprop: 'price',
-      content: @product.price_for(current_pricing_options).to_d,
-      data: { js: 'price' }
-    ) %>
-    <span
-      itemprop="priceCurrency"
-      content="<%= current_pricing_options.currency %>"
-    ></span>
-  </h2>
-
+<div class="product-submit">
   <%= render 'spree/components/products/product_availability', product: @product %>
 
   <div class="horizontal-input-group">
