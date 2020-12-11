@@ -3,6 +3,20 @@
     <%= @product.name %>
   </h1>
 
+  <h2 class="product-submit__title">
+    <%= content_tag(
+      :span,
+      display_price(@product),
+      itemprop: 'price',
+      content: @product.price_for(current_pricing_options).to_d,
+      data: { js: 'price' }
+    ) %>
+    <span
+      itemprop="priceCurrency"
+      content="<%= current_pricing_options.currency %>"
+    ></span>
+  </h2>
+
   <p class="product-info__description" itemprop="description">
     <%= product_description(@product) rescue t('spree.product_has_no_description') %>
   </p>
