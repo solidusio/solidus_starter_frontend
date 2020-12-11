@@ -2,18 +2,27 @@
 
 require 'spec_helper'
 
-describe Spree::HomeController, type: :controller do
+describe Spree::HomeController, type: :request, with_signed_in_user: true do
+  let(:searcher_class) { instance_double(Spree::Config.searcher_class) }
+  let(:user) { mock_model(Spree.user_class) }
+  let(:product) { build_stubbed(:product) }
+
+  before do
+    allow(Spree::Config.searcher_class).to receive(:new) { searcher_class }
+    allow(searcher_class).to receive(:current_user=)
+    allow(searcher_class).to receive(:pricing_options=)
+    allow(searcher_class).to receive(:retrieve_products) { Spree::Product.where(id: product.id) }
+  end
+
   it "provides current user to the searcher class" do
-    user = mock_model(Spree.user_class, last_incomplete_spree_order: nil, spree_api_key: 'fake')
-    allow(controller).to receive_messages try_spree_current_user: user
-    expect_any_instance_of(Spree::Config.searcher_class).to receive(:current_user=).with(user)
-    get :index
+    get spree.root_path
+    expect(searcher_class).to have_received(:current_user=).with(user)
     expect(response.status).to eq(200)
   end
 
   context "layout" do
     it "renders default layout" do
-      get :index
+      get spree.root_path
       expect(response).to render_template(layout: 'spree/layouts/spree_application')
     end
 
@@ -21,7 +30,7 @@ describe Spree::HomeController, type: :controller do
       before { stub_spree_preferences(layout: 'layouts/application') }
 
       it "renders specified layout" do
-        get :index
+        get spree.root_path
         expect(response).to render_template(layout: 'layouts/application')
       end
     end
