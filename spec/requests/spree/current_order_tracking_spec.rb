@@ -16,7 +16,7 @@ describe 'current order tracking', type: :request, with_signed_in_user: true do
       head :ok
     end
   end
-  
+
   before do
     Rails.application.routes.draw do
       get '/test', to: 'test#create_order'
@@ -27,7 +27,6 @@ describe 'current order tracking', type: :request, with_signed_in_user: true do
     Rails.application.reload_routes!
   end
 
-
   it 'automatically tracks who the order was created by & IP address' do
     get '/test'
 
@@ -37,9 +36,9 @@ describe 'current order tracking', type: :request, with_signed_in_user: true do
 
   context "current order creation" do
     it "doesn't create a new order out of the blue" do
-      expect {
+      expect do
         get '/test2'
-      }.not_to change { Spree::Order.count }
+      end.not_to(change { Spree::Order.count })
     end
   end
 end

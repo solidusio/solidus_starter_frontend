@@ -9,7 +9,7 @@ end
 module Spree
   describe OrdersController, type: :request, with_guest_session: true do
     # Regression test for https://github.com/spree/spree/issues/2004
-    context "with a transition callback on first state" do
+    context "when a transition callback on first state" do
       let(:order) { create(:order, user: nil, store: store) }
       let!(:store) { create(:store) }
 
@@ -20,7 +20,7 @@ module Spree
         end
       end
 
-      it "correctly calls the transition callback" do
+      it "calls the transition callback" do
         expect(order.number).not_to eq 'test'
         order.line_items << create(:line_item)
         put spree.order_path(order.number), params: { checkout: "checkout" }

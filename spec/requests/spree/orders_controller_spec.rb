@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Spree::OrdersController, type: :request do
@@ -65,7 +66,7 @@ describe Spree::OrdersController, type: :request do
       end
 
       context "when quantity is nil" do
-        it "should populate order with 1 of given variant" do
+        it "populates order with 1 of given variant" do
           expect do
             post spree.populate_orders_path, params: { variant_id: variant.id, quantity: nil }
           end.to change { Spree::Order.count }.by(1)
@@ -160,7 +161,7 @@ describe Spree::OrdersController, type: :request do
   context "#empty", with_guest_session: true do
     let(:order) { create(:order_with_line_items, user: nil, store: store) }
 
-    it "it destroys line items in the current order" do
+    it "destroys line items in the current order" do
       put spree.empty_cart_path
 
       expect(response).to redirect_to(spree.cart_path)
