@@ -4,15 +4,9 @@ require 'spec_helper'
 
 # This spec is useful for when we just want to make sure a view is rendering correctly
 # Walking through the entire checkout process is rather tedious, don't you think?
-describe Spree::CheckoutController, type: :controller do
-  render_views
+describe Spree::CheckoutController, type: :request, with_signed_in_user: true do
   let(:token) { 'some_token' }
-  let(:user) { stub_model(Spree::LegacyUser) }
-
-  before do
-    allow(controller).to receive_messages try_spree_current_user: user
-  end
-
+  let(:user) { create(:user) }
   # Regression test for https://github.com/spree/spree/issues/3246
   context "when using GBP" do
     before do
@@ -24,13 +18,13 @@ describe Spree::CheckoutController, type: :controller do
         # Using a let block won't acknowledge the currency setting
         # Therefore we just do it like this...
         order = Spree::TestingSupport::OrderWalkthrough.up_to(:address)
-        allow(controller).to receive_messages current_order: order
+        order.update(user: user)
       end
 
       it "displays rate cost in correct currency" do
-        get :edit
+        get spree.checkout_path
         html = Nokogiri::HTML(response.body)
-        expect(html.css('.shipping-methods__rate').text.strip).to have_content("£10.00")
+        expect(html.css('.shipping-methods__rate').text.strip).to include("£10")
       end
     end
   end
