@@ -7,26 +7,24 @@ Spree::Order.class_eval do
 end
 
 module Spree
-  describe OrdersController, type: :controller do
+  describe OrdersController, type: :request, with_guest_session: true do
     # Regression test for https://github.com/spree/spree/issues/2004
     context "with a transition callback on first state" do
-      let(:order) { Spree::Order.new }
+      let(:order) { create(:order, user: nil, store: store) }
+      let!(:store) { create(:store) }
 
       before do
-        allow(controller).to receive_messages current_order: order
-        expect(controller).to receive(:authorize!).at_least(:once).and_return(true)
-
         first_state, = Spree::Order.checkout_steps.first
         Spree::Order.state_machine.after_transition to: first_state do |order|
-          order.did_transition = true
+          order.update(number: 'test')
         end
       end
 
       it "correctly calls the transition callback" do
-        expect(order.did_transition).to be_nil
-        order.line_items << FactoryBot.create(:line_item)
-        put :update, params: { checkout: "checkout" }
-        expect(order.did_transition).to be true
+        expect(order.number).not_to eq 'test'
+        order.line_items << create(:line_item)
+        put spree.order_path(order.number), params: { checkout: "checkout" }
+        expect(order.reload.number).to eq 'test'
       end
     end
   end
