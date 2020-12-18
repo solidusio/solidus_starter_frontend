@@ -155,4 +155,20 @@ describe 'viewing products', type: :system, inaccessible: true do
       end
     end
   end
+
+  context 'with more taxons', caching: true do
+    let!(:more_clothing) { create(:taxon, name: "More Clothing", parent: taxonomy.root, taxonomy: taxonomy) }
+
+    before do
+      visit '/t/category/super-clothing/t-shirts'
+    end
+
+    it 'changes the current taxon' do
+      expect(page).to have_css('.taxonomies li:first.current')
+      expect(page).to have_no_css('.taxonomies li:last.current')
+      find('.taxonomies a[href*="more-clothing"]').click
+      expect(page).to have_no_css('.taxonomies li:first.current')
+      expect(page).to have_css('.taxonomies li:last.current')
+    end
+  end
 end
