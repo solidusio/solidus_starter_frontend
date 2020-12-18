@@ -24,6 +24,7 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
 
     # Gems
     gem 'canonical-rails'
+    gem 'solidus_support'
     gem 'truncate_html'
 
     # Text updates
