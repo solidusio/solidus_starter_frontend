@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.license = 'BSD-3-Clause'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://www.nebulab.it'
+  spec.metadata['source_code_uri'] = 'https://github.com/nebulab/solidus_starter_frontend'
   # spec.metadata['changelog_uri'] = ''
 
   spec.required_ruby_version = Gem::Requirement.new('~> 2.4')
