@@ -24,8 +24,9 @@ require 'spree/testing_support/translations' unless Spree.solidus_gem_version < 
 # in spec/support/ and its subdirectories.
 Dir["#{__dir__}/support/**/*.rb"].sort.each { |f| require f }
 
-# Requires factories defined in lib/solidus_starter_frontend/factories.rb
-require 'solidus_starter_frontend/factories'
+require 'spree/testing_support/factory_bot'
+FactoryBot.definition_file_paths = Spree::TestingSupport::FactoryBot.definition_file_paths
+FactoryBot.reload
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
