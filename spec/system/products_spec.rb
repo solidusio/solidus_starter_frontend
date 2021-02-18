@@ -160,7 +160,9 @@ describe 'Visiting Products', type: :system, inaccessible: true do
 
     before do
       # Need to have two images to trigger the error
-      image = File.open(File.expand_path('../fixtures/thinking-cat.jpg', __dir__))
+      image = File.open(
+        File.join(Spree::Core::Engine.root, "lib", "spree", "testing_support", "fixtures", "blank.jpg")
+      )
       product.images.create!(attachment: image)
       product.images.create!(attachment: image)
 
@@ -192,7 +194,9 @@ describe 'Visiting Products', type: :system, inaccessible: true do
     end
 
     before do
-      image = File.open(File.expand_path('../fixtures/thinking-cat.jpg', __dir__))
+      image = File.open(
+        File.join(Spree::Core::Engine.root, "lib", "spree", "testing_support", "fixtures", "blank.jpg")
+      )
       v1 = product.variants.create!(price: 9.99)
       v2 = product.variants.create!(price: 10.99)
       v1.images.create!(attachment: image)
@@ -201,7 +205,7 @@ describe 'Visiting Products', type: :system, inaccessible: true do
 
     it 'should not display no image available' do
       visit spree.root_path
-      expect(page).to have_xpath("//img[contains(@src,'thinking-cat')]")
+      expect(page).to have_xpath("//img[contains(@src,'blank')]")
     end
   end
 
