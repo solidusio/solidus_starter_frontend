@@ -19,3 +19,4 @@ spec/examples.txt
 .rvmrc
 .ruby-version
 .ruby-gemset
+.env

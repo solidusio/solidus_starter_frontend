@@ -5,9 +5,15 @@ set -e
 case "$DB" in
 postgres|postgresql)
   RAILSDB="postgresql"
+  HOST=${DB_POSTGRES_HOST:-${DB_HOST}}
+  USERNAME=$DB_USERNAME
+  PASSWORD=$DB_PASSWORD
   ;;
 mysql)
   RAILSDB="mysql"
+  HOST=${DB_MYSQL_HOST:-${DB_HOST}}
+  USERNAME=$DB_USERNAME
+  PASSWORD=$DB_PASSWORD
   ;;
 sqlite|'')
   RAILSDB="sqlite3"
@@ -61,6 +67,27 @@ gem 'solidus_i18n'
 gem '$extension_name', path: '..'
 gem 'solidus_auth_devise'
 RUBY
+
+replace_in_database_yml() {
+  if [ $RAILSDB = "postgresql" ]; then
+    sed -i.bck "/^  adapter:/a \ \ $1:  $2" config/database.yml
+  elif [ $RAILSDB = "mysql" ]; then
+    sed -i.bck "s/^  $1:.*/\ \ $1: $2/" config/database.yml
+  fi
+  if [ -f config/database.yml.bck ]; then
+    rm -f config/database.yml.bck
+  fi
+}
+
+if [ ${HOST} ]; then
+  replace_in_database_yml "host" $HOST
+fi
+if [ ${USERNAME} ]; then
+  replace_in_database_yml "username" $USERNAME
+fi
+if [ ${PASSWORD} ]; then
+  replace_in_database_yml "password" $PASSWORD
+fi
 
 unbundled bundle install --gemfile Gemfile
 
