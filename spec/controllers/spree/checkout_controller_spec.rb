@@ -86,7 +86,6 @@ describe Spree::CheckoutController, type: :controller do
       before do
         # Must have *a* shipping method and a payment method so updating from address works
         allow(order).to receive_messages ensure_available_shipping_rates: true
-        order.line_items << FactoryBot.create(:line_item)
       end
 
       context "with the order in the cart state", partial_double_verification: false do
