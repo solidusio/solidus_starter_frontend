@@ -8,8 +8,8 @@ describe Spree::CheckoutController, type: :controller do
   let(:order) { FactoryBot.create(:order_with_totals) }
 
   let(:address_params) do
-    address = FactoryBot.build(:address)
-    address.attributes.except("created_at", "updated_at")
+    attributes_for(:address, name: 'John Doe')
+      .except("created_at", "updated_at")
   end
 
   before do
@@ -540,24 +540,5 @@ describe Spree::CheckoutController, type: :controller do
     expect {
       post :update, params: { state: "payment", order: { email: "johndoe@example.com" } }
     }.to change { order.line_items.to_a.size }.from(1).to(0)
-  end
-
-  context 'trying to apply a coupon code' do
-    let(:order) { create(:order_with_line_items, state: 'payment', guest_token: 'a token') }
-    let(:coupon_code) { "coupon_code" }
-
-    before { cookies.signed[:guest_token] = order.guest_token }
-
-    context "when coupon code is empty" do
-      let(:coupon_code) { "" }
-
-      it 'does not try to apply coupon code' do
-        expect(Spree::PromotionHandler::Coupon).not_to receive :new
-
-        put :update, params: { state: order.state, order: { coupon_code: coupon_code } }
-
-        expect(response).to redirect_to(spree.checkout_state_path('confirm'))
-      end
-    end
   end
 end
