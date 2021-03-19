@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Spree::OrdersController, type: :request do
+describe 'Order', type: :request do
   let!(:store) { create(:store) }
   let(:variant) { create(:variant) }
 

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Spree::ProductsController, type: :request, with_signed_in_user: true do
+describe 'Product', type: :request, with_signed_in_user: true do
   let!(:product) { create(:product, available_on: 1.year.from_now) }
   let(:user) { mock_model(Spree.user_class) }
 

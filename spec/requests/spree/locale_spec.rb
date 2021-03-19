@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Spree::LocaleController, type: :request do
+RSpec.describe 'Locale', type: :request do
   include_context "fr locale"
 
   context 'switch_to_locale specified' do

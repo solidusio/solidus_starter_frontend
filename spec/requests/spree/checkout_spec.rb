@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Spree::CheckoutController, type: :request, with_signed_in_user: true do
+describe 'Checkout', type: :request, with_signed_in_user: true do
   let(:user) { order.user }
 
   let(:address_params) do
