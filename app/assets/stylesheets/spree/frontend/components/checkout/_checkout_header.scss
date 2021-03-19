@@ -15,4 +15,12 @@
       margin-right: 20px;
     }
   }
+
+  &__steps {
+    margin-top: 1.5rem;
+
+    @include desktop {
+      margin-top: 0;
+    }
+  }
 }
