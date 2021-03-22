@@ -3,7 +3,7 @@
     <li>
       <div class="shipment-items__image">
         <%= render(
-          'spree/shared/image',
+          'spree/components/image',
           image: shipment_item.variant.gallery.images.first || shipment_item.variant.product.gallery.images.first,
           size: :small
         ) %>

@@ -1,7 +1,7 @@
 <ul class="variants-list">
   <% variants.each do |variant, quantity| %>
     <li>
-      <%= render 'spree/shared/image',
+      <%= render 'spree/components/image',
         image: variant.gallery.images.first || variant.product.gallery.images.first,
         size: :mini %>
     </li>

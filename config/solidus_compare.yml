@@ -13,17 +13,13 @@ ignore:
     skip: true
   - file: app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
     skip: true
-  - hash: 2722004413
-    file: frontend/app/controllers/spree/checkout_controller.rb
   - hash: 1422395649
     file: frontend/app/controllers/spree/coupon_codes_controller.rb
   - hash: 2175977023
     file: frontend/app/controllers/spree/home_controller.rb
-  - hash: 1090075720
-    file: frontend/app/controllers/spree/orders_controller.rb
   - hash: 61096156
     file: frontend/app/controllers/spree/products_controller.rb
-  - hash: 2154899617
+  - hash: 1682079912
     file: frontend/app/controllers/spree/store_controller.rb
   - hash: 910927973
     file: frontend/app/controllers/spree/taxons_controller.rb

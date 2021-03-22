@@ -17,9 +17,13 @@
           stock_location: shipment.stock_location.name,
           shipping_method: shipment.selected_shipping_rate.name
         ) %>
+        <% if order.shipped? && link_to_tracking(shipment) %>
+          <div class="order-shipments__info__tracking">
+            <h4><%= t('spree.tracking') %></h4>
+            <p><%= link_to_tracking(shipment) %></p>
+          </div>
+        <% end %>
       </li>
     <% end %>
   </ul>
-
-  <%= render 'spree/shared/shipment_tracking', order: order if order.shipped? %>
 </div>
