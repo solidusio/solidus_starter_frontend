@@ -3,6 +3,12 @@
     <%= t('spree.order_summary') %>
   </h2>
 
+  <%= render(
+    'spree/components/orders/order_items',
+    order: order,
+    classes: ['order-items--summary']
+  )%>
+
   <dl>
     <div class="checkout-summary__entry" id="item-total">
       <dt><%= t('spree.item_total') %>:</dt>
