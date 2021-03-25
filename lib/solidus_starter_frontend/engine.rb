@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'spree/core'
-require 'solidus_starter_frontend'
+require 'solidus_core'
+require 'solidus_support'
+require 'solidus_starter_frontend/authentication_helpers'
 
 module SolidusStarterFrontend
   class Engine < Rails::Engine
@@ -15,19 +16,21 @@ module SolidusStarterFrontend
     end
 
     config.to_prepare do
-      if defined?(Spree::Auth::Engine)
-        [
-          Spree::UserConfirmationsController,
-          Spree::UserPasswordsController,
-          Spree::UserRegistrationsController,
-          Spree::UserSessionsController,
-          Spree::UsersController
-        ].each do |auth_controller|
-          auth_controller.include SolidusStarterFrontend::Taxonomies
-          auth_controller.include SolidusStarterFrontend::AuthViews
-        end
+      # TODO: SolidusAuthDevise was adding these methods to ApplicationController.
+      # We should check if it's really needed and restore this + add this same
+      # include in the generator for who uses the gem copying files into their app.
+      # ApplicationController.include SolidusStarterFrontend::AuthenticationHelpers
 
-        Spree::StoreController.include SolidusStarterFrontend::AuthViews
+      Spree::BaseController.unauthorized_redirect = -> do
+        if try_spree_current_user
+          flash[:error] = I18n.t('spree.authorization_failure')
+
+          redirect_back(fallback_location: spree.unauthorized_path)
+        else
+          store_location
+
+          redirect_back(fallback_location: spree.login_path)
+        end
       end
     end
   end

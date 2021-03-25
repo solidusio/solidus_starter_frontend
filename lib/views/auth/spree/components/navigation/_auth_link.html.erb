@@ -1,5 +1,0 @@
-<% if spree_current_user %>
-  <%= link_to I18n.t('spree.my_account'), spree.account_path, class: 'auth-link' %>
-<% else %>
-  <%= link_to I18n.t('spree.login'), spree.login_path, class: 'auth-link' %>
-<% end %>

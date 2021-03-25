@@ -410,7 +410,13 @@ describe 'Checkout', type: :system, inaccessible: true do
     before do
       add_mug_to_cart
       click_on "Checkout"
-      fill_in "order_email", with: "test@example.com"
+
+      # TODO: do this stuff on all specs
+      within '#checkout_form_registration' do
+        fill_in "Email", with: "test@example.com"
+        click_on "Continue"
+      end
+
       fill_in_address
       click_on "Save and Continue"
       click_on "Save and Continue"
