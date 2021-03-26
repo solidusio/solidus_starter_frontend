@@ -11,46 +11,6 @@ describe 'Checkout', type: :request, with_signed_in_user: true do
   end
   let(:order) { create(:order_with_line_items) }
 
-  context "#edit" do
-    let!(:order) { create(:order_with_line_items) }
-
-    it 'checks if the user is authorized for :edit' do
-      get spree.checkout_path, params: { state: "address" }
-
-      expect(assigns[:order]).to eq order
-      expect(status).to eq(200)
-    end
-
-    it "redirects to the cart path if checkout_allowed? return false" do
-      order.line_items.destroy_all
-      get spree.checkout_path, params: { state: "delivery" }
-
-      expect(response).to redirect_to(spree.cart_path)
-    end
-
-    it "redirects to the cart path if current_order is nil" do
-      order.destroy
-      get spree.checkout_path, params: { state: "delivery" }
-
-      expect(response).to redirect_to(spree.cart_path)
-    end
-
-    it "redirects to cart if order is completed" do
-      order.touch(:completed_at)
-      get spree.checkout_path, params: { state: "address" }
-
-      expect(response).to redirect_to(spree.cart_path)
-    end
-
-    # Regression test for https://github.com/spree/spree/issues/2280
-    it "redirects to current step trying to access a future step" do
-      order.update_column(:state, "address")
-
-      get spree.checkout_path, params: { state: "delivery" }
-      expect(response).to redirect_to spree.checkout_state_path("address")
-    end
-  end
-
   context "#update" do
     let!(:order) { create(:order_with_line_items) }
 
@@ -454,11 +414,6 @@ describe 'Checkout', type: :request, with_signed_in_user: true do
 
     after do
       Spree::Order.checkout_flow(&@old_checkout_flow)
-    end
-
-    it "doesn't set a default shipping address on the order" do
-      get spree.checkout_path, params: { state: order.state, order: { bill_address_attributes: address_params } }
-      expect(assigns[:order].ship_address).to be_nil
     end
 
     it "doesn't remove unshippable items before payment" do
