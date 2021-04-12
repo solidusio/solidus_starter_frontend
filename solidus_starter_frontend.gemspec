@@ -30,7 +30,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'canonical-rails', '~> 0.2.0'
-  spec.add_dependency 'generator_spec', '~> 0.9.4'
   spec.add_dependency 'solidus_api', ['>= 2.0', '< 4']
   spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
   spec.add_dependency 'solidus_support', '~> 0.5'

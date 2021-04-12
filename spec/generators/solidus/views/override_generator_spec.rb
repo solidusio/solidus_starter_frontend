@@ -1,50 +1,48 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'generator_spec'
 require 'generators/solidus_starter_frontend/views/override_generator'
 
-RSpec.describe SolidusStarterFrontend::Views::OverrideGenerator, type: :generator do
-  destination Rails.root.join('app', 'views', 'spree')
+RSpec.describe SolidusStarterFrontend::Views::OverrideGenerator do
+  include SolidusStarterFrontend::TestingSupport::Generators
 
-  before(:all) do
-    prepare_destination
+  def src
+    SolidusStarterFrontend::Engine.root.join('app', 'views', 'spree')
   end
 
-  subject! do
-    run_generator arguments
+  def dest
+    root.join('app', 'views', 'spree')
   end
 
-  let(:src) do
-    ::SolidusStarterFrontend::Engine.root.join('app', 'views', 'spree')
+  def ensure_clean_state
+    FileUtils.rm_rf dest if File.exist?(dest)
   end
 
-  let(:dest) do
-    Rails.root.join('app', 'views', 'spree')
+  around(:each) do |example|
+    ensure_clean_state
+    example.run
+    ensure_clean_state
   end
 
   context 'without any arguments' do
-    let(:arguments) { %w() }
-
     it 'copies all views into the host app' do
+      run 'solidus_starter_frontend:views:override'
+
       expect(src.entries).to match_array(dest.entries)
     end
   end
 
   context 'when "products" is passed as --only argument' do
-    let(:arguments) { %w(--only products) }
-
     context 'as folder' do
       it 'exclusively copies views whose name contains "products"' do
-        Dir.glob(dest.join("**", "*")).each do |file|
+        run 'solidus_starter_frontend:views:override --only products'
+
+        Dir.glob(dest.join('**', '*')).each do |file|
           next if File.directory?(file)
-          expect(file.to_s).to match("products")
+
+          expect(file.to_s).to match('products')
         end
       end
     end
-  end
-
-  after do
-    FileUtils.rm_rf destination_root
   end
 end
