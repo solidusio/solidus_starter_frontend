@@ -39,9 +39,6 @@ services:
       DB_POSTGRES_HOST: postgres
       HISTFILE: "/home/solidus_starter_frontend_user/history/bash_history"
       MYSQL_HISTFILE: "/home/solidus_starter_frontend_user/history/mysql_history"
-      # TODO: Remove repo/branch config when PR is merged
-      SOLIDUS_REPO: 'nebulab/solidus'
-      SOLIDUS_BRANCH: 'docker'
     ports:
       - "${SANDBOX_PORT:-3000}:${SANDBOX_PORT:-3000}"
     volumes:
