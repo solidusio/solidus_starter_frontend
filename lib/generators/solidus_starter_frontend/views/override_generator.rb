@@ -7,7 +7,7 @@ module SolidusStarterFrontend
   module Views
     class OverrideGenerator < ::Rails::Generators::Base
       def self.views_folder
-        Engine.root.join('app', 'views', 'spree')
+        Rails.root.join('app', 'views', 'spree')
       end
 
       VIEWS = Dir.glob(views_folder.join('**', '*'))

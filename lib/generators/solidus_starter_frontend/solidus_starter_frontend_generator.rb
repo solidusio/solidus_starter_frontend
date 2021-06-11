@@ -5,26 +5,39 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
 
   def install
     # Copy directories
-    directory 'app', 'app'
-    directory 'lib/views', 'lib/views'
+    directory 'app', 'app', exclude_pattern: /auth_views/
+    directory 'lib/views/auth', 'app/views'
 
     # Copy files
     copy_file 'lib/solidus_starter_frontend_configuration.rb', 'lib/solidus_starter_frontend_configuration.rb'
     copy_file 'lib/solidus_starter_frontend/config.rb', 'lib/solidus_starter_frontend/config.rb'
-    copy_file 'lib/solidus_starter_frontend/solidus_support_extensions.rb', 'lib/solidus_starter_frontend/solidus_support_extensions.rb'
-
-    # Initializer
-    initializer 'solidus_starter_frontend.rb' do
-      "require 'solidus_starter_frontend/solidus_support_extensions'"
-    end
 
     # Routes
     copy_file 'config/routes.rb', 'tmp/routes.rb'
     prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
 
+    # Enable Solidus frontend
+    application do
+      <<~RUBY
+        config.x.solidus.frontend_available = true
+        config.to_prepare do
+          if defined?(Spree::Auth::Engine)
+            [
+              Spree::UserConfirmationsController,
+              Spree::UserPasswordsController,
+              Spree::UserRegistrationsController,
+              Spree::UserSessionsController,
+              Spree::UsersController
+            ].each do |auth_controller|
+              auth_controller.include SolidusStarterFrontend::Taxonomies
+            end
+          end
+        end
+        RUBY
+    end
+
     # Gems
     gem 'canonical-rails'
-    gem 'solidus_support'
     gem 'truncate_html'
 
     # Text updates

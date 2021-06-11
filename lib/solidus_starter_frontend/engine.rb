@@ -9,6 +9,10 @@ module SolidusStarterFrontend
 
     engine_name 'solidus_starter_frontend'
 
+    initializer 'solidus_starter_frontend', before: 'solidus_support_frontend_paths' do
+      Rails.configuration.x.solidus.frontend_available = true
+    end
+
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
