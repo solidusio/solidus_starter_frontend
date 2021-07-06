@@ -15,7 +15,7 @@
             'variant_id',
             variant.id,
             index == 0,
-            data: { js: 'variant-radio', js_price: variant.price_for(current_pricing_options).to_s }
+            data: { js: 'variant-radio', js_price: variant.price_for_options(current_pricing_options)&.money.to_s }
           ) %>
 
           <%= label_tag "variant_id_#{ variant.id }" do %>
