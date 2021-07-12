@@ -25,7 +25,17 @@ Simply add this require statement to your spec_helper:
 require 'solidus_starter_frontend/factories'
 ```
 
+### Running the extension in development
+
+In order to run the extension, you can either 1) run the sandbox script to
+generate the sandbox app or 2) add the extension as a gem in a Rails app.
+
 ### Running the sandbox
+
+The sandbox script uses the `solidus_starter_frontend:install` generator to
+install the frontend. This is useful when you want to ensure that the generator
+is working.
+
 To run this extension in a sandboxed Solidus application, you can run 
 `bin/sandbox`. The path for the sandbox app is `./sandbox` and `bin/rails` will 
 forward any Rails commands to `sandbox/bin/rails`.
@@ -41,6 +51,63 @@ Use Ctrl-C to stop
 ```
 
 Default username and password for admin are: `admin@example.com` and `test123`.
+
+### Running the extension as an engine in a Rails app
+
+You can also run the extension as a engine in a Rails app. This is useful when
+you want to automatically see changes in the app without having to rerun the
+`solidus_starter_frontend:install` generator.
+
+To run the extension in a Rails app,
+
+#### 1) Create a Rails app
+
+```sh
+rails new store
+```
+
+#### 2) Add and install Solidus with `solidus_starter_frontend` in the Rails app
+
+Add the following gems. Since we're developing `solidus_starter_frontend`, we're
+assuming that you have `solidus_starter_frontend` locally and that you want to
+point to the latest versions of the Solidus components and extensions.
+
+```rb
+solidus_repo = ENV.fetch('SOLIDUS_REPO', 'solidusio/solidus')
+solidus_branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
+gem 'solidus_core', github: solidus_repo, branch: solidus_branch
+gem 'solidus_api', github: solidus_repo, branch: solidus_branch
+gem 'solidus_backend', github: solidus_repo, branch: solidus_branch
+gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
+
+gem 'solidus_starter_frontend', path: 'path/to/solidus_starter_frontend'
+
+solidus_auth_devise_repo = ENV.fetch('SOLIDUS_AUTH_DEVISE_REPO', 'solidusio/solidus_auth_devise')
+solidus_auth_devise_branch = ENV.fetch('SOLIDUS_AUTH_DEVISE_BRANCH', 'master')
+gem 'solidus_auth_devise', github: solidus_auth_devise_repo, branch: solidus_auth_devise_branch
+```
+
+Note that `solidus_starter_frontend` has conditional references to
+`solidus_auth_devise`, so it's important to place `solidus_starter_frontend`
+before `solidus_auth_devise`.
+
+#### 3) Install Solidus
+
+```sh
+bundle exec rails generate solidus:install \
+  --auto-accept \
+  --user_class=Spree::User \
+  --enforce_available_locales=true \
+  --with-authentication=false \
+  --payment-method=none
+
+bundle exec rails generate solidus:auth:install --auto-run-migrations
+```
+
+#### 4) Install the frontend assets
+
+You will need to run `bundle exec rails g solidus_starter_frontend:install` to add the
+frontend assets to the existing vendored Solidus manifest files.
 
 ### Updating the changelog
 Before and after releases the changelog should be updated to reflect the 
