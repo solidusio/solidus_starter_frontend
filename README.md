@@ -42,16 +42,8 @@ If Solidus was already installed with _solidus_frontend_ you will have to
 replace all the references of the string `Spree::Frontend::Config` in your 
 project with `SolidusStarterFrontend::Config`.
 
-You have the following 2 install methods available.
+To install:
 
-### (1) Copy our components files in your project
-With this method, our views, assets, and controllers will be copied over your 
-project and you can change easily anything that we created; this gives you a lot
-of freedom of customization. On the other hand, you won't be able to auto-update
-the storefront code with the next versions released since it will not be present
-in your Gemfile.
-
-Installation steps:
 ```shell
 $ cd your/project/
 $ gem install solidus_starter_frontend
@@ -59,18 +51,6 @@ $ solidus_starter_frontend
 ```
 
 The last command will copy all the necessary files.
-
-### (2) Add our component as gem in your project
-With this method, you simply add our gem to your application and it behaves like
-a Rails engine. In this case, our files remain in the gem and you will need to
-override the views that you want to customize or if you need different logics to
-monkey-patch the classes that we previously defined.
-
-Installation steps:
-- add to your _Gemfile_: `gem 'solidus_starter_frontend'`
-
-**IMPORTANT**: put this line before `gem 'solidus_auth_devise'` (if you are 
-using this gem) because our component has conditional references to it.
 
 ## Development
 For information about contributing to this project please refer to this
