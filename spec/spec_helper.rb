@@ -2,6 +2,7 @@
 
 # Configure Rails Environment
 ENV['RAILS_ENV'] = 'test'
+ENV['SOLIDUS_STARTER_FRONTEND_ALLOW_AS_ENGINE'] = 'true'
 
 # Run Coverage report
 require 'solidus_dev_support/rspec/coverage'

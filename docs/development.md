@@ -91,6 +91,19 @@ Note that `solidus_starter_frontend` has conditional references to
 `solidus_auth_devise`, so it's important to place `solidus_starter_frontend`
 before `solidus_auth_devise`.
 
+#### 3) Enable `SOLIDUS_STARTER_FRONTEND_ALLOW_AS_ENGINE` environment variable
+
+We're strongly encouraging people to use `solidus_starter_frontend` as a
+generator. Thus, if you want to run it as an engine, you'll need to set an
+environment variable explicitly stating so.
+
+One way to do this is to set the environment variable within an initializer:
+
+```sh
+# config/initializers/solidus_starter_frontend.rb
+ENV['SOLIDUS_STARTER_FRONTEND_ALLOW_AS_ENGINE'] = 'true'
+```
+
 #### 3) Install Solidus
 
 ```sh
@@ -108,6 +121,12 @@ bundle exec rails generate solidus:auth:install --auto-run-migrations
 
 You will need to run `bundle exec rails g solidus_starter_frontend:install` to add the
 frontend assets to the existing vendored Solidus manifest files.
+
+#### 5) Run the server
+
+```sh
+rails server
+```
 
 ### Updating the changelog
 Before and after releases the changelog should be updated to reflect the 

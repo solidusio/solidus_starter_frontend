@@ -15,6 +15,8 @@ module SolidusStarterFrontend
     end
 
     config.to_prepare do
+      raise 'Error: SolidusStarterFrontend is not allowed to run as an engine' unless ENV['SOLIDUS_STARTER_FRONTEND_ALLOW_AS_ENGINE']
+
       if defined?(Spree::Auth::Engine)
         [
           Spree::UserConfirmationsController,
