@@ -30,7 +30,7 @@ require 'solidus_starter_frontend/factories'
 In order to run the extension, you can either 1) run the sandbox script to
 generate the sandbox app or 2) add the extension as a gem in a Rails app.
 
-### Running the sandbox
+#### Running the sandbox
 
 The sandbox script uses the `solidus_starter_frontend:install` generator to
 install the frontend. This is useful when you want to ensure that the generator
@@ -52,7 +52,7 @@ Use Ctrl-C to stop
 
 Default username and password for admin are: `admin@example.com` and `test123`.
 
-### Running the extension as an engine in a Rails app
+#### Running the extension as an engine in a Rails app
 
 You can also run the extension as a engine in a Rails app. This is useful when
 you want to automatically see changes in the app without having to rerun the
@@ -60,13 +60,13 @@ you want to automatically see changes in the app without having to rerun the
 
 To run the extension in a Rails app,
 
-#### 1) Create a Rails app
+##### 1) Create a Rails app
 
 ```sh
 rails new store
 ```
 
-#### 2) Add and install Solidus with `solidus_starter_frontend` in the Rails app
+##### 2) Add and install Solidus with `solidus_starter_frontend` in the Rails app
 
 Add the following gems. Since we're developing `solidus_starter_frontend`, we're
 assuming that you have `solidus_starter_frontend` locally and that you want to
@@ -91,7 +91,7 @@ Note that `solidus_starter_frontend` has conditional references to
 `solidus_auth_devise`, so it's important to place `solidus_starter_frontend`
 before `solidus_auth_devise`.
 
-#### 3) Enable `SOLIDUS_STARTER_FRONTEND_ALLOW_AS_ENGINE` environment variable
+##### 3) Enable `SOLIDUS_STARTER_FRONTEND_ALLOW_AS_ENGINE` environment variable
 
 We're strongly encouraging people to use `solidus_starter_frontend` as a
 generator. Thus, if you want to run it as an engine, you'll need to set an
@@ -104,7 +104,7 @@ One way to do this is to set the environment variable within an initializer:
 ENV['SOLIDUS_STARTER_FRONTEND_ALLOW_AS_ENGINE'] = 'true'
 ```
 
-#### 3) Install Solidus
+##### 3) Install Solidus
 
 ```sh
 bundle exec rails generate solidus:install \
@@ -117,12 +117,12 @@ bundle exec rails generate solidus:install \
 bundle exec rails generate solidus:auth:install --auto-run-migrations
 ```
 
-#### 4) Install the frontend assets
+##### 4) Install the frontend assets
 
 You will need to run `bundle exec rails g solidus_starter_frontend:install` to add the
 frontend assets to the existing vendored Solidus manifest files.
 
-#### 5) Run the server
+##### 5) Run the server
 
 ```sh
 rails server
