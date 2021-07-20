@@ -1,13 +1,14 @@
 # Solidus Starter Frontend
 [![Gem Version](https://badge.fury.io/rb/solidus_starter_frontend.svg)](https://badge.fury.io/rb/solidus_starter_frontend) [![CircleCI](https://circleci.com/gh/nebulab/solidus_starter_frontend.svg?style=shield)](https://circleci.com/gh/nebulab/solidus_starter_frontend)
 
-`solidus_starter_frontend` is a new starter store for [Solidus][solidus]. This
-extension aims to deliver a modern, minimal, semantic, and easy to extend
-frontend codebase for a more efficient bootstrapping experience.
+`solidus_starter_frontend` is a new starter storefront for [Solidus][solidus].
 
-**DISCLAIMER**: some Solidus extensions (the ones that depend on Solidus 
-Frontend) will not work with our component because they rely on defacing some
-views that don't exist here.
+This project aims to deliver a modern, minimal, semantic, and easy to extend
+codebase for a more efficient bootstrapping experience.
+
+**DISCLAIMER**: some Solidus extensions (the ones that depend on Solidus
+Frontend) will not work with this project because they rely on defacing some
+views items that don't exist here.
 
 ## Objectives
 We aim to deliver:
@@ -18,19 +19,38 @@ We aim to deliver:
 in vanilla JavaScript
 
 All of this while keeping and improving on the functionality of the current
-[Solidus][solidus] starter store.
+[Solidus][solidus] frontend subcomponent.
 
 ## Installation
-By default, the `solidus` gem also includes the standard frontend via
-the `solidus_frontend` gem. To make this extension work, you need to
-exclude it and manually include all the other Solidus components.
 
-You need to replace:
+By default, the `solidus` gem also includes the standard frontend via the
+`solidus_frontend` gem. To make this gem work, you need to exclude
+`solidus_frontend` gem and manually include the rest of the Solidus
+components.
+
+### For a new store
+
+Just run:
+
+```bash
+rails new store --skip-javascript
+cd store
+bundle add solidus_core solidus_backend solidus_api solidus_sample
+bin/rails generate solidus:install
+```
+
+And type `y` when prompted if you want to install Solidus Auth Devise
+
+### For existing stores
+
+In your `Gemfile` replace:
+
 ```ruby
 gem 'solidus'
 ```
 
 with:
+
 ```ruby
 gem 'solidus_core'
 gem 'solidus_api'
@@ -38,39 +58,25 @@ gem 'solidus_backend'
 gem 'solidus_sample'
 ```
 
-If Solidus was already installed with _solidus_frontend_ you will have to 
-replace all the references of the string `Spree::Frontend::Config` in your 
+And replace all the references of the string `Spree::Frontend::Config` in your
 project with `SolidusStarterFrontend::Config`.
 
-You have the following 2 install methods available.
+### Frontend installation
 
-### (1) Copy our components files in your project
-With this method, our views, assets, and controllers will be copied over your 
-project and you can change easily anything that we created; this gives you a lot
-of freedom of customization. On the other hand, you won't be able to auto-update
-the storefront code with the next versions released since it will not be present
-in your Gemfile.
+You can copy the starter frontend files to your project:
 
-Installation steps:
 ```shell
-$ cd your/project/
 $ gem install solidus_starter_frontend
 $ solidus_starter_frontend
 ```
 
-The last command will copy all the necessary files.
+These commands will install the gem globally and copy this project's views,
+assets, routes and controllers to your project. You can change easily anything
+that we created; this gives you a lot of freedom of customization.
 
-### (2) Add our component as gem in your project
-With this method, you simply add our gem to your application and it behaves like
-a Rails engine. In this case, our files remain in the gem and you will need to
-override the views that you want to customize or if you need different logics to
-monkey-patch the classes that we previously defined.
-
-Installation steps:
-- add to your _Gemfile_: `gem 'solidus_starter_frontend'`
-
-**IMPORTANT**: put this line before `gem 'solidus_auth_devise'` (if you are 
-using this gem) because our component has conditional references to it.
+Please note however that you won't be able to auto-update the storefront code
+with the next versions released since this project's gem will not be present in
+your Gemfile.
 
 ## Development
 For information about contributing to this project please refer to this
@@ -79,7 +85,7 @@ For information about contributing to this project please refer to this
 ## About
 [![Nebulab][nebulab-logo]][nebulab]
 
-`solidus_starter_frontend` is funded and maintained by the [Nebulab][nebulab] 
+`solidus_starter_frontend` is funded and maintained by the [Nebulab][nebulab]
 team.
 
 We firmly believe in the power of open-source. [Contact us][contact-us] if you
