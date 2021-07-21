@@ -109,7 +109,6 @@ unbundled bundle exec rails generate solidus:install \
   $@
 
 unbundled bundle exec rails generate solidus:auth:install --auto-run-migrations
-unbundled bundle exec rails g solidus_starter_frontend:install
 
 echo
 echo "🚀 Sandbox app successfully created for $extension_name!"

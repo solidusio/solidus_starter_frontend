@@ -33,5 +33,8 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/solidus_starter_frontend\n", before: %r{\*/}, verbose: true
     inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
     gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
+
+    gsub_file 'app/views/spree/layouts/spree_application.html.erb', "<%= javascript_include_tag 'spree/frontend/solidus_starter_frontend' %>", ''
+    gsub_file 'app/views/spree/layouts/spree_application.html.erb', "<%= stylesheet_link_tag 'spree/frontend/solidus_starter_frontend', media: 'screen' %>", ''
   end
 end
