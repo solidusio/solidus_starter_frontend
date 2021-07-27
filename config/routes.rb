@@ -32,9 +32,6 @@ Spree::Core::Engine.routes.draw do
     get '/confirm', to: 'user_confirmations#show', as: :confirmation if Spree::Auth::Config[:confirmable]
   end
 
-  get '/checkout/registration', to: 'checkout#registration', as: :checkout_registration
-  put '/checkout/registration', to: 'checkout#update_registration', as: :update_checkout_registration
-
   resource :account, controller: 'users'
 
   resources :products, only: [:index, :show]
@@ -43,6 +40,8 @@ Spree::Core::Engine.routes.draw do
   post '/locale/set', to: 'locale#set', as: :select_locale
 
   # non-restful checkout stuff
+  get '/checkout/registration', to: 'checkout#registration', as: :checkout_registration
+  put '/checkout/registration', to: 'checkout#update_registration', as: :update_checkout_registration
   patch '/checkout/update/:state', to: 'checkout#update', as: :update_checkout
   get '/checkout/:state', to: 'checkout#edit', as: :checkout_state
   get '/checkout', to: 'checkout#edit', as: :checkout
