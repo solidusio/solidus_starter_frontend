@@ -13,7 +13,7 @@ RSpec.feature 'Sign In', type: :feature do
 
     expect(page).to have_text 'Logged in successfully'
     expect(page).not_to have_text 'Login'
-    expect(page).to have_text 'Logout'
+    expect(page).to have_text 'My Account'
     expect(current_path).to eq '/'
   end
 
