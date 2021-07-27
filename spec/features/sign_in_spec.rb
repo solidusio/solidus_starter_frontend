@@ -6,11 +6,6 @@ RSpec.feature 'Sign In', type: :feature do
     visit spree.login_path
   end
 
-  scenario 'ask user to sign in' do
-    visit spree.admin_path
-    expect(page).not_to have_text 'Authorization Failure'
-  end
-
   scenario 'let a user sign in successfully' do
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: @user.password
@@ -29,18 +24,6 @@ RSpec.feature 'Sign In', type: :feature do
 
     expect(page).to have_text 'Invalid email or password'
     expect(page).to have_text 'Login'
-  end
-
-  scenario 'allow a user to access a restricted page after logging in' do
-    user = create(:admin_user, email: 'admin@person.com', password: 'password', password_confirmation: 'password')
-    visit spree.admin_path
-
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Login'
-
-    expect(page).to have_text 'admin@person.com'
-    expect(current_path).to eq '/admin/orders'
   end
 
   it "should store the user previous location" do
