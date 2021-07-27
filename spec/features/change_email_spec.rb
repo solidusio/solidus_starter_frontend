@@ -16,9 +16,9 @@ RSpec.feature 'Change email', type: :feature do
   end
 
   scenario 'work with correct password' do
-    fill_in 'user_email', with: 'tests@example.com'
-    fill_in 'user_password', with: 'password'
-    fill_in 'user_password_confirmation', with: 'password'
+    fill_in 'user[email]', with: 'tests@example.com'
+    fill_in 'user[password]', with: 'password'
+    fill_in 'user[password_confirmation]', with: 'password'
     click_button 'Update'
 
     expect(page).to have_text 'Account updated'
