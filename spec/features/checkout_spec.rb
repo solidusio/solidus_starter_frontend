@@ -77,7 +77,7 @@ RSpec.feature 'Checkout', :js, type: :feature do
 
       visit spree.login_path
       fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
+      fill_in 'Password:', with: user.password
       click_button 'Login'
       click_link 'Cart'
 
@@ -115,7 +115,7 @@ RSpec.feature 'Checkout', :js, type: :feature do
       token = token_url_regex.match(reset_password_email.body.to_s)[1]
 
       visit spree.edit_spree_user_password_path(reset_password_token: token)
-      fill_in 'Password', with: 'password'
+      fill_in 'Password:', with: 'password'
       fill_in 'Password Confirmation', with: 'password'
       click_button 'Update'
 
@@ -138,7 +138,7 @@ RSpec.feature 'Checkout', :js, type: :feature do
       click_link 'Create a new account'
 
       fill_in 'Email', with: 'email@person.com'
-      fill_in 'Password', with: 'spree123'
+      fill_in 'Password:', with: 'spree123'
       fill_in 'Password Confirmation', with: 'spree123'
       click_button 'Create'
 

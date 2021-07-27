@@ -18,7 +18,7 @@ RSpec.feature 'Confirmation' do
     visit spree.signup_path
 
     fill_in 'Email', with: 'email@person.com'
-    fill_in 'Password', with: 'password'
+    fill_in 'Password:', with: 'password'
     fill_in 'Password Confirmation', with: 'password'
     click_button 'Create'
 

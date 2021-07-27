@@ -7,7 +7,7 @@ RSpec.feature 'Accounts', type: :feature do
       visit spree.login_path
 
       fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
+      fill_in 'Password:', with: user.password
       click_button 'Login'
 
       click_link 'My Account'
@@ -19,7 +19,7 @@ RSpec.feature 'Accounts', type: :feature do
       visit spree.signup_path
 
       fill_in 'Email', with: 'email@person.com'
-      fill_in 'Password', with: 'password'
+      fill_in 'Password:', with: 'password'
       fill_in 'Password Confirmation', with: 'password'
       click_button 'Create'
 
@@ -27,7 +27,7 @@ RSpec.feature 'Accounts', type: :feature do
       expect(page).to have_text 'email@person.com'
       click_link 'Edit'
 
-      fill_in 'Password', with: 'foobar'
+      fill_in 'Password:', with: 'foobar'
       fill_in 'Password Confirmation', with: 'foobar'
       click_button 'Update'
 
@@ -41,14 +41,14 @@ RSpec.feature 'Accounts', type: :feature do
       visit spree.login_path
 
       fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
+      fill_in 'Password:', with: user.password
       click_button 'Login'
 
       click_link 'My Account'
       expect(page).to have_text 'email@person.com'
       click_link 'Edit'
 
-      fill_in 'Password', with: 'foobar'
+      fill_in 'Password:', with: 'foobar'
       fill_in 'Password Confirmation', with: 'foobar'
       click_button 'Update'
 

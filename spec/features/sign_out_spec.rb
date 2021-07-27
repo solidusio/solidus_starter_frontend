@@ -11,7 +11,7 @@ RSpec.feature 'Sign Out', type: :feature, js: true do
   background do
     visit spree.login_path
     fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'Password:', with: user.password
     # Regression test for #1257
     check 'Remember me'
     click_button 'Login'

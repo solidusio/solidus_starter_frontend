@@ -6,7 +6,7 @@ RSpec.feature 'Sign Up', type: :feature do
       visit spree.signup_path
 
       fill_in 'Email', with: 'email@person.com'
-      fill_in 'Password', with: 'password'
+      fill_in 'Password:', with: 'password'
       fill_in 'Password Confirmation', with: 'password'
       click_button 'Create'
 
@@ -20,7 +20,7 @@ RSpec.feature 'Sign Up', type: :feature do
       visit spree.signup_path
 
       fill_in 'Email', with: 'email@person.com'
-      fill_in 'Password', with: 'password'
+      fill_in 'Password:', with: 'password'
       fill_in 'Password Confirmation', with: ''
       click_button 'Create'
 

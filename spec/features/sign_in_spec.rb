@@ -8,7 +8,7 @@ RSpec.feature 'Sign In', type: :feature do
 
   scenario 'let a user sign in successfully' do
     fill_in 'Email', with: @user.email
-    fill_in 'Password', with: @user.password
+    fill_in 'Password:', with: @user.password
     click_button 'Login'
 
     expect(page).to have_text 'Logged in successfully'
@@ -19,7 +19,7 @@ RSpec.feature 'Sign In', type: :feature do
 
   scenario 'show validation erros' do
     fill_in 'Email', with: @user.email
-    fill_in 'Password', with: 'wrong_password'
+    fill_in 'Password:', with: 'wrong_password'
     click_button 'Login'
 
     expect(page).to have_text 'Invalid email or password'
