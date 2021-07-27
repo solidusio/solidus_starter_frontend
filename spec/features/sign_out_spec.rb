@@ -18,7 +18,8 @@ RSpec.feature 'Sign Out', type: :feature, js: true do
   end
 
   scenario 'allow a signed in user to logout' do
-    click_link 'Logout'
+    click_link 'My Account'
+    click_button 'Logout'
     visit spree.root_path
     expect(page).to have_text 'LOGIN'
     expect(page).not_to have_text 'LOGOUT'
