@@ -133,9 +133,9 @@ RSpec.feature 'Checkout', :js, type: :feature do
       click_button 'Add To Cart'
       click_button 'Checkout'
 
-      expect(page).to have_text 'Registration'
-
-      click_link 'Create a new account'
+      within '#existing-customer' do
+        click_link 'Create a new account'
+      end
 
       fill_in 'Email', with: 'email@person.com'
       fill_in 'Password:', with: 'spree123'
