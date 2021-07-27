@@ -4,6 +4,7 @@ require 'rails/all'
 require 'canonical-rails'
 
 require 'solidus_core'
+require 'solidus_auth_devise'
 require 'solidus_support'
 
 require 'solidus_starter_frontend/solidus_support_extensions'
