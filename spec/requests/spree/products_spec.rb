@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'Product', type: :request, with_signed_in_user: true do
   let!(:product) { create(:product, available_on: 1.year.from_now) }
-  let(:user) { mock_model(Spree.user_class) }
+  let(:user) { create(:user) }
 
   context 'when not admin user' do
     it "cannot view non-active products" do
@@ -22,7 +22,7 @@ describe 'Product', type: :request, with_signed_in_user: true do
   end
 
   context 'when an admin' do
-    let(:user) { mock_model(Spree.user_class, has_spree_role?: 'admin', spree_api_key: 'fake') }
+    let(:user) { create(:admin_user) }
 
     # Regression test for https://github.com/spree/spree/issues/1390
     it "allows admins to view non-active products" do

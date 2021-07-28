@@ -48,14 +48,10 @@ RSpec.configure do |config|
     config.include Spree::TestingSupport::Translations
   end
 
-  config.before(:each, with_signed_in_user: true) do
-    Spree::StoreController.define_method(:spree_current_user) do
-      Spree.user_class.find_by(spree_api_key: 'fake api key')
-    end
+  config.include Devise::Test::IntegrationHelpers, type: :request
 
-    allow(Spree.user_class).to receive(:find_by)
-      .with(hash_including(:spree_api_key))
-      .and_return(user)
+  config.before(:each, with_signed_in_user: true) do
+    sign_in(user)
   end
 
   config.before(:each, with_guest_session: true) do

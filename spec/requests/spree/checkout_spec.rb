@@ -309,6 +309,7 @@ describe 'Checkout', type: :request, with_signed_in_user: true do
     end
 
     context "when current_order id nil" do
+      let(:user) { create(:user) }
       let(:order) { create(:order_with_line_items, guest_token: nil, user_id: nil) }
 
       it "redirects to the cart_path" do

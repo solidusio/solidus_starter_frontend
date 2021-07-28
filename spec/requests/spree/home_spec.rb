@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'Home layout', type: :request, with_signed_in_user: true do
   let(:searcher_class) { instance_double(Spree::Config.searcher_class) }
-  let(:user) { mock_model(Spree.user_class) }
+  let(:user) { create(:user) }
   let(:product) { build_stubbed(:product) }
 
   before do
