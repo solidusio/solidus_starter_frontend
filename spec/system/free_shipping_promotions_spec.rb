@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe 'Free shipping promotions', type: :system, js: true do
+  include SystemHelpers
+
   let!(:store) { create(:store) }
   let!(:country) { create(:country, name: "United States of America", states_required: true) }
   let!(:state) { create(:state, name: "Alabama", country: country) }
@@ -32,7 +34,7 @@ describe 'Free shipping promotions', type: :system, js: true do
       visit spree.root_path
       click_link "RoR Mug"
       click_button "add-to-cart-button"
-      click_button "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "spree@example.com"
       fill_in "Name", with: "John Smith"
       fill_in 'Street Address:', with: '1 John Street'

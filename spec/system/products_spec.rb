@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe 'Visiting Products', type: :system, inaccessible: true do
+  include SystemHelpers
+
   include_context "custom products"
 
   let(:store_name) do
@@ -136,7 +138,8 @@ describe 'Visiting Products', type: :system, inaccessible: true do
       it "when on the 'address' state of the cart", js: true do
         visit spree.product_path(product)
         click_button 'Add To Cart'
-        click_button 'Checkout'
+        checkout_as_guest
+
         within('#item-total') do
           expect(page).to have_content('19.99 ₽')
         end

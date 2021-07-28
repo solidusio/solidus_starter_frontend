@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe 'First Order promotion', type: :system do
+  include SystemHelpers
+
   let!(:promotion) do
     FactoryBot.create(
       :promotion_with_first_order_rule,
@@ -39,7 +41,7 @@ describe 'First Order promotion', type: :system do
     fill_in "Coupon code", with: "FIRSTONEFREE"
     click_button "Apply Code"
     expect(page).to have_content("The coupon code was successfully applied to your order")
-    click_on "Checkout"
+    checkout_as_guest
     fill_in "Customer E-Mail", with: "sam@tom.com"
     fill_in_address
     click_on "Save and Continue"

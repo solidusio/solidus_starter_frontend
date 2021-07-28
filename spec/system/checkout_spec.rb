@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe 'Checkout', type: :system, inaccessible: true do
+  include SystemHelpers
+
   include_context 'checkout setup'
 
   context "visitor makes checkout as guest without registration" do
@@ -50,7 +52,7 @@ describe 'Checkout', type: :system, inaccessible: true do
 
       it "does not break the per-item shipping method calculator", js: true do
         add_mug_to_cart
-        click_button "Checkout"
+        checkout_as_guest
 
         fill_in "order_email", with: "test@example.com"
         fill_in_address
@@ -66,7 +68,7 @@ describe 'Checkout', type: :system, inaccessible: true do
     context "free shipping" do
       before do
         add_mug_to_cart
-        click_button "Checkout"
+        checkout_as_guest
       end
 
       it "should not show 'Free Shipping' when there are no shipments", js: true do
@@ -147,7 +149,7 @@ describe 'Checkout', type: :system, inaccessible: true do
       context "and proceeds with guest checkout" do
         it 'shows empty addresses', js: true do
           add_mug_to_cart
-          click_button "Checkout"
+          checkout_as_guest
 
           within("#billing") do
             expect(find_field('Name').value).to be_blank
@@ -383,7 +385,7 @@ describe 'Checkout', type: :system, inaccessible: true do
 
     it "transit nicely through checkout steps again" do
       add_mug_to_cart
-      click_on "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "test@example.com"
       fill_in_address
       click_on "Save and Continue"
@@ -409,7 +411,7 @@ describe 'Checkout', type: :system, inaccessible: true do
   context "from payment step customer goes back to cart", js: true do
     before do
       add_mug_to_cart
-      click_on "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "test@example.com"
       fill_in_address
       click_on "Save and Continue"
@@ -474,7 +476,7 @@ describe 'Checkout', type: :system, inaccessible: true do
       promotion.actions << action
 
       add_mug_to_cart
-      click_on "Checkout"
+      checkout_as_guest
 
       fill_in "order_email", with: "test@example.com"
       fill_in_address
@@ -611,6 +613,7 @@ describe 'Checkout', type: :system, inaccessible: true do
 
       it "displays the entered state name without evaluating" do
         add_mug_to_cart
+        checkout_as_guest
         visit spree.checkout_state_path(:address)
         fill_in_address
         fill_in 'Customer E-Mail', with: 'test@example.com'
@@ -644,7 +647,7 @@ describe 'Checkout', type: :system, inaccessible: true do
     it "works with card number 1", js: true do
       add_mug_to_cart
 
-      click_on "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "test@example.com"
       fill_in_address
       click_on "Save and Continue"
@@ -659,7 +662,7 @@ describe 'Checkout', type: :system, inaccessible: true do
     it "works with card number 4111111111111111", js: true do
       add_mug_to_cart
 
-      click_on "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "test@example.com"
       fill_in_address
       click_on "Save and Continue"
