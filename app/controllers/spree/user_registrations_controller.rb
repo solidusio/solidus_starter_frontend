@@ -7,6 +7,7 @@ class Spree::UserRegistrationsController < Devise::RegistrationsController
   include Spree::Core::ControllerHelpers::Common
   include Spree::Core::ControllerHelpers::Order
   include Spree::Core::ControllerHelpers::Store
+  include SolidusStarterFrontend::Taxonomies
 
   before_action :check_permissions, only: [:edit, :update]
   skip_before_action :require_no_authentication

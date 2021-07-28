@@ -7,6 +7,7 @@ class Spree::UserSessionsController < Devise::SessionsController
   include Spree::Core::ControllerHelpers::Common
   include Spree::Core::ControllerHelpers::Order
   include Spree::Core::ControllerHelpers::Store
+  include SolidusStarterFrontend::Taxonomies
 
   # This is included in ControllerHelpers::Order.  We just want to call
   # it after someone has successfully logged in.

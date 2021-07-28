@@ -15,18 +15,6 @@ module SolidusStarterFrontend
     end
 
     config.to_prepare do
-      if defined?(Spree::Auth::Engine)
-        [
-          Spree::UserConfirmationsController,
-          Spree::UserPasswordsController,
-          Spree::UserRegistrationsController,
-          Spree::UserSessionsController,
-          Spree::UsersController
-        ].each do |auth_controller|
-          auth_controller.include SolidusStarterFrontend::Taxonomies
-        end
-      end
-
       Spree::BaseController.unauthorized_redirect = -> do
         if try_spree_current_user
           flash[:error] = I18n.t('spree.authorization_failure')

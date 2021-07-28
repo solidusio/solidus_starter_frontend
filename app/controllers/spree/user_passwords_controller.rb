@@ -7,6 +7,7 @@ class Spree::UserPasswordsController < Devise::PasswordsController
   include Spree::Core::ControllerHelpers::Common
   include Spree::Core::ControllerHelpers::Order
   include Spree::Core::ControllerHelpers::Store
+  include SolidusStarterFrontend::Taxonomies
 
   # Overridden due to bug in Devise.
   #   respond_with resource, location: new_session_path(resource_name)
