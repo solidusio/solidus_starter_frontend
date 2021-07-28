@@ -362,8 +362,9 @@ describe 'Checkout', type: :system, inaccessible: true do
 
       click_on "Save and Continue"
       click_on "Place Order"
-      expect(page).to have_current_path(spree.order_path(Spree::Order.last))
-      expect(page).to have_current_path(spree.order_path(Spree::Order.last))
+
+      order = Spree::Order.last
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
       expect(page).to have_content("Ending in #{credit_card.last_digits}")
     end
 
@@ -373,7 +374,9 @@ describe 'Checkout', type: :system, inaccessible: true do
 
       click_on "Save and Continue"
       click_on "Place Order"
-      expect(page).to have_current_path(spree.order_path(Spree::Order.last))
+
+      order = Spree::Order.last
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
       expect(page).to have_content('Ending in 1111')
     end
   end
@@ -404,7 +407,8 @@ describe 'Checkout', type: :system, inaccessible: true do
       click_on "Save and Continue"
       click_on "Place Order"
 
-      expect(page).to have_current_path(spree.order_path(Spree::Order.last))
+      order = Spree::Order.last
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
     end
   end
 
