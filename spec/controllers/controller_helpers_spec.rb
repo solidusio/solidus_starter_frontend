@@ -6,6 +6,8 @@ require 'spec_helper'
 # So we need to use one of the controllers inside Spree.
 # ProductsController is good.
 describe Spree::ProductsController, type: :controller do
+  include Devise::Test::ControllerHelpers
+
   before do
     I18n.enforce_available_locales = false
     stub_spree_preferences(SolidusStarterFrontend::Config, locale: :de)
