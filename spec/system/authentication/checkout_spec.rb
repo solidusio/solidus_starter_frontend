@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.feature 'Checkout', :js, type: :feature do
+RSpec.feature 'Checkout', :js, type: :system do
   given!(:store) { create(:store) }
   given!(:country) { create(:country, name: 'United States', states_required: true) }
   given!(:state)   { create(:state, name: 'Maryland', country: country) }

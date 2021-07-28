@@ -25,5 +25,5 @@ module FillAddressFields
 end
 
 RSpec.configure do |config|
-  config.include FillAddressFields, type: :feature
+  config.include FillAddressFields, type: :system
 end
