@@ -21,8 +21,6 @@ ignore:
         skip: true
       - file: app/controllers/spree/user_sessions_controller.rb
         skip: true
-      - file: app/controllers/concerns/solidus_starter_frontend/auth_views.rb
-        skip: true
       - file: app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
         skip: true
       - hash: 1422395649
