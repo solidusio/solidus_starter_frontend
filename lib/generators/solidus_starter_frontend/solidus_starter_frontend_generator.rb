@@ -6,17 +6,11 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
   def install
     # Copy directories
     directory 'app', 'app'
-    directory 'lib/views', 'lib/views'
 
     # Copy files
     copy_file 'lib/solidus_starter_frontend_configuration.rb', 'lib/solidus_starter_frontend_configuration.rb'
     copy_file 'lib/solidus_starter_frontend/config.rb', 'lib/solidus_starter_frontend/config.rb'
-    copy_file 'lib/solidus_starter_frontend/solidus_support_extensions.rb', 'lib/solidus_starter_frontend/solidus_support_extensions.rb'
-
-    # Initializer
-    initializer 'solidus_starter_frontend.rb' do
-      "require 'solidus_starter_frontend/solidus_support_extensions'"
-    end
+    copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb', 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
 
     # Routes
     copy_file 'config/routes.rb', 'tmp/routes.rb'
@@ -24,6 +18,7 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
 
     # Gems
     gem 'canonical-rails'
+    gem 'solidus_auth_devise'
     gem 'solidus_support'
     gem 'truncate_html'
 
