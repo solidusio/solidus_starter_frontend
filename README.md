@@ -39,8 +39,6 @@ bundle add solidus_core solidus_backend solidus_api solidus_sample
 bin/rails generate solidus:install
 ```
 
-And type `y` when prompted if you want to install Solidus Auth Devise
-
 ### For existing stores
 
 In your `Gemfile` replace:
@@ -77,6 +75,10 @@ that we created; this gives you a lot of freedom of customization.
 Please note however that you won't be able to auto-update the storefront code
 with the next versions released since this project's gem will not be present in
 your Gemfile.
+
+In addition, please note that the command will add Solidus Auth Devise and its
+frontend components to your app. At the moment, you will need to manually
+remove the gem and its frontend components if ever you don't need them.
 
 ## Development
 
