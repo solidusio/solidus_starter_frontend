@@ -48,6 +48,7 @@ RSpec.configure do |config|
     config.include Spree::TestingSupport::Translations
   end
 
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
 
   config.before(:each, with_signed_in_user: true) do
