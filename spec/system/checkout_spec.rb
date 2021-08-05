@@ -607,6 +607,8 @@ describe 'Checkout', type: :system, inaccessible: true do
 
   context "with attempted XSS", js: true do
     shared_examples "safe from XSS" do
+      let(:user) { create(:user) }
+
       # We need a country with states required but no states so that we have
       # access to the state_name input
       let!(:canada) { create(:country, name: 'Canada', iso: "CA", states_required: true) }
@@ -617,8 +619,19 @@ describe 'Checkout', type: :system, inaccessible: true do
 
       it "displays the entered state name without evaluating" do
         add_mug_to_cart
-        checkout_as_guest
         visit spree.checkout_state_path(:address)
+
+        # Unlike with the other examples in this spec, calling
+        # `checkout_as_guest` in this example causes this example to fail
+        # intermittently. Please see
+        # https://github.com/nebulab/solidus_starter_frontend/pull/172/files#r683067589
+        # for more details.
+        within '#existing-customer' do
+          fill_in 'Email:', with: user.email
+          fill_in 'Password:', with: user.password
+          click_button 'Login'
+        end
+
         fill_in_address
         fill_in 'Customer E-Mail', with: 'test@example.com'
 
