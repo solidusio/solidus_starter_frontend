@@ -36,8 +36,13 @@ Just run:
 rails new store --skip-javascript
 cd store
 bundle add solidus_core solidus_backend solidus_api solidus_sample
-bin/rails generate solidus:install
+bin/rails generate solidus:install --auto-accept
 ```
+
+Please note that `--auto-accept` will add [Solidus Auth Devise]
+(https://github.com/solidusio/solidus_auth_devise) to your application. At the
+moment, SolidusStarterFrontend requires the application to include the gem. In
+the future, we'll make Solidus Auth Devise optional.
 
 ### For existing stores
 
@@ -59,6 +64,10 @@ gem 'solidus_sample'
 And replace all the references of the string `Spree::Frontend::Config` in your
 project with `SolidusStarterFrontend::Config`.
 
+You'll also need to make sure that [Solidus Auth Devise]
+(https://github.com/solidusio/solidus_auth_devise) is installed in your
+application.
+
 ### Frontend installation
 
 You can copy the starter frontend files to your project:
@@ -72,13 +81,13 @@ These commands will install the gem globally and copy this project's views,
 assets, routes and controllers to your project. You can change easily anything
 that we created; this gives you a lot of freedom of customization.
 
-Please note however that you won't be able to auto-update the storefront code
+In addition, please note that the command will add Solidus Auth Devise
+frontend components to your app. At the moment, you will need to manually
+remove the gem and its frontend components if you don't need them.
+
+Finally, please note that you won't be able to auto-update the storefront code
 with the next versions released since this project's gem will not be present in
 your Gemfile.
-
-In addition, please note that the command will add Solidus Auth Devise and its
-frontend components to your app. At the moment, you will need to manually
-remove the gem and its frontend components if ever you don't need them.
 
 ## Development
 
