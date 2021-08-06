@@ -39,11 +39,6 @@ if [[ -z $GENERATE_FRONTEND ]]; then
 else
   sandbox_name='sandbox-generated'
   extension_gem_line=""
-
-  if ! gem list --local | grep $extension_name; then
-    echo "ERROR: Please install $extension_name to generate the frontend of the sandbox."
-    exit 1
-  fi
 fi
 
 sandbox_path="./${sandbox_name}"
@@ -128,7 +123,7 @@ unbundled bundle exec rails generate solidus:auth:install --auto-run-migrations
 if [[ -z $GENERATE_FRONTEND ]]; then
   unbundled bundle exec rails g solidus_starter_frontend:install
 else
-  unbundled ../exe/${extension_name} --auto-accept
+  ruby -I ../lib ../exe/${extension_name} --auto-accept
 fi
 
 echo
