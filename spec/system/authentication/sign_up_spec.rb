@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'solidus_starter_frontend_helper'
+
 RSpec.feature 'Sign Up', type: :system do
   context 'with valid data' do
     scenario 'create a new user' do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 # In this file, we want to test that the controller helpers function correctly
 # So we need to use one of the controllers inside Spree.

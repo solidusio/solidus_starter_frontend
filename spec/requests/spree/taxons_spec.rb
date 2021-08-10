@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 RSpec.describe 'Taxon', type: :request, with_signed_in_user: true do
   let(:user) { create(:admin_user) }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 RSpec.describe 'viewing products', type: :system, inaccessible: true do
   let!(:taxonomy) { create(:taxonomy, name: "Category") }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 RSpec.describe 'spree/components/checkout/_checkout_summary.html.erb', type: :view do
   # Regression spec for https://github.com/spree/spree/issues/4223
