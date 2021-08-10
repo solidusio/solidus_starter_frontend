@@ -42,6 +42,12 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
 
+  # We currently have examples wherein we mock or stub method that do not exist on
+  # the real objects.
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = false
+  end
+
   if Spree.solidus_gem_version < Gem::Version.new('2.11')
     config.extend Spree::TestingSupport::AuthorizationHelpers::Request, type: :system
   else
