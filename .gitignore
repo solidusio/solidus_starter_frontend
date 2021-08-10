@@ -16,6 +16,7 @@ pkg
 spec/dummy
 spec/examples.txt
 /sandbox
+/sandbox-generated
 .rvmrc
 .ruby-version
 .ruby-gemset

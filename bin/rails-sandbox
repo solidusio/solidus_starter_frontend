@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
-app_root = 'sandbox'
+app_root = ENV['GENERATE_FRONTEND'] ? 'sandbox-generated' : 'sandbox'
 
 unless File.exist? "#{app_root}/bin/rails"
-  warn 'Creating the sandbox app...'
+  warn "Creating the #{app_root} app..."
   Dir.chdir "#{__dir__}/.." do
     system "#{__dir__}/sandbox" or begin
-      warn 'Automatic creation of the sandbox app failed'
+      warn "Automatic creation of the #{app_root} app failed"
       exit 1
     end
   end

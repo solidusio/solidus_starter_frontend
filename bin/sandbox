@@ -33,13 +33,23 @@ fi
 
 extension_name="solidus_starter_frontend"
 
+if [[ -z $GENERATE_FRONTEND ]]; then
+  sandbox_name='sandbox'
+  extension_gem_line="gem '$extension_name', path: '..'"
+else
+  sandbox_name='sandbox-generated'
+  extension_gem_line=""
+fi
+
+sandbox_path="./${sandbox_name}"
+
 # Stay away from the bundler env of the containing extension.
 function unbundled {
   ruby -rbundler -e'b = proc {system *ARGV}; Bundler.respond_to?(:with_unbundled_env) ? Bundler.with_unbundled_env(&b) : Bundler.with_clean_env(&b)' -- $@
 }
 
-rm -rf ./sandbox
-unbundled bundle exec rails new sandbox --database="$RAILSDB" \
+rm -rf ${sandbox_path}
+unbundled bundle exec rails new ${sandbox_name} --database="$RAILSDB" \
   --skip-bundle \
   --skip-git \
   --skip-keeps \
@@ -48,12 +58,12 @@ unbundled bundle exec rails new sandbox --database="$RAILSDB" \
   --skip-test \
   --skip-javascript
 
-if [ ! -d "sandbox" ]; then
+if [ ! -d "${sandbox_name}" ]; then
   echo 'sandbox rails application failed'
   exit 1
 fi
 
-cd ./sandbox
+cd ${sandbox_path}
 cat <<RUBY >> Gemfile
 # By default, the solidus gem also includes the standard frontend via
 # the solidus_frontend gem. To make this extension work, you need to
@@ -71,7 +81,7 @@ gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
 gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 
 gem 'rails-i18n'
-gem '$extension_name', path: '..'
+${extension_gem_line}
 gem 'solidus_auth_devise'
 RUBY
 
@@ -109,7 +119,12 @@ unbundled bundle exec rails generate solidus:install \
   $@
 
 unbundled bundle exec rails generate solidus:auth:install --auto-run-migrations
-unbundled bundle exec rails g solidus_starter_frontend:install
+
+if [[ -z $GENERATE_FRONTEND ]]; then
+  unbundled bundle exec rails g solidus_starter_frontend:install
+else
+  ruby -I ../lib ../exe/${extension_name} --auto-accept
+fi
 
 echo
 echo "🚀 Sandbox app successfully created for $extension_name!"

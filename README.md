@@ -79,8 +79,15 @@ with the next versions released since this project's gem will not be present in
 your Gemfile.
 
 ## Development
+
 For information about contributing to this project please refer to this
-[document](docs/development.md).
+[document](docs/development.md). There you'll find information on tasks like:
+
+* Testing the extension
+* Running the sandbox
+* Updating the changelog
+* Releasing new versions
+* Docker development
 
 ## About
 [![Nebulab][nebulab-logo]][nebulab]
