@@ -24,8 +24,6 @@ require 'spree/testing_support/translations' unless Spree.solidus_gem_version < 
 # in spec/support/ and its subdirectories.
 Dir["#{__dir__}/support/**/*.rb"].sort.each { |f| require f }
 
-SolidusDevSupport::TestingSupport::Factories.load_for(SolidusStarterFrontend::Engine)
-
 Capybara.register_driver :apparition_docker_friendly do |app|
   opts = {
     headless: true,
