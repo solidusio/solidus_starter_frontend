@@ -65,4 +65,13 @@ RSpec.configure do |config|
   config.before(:each, with_guest_session: true) do
     allow_any_instance_of(ActionDispatch::Cookies::CookieJar).to receive(:signed) { { guest_token: order.guest_token } }
   end
+
+  config.around(:each, caching: true) do |example|
+    original_cache_store = ActionController::Base.cache_store
+    ActionController::Base.cache_store = ActiveSupport::Cache.lookup_store(:memory_store)
+
+    example.run
+
+    ActionController::Base.cache_store = original_cache_store
+  end
 end
