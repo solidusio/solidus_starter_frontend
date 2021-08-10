@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'setting locale', type: :system do
+RSpec.describe 'setting locale', type: :system do
   let!(:store) { create(:store) }
   def with_locale(locale)
     I18n.locale = locale

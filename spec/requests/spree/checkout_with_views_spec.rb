@@ -4,7 +4,7 @@ require 'spec_helper'
 
 # This spec is useful for when we just want to make sure a view is rendering correctly
 # Walking through the entire checkout process is rather tedious, don't you think?
-describe 'Checkout view rendering', type: :request, with_signed_in_user: true do
+RSpec.describe 'Checkout view rendering', type: :request, with_signed_in_user: true do
   let(:token) { 'some_token' }
   let(:user) { create(:user) }
   # Regression test for https://github.com/spree/spree/issues/3246

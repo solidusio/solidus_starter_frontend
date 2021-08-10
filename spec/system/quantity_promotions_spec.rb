@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Quantity Promotions', type: :system, js: true do
+RSpec.describe 'Quantity Promotions', type: :system, js: true do
   let(:action) do
     Spree::Promotion::Actions::CreateQuantityAdjustments.create(
       calculator: calculator,

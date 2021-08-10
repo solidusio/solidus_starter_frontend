@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Order', type: :request do
+RSpec.describe 'Order', type: :request do
   let!(:store) { create(:store) }
   let(:variant) { create(:variant) }
 

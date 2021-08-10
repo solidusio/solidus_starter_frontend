@@ -39,6 +39,7 @@ Capybara.register_driver :apparition_docker_friendly do |app|
 end
 
 RSpec.configure do |config|
+  config.disable_monkey_patching!
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
 

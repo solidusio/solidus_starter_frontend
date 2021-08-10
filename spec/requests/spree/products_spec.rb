@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Product', type: :request, with_signed_in_user: true do
+RSpec.describe 'Product', type: :request, with_signed_in_user: true do
   let!(:product) { create(:product, available_on: 1.year.from_now) }
   let(:user) { create(:user) }
 

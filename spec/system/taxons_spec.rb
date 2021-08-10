@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'viewing products', type: :system, inaccessible: true do
+RSpec.describe 'viewing products', type: :system, inaccessible: true do
   let!(:taxonomy) { create(:taxonomy, name: "Category") }
   let!(:super_clothing) { create(:taxon, name: "Super Clothing", parent: taxonomy.root, taxonomy: taxonomy) }
   let!(:t_shirts) { create(:taxon, name: "T-Shirts", parent: super_clothing, taxonomy: taxonomy) }

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'First Order promotion', type: :system do
+RSpec.describe 'First Order promotion', type: :system do
   include SystemHelpers
 
   let!(:promotion) do

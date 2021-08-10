@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Switching currencies in backend', type: :system do
+RSpec.describe 'Switching currencies in backend', type: :system do
   before do
     create(:store)
     create(:base_product, name: "RoR Mug")

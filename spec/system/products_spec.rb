@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Visiting Products', type: :system, inaccessible: true do
+RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
   include SystemHelpers
 
   include_context "custom products"
