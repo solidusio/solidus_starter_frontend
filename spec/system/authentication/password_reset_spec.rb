@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'solidus_starter_frontend_helper'
+
 RSpec.feature 'Reset Password', type: :system do
   let!(:store) { create(:store) }
 

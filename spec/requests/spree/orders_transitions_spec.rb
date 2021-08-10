@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 Spree::Order.class_eval do
   attr_accessor :did_transition

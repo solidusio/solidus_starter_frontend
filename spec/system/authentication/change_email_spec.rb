@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'solidus_starter_frontend_helper'
+
 RSpec.feature 'Change email', type: :system do
   background do
     stub_spree_preferences(Spree::Auth::Config, signout_after_password_change: false)

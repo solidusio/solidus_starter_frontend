@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'solidus_starter_frontend_helper'
+
 RSpec.describe Spree::UsersController, type: :controller do
   let(:admin_user) { create(:user) }
   let(:user) { create(:user) }

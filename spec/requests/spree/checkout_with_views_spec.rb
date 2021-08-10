@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 # This spec is useful for when we just want to make sure a view is rendering correctly
 # Walking through the entire checkout process is rather tedious, don't you think?

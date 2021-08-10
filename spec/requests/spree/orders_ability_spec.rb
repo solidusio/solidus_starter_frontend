@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 RSpec.describe 'Order permissions', type: :request do
   let(:order) { create(:order, user: nil, store: store) }

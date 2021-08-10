@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 RSpec.describe 'products', type: :system, caching: true do
   let!(:product) { create(:product) }

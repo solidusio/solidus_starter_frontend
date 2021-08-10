@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 RSpec.describe 'Checkout confirm page submission', type: :system do
   include_context 'checkout setup'
