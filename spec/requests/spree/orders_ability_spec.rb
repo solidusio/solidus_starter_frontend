@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Order permissions', type: :request do
+RSpec.describe 'Order permissions', type: :request do
   let(:order) { create(:order, user: nil, store: store) }
   let!(:store) { create(:store) }
   let(:variant) { create(:variant) }

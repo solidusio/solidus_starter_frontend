@@ -46,6 +46,7 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  config.disable_monkey_patching!
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
 

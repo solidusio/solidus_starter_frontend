@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Checkout', type: :system, inaccessible: true do
+RSpec.describe 'Checkout', type: :system, inaccessible: true do
   include SystemHelpers
 
   include_context 'checkout setup'

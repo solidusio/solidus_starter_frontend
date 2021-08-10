@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'orders', type: :system do
+RSpec.describe 'orders', type: :system do
   let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:complete) }
   let(:user) { create(:user) }
 

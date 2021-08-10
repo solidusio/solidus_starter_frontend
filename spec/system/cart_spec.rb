@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Cart', type: :system, inaccessible: true do
+RSpec.describe 'Cart', type: :system, inaccessible: true do
   before { create(:store) }
 
   it "shows cart icon on non-cart pages" do

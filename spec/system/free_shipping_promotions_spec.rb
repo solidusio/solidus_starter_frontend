@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Free shipping promotions', type: :system, js: true do
+RSpec.describe 'Free shipping promotions', type: :system, js: true do
   include SystemHelpers
 
   let!(:store) { create(:store) }

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Address', type: :system, inaccessible: true do
+RSpec.describe 'Address', type: :system, inaccessible: true do
   include SystemHelpers
 
   let!(:product) { create(:product, name: "RoR Mug") }

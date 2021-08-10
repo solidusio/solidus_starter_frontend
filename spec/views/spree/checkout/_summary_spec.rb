@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'spree/components/checkout/_checkout_summary.html.erb', type: :view do
+RSpec.describe 'spree/components/checkout/_checkout_summary.html.erb', type: :view do
   # Regression spec for https://github.com/spree/spree/issues/4223
   it 'does not use the @order instance variable' do
     order = stub_model(Spree::Order)

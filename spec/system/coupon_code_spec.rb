@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Coupon code promotions', type: :system, js: true do
+RSpec.describe 'Coupon code promotions', type: :system, js: true do
   include SystemHelpers
 
   let!(:store) { create(:store) }

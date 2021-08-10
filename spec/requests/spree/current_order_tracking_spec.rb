@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'current order tracking', type: :request, with_signed_in_user: true do
+RSpec.describe 'current order tracking', type: :request, with_signed_in_user: true do
   let!(:store) { create(:store) }
   let(:user) { create(:user) }
 

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'taxons', type: :system, caching: true do
+RSpec.describe 'taxons', type: :system, caching: true do
   let!(:taxonomy) { create(:taxonomy) }
   let!(:taxon) { create(:taxon, taxonomy: taxonomy, parent: taxonomy.root) }
 
