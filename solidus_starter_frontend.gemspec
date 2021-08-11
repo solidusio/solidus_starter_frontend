@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'solidus_api', ['>= 2.0', '< 4']
   spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
   spec.add_dependency 'solidus_support', '~> 0.5'
+  spec.add_dependency 'solidus_auth_devise', '~> 2.5'
   spec.add_dependency 'truncate_html', '~> 0.9', '>= 0.9.2'
 
   spec.add_development_dependency 'apparition', '~> 0.6.0'

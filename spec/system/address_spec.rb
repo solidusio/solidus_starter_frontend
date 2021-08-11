@@ -3,10 +3,10 @@
 require 'spec_helper'
 
 describe 'Address', type: :system, inaccessible: true do
+  include SystemHelpers
+
   let!(:product) { create(:product, name: "RoR Mug") }
   let!(:order) { create(:order_with_totals, state: 'cart') }
-
-  stub_authorization!
 
   before do
     visit spree.root_path
@@ -27,7 +27,7 @@ describe 'Address', type: :system, inaccessible: true do
 
     context 'but has no state' do
       it 'shows the state input field' do
-        click_button 'Checkout'
+        checkout_as_guest
 
         within('#billing') do
           select canada.name, from: 'Country'
@@ -41,7 +41,7 @@ describe 'Address', type: :system, inaccessible: true do
       before { create(:state, name: 'Ontario', country: canada) }
 
       it 'shows the state collection selection' do
-        click_button 'Checkout'
+        checkout_as_guest
 
         within('#billing') do
           select canada.name, from: 'Country'
@@ -55,7 +55,7 @@ describe 'Address', type: :system, inaccessible: true do
       let!(:france) { create(:country, name: 'France', states_required: false, iso: 'FR') }
 
       it 'clears the state name' do
-        click_button 'Checkout'
+        checkout_as_guest
         within('#billing') do
           select canada.name, from: 'Country'
 
@@ -74,7 +74,7 @@ describe 'Address', type: :system, inaccessible: true do
     let!(:france) { create(:country, name: 'France', states_required: false, iso: 'FR') }
 
     it 'shows a disabled state input field' do
-      click_button 'Checkout'
+      checkout_as_guest
 
       within('#billing') do
         select france.name, from: 'Country'

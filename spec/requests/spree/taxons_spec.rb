@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'Taxon', type: :request, with_signed_in_user: true do
-  let(:user) { mock_model(Spree.user_class, has_spree_role?: 'admin', spree_api_key: 'fake') }
+  let(:user) { create(:admin_user) }
 
   it "provides the current user to the searcher class" do
     taxon = create(:taxon, permalink: "test")

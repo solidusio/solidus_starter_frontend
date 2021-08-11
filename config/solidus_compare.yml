@@ -9,7 +9,17 @@ source_base_path: frontend/
 ignore:
   - path: app/controllers
     diffs:
-      - file: app/controllers/concerns/solidus_starter_frontend/auth_views.rb
+      - file: frontend/app/controllers/spree/checkout_controller.rb
+        skip: true
+      - file: app/controllers/spree/user_confirmations_controller.rb
+        skip: true
+      - file: app/controllers/spree/user_passwords_controller.rb
+        skip: true
+      - file: app/controllers/spree/user_registrations_controller.rb
+        skip: true
+      - file: app/controllers/spree/users_controller.rb
+        skip: true
+      - file: app/controllers/spree/user_sessions_controller.rb
         skip: true
       - file: app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
         skip: true

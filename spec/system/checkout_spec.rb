@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe 'Checkout', type: :system, inaccessible: true do
+  include SystemHelpers
+
   include_context 'checkout setup'
 
   context "visitor makes checkout as guest without registration" do
@@ -50,7 +52,7 @@ describe 'Checkout', type: :system, inaccessible: true do
 
       it "does not break the per-item shipping method calculator", js: true do
         add_mug_to_cart
-        click_button "Checkout"
+        checkout_as_guest
 
         fill_in "order_email", with: "test@example.com"
         fill_in_address
@@ -66,7 +68,7 @@ describe 'Checkout', type: :system, inaccessible: true do
     context "free shipping" do
       before do
         add_mug_to_cart
-        click_button "Checkout"
+        checkout_as_guest
       end
 
       it "should not show 'Free Shipping' when there are no shipments", js: true do
@@ -147,7 +149,7 @@ describe 'Checkout', type: :system, inaccessible: true do
       context "and proceeds with guest checkout" do
         it 'shows empty addresses', js: true do
           add_mug_to_cart
-          click_button "Checkout"
+          checkout_as_guest
 
           within("#billing") do
             expect(find_field('Name').value).to be_blank
@@ -360,8 +362,9 @@ describe 'Checkout', type: :system, inaccessible: true do
 
       click_on "Save and Continue"
       click_on "Place Order"
-      expect(page).to have_current_path(spree.order_path(Spree::Order.last))
-      expect(page).to have_current_path(spree.order_path(Spree::Order.last))
+
+      order = Spree::Order.last
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
       expect(page).to have_content("Ending in #{credit_card.last_digits}")
     end
 
@@ -371,7 +374,9 @@ describe 'Checkout', type: :system, inaccessible: true do
 
       click_on "Save and Continue"
       click_on "Place Order"
-      expect(page).to have_current_path(spree.order_path(Spree::Order.last))
+
+      order = Spree::Order.last
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
       expect(page).to have_content('Ending in 1111')
     end
   end
@@ -383,7 +388,7 @@ describe 'Checkout', type: :system, inaccessible: true do
 
     it "transit nicely through checkout steps again" do
       add_mug_to_cart
-      click_on "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "test@example.com"
       fill_in_address
       click_on "Save and Continue"
@@ -402,14 +407,15 @@ describe 'Checkout', type: :system, inaccessible: true do
       click_on "Save and Continue"
       click_on "Place Order"
 
-      expect(page).to have_current_path(spree.order_path(Spree::Order.last))
+      order = Spree::Order.last
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
     end
   end
 
   context "from payment step customer goes back to cart", js: true do
     before do
       add_mug_to_cart
-      click_on "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "test@example.com"
       fill_in_address
       click_on "Save and Continue"
@@ -474,7 +480,7 @@ describe 'Checkout', type: :system, inaccessible: true do
       promotion.actions << action
 
       add_mug_to_cart
-      click_on "Checkout"
+      checkout_as_guest
 
       fill_in "order_email", with: "test@example.com"
       fill_in_address
@@ -601,6 +607,8 @@ describe 'Checkout', type: :system, inaccessible: true do
 
   context "with attempted XSS", js: true do
     shared_examples "safe from XSS" do
+      let(:user) { create(:user) }
+
       # We need a country with states required but no states so that we have
       # access to the state_name input
       let!(:canada) { create(:country, name: 'Canada', iso: "CA", states_required: true) }
@@ -612,6 +620,18 @@ describe 'Checkout', type: :system, inaccessible: true do
       it "displays the entered state name without evaluating" do
         add_mug_to_cart
         visit spree.checkout_state_path(:address)
+
+        # Unlike with the other examples in this spec, calling
+        # `checkout_as_guest` in this example causes this example to fail
+        # intermittently. Please see
+        # https://github.com/nebulab/solidus_starter_frontend/pull/172/files#r683067589
+        # for more details.
+        within '#existing-customer' do
+          fill_in 'Email:', with: user.email
+          fill_in 'Password:', with: user.password
+          click_button 'Login'
+        end
+
         fill_in_address
         fill_in 'Customer E-Mail', with: 'test@example.com'
 
@@ -644,7 +664,7 @@ describe 'Checkout', type: :system, inaccessible: true do
     it "works with card number 1", js: true do
       add_mug_to_cart
 
-      click_on "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "test@example.com"
       fill_in_address
       click_on "Save and Continue"
@@ -659,7 +679,7 @@ describe 'Checkout', type: :system, inaccessible: true do
     it "works with card number 4111111111111111", js: true do
       add_mug_to_cart
 
-      click_on "Checkout"
+      checkout_as_guest
       fill_in "order_email", with: "test@example.com"
       fill_in_address
       click_on "Save and Continue"
