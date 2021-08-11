@@ -22,7 +22,7 @@ module Spree
     before_action :setup_for_current_state, only: [:edit, :update]
 
     # This action builds some associations on the order, ex. addresses, which we
-    # don't to build or save here.
+    # don't need to build or save here.
     skip_before_action :setup_for_current_state, only: [:registration, :update_registration]
 
     helper 'spree/orders'
