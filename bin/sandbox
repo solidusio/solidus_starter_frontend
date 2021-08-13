@@ -127,8 +127,6 @@ unbundled bundle exec rails generate solidus:install \
 unbundled bundle exec rails generate solidus:auth:install --auto-run-migrations
 
 if [[ -z $GENERATE_FRONTEND ]]; then
-  unbundled bundle exec rails g solidus_starter_frontend:install
-
   if [[ -z $SKIP_SPECS ]]; then
     unbundled bundle exec rails g solidus_starter_frontend:rspec
     unbundled bundle exec rails g rspec:install
