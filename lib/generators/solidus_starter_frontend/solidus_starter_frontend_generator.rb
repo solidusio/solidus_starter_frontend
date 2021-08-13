@@ -26,8 +26,6 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
 
     # Text updates
     append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
-    append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/solidus_starter_frontend\n"
-    inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/solidus_starter_frontend\n", before: %r{\*/}, verbose: true
     inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
     gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
 
