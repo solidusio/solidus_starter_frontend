@@ -9,7 +9,6 @@ RSpec.describe Spree::CheckoutController, type: :controller do
   before do
     request.cookie_jar.signed[:guest_token] = cookie_token
     allow(controller).to receive(:current_order) { order }
-    allow(order).to receive(:confirmation_required?) { true }
   end
 
   context '#edit' do

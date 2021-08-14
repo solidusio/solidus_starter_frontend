@@ -5,7 +5,6 @@ RSpec.describe Spree::ProductsController, type: :controller do
   let!(:user)    { build(:user, spree_api_key: 'fake') }
 
   it 'allows admins to view non-active products' do
-    allow(controller).to receive(:before_save_new_order)
     allow(controller).to receive(:spree_current_user) { user }
     allow(user).to receive(:has_spree_role?) { true }
     get :show, params: { id: product.to_param }
@@ -13,7 +12,6 @@ RSpec.describe Spree::ProductsController, type: :controller do
   end
 
   it 'cannot view non-active products' do
-    allow(controller).to receive(:before_save_new_order)
     allow(controller).to receive(:spree_current_user) { user }
     allow(user).to receive(:has_spree_role?) { false }
 
