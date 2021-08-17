@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.feature 'Confirmation' do
+RSpec.feature 'Confirmation', type: :system do
   before do
     allow(Spree::UserMailer).to receive(:confirmation_instructions)
       .and_return(double(deliver: true))
