@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'taxons', type: :system, caching: true do
+RSpec.describe 'taxons', type: :system, caching: true do
   let!(:taxonomy) { create(:taxonomy) }
   let!(:taxon) { create(:taxon, taxonomy: taxonomy, parent: taxonomy.root) }
 

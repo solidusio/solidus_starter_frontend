@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Checkout', type: :request, with_signed_in_user: true do
+RSpec.describe 'Checkout', type: :request, with_signed_in_user: true do
   let(:user) { order.user }
 
   let(:address_params) do

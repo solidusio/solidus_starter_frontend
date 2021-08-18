@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 Spree::Order.class_eval do
   attr_accessor :did_transition
 end
 
-describe 'Order transitions', type: :request, with_guest_session: true do
+RSpec.describe 'Order transitions', type: :request, with_guest_session: true do
   # Regression test for https://github.com/spree/spree/issues/2004
   context "when a transition callback on first state" do
     let(:order) { create(:order, user: nil, store: store) }

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'checkout with unshippable items', type: :system, inaccessible: true do
+RSpec.describe 'checkout with unshippable items', type: :system, inaccessible: true do
   let!(:stock_location) { create(:stock_location) }
   let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:address) }
 

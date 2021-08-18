@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Checkout', type: :system, inaccessible: true do
+RSpec.describe 'Checkout', type: :system, inaccessible: true do
   include SystemHelpers
 
   include_context 'checkout setup'

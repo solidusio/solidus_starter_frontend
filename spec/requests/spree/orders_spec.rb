@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Order', type: :request do
+RSpec.describe 'Order', type: :request do
   let!(:store) { create(:store) }
   let(:variant) { create(:variant) }
 

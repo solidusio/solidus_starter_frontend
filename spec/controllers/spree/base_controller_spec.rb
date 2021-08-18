@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
 RSpec.describe Spree::BaseController, type: :controller do
   describe '#unauthorized_redirect' do
@@ -9,7 +9,7 @@ RSpec.describe Spree::BaseController, type: :controller do
     end
 
     before do
-      stub_spree_preferences(Spree::Config, redirect_back_on_unauthorized: true)
+      allow(Spree::Auth::Engine).to receive(:redirect_back_on_unauthorized?).and_return(true)
     end
 
     context "when user is logged in" do

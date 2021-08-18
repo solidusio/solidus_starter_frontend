@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'viewing products', type: :system, inaccessible: true do
+RSpec.describe 'viewing products', type: :system, inaccessible: true do
   let!(:taxonomy) { create(:taxonomy, name: "Category") }
   let!(:super_clothing) { create(:taxon, name: "Super Clothing", parent: taxonomy.root, taxonomy: taxonomy) }
   let!(:t_shirts) { create(:taxon, name: "T-Shirts", parent: super_clothing, taxonomy: taxonomy) }

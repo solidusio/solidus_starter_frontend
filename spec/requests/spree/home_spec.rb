@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Home layout', type: :request, with_signed_in_user: true do
+RSpec.describe 'Home layout', type: :request, with_signed_in_user: true do
   let(:searcher_class) { instance_double(Spree::Config.searcher_class) }
   let(:user) { create(:user) }
   let(:product) { build_stubbed(:product) }

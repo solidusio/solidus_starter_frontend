@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Order permissions', type: :request do
+RSpec.describe 'Order permissions', type: :request do
   let(:order) { create(:order, user: nil, store: store) }
   let!(:store) { create(:store) }
   let(:variant) { create(:variant) }
@@ -56,8 +56,7 @@ describe 'Order permissions', type: :request do
 
     context '#show' do
       context 'when token parameter present' do
-        it 'always ooverride existing token when passing a new one' do
-          allow(ActionDispatch::Cookies::PermanentCookieJar).to receive(:signed) { { guest_token: order.guest_token } }
+        it 'always override existing token when passing a new one' do
           get spree.order_path(id: another_order.number, token: another_order.guest_token)
           jar = ActionDispatch::Cookies::CookieJar.build(request, cookies.to_hash)
           expect(jar.signed[:guest_token]).to eq another_order.guest_token

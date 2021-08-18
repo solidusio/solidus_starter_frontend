@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Template rendering', type: :system do
+RSpec.describe 'Template rendering', type: :system do
   after do
     Capybara.ignore_hidden_elements = true
   end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'First Order promotion', type: :system do
+RSpec.describe 'First Order promotion', type: :system do
   include SystemHelpers
 
   let!(:promotion) do

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Quantity Promotions', type: :system, js: true do
+RSpec.describe 'Quantity Promotions', type: :system, js: true do
   let(:action) do
     Spree::Promotion::Actions::CreateQuantityAdjustments.create(
       calculator: calculator,

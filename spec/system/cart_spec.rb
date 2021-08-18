@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Cart', type: :system, inaccessible: true do
+RSpec.describe 'Cart', type: :system, inaccessible: true do
   before { create(:store) }
 
   it "shows cart icon on non-cart pages" do

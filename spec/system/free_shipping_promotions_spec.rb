@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Free shipping promotions', type: :system, js: true do
+RSpec.describe 'Free shipping promotions', type: :system, js: true do
   include SystemHelpers
 
   let!(:store) { create(:store) }

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Checkout confirm page submission', type: :system do
+RSpec.describe 'Checkout confirm page submission', type: :system do
   include_context 'checkout setup'
 
   context "when the product from the order is not backorderable but has enough stock quantity" do

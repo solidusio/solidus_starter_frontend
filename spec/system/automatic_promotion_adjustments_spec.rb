@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_starter_frontend_helper'
 
-describe 'Automatic promotions', type: :system, js: true do
+RSpec.describe 'Automatic promotions', type: :system, js: true do
   let!(:store) { create(:store) }
   let!(:country) { create(:country, name: "United States of America", states_required: true) }
   let!(:state) { create(:state, name: "Alabama", country: country) }
