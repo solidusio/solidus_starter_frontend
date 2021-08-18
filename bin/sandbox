@@ -43,6 +43,12 @@ fi
 
 sandbox_path="./${sandbox_name}"
 
+if [[ -n $SKIP_SPECS ]]; then
+  GENERATOR_SKIP_SPECS_ARGUMENT='--skip-specs'
+else
+  GENERATOR_SKIP_SPECS_ARGUMENT=''
+fi
+
 # Stay away from the bundler env of the containing extension.
 function unbundled {
   ruby -rbundler -e'b = proc {system *ARGV}; Bundler.respond_to?(:with_unbundled_env) ? Bundler.with_unbundled_env(&b) : Bundler.with_clean_env(&b)' -- $@
@@ -122,10 +128,13 @@ unbundled bundle exec rails generate solidus:auth:install --auto-run-migrations
 
 if [[ -z $GENERATE_FRONTEND ]]; then
   unbundled bundle exec rails g solidus_starter_frontend:install
-  unbundled bundle exec rails g solidus_starter_frontend:rspec
-  unbundled bundle exec rails g rspec:install
+
+  if [[ -z $SKIP_SPECS ]]; then
+    unbundled bundle exec rails g solidus_starter_frontend:rspec
+    unbundled bundle exec rails g rspec:install
+  fi
 else
-  ruby -I ../lib ../exe/${extension_name} --auto-accept
+  ruby -I ../lib ../exe/${extension_name} --auto-accept $GENERATOR_SKIP_SPECS_ARGUMENT
 fi
 
 echo
