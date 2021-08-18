@@ -13,18 +13,6 @@ require dummy_env
 
 require 'capybara'
 
-Capybara.register_driver :apparition_docker_friendly do |app|
-  opts = {
-    headless: true,
-    browser_options: [
-      :no_sandbox,
-      :disable_gpu,
-      { disable_features: 'VizDisplayCompositor' }
-    ]
-  }
-  Capybara::Apparition::Driver.new(app, opts)
-end
-
 RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     # Prevents you from mocking or stubbing a method that does not exist on
