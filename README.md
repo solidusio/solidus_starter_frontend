@@ -78,8 +78,11 @@ $ solidus_starter_frontend
 ```
 
 These commands will install the gem globally and copy this project's views,
-assets, routes and controllers to your project. You can change easily anything
-that we created; this gives you a lot of freedom of customization.
+assets, routes, controllers, and specs to your project. You can change easily
+anything that we created; this gives you a lot of freedom of customization.
+
+You can choose to exclude the RSpec test suite by running
+`solidus_starter_frontend --skip-specs`.
 
 In addition, please note that the command will add Solidus Auth Devise
 frontend components to your app. At the moment, you will need to manually
