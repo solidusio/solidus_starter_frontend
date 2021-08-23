@@ -38,7 +38,7 @@ if [[ -z $GENERATE_FRONTEND ]]; then
   extension_gem_line="gem '$extension_name', path: '..'"
 else
   sandbox_name='sandbox-generated'
-  extension_gem_line=""
+  extension_gem_line="gem '$extension_name', path: '..', require: false"
 fi
 
 sandbox_path="./${sandbox_name}"
@@ -131,7 +131,7 @@ if [[ -z $GENERATE_FRONTEND ]]; then
     bundle exec rails g rspec:install
   fi
 else
-  ruby -I ../lib ../exe/${extension_name} --auto-accept $GENERATOR_SKIP_SPECS_ARGUMENT
+  bundle exec ${extension_name} --auto-accept $GENERATOR_SKIP_SPECS_ARGUMENT
 fi
 
 echo
