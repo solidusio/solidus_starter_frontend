@@ -112,6 +112,10 @@ if [ ${PASSWORD} ]; then
   replace_in_database_yml "password" $PASSWORD
 fi
 
+if [[ -n $SANDBOX_BUNDLE_PATH ]]; then
+  bundle config --local path $SANDBOX_BUNDLE_PATH
+fi
+
 unbundled bundle install --gemfile Gemfile
 
 unbundled bundle exec rake db:drop db:create
