@@ -40,7 +40,8 @@ commands:
       - run:
           name: 'Solidus <<parameters.branch>>:  Install gems'
           command: |
-            bundle install --path=vendor/bundle/<<parameters.branch>>
+            bundle config --local path vendor/bundle/<<parameters.branch>>
+            bundle install
             bundle clean
           environment:
             SOLIDUS_BRANCH: <<parameters.branch>>
