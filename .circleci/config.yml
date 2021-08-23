@@ -18,7 +18,9 @@ commands:
         default: master
       command:
         type: string
-        default: bundle exec rspec --format progress --format RspecJunitFormatter --out $TEST_RESULTS_PATH
+        default: |
+          cd sandbox-generated
+          bundle exec rspec --format progress --format RspecJunitFormatter --out $TEST_RESULTS_PATH
       command_verb:
         type: string
         default: Runs tests
@@ -33,6 +35,7 @@ commands:
       - restore_cache:
           name: 'Solidus <<parameters.branch>>: Restore Bundler cache'
           keys:
+            - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-sandbox-generated-{{ checksum "Gemfile.lock" }}
             - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
             - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-master
             - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-
@@ -46,9 +49,17 @@ commands:
           environment:
             SOLIDUS_BRANCH: <<parameters.branch>>
           when: always
+      - run:
+          name: 'Solidus <<parameters.branch>>:  Install sandbox with generated starter frontend'
+          command: bin/sandbox
+          environment:
+            GENERATE_FRONTEND: 1
+            SANDBOX_BUNDLE_PATH: ../vendor/bundle/<<parameters.branch>>
+            SOLIDUS_BRANCH: <<parameters.branch>>
+          when: always
       - save_cache:
           name: 'Solidus <<parameters.branch>>: Save Bundler cache'
-          key: gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-sandbox-generated-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle/<<parameters.branch>>
           when: always
@@ -57,10 +68,10 @@ commands:
           command: <<parameters.command>>
           environment:
             SOLIDUS_BRANCH: <<parameters.branch>>
-            TEST_RESULTS_PATH: test-results/gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>/results.xml
+            TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>/results.xml
           when: always
       - run:
-          command: rm -f Gemfile.lock && rm -fr spec/dummy
+          command: rm -f Gemfile.lock && rm -fr spec/dummy && rm -rf sandbox-generated
           name: 'Solidus <<parameters.branch>>: Clean up'
           when: always
 
