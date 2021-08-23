@@ -16,6 +16,10 @@ module SolidusStarterFrontend
         gem 'solidus_dev_support', '~> 2.0'
       end
 
+      Bundler.with_original_env do
+        run 'bundle install'
+      end
+
       # Copy spec files
       directory 'spec/controllers'
       directory 'spec/helpers'
