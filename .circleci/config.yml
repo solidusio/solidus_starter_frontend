@@ -18,7 +18,7 @@ commands:
         default: master
       command:
         type: string
-        default: bundle exec rake
+        default: bundle exec rspec --format progress --format RspecJunitFormatter --out $TEST_RESULTS_PATH
       command_verb:
         type: string
         default: Runs tests
