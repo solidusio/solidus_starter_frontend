@@ -63,26 +63,20 @@ commands:
           name: 'Solidus <<parameters.branch>>: Clean up'
           when: always
 
-  run-tests-solidus-master:
-    description: >
-      Test the edge version of Solidus
-
-    steps:
-      - test-branch:
-          branch: master
-
 jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
       - checkout
-      - run-tests-solidus-master
+      - test-branch:
+          branch: master
       - solidusio_extensions/store-test-results
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
     steps:
       - checkout
-      - run-tests-solidus-master
+      - test-branch:
+          branch: master
       - solidusio_extensions/store-test-results
   solidus-compare:
     docker:
