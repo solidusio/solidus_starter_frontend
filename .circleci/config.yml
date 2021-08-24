@@ -56,6 +56,8 @@ commands:
             GENERATE_FRONTEND: 1
             SANDBOX_BUNDLE_PATH: ../vendor/bundle/<<parameters.branch>>
             SOLIDUS_BRANCH: <<parameters.branch>>
+            SANDBOX_SKIP_SOLIDUS_INSTALL_SEED: true
+            SANDBOX_SKIP_SOLIDUS_INSTALL_SAMPLE: true
           when: always
       - save_cache:
           name: 'Solidus <<parameters.branch>>: Save Bundler cache'
