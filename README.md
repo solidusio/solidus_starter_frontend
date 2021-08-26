@@ -37,13 +37,8 @@ rails new store --skip-javascript
 cd store
 bundle add solidus_core solidus_backend solidus_api solidus_sample
 bundle add rspec-rails --group 'development, test'
-bin/rails generate solidus:install --auto-accept
+bin/rails generate solidus:install
 ```
-
-Please note that `--auto-accept` will add [Solidus Auth Devise]
-(https://github.com/solidusio/solidus_auth_devise) to your application. At the
-moment, SolidusStarterFrontend requires the application to include the gem. In
-the future, we'll make Solidus Auth Devise optional.
 
 `rspec-rails` is required to install the frontend's test suite to your app. If
 you'd like to exclude the gem, you'll need to specify `--skip-specs` when you
@@ -93,9 +88,8 @@ anything that we created; this gives you a lot of freedom of customization.
 You can choose to exclude the RSpec test suite by running
 `solidus_starter_frontend --skip-specs`.
 
-In addition, please note that the command will add Solidus Auth Devise
-frontend components to your app. At the moment, you will need to manually
-remove the gem and its frontend components if you don't need them.
+You can also choose to skip installing the Solidus Auth Devise frontend components
+to your app by running `solidus_starter_frontend --skip-authentication`.
 
 Finally, please note that you won't be able to auto-update the storefront code
 with the next versions released since this project's gem will not be present in

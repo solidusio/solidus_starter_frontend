@@ -32,12 +32,28 @@ RSpec.configure do |config|
     config.include Spree::TestingSupport::Translations
   end
 
+  # RspecGenerator/with-authentication/start
+
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
 
   config.before(:each, with_signed_in_user: true) do
     sign_in(user)
   end
+
+  # RspecGenerator/with-authentication/end
+
+=begin # RspecGenerator/without-authentication/start
+  config.before(:each, with_signed_in_user: true) do
+    Spree::StoreController.define_method(:spree_current_user) do
+      Spree.user_class.find_by(spree_api_key: 'fake api key')
+    end
+
+    allow(Spree.user_class).to receive(:find_by)
+      .with(hash_including(:spree_api_key))
+      .and_return(user)
+  end
+=end # RspecGenerator/without-authentication/end
 
   config.before(:each, with_guest_session: true) do
     allow_any_instance_of(ActionDispatch::Cookies::CookieJar).to receive(:signed) { { guest_token: order.guest_token } }

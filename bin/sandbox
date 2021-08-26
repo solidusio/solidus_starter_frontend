@@ -50,6 +50,16 @@ else
   rspec_rails_gem_line="gem 'rspec-rails', groups: [:development, :test]"
 fi
 
+if [[ "${SANDBOX_SKIP_AUTHENTICATION}" == '1' ]]; then
+  generator_skip_authentication_argument='--skip-authentication'
+  solidus_auth_devise_gem_line=''
+  solidus_install_user_class_argument=""
+else
+  generator_skip_authentication_argument=''
+  solidus_auth_devise_gem_line="gem 'solidus_auth_devise'"
+  solidus_install_user_class_argument="--user_class=Spree::User"
+fi
+
 rm -rf "${sandbox_path}"
 bundle exec rails new "${sandbox_name}" --database="${railsdb}" \
   --skip-bundle \
@@ -84,7 +94,7 @@ gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 
 gem 'rails-i18n'
 ${extension_gem_line}
-gem 'solidus_auth_devise'
+${solidus_auth_devise_gem_line}
 
 ${rspec_rails_gem_line}
 RUBY
@@ -123,16 +133,21 @@ bundle exec rake db:drop db:create
 
 bundle exec rails generate solidus:install \
   --auto-accept \
-  --user_class=Spree::User \
+  "${solidus_install_user_class_argument}" \
   --enforce_available_locales=true \
   --with-authentication=false \
   --payment-method=none \
   "$@"
 
-bundle exec rails generate solidus:auth:install --auto-run-migrations
+if [[ "${SANDBOX_SKIP_AUTHENTICATION}" != '1' ]]; then
+  bundle exec rails generate solidus:auth:install --auto-run-migrations
+fi
 
 if [[ -n "${GENERATE_FRONTEND}" ]]; then
-  bundle exec "${extension_name}" --auto-accept "${generator_skip_specs_argument}"
+  bundle exec "${extension_name}" \
+    --auto-accept \
+    "${generator_skip_specs_argument}" \
+    "${generator_skip_authentication_argument}"
 else
   if [[ -z "${SKIP_SPECS}" ]]; then
     bundle exec rails g solidus_starter_frontend:rspec
