@@ -17,35 +17,40 @@ RSpec.describe 'Order permissions', type: :request do
     context '#populate' do
       it 'checks if user is authorized for :update' do
         post spree.populate_orders_path, params: { variant_id: variant.id }
-        expect(response).to redirect_to(spree.login_path)
+        expect(response).to redirect_to(spree.login_path) # RspecGenerator/with-authentication/line
+        # expect(response).to redirect_to(:unauthorized) # RspecGenerator/without-authentication/line
       end
     end
 
     context '#edit' do
       it 'checks if user is authorized for :read' do
         get spree.cart_path
-        expect(response).to redirect_to(spree.login_path)
+        expect(response).to redirect_to(spree.login_path) # RspecGenerator/with-authentication/line
+        # expect(response).to redirect_to(:unauthorized) # RspecGenerator/without-authentication/line
       end
     end
 
     context '#update' do
       it 'checks if user is authorized for :update' do
         put spree.order_path(order.number), params: { order: { email: "foo@bar.com" } }
-        expect(response).to redirect_to(spree.login_path)
+        expect(response).to redirect_to(spree.login_path) # RspecGenerator/with-authentication/line
+        # expect(response).to redirect_to(:unauthorized) # RspecGenerator/without-authentication/line
       end
     end
 
     context '#empty' do
       it 'checks if user is authorized for :update' do
         put spree.empty_cart_path
-        expect(response).to redirect_to(spree.login_path)
+        expect(response).to redirect_to(spree.login_path) # RspecGenerator/with-authentication/line
+        # expect(response).to redirect_to(:unauthorized) # RspecGenerator/without-authentication/line
       end
     end
 
     context "#show" do
       it "checks against the specified order" do
         get spree.order_path(id: order.number)
-        expect(response).to redirect_to(spree.login_path)
+        expect(response).to redirect_to(spree.login_path) # RspecGenerator/with-authentication/line
+        # expect(response).to redirect_to(:unauthorized) # RspecGenerator/without-authentication/line
       end
     end
   end

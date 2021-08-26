@@ -16,6 +16,9 @@ commands:
       branch:
         type: string
         default: master
+      skip_authentication:
+        type: boolean
+        default: false
       command:
         type: string
         default: |
@@ -56,6 +59,7 @@ commands:
             GENERATE_FRONTEND: 1
             SANDBOX_BUNDLE_PATH: ../vendor/bundle/<<parameters.branch>>
             SOLIDUS_BRANCH: <<parameters.branch>>
+            SANDBOX_SKIP_AUTHENTICATION: <<parameters.skip_authentication>>
           when: always
       - save_cache:
           name: 'Solidus <<parameters.branch>>: Save Bundler cache'
@@ -76,6 +80,26 @@ commands:
           when: always
 
 jobs:
+  run-specs-with-postgres-for-generators:
+    executor: solidusio_extensions/postgres
+    steps:
+      - checkout
+      - solidusio_extensions/test-branch:
+          branch: master
+          command: |
+            bundle exec rspec spec/generators \
+              --format progress \
+              --format RspecJunitFormatter \
+              --out $TEST_RESULTS_PATH
+      - solidusio_extensions/store-test-results
+  run-specs-with-postgres-skipping-authentication:
+    executor: solidusio_extensions/postgres
+    steps:
+      - checkout
+      - test-branch:
+          branch: master
+          skip_authentication: true
+      - solidusio_extensions/store-test-results
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
@@ -110,6 +134,8 @@ jobs:
 workflows:
   "Run specs on supported Solidus versions":
     jobs:
+      - run-specs-with-postgres-for-generators
+      - run-specs-with-postgres-skipping-authentication
       - run-specs-with-postgres
       - run-specs-with-mysql
       - solidus-compare
@@ -122,6 +148,8 @@ workflows:
               only:
                 - master
     jobs:
+      - run-specs-with-postgres-for-generators
+      - run-specs-with-postgres-skipping-authentication
       - run-specs-with-postgres
       - run-specs-with-mysql
       - solidus-compare

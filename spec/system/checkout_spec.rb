@@ -364,7 +364,8 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token)) # RspecGenerator/with-authentication/line
+      # expect(page).to have_current_path(spree.order_path(order)) # RspecGenerator/without-authentication/line
       expect(page).to have_content("Ending in #{credit_card.last_digits}")
     end
 
@@ -376,7 +377,8 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token)) # RspecGenerator/with-authentication/line
+      # expect(page).to have_current_path(spree.order_path(order)) # RspecGenerator/without-authentication/line
       expect(page).to have_content('Ending in 1111')
     end
   end
@@ -408,7 +410,8 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
+      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token)) # RspecGenerator/with-authentication/line
+      # expect(page).to have_current_path(spree.order_path(order)) # RspecGenerator/without-authentication/line
     end
   end
 
@@ -621,6 +624,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
         add_mug_to_cart
         visit spree.checkout_state_path(:address)
 
+        # RspecGenerator/with-authentication/start
         # Unlike with the other examples in this spec, calling
         # `checkout_as_guest` in this example causes this example to fail
         # intermittently. Please see
@@ -631,6 +635,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
           fill_in 'Password:', with: user.password
           click_button 'Login'
         end
+        # RspecGenerator/with-authentication/end
 
         fill_in_address
         fill_in 'Customer E-Mail', with: 'test@example.com'

@@ -3,6 +3,8 @@
 Spree::Core::Engine.routes.draw do
   root to: 'home#index'
 
+  # SolidusStarterFrontendGenerator/with-authentication/start
+
   devise_for(:spree_user, {
     class_name: 'Spree::User',
     controllers: {
@@ -34,14 +36,20 @@ Spree::Core::Engine.routes.draw do
 
   resource :account, controller: 'users'
 
+  # SolidusStarterFrontendGenerator/with-authentication/end
+
   resources :products, only: [:index, :show]
 
   get '/locale/set', to: 'locale#set'
   post '/locale/set', to: 'locale#set', as: :select_locale
 
   # non-restful checkout stuff
+
+  # SolidusStarterFrontendGenerator/with-authentication/start
   get '/checkout/registration', to: 'checkout#registration', as: :checkout_registration
   put '/checkout/registration', to: 'checkout#update_registration', as: :update_checkout_registration
+  # SolidusStarterFrontendGenerator/with-authentication/end
+
   patch '/checkout/update/:state', to: 'checkout#update', as: :update_checkout
   get '/checkout/:state', to: 'checkout#edit', as: :checkout_state
   get '/checkout', to: 'checkout#edit', as: :checkout

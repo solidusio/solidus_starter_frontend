@@ -6,7 +6,7 @@ require 'solidus_starter_frontend_helper'
 # So we need to use one of the controllers inside Spree.
 # ProductsController is good.
 RSpec.describe Spree::ProductsController, type: :controller do
-  include Devise::Test::ControllerHelpers
+  include Devise::Test::ControllerHelpers # RspecGenerator/with-authentication/line
 
   before do
     I18n.enforce_available_locales = false
