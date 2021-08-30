@@ -152,12 +152,6 @@ module Spree
       end
     end
 
-    # Should be overriden if you have areas of your checkout that don't match
-    # up to a step within checkout_steps, such as a registration step
-    def skip_state_validation?
-      false
-    end
-
     def load_order
       @order = current_order
       redirect_to(spree.cart_path) && return unless @order
@@ -190,11 +184,6 @@ module Spree
         flash[:error] = t('spree.inventory_error_flash_for_insufficient_quantity', names: out_of_stock_items)
         redirect_to spree.cart_path
       end
-    end
-
-    # Provides a route to redirect after order completion
-    def completion_route
-      spree.order_path(@order)
     end
 
     def setup_for_current_state
@@ -258,6 +247,17 @@ module Spree
           redirect_to spree.checkout_state_path(@order.state)
         end
       end
+    end
+
+    # Should be overriden if you have areas of your checkout that don't match
+    # up to a step within checkout_steps, such as a registration step
+    def skip_state_validation?
+      false
+    end
+
+    # Provides a route to redirect after order completion
+    def completion_route
+      spree.order_path(@order)
     end
 
     def order_params
