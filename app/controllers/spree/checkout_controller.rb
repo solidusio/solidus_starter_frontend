@@ -270,10 +270,6 @@ module Spree
       %w(registration update_registration).include?(params[:action])
     end
 
-    def check_authorization
-      authorize!(:edit, current_order, cookies.signed[:guest_token])
-    end
-
     # Introduces a registration step whenever the +registration_step+ preference is true.
     def check_registration
       return unless registration_required?
