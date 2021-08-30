@@ -192,6 +192,11 @@ module Spree
       end
     end
 
+    # Provides a route to redirect after order completion
+    def completion_route
+      spree.order_path(@order)
+    end
+
     def setup_for_current_state
       method_name = :"before_#{@order.state}"
       send(method_name) if respond_to?(method_name, true)
@@ -232,6 +237,10 @@ module Spree
       flash.now[:error] = t('spree.spree_gateway_error_flash_for_checkout')
       @order.errors.add(:base, exception.message)
       render :edit
+    end
+
+    def check_authorization
+      authorize!(:edit, current_order, cookies.signed[:guest_token])
     end
 
     def insufficient_stock_error
