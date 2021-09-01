@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bundler'
+
 class SolidusStarterFrontendGenerator < Rails::Generators::Base
   source_root File.expand_path('../../..', __dir__)
 
