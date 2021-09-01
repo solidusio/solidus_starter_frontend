@@ -39,5 +39,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'apparition', '~> 0.6.0'
   spec.add_development_dependency 'rails-controller-testing', '~> 1.0.5'
   spec.add_development_dependency 'rspec-activemodel-mocks', '~> 1.1.0'
-  spec.add_development_dependency 'solidus_dev_support', '~> 2.0'
+  spec.add_development_dependency 'solidus_dev_support', '~> 2.5'
 end

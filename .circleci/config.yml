@@ -7,18 +7,90 @@ orbs:
   # or goes EOL.
   solidusio_extensions: solidusio/extensions@volatile
 
+commands:
+  test-branch:
+    description:
+      Runs tests for a specific Solidus branch.
+
+    parameters:
+      branch:
+        type: string
+        default: master
+      command:
+        type: string
+        default: |
+          cd sandbox-generated
+          bundle exec rspec --format progress --format RspecJunitFormatter --out $TEST_RESULTS_PATH
+      command_verb:
+        type: string
+        default: Runs tests
+
+    steps:
+      - run:
+          name: 'Solidus <<parameters.branch>>: Generate Gemfile.lock'
+          command: bundle lock
+          environment:
+            SOLIDUS_BRANCH: <<parameters.branch>>
+          when: always
+      - restore_cache:
+          name: 'Solidus <<parameters.branch>>: Restore Bundler cache'
+          keys:
+            - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-sandbox-generated-{{ checksum "Gemfile.lock" }}
+            - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-master
+            - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-
+          when: always
+      - run:
+          name: 'Solidus <<parameters.branch>>:  Install gems'
+          command: |
+            bundle config --local path vendor/bundle/<<parameters.branch>>
+            bundle install
+            bundle clean
+          environment:
+            SOLIDUS_BRANCH: <<parameters.branch>>
+          when: always
+      - run:
+          name: 'Solidus <<parameters.branch>>:  Install sandbox with generated starter frontend'
+          command: bin/sandbox
+          environment:
+            GENERATE_FRONTEND: 1
+            SANDBOX_BUNDLE_PATH: ../vendor/bundle/<<parameters.branch>>
+            SOLIDUS_BRANCH: <<parameters.branch>>
+            SANDBOX_SKIP_SOLIDUS_INSTALL_SEED: true
+            SANDBOX_SKIP_SOLIDUS_INSTALL_SAMPLE: true
+          when: always
+      - save_cache:
+          name: 'Solidus <<parameters.branch>>: Save Bundler cache'
+          key: gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-sandbox-generated-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle/<<parameters.branch>>
+          when: always
+      - run:
+          name: '<<parameters.command_verb>> on Solidus <<parameters.branch>>'
+          command: <<parameters.command>>
+          environment:
+            SOLIDUS_BRANCH: <<parameters.branch>>
+            TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>/results.xml
+          when: always
+      - run:
+          command: rm -f Gemfile.lock && rm -fr spec/dummy && rm -rf sandbox-generated
+          name: 'Solidus <<parameters.branch>>: Clean up'
+          when: always
+
 jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
       - checkout
-      - solidusio_extensions/run-tests-solidus-master
+      - test-branch:
+          branch: master
       - solidusio_extensions/store-test-results
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
     steps:
       - checkout
-      - solidusio_extensions/run-tests-solidus-master
+      - test-branch:
+          branch: master
       - solidusio_extensions/store-test-results
   solidus-compare:
     docker:

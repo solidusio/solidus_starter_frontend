@@ -38,7 +38,7 @@ if [[ -z $GENERATE_FRONTEND ]]; then
   extension_gem_line="gem '$extension_name', path: '..'"
 else
   sandbox_name='sandbox-generated'
-  extension_gem_line=""
+  extension_gem_line="gem '$extension_name', path: '..', require: false"
 fi
 
 sandbox_path="./${sandbox_name}"
@@ -49,13 +49,8 @@ else
   GENERATOR_SKIP_SPECS_ARGUMENT=''
 fi
 
-# Stay away from the bundler env of the containing extension.
-function unbundled {
-  ruby -rbundler -e'b = proc {system *ARGV}; Bundler.respond_to?(:with_unbundled_env) ? Bundler.with_unbundled_env(&b) : Bundler.with_clean_env(&b)' -- $@
-}
-
 rm -rf ${sandbox_path}
-unbundled bundle exec rails new ${sandbox_name} --database="$RAILSDB" \
+bundle exec rails new ${sandbox_name} --database="$RAILSDB" \
   --skip-bundle \
   --skip-git \
   --skip-keeps \
@@ -89,6 +84,8 @@ gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 gem 'rails-i18n'
 ${extension_gem_line}
 gem 'solidus_auth_devise'
+
+gem 'rspec-rails'
 RUBY
 
 replace_in_database_yml() {
@@ -112,27 +109,45 @@ if [ ${PASSWORD} ]; then
   replace_in_database_yml "password" $PASSWORD
 fi
 
-unbundled bundle install --gemfile Gemfile
+if [[ -n $SANDBOX_BUNDLE_PATH ]]; then
+  bundle config --local path $SANDBOX_BUNDLE_PATH
+fi
 
-unbundled bundle exec rake db:drop db:create
+bundle install --gemfile Gemfile
 
-unbundled bundle exec rails generate solidus:install \
+bundle exec rake db:drop db:create
+
+if [[ -n $SANDBOX_SKIP_SOLIDUS_INSTALL_SEED ]]; then
+  sandbox_skip_solidus_install_seed_argument='--seed=false'
+else
+  sandbox_skip_solidus_install_seed_argument=''
+fi
+
+if [[ -n $SANDBOX_SKIP_SOLIDUS_INSTALL_SAMPLE ]]; then
+  sandbox_skip_solidus_install_sample_argument='--sample=false'
+else
+  sandbox_skip_solidus_install_sample_argument=''
+fi
+
+bundle exec rails generate solidus:install \
   --auto-accept \
   --user_class=Spree::User \
   --enforce_available_locales=true \
   --with-authentication=false \
   --payment-method=none \
+  $sandbox_skip_solidus_install_seed_argument \
+  $sandbox_skip_solidus_install_sample_argument \
   $@
 
-unbundled bundle exec rails generate solidus:auth:install --auto-run-migrations
+bundle exec rails generate solidus:auth:install --auto-run-migrations
 
 if [[ -z $GENERATE_FRONTEND ]]; then
   if [[ -z $SKIP_SPECS ]]; then
-    unbundled bundle exec rails g solidus_starter_frontend:rspec
-    unbundled bundle exec rails g rspec:install
+    bundle exec rails g solidus_starter_frontend:rspec
+    bundle exec rails g rspec:install
   fi
 else
-  ruby -I ../lib ../exe/${extension_name} --auto-accept $GENERATOR_SKIP_SPECS_ARGUMENT
+  bundle exec ${extension_name} --auto-accept $GENERATOR_SKIP_SPECS_ARGUMENT
 fi
 
 echo
