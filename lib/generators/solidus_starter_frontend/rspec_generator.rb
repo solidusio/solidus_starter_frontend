@@ -6,7 +6,6 @@ module SolidusStarterFrontend
 
     def install
       gem_group :development, :test do
-        gem 'rspec-rails'
         gem 'apparition', '~> 0.6.0'
         gem 'rails-controller-testing', '~> 1.0.5'
         gem 'rspec-activemodel-mocks', '~> 1.1.0'
