@@ -85,7 +85,7 @@ gem 'rails-i18n'
 ${extension_gem_line}
 gem 'solidus_auth_devise'
 
-gem 'rspec-rails', '~> 4.0.0.beta3'
+gem 'rspec-rails'
 RUBY
 
 replace_in_database_yml() {
