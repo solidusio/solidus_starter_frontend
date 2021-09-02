@@ -45,8 +45,10 @@ sandbox_path="./${sandbox_name}"
 
 if [[ -n $SKIP_SPECS ]]; then
   GENERATOR_SKIP_SPECS_ARGUMENT='--skip-specs'
+  rspec_rails_gem_line=''
 else
   GENERATOR_SKIP_SPECS_ARGUMENT=''
+  rspec_rails_gem_line="gem 'rspec-rails', groups: [:development, :test]"
 fi
 
 rm -rf ${sandbox_path}
@@ -85,7 +87,7 @@ gem 'rails-i18n'
 ${extension_gem_line}
 gem 'solidus_auth_devise'
 
-gem 'rspec-rails', groups: [:development, :test]
+${rspec_rails_gem_line}
 RUBY
 
 replace_in_database_yml() {
