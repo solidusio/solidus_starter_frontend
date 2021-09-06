@@ -35,6 +35,7 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
     gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
 
+    # Specs
     unless options['skip-specs']
       # We can't use Rails' `generate` method here to call the generators. When
       # the solidus_starter_frontend generator is used as a standalone program
