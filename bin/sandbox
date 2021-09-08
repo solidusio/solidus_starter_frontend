@@ -3,25 +3,25 @@
 set -e
 
 case "$DB" in
-postgres|postgresql)
-  RAILSDB="postgresql"
-  HOST=${DB_POSTGRES_HOST:-${DB_HOST}}
-  USERNAME=$DB_USERNAME
-  PASSWORD=$DB_PASSWORD
-  ;;
-mysql)
-  RAILSDB="mysql"
-  HOST=${DB_MYSQL_HOST:-${DB_HOST}}
-  USERNAME=$DB_USERNAME
-  PASSWORD=$DB_PASSWORD
-  ;;
-sqlite|'')
-  RAILSDB="sqlite3"
-  ;;
-*)
-  echo "Invalid DB specified: $DB"
-  exit 1
-  ;;
+  postgres|postgresql)
+    RAILSDB="postgresql"
+    HOST=${DB_POSTGRES_HOST:-${DB_HOST}}
+    USERNAME=$DB_USERNAME
+    PASSWORD=$DB_PASSWORD
+    ;;
+  mysql)
+    RAILSDB="mysql"
+    HOST=${DB_MYSQL_HOST:-${DB_HOST}}
+    USERNAME=$DB_USERNAME
+    PASSWORD=$DB_PASSWORD
+    ;;
+  sqlite|'')
+    RAILSDB="sqlite3"
+    ;;
+  *)
+    echo "Invalid DB specified: $DB"
+    exit 1
+    ;;
 esac
 
 if [ ! -z $SOLIDUS_BRANCH ]
