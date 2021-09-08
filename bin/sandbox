@@ -131,13 +131,13 @@ bundle exec rails generate solidus:install \
 
 bundle exec rails generate solidus:auth:install --auto-run-migrations
 
-if [[ -z "${GENERATE_FRONTEND}" ]]; then
+if [[ -n "${GENERATE_FRONTEND}" ]]; then
+  bundle exec "${extension_name}" --auto-accept "${generator_skip_specs_argument}"
+else
   if [[ -z "${SKIP_SPECS}" ]]; then
     bundle exec rails g solidus_starter_frontend:rspec
     bundle exec rails g rspec:install
   fi
-else
-  bundle exec ${extension_name} --auto-accept $generator_skip_specs_argument
 fi
 
 echo
