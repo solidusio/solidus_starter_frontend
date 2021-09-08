@@ -24,8 +24,8 @@ case "${DB}" in
     ;;
 esac
 
-if [[ ! -z "${SOLIDUS_BRANCH}" ]]; then
-  branch=$SOLIDUS_BRANCH
+if [[ -n "${SOLIDUS_BRANCH}" ]]; then
+  branch="${SOLIDUS_BRANCH}"
 else
   branch="master"
 fi
