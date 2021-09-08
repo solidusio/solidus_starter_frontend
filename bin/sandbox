@@ -114,7 +114,7 @@ if [[ -n "${password}" ]]; then
 fi
 
 if [[ -n "${SANDBOX_BUNDLE_PATH}" ]]; then
-  bundle config --local path $SANDBOX_BUNDLE_PATH
+  bundle config --local path "${SANDBOX_BUNDLE_PATH}"
 fi
 
 bundle install --gemfile Gemfile
