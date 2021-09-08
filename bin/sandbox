@@ -65,8 +65,8 @@ if [[ ! -d "${sandbox_name}" ]]; then
   exit 1
 fi
 
-cd ${sandbox_path}
-cat <<RUBY >> Gemfile
+cd "${sandbox_path}"
+cat >> Gemfile <<RUBY
 # By default, the solidus gem also includes the standard frontend via
 # the solidus_frontend gem. To make this extension work, you need to
 # exclude it and manually include all the other Solidus components.
