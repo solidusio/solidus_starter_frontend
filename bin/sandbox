@@ -119,26 +119,12 @@ bundle install --gemfile Gemfile
 
 bundle exec rake db:drop db:create
 
-if [[ -n $SANDBOX_SKIP_SOLIDUS_INSTALL_SEED ]]; then
-  sandbox_skip_solidus_install_seed_argument='--seed=false'
-else
-  sandbox_skip_solidus_install_seed_argument=''
-fi
-
-if [[ -n $SANDBOX_SKIP_SOLIDUS_INSTALL_SAMPLE ]]; then
-  sandbox_skip_solidus_install_sample_argument='--sample=false'
-else
-  sandbox_skip_solidus_install_sample_argument=''
-fi
-
 bundle exec rails generate solidus:install \
   --auto-accept \
   --user_class=Spree::User \
   --enforce_available_locales=true \
   --with-authentication=false \
   --payment-method=none \
-  $sandbox_skip_solidus_install_seed_argument \
-  $sandbox_skip_solidus_install_sample_argument \
   $@
 
 bundle exec rails generate solidus:auth:install --auto-run-migrations
