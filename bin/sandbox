@@ -32,12 +32,12 @@ fi
 
 extension_name="solidus_starter_frontend"
 
-if [[ -z "${GENERATE_FRONTEND}" ]]; then
-  sandbox_name='sandbox'
-  extension_gem_line="gem '$extension_name', path: '..'"
-else
+if [[ -n "${GENERATE_FRONTEND}" ]]; then
   sandbox_name='sandbox-generated'
-  extension_gem_line="gem '$extension_name', path: '..', require: false"
+  extension_gem_line="gem '${extension_name}', path: '..', require: false"
+else
+  sandbox_name='sandbox'
+  extension_gem_line="gem '${extension_name}', path: '..'"
 fi
 
 sandbox_path="./${sandbox_name}"
