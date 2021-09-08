@@ -141,8 +141,8 @@ else
 fi
 
 echo
-echo "🚀 Sandbox app successfully created for $extension_name!"
-echo "🚀 Using $railsdb and Solidus $branch"
+echo "🚀 Sandbox app successfully created for ${extension_name}!"
+echo "🚀 Using ${railsdb} and Solidus ${branch}"
 echo "🚀 Use 'export DB=[postgres|mysql|sqlite]' to control the DB adapter"
 echo "🚀 Use 'export SOLIDUS_BRANCH=<BRANCH-NAME>' to control the Solidus version"
 echo "🚀 This app is intended for test purposes."
