@@ -102,15 +102,15 @@ replace_in_database_yml() {
 }
 
 if [[ -n "${host}" ]]; then
-  replace_in_database_yml "host" $host
+  replace_in_database_yml "host" "${host}"
 fi
 
 if [[ -n "${username}" ]]; then
-  replace_in_database_yml "username" $username
+  replace_in_database_yml "username" "${username}"
 fi
 
 if [[ -n "${password}" ]]; then
-  replace_in_database_yml "password" $password
+  replace_in_database_yml "password" "${password}"
 fi
 
 if [[ -n "${SANDBOX_BUNDLE_PATH}" ]]; then
