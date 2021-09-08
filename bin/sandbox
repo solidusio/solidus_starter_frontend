@@ -24,8 +24,7 @@ case "$DB" in
     ;;
 esac
 
-if [ ! -z $SOLIDUS_BRANCH ]
-then
+if [[ ! -z "${SOLIDUS_BRANCH}" ]]; then
   branch=$SOLIDUS_BRANCH
 else
   branch="master"
@@ -33,7 +32,7 @@ fi
 
 extension_name="solidus_starter_frontend"
 
-if [[ -z $GENERATE_FRONTEND ]]; then
+if [[ -z "${GENERATE_FRONTEND}" ]]; then
   sandbox_name='sandbox'
   extension_gem_line="gem '$extension_name', path: '..'"
 else
@@ -43,7 +42,7 @@ fi
 
 sandbox_path="./${sandbox_name}"
 
-if [[ -n $SKIP_SPECS ]]; then
+if [[ -n "${SKIP_SPECS}" ]]; then
   generator_skip_specs_argument='--skip-specs'
   rspec_rails_gem_line=''
 else
@@ -61,7 +60,7 @@ bundle exec rails new ${sandbox_name} --database="$railsdb" \
   --skip-test \
   --skip-javascript
 
-if [ ! -d "${sandbox_name}" ]; then
+if [[ ! -d "${sandbox_name}" ]]; then
   echo 'sandbox rails application failed'
   exit 1
 fi
@@ -91,27 +90,30 @@ ${rspec_rails_gem_line}
 RUBY
 
 replace_in_database_yml() {
-  if [ $railsdb = "postgresql" ]; then
+  if [[ "${railsdb}" == "postgresql" ]]; then
     sed -i.bck "/^  adapter:/a \ \ $1:  $2" config/database.yml
-  elif [ $railsdb = "mysql" ]; then
+  elif [[ "${railsdb}" == "mysql" ]]; then
     sed -i.bck "s/^  $1:.*/\ \ $1: $2/" config/database.yml
   fi
-  if [ -f config/database.yml.bck ]; then
+
+  if [[ -f config/database.yml.bck ]]; then
     rm -f config/database.yml.bck
   fi
 }
 
-if [ ${host} ]; then
+if [[ -n "${host}" ]]; then
   replace_in_database_yml "host" $host
 fi
-if [ ${username} ]; then
+
+if [[ -n "${username}" ]]; then
   replace_in_database_yml "username" $username
 fi
-if [ ${password} ]; then
+
+if [[ -n "${password}" ]]; then
   replace_in_database_yml "password" $password
 fi
 
-if [[ -n $SANDBOX_BUNDLE_PATH ]]; then
+if [[ -n "${SANDBOX_BUNDLE_PATH}" ]]; then
   bundle config --local path $SANDBOX_BUNDLE_PATH
 fi
 
@@ -129,8 +131,8 @@ bundle exec rails generate solidus:install \
 
 bundle exec rails generate solidus:auth:install --auto-run-migrations
 
-if [[ -z $GENERATE_FRONTEND ]]; then
-  if [[ -z $SKIP_SPECS ]]; then
+if [[ -z "${GENERATE_FRONTEND}" ]]; then
+  if [[ -z "${SKIP_SPECS}" ]]; then
     bundle exec rails g solidus_starter_frontend:rspec
     bundle exec rails g rspec:install
   fi
