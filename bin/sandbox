@@ -2,24 +2,24 @@
 
 set -e
 
-case "$DB" in
+case "${DB}" in
   postgres|postgresql)
     railsdb="postgresql"
-    host=${DB_POSTGRES_HOST:-${DB_HOST}}
-    username=$DB_USERNAME
-    password=$DB_PASSWORD
+    host="${DB_POSTGRES_HOST:-${DB_HOST}}"
+    username="${DB_USERNAME}"
+    password="${DB_PASSWORD}"
     ;;
   mysql)
     railsdb="mysql"
-    host=${DB_MYSQL_HOST:-${DB_HOST}}
-    username=$DB_USERNAME
-    password=$DB_PASSWORD
+    host="${DB_MYSQL_HOST:-${DB_HOST}}"
+    username="${DB_USERNAME}"
+    password="${DB_PASSWORD}"
     ;;
   sqlite|'')
     railsdb="sqlite3"
     ;;
   *)
-    echo "Invalid DB specified: $DB"
+    echo "Invalid DB specified: ${DB}"
     exit 1
     ;;
 esac
