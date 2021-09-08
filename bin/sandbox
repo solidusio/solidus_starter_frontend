@@ -50,8 +50,8 @@ else
   rspec_rails_gem_line="gem 'rspec-rails', groups: [:development, :test]"
 fi
 
-rm -rf ${sandbox_path}
-bundle exec rails new ${sandbox_name} --database="$railsdb" \
+rm -rf "${sandbox_path}"
+bundle exec rails new "${sandbox_name}" --database="${railsdb}" \
   --skip-bundle \
   --skip-git \
   --skip-keeps \
