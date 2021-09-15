@@ -259,21 +259,6 @@ module Spree
       end
     end
 
-    <%- if !include_authentication? %>
-
-    # Should be overriden if you have areas of your checkout that don't match
-    # up to a step within checkout_steps, such as a registration step
-    def skip_state_validation?
-      false
-    end
-
-    # Provides a route to redirect after order completion
-    def completion_route
-      spree.order_path(@order)
-    end
-
-    <%- end -%>
-
     <%- if include_authentication? -%>
 
     def order_params
@@ -314,6 +299,19 @@ module Spree
       return spree.order_path(@order) if spree_current_user
 
       spree.token_order_path(@order, @order.guest_token)
+    end
+
+    <%- else -%>
+
+    # Should be overriden if you have areas of your checkout that don't match
+    # up to a step within checkout_steps, such as a registration step
+    def skip_state_validation?
+      false
+    end
+
+    # Provides a route to redirect after order completion
+    def completion_route
+      spree.order_path(@order)
     end
 
     <%- end -%>
