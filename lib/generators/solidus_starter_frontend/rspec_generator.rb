@@ -33,7 +33,7 @@ module SolidusStarterFrontend
       'spec/system/authentication'
     ]
 
-    source_root File.expand_path('../../..', __dir__)
+    source_root File.expand_path('../../../templates', __dir__)
 
     class_option 'skip-authentication', type: :boolean, default: false
 

@@ -33,7 +33,7 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
       'app/views/spree/user_sessions'
     ]
 
-  source_root File.expand_path('../../..', __dir__)
+  source_root File.expand_path('../../../templates', __dir__)
 
   class_option 'skip-specs', type: :boolean, default: false
   class_option 'skip-authentication', type: :boolean, default: false
