@@ -1,21 +1,8 @@
 # frozen_string_literal: true
 
 require 'bundler'
-require_relative 'enable_code'
-require_relative 'disable_code'
-require_relative 'remove_markers'
 
 class SolidusStarterFrontendGenerator < Rails::Generators::Base
-  PATHS_WITH_AUTHENTICATION_CODE = [
-    'app/controllers/spree/checkout_controller.rb',
-    'app/views/spree/components/layout/_top_bar.html.erb',
-    'config/routes.rb'
-  ]
-
-  PATHS_WITH_NON_AUTHENTICATION_CODE = [
-    'app/controllers/spree/checkout_controller.rb'
-  ]
-
   AUTHENTICATION_PATHS = [
       'app/controllers/spree/user_confirmations_controller.rb',
       'app/controllers/spree/user_passwords_controller.rb',
@@ -43,6 +30,7 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     directory 'app', 'app', exclude_pattern: exclude_authentication_paths_pattern
 
     # Copy files
+    copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb' if include_authentication?
     copy_file 'lib/solidus_starter_frontend_configuration.rb'
     copy_file 'lib/solidus_starter_frontend/config.rb'
 
@@ -64,55 +52,6 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
     inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
     gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
-
-    # Authentication
-    if include_authentication?
-      copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
-
-      PATHS_WITH_AUTHENTICATION_CODE.each do |path|
-        SolidusStarterFrontend::EnableCode.new(
-          generator: self,
-          namespace: 'SolidusStarterFrontendGenerator/with-authentication',
-          path: path
-        ).call
-
-        SolidusStarterFrontend::RemoveMarkers.new(
-          generator: self,
-          namespace: 'SolidusStarterFrontendGenerator/with-authentication',
-          path: path
-        ).call
-      end
-
-      PATHS_WITH_NON_AUTHENTICATION_CODE.each do |path|
-        SolidusStarterFrontend::DisableCode.new(
-          generator: self,
-          namespace: 'SolidusStarterFrontendGenerator/without-authentication',
-          path: path
-        ).call
-      end
-    else
-      PATHS_WITH_NON_AUTHENTICATION_CODE.each do |path|
-        SolidusStarterFrontend::EnableCode.new(
-          generator: self,
-          namespace: 'SolidusStarterFrontendGenerator/without-authentication',
-          path: path
-        ).call
-
-        SolidusStarterFrontend::RemoveMarkers.new(
-          generator: self,
-          namespace: 'SolidusStarterFrontendGenerator/without-authentication',
-          path: path
-        ).call
-      end
-
-      PATHS_WITH_AUTHENTICATION_CODE.each do |path|
-        SolidusStarterFrontend::DisableCode.new(
-          generator: self,
-          namespace: 'SolidusStarterFrontendGenerator/with-authentication',
-          path: path
-        ).call
-      end
-    end
 
     # Specs
     if include_specs?

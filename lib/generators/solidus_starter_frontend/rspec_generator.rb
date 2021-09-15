@@ -1,25 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'enable_code'
-require_relative 'disable_code'
-require_relative 'remove_markers'
-
 module SolidusStarterFrontend
   class RspecGenerator < Rails::Generators::Base
-    PATHS_WITH_AUTHENTICATION_CODE = [
-      'spec/controllers/controller_helpers_spec.rb',
-      'spec/requests/spree/orders_ability_spec.rb',
-      'spec/solidus_starter_frontend_helper.rb',
-      'spec/support/solidus_starter_frontend/system_helpers.rb',
-      'spec/system/checkout_spec.rb'
-    ]
-
-    PATHS_WITH_NON_AUTHENTICATION_CODE = [
-      'spec/solidus_starter_frontend_helper.rb',
-      'spec/requests/spree/orders_ability_spec.rb',
-      'spec/system/checkout_spec.rb'
-    ]
-
     AUTHENTICATION_PATHS = [
       'spec/controllers/spree/base_controller_spec.rb',
       'spec/controllers/spree/checkout_controller_spec.rb',
@@ -58,52 +40,6 @@ module SolidusStarterFrontend
       directory 'spec/system', exclude_pattern: exclude_authentication_paths_pattern
       directory 'spec/views'
       template 'spec/solidus_starter_frontend_helper.rb.tt'
-
-      if include_authentication?
-        PATHS_WITH_AUTHENTICATION_CODE.each do |path|
-          SolidusStarterFrontend::EnableCode.new(
-            generator: self,
-            namespace: 'RspecGenerator/with-authentication',
-            path: path
-          ).call
-
-          SolidusStarterFrontend::RemoveMarkers.new(
-            generator: self,
-            namespace: 'RspecGenerator/with-authentication',
-            path: path
-          ).call
-        end
-
-        PATHS_WITH_NON_AUTHENTICATION_CODE.each do |path|
-          SolidusStarterFrontend::DisableCode.new(
-            generator: self,
-            namespace: 'RspecGenerator/without-authentication',
-            path: path
-          ).call
-        end
-      else
-        PATHS_WITH_NON_AUTHENTICATION_CODE.each do |path|
-          SolidusStarterFrontend::EnableCode.new(
-            generator: self,
-            namespace: 'RspecGenerator/without-authentication',
-            path: path
-          ).call
-
-          SolidusStarterFrontend::RemoveMarkers.new(
-            generator: self,
-            namespace: 'RspecGenerator/without-authentication',
-            path: path
-          ).call
-        end
-
-        PATHS_WITH_AUTHENTICATION_CODE.each do |path|
-          SolidusStarterFrontend::DisableCode.new(
-            generator: self,
-            namespace: 'RspecGenerator/with-authentication',
-            path: path
-          ).call
-        end
-      end
     end
 
     private

@@ -74,23 +74,11 @@ commands:
             TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>/results.xml
           when: always
       - run:
-          command: rm -f Gemfile.lock && rm -fr spec/dummy && rm -rf sandbox
+          command: rm -f Gemfile.lock && rm -rf sandbox
           name: 'Solidus <<parameters.branch>>: Clean up'
           when: always
 
 jobs:
-  run-specs-with-postgres-for-generators:
-    executor: solidusio_extensions/postgres
-    steps:
-      - checkout
-      - solidusio_extensions/test-branch:
-          branch: master
-          command: |
-            bundle exec rspec spec/generators \
-              --format progress \
-              --format RspecJunitFormatter \
-              --out $TEST_RESULTS_PATH
-      - solidusio_extensions/store-test-results
   run-specs-with-postgres-skipping-authentication:
     executor: solidusio_extensions/postgres
     steps:
@@ -133,7 +121,6 @@ jobs:
 workflows:
   "Run specs on supported Solidus versions":
     jobs:
-      - run-specs-with-postgres-for-generators
       - run-specs-with-postgres-skipping-authentication
       - run-specs-with-postgres
       - run-specs-with-mysql
@@ -147,7 +134,6 @@ workflows:
               only:
                 - master
     jobs:
-      - run-specs-with-postgres-for-generators
       - run-specs-with-postgres-skipping-authentication
       - run-specs-with-postgres
       - run-specs-with-mysql
