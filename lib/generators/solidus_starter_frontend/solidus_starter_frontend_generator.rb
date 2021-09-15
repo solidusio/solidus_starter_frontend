@@ -47,7 +47,7 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     copy_file 'lib/solidus_starter_frontend/config.rb'
 
     # Routes
-    copy_file 'config/routes.rb', 'tmp/routes.rb'
+    template 'config/routes.rb.tt', 'tmp/routes.rb'
     prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
 
     # Gems

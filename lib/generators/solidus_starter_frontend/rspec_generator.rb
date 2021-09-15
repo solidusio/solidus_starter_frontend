@@ -57,7 +57,7 @@ module SolidusStarterFrontend
       directory 'spec/support/solidus_starter_frontend', exclude_pattern: exclude_authentication_paths_pattern
       directory 'spec/system', exclude_pattern: exclude_authentication_paths_pattern
       directory 'spec/views'
-      copy_file 'spec/solidus_starter_frontend_helper.rb'
+      template 'spec/solidus_starter_frontend_helper.rb.tt'
 
       if include_authentication?
         PATHS_WITH_AUTHENTICATION_CODE.each do |path|

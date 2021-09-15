@@ -16,16 +16,20 @@ module Spree
     before_action :ensure_valid_state
 
     before_action :associate_user
-    before_action :check_registration, except: [:registration, :update_registration] # SolidusStarterFrontendGenerator/with-authentication/line
+
+    <%- if include_authentication? -%>
+    before_action :check_registration, except: [:registration, :update_registration]
+    <%- end -%>
+
     before_action :check_authorization
 
     before_action :setup_for_current_state, only: [:edit, :update]
 
-    # SolidusStarterFrontendGenerator/with-authentication/start
+    <%- if include_authentication? -%>
     # This action builds some associations on the order, ex. addresses, which we
     # don't need to build or save here.
     skip_before_action :setup_for_current_state, only: [:registration, :update_registration]
-    # SolidusStarterFrontendGenerator/with-authentication/end
+    <%- end -%>
 
     helper 'spree/orders'
 
@@ -54,7 +58,7 @@ module Spree
       end
     end
 
-    # SolidusStarterFrontendGenerator/with-authentication/start
+    <%- if include_authentication? -%>
 
     def registration
       @user = Spree::User.new
@@ -70,7 +74,7 @@ module Spree
       end
     end
 
-    # SolidusStarterFrontendGenerator/with-authentication/end
+    <%- end -%>
 
     private
 
@@ -255,7 +259,7 @@ module Spree
       end
     end
 
-    # SolidusStarterFrontendGenerator/without-authentication/start
+    <%- if !include_authentication? %>
 
     # Should be overriden if you have areas of your checkout that don't match
     # up to a step within checkout_steps, such as a registration step
@@ -268,9 +272,9 @@ module Spree
       spree.order_path(@order)
     end
 
-    # SolidusStarterFrontendGenerator/without-authentication/end
+    <%- end -%>
 
-    # SolidusStarterFrontendGenerator/with-authentication/start
+    <%- if include_authentication? -%>
 
     def order_params
       params.
@@ -312,6 +316,6 @@ module Spree
       spree.token_order_path(@order, @order.guest_token)
     end
 
-    # SolidusStarterFrontendGenerator/with-authentication/end
+    <%- end -%>
   end
 end
