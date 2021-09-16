@@ -2,6 +2,10 @@
 
 require 'bundler'
 
+# `rspec:install` requires these libraries to run.
+require 'stringio'
+require 'tmpdir'
+
 class SolidusStarterFrontendGenerator < Rails::Generators::Base
   AUTHENTICATION_PATHS = [
       'app/controllers/spree/user_confirmations_controller.rb',

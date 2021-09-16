@@ -28,16 +28,4 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-
-  spec.add_dependency 'canonical-rails', '~> 0.2.0'
-  spec.add_dependency 'solidus_api', ['>= 2.0', '< 4']
-  spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
-  spec.add_dependency 'solidus_support', '~> 0.5'
-  spec.add_dependency 'solidus_auth_devise', '~> 2.5'
-  spec.add_dependency 'truncate_html', '~> 0.9', '>= 0.9.2'
-
-  spec.add_development_dependency 'apparition', '~> 0.6.0'
-  spec.add_development_dependency 'rails-controller-testing', '~> 1.0.5'
-  spec.add_development_dependency 'rspec-activemodel-mocks', '~> 1.1.0'
-  spec.add_development_dependency 'solidus_dev_support', '~> 2.5'
 end

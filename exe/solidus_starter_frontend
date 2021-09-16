@@ -4,6 +4,5 @@
 
 require 'active_support'
 require 'rails/generators'
-require 'solidus_starter_frontend'
 
 Rails::Generators.invoke('solidus_starter_frontend')
