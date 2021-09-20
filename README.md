@@ -24,7 +24,7 @@ All of this while keeping and improving on the functionality of the current
 ## Installation
 
 By default, the `solidus` gem also includes the standard frontend via the
-`solidus_frontend` gem. To make this gem work, you need to exclude
+`solidus_frontend` gem. To make this template work, you need to exclude
 `solidus_frontend` gem and manually include the rest of the Solidus
 components.
 
@@ -42,7 +42,7 @@ bin/rails generate solidus:install
 
 `rspec-rails` is required to install the frontend's test suite to your app. If
 you'd like to exclude the gem, you'll need to specify `SKIP_SPECS=1` when you
-run `solidus_starter_frontend` later.
+apply the template later.
 
 ### For existing stores
 
@@ -66,30 +66,29 @@ project with `SolidusStarterFrontend::Config`.
 
 Finally, please note that `rspec-rails` is required to install
 the frontend's test suite to your app. If you'd like to exclude the gem, you'll
-need to specify `SKIP_SPECS=1` when you run `solidus_starter_frontend` later.
+need to specify `SKIP_SPECS=1` when you apply the template later.
 
 ### Frontend installation
 
 You can copy the starter frontend files to your project:
 
 ```shell
-$ gem install solidus_starter_frontend
-$ solidus_starter_frontend
+$ LOCATION="https://raw.githubusercontent.com/nebulab/solidus_starter_frontend/master/template.rb" bin/rails app:template
 ```
 
-These commands will install the gem globally and copy this project's views,
-assets, routes, controllers, and specs to your project. You can change easily
-anything that we created; this gives you a lot of freedom of customization.
+These commands will copy the frontend views, assets, routes, controllers, and
+specs to your project. You can change easily anything that we created; this
+gives you a lot of freedom of customization.
 
-You can choose to exclude the RSpec test suite by running
-`SKIP_SPECS=1 solidus_starter_frontend`.
+You can choose to exclude the RSpec test suite by specifying
+`SKIP_SPECS=1` when you run the template.
 
 If your app has `solidus_auth_devise`, the template will install the frontend
 components for authentication.
 
-Finally, please note that you won't be able to auto-update the storefront code
-with the next versions released since this project's gem will not be present in
-your Gemfile.
+Finally, please note that it's not possible to generate a new Rails app with the
+template, i.e. run `rails new --template=URL` since the template expects
+Solidus to be installed on the app.
 
 ## Development
 
