@@ -43,10 +43,9 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
 
     # Gems
-    gem 'canonical-rails'
-    gem 'solidus_auth_devise' unless options['skip-authentication']
-    gem 'solidus_support'
-    gem 'truncate_html'
+
+    append_gemfile_partial '060_solidus_auth_devise.rb' if include_authentication?
+    append_gemfile_partial '080_solidus_starter_frontend_dependencies.rb'
 
     Bundler.with_original_env do
       run 'bundle install'
@@ -75,6 +74,11 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
   end
 
   private
+
+  def append_gemfile_partial(filename)
+    copy_file "gemfiles/#{filename}", "tmp/#{filename}"
+    append_to_file 'Gemfile', File.read("tmp/#{filename}")
+  end
 
   def include_authentication?
     !options['skip-authentication']

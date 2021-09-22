@@ -32,7 +32,7 @@ fi
 
 extension_name="solidus_starter_frontend"
 sandbox_name='sandbox'
-extension_gem_line="gem '${extension_name}', path: '..', require: false"
+extension_gem_line=$(cat templates/gemfiles/090_sandbox_solidus_starter_frontend.rb)
 sandbox_path="./${sandbox_name}"
 
 if [[ -n "${SKIP_SPECS}" ]]; then
@@ -40,7 +40,7 @@ if [[ -n "${SKIP_SPECS}" ]]; then
   rspec_rails_gem_line=''
 else
   generator_skip_specs_argument=''
-  rspec_rails_gem_line="gem 'rspec-rails', groups: [:development, :test]"
+  rspec_rails_gem_line=$(cat templates/gemfiles/100_rspec_rails.rb)
 fi
 
 if [[ "${SANDBOX_SKIP_AUTHENTICATION}" == '1' ]]; then
@@ -49,7 +49,7 @@ if [[ "${SANDBOX_SKIP_AUTHENTICATION}" == '1' ]]; then
   solidus_install_user_class_argument=""
 else
   generator_skip_authentication_argument=''
-  solidus_auth_devise_gem_line="gem 'solidus_auth_devise'"
+  solidus_auth_devise_gem_line=$(cat templates/gemfiles/060_solidus_auth_devise.rb)
   solidus_install_user_class_argument="--user_class=Spree::User"
 fi
 
@@ -69,23 +69,11 @@ if [[ ! -d "${sandbox_name}" ]]; then
 fi
 
 cd "${sandbox_path}"
+
+cat ../templates/gemfiles/040_solidus.rb \
+  ../templates/gemfiles/050_solidus_i18n.rb >> Gemfile
+
 cat >> Gemfile <<RUBY
-# By default, the solidus gem also includes the standard frontend via
-# the solidus_frontend gem. To make this extension work, you need to
-# exclude it and manually include all the other Solidus components.
-
-solidus_repo = ENV.fetch('SOLIDUS_REPO', 'solidusio/solidus')
-solidus_branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
-solidus_i18n_repo = ENV.fetch('SOLIDUS_I18N_REPO', 'solidusio/solidus_i18n')
-solidus_i18n_branch = ENV.fetch('SOLIDUS_I18N_BRANCH', 'master')
-
-gem 'solidus_core', github: solidus_repo, branch: solidus_branch
-gem 'solidus_api', github: solidus_repo, branch: solidus_branch
-gem 'solidus_backend', github: solidus_repo, branch: solidus_branch
-gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
-gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
-
-gem 'rails-i18n'
 ${extension_gem_line}
 ${solidus_auth_devise_gem_line}
 
