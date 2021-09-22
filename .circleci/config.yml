@@ -53,7 +53,7 @@ commands:
       - restore_cache:
           name: 'Solidus <<parameters.branch>>: Restore Bundler cache'
           keys:
-            - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-sandbox-generated-{{ checksum "Gemfile.lock" }}
+            - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-sandbox-generated-sandbox-skip-authentication-<<parameters.skip_authentication>>-{{ checksum "Gemfile.lock" }}
             - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
             - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-master
             - gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-
@@ -79,7 +79,7 @@ commands:
           when: always
       - save_cache:
           name: 'Solidus <<parameters.branch>>: Save Bundler cache'
-          key: gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-sandbox-generated-{{ checksum "Gemfile.lock" }}
+          key: gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>-{{ .Branch }}-sandbox-generated-sandbox-skip-authentication-<<parameters.skip_authentication>>-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle/<<parameters.branch>>
           when: always
