@@ -2,55 +2,56 @@
 
 set -e
 
-case "$DB" in
-postgres|postgresql)
-  RAILSDB="postgresql"
-  HOST=${DB_POSTGRES_HOST:-${DB_HOST}}
-  USERNAME=$DB_USERNAME
-  PASSWORD=$DB_PASSWORD
-  ;;
-mysql)
-  RAILSDB="mysql"
-  HOST=${DB_MYSQL_HOST:-${DB_HOST}}
-  USERNAME=$DB_USERNAME
-  PASSWORD=$DB_PASSWORD
-  ;;
-sqlite|'')
-  RAILSDB="sqlite3"
-  ;;
-*)
-  echo "Invalid DB specified: $DB"
-  exit 1
-  ;;
+case "${DB}" in
+  postgres|postgresql)
+    railsdb="postgresql"
+    host="${DB_POSTGRES_HOST:-${DB_HOST}}"
+    username="${DB_USERNAME}"
+    password="${DB_PASSWORD}"
+    ;;
+  mysql)
+    railsdb="mysql"
+    host="${DB_MYSQL_HOST:-${DB_HOST}}"
+    username="${DB_USERNAME}"
+    password="${DB_PASSWORD}"
+    ;;
+  sqlite|'')
+    railsdb="sqlite3"
+    ;;
+  *)
+    echo "Invalid DB specified: ${DB}"
+    exit 1
+    ;;
 esac
 
-if [ ! -z $SOLIDUS_BRANCH ]
-then
-  BRANCH=$SOLIDUS_BRANCH
+if [[ -n "${SOLIDUS_BRANCH}" ]]; then
+  branch="${SOLIDUS_BRANCH}"
 else
-  BRANCH="master"
+  branch="master"
 fi
 
 extension_name="solidus_starter_frontend"
 
-if [[ -z $GENERATE_FRONTEND ]]; then
-  sandbox_name='sandbox'
-  extension_gem_line="gem '$extension_name', path: '..'"
-else
+if [[ -n "${GENERATE_FRONTEND}" ]]; then
   sandbox_name='sandbox-generated'
-  extension_gem_line="gem '$extension_name', path: '..', require: false"
+  extension_gem_line="gem '${extension_name}', path: '..', require: false"
+else
+  sandbox_name='sandbox'
+  extension_gem_line="gem '${extension_name}', path: '..'"
 fi
 
 sandbox_path="./${sandbox_name}"
 
-if [[ -n $SKIP_SPECS ]]; then
-  GENERATOR_SKIP_SPECS_ARGUMENT='--skip-specs'
+if [[ -n "${SKIP_SPECS}" ]]; then
+  generator_skip_specs_argument='--skip-specs'
+  rspec_rails_gem_line=''
 else
-  GENERATOR_SKIP_SPECS_ARGUMENT=''
+  generator_skip_specs_argument=''
+  rspec_rails_gem_line="gem 'rspec-rails', groups: [:development, :test]"
 fi
 
-rm -rf ${sandbox_path}
-bundle exec rails new ${sandbox_name} --database="$RAILSDB" \
+rm -rf "${sandbox_path}"
+bundle exec rails new "${sandbox_name}" --database="${railsdb}" \
   --skip-bundle \
   --skip-git \
   --skip-keeps \
@@ -59,13 +60,13 @@ bundle exec rails new ${sandbox_name} --database="$RAILSDB" \
   --skip-test \
   --skip-javascript
 
-if [ ! -d "${sandbox_name}" ]; then
+if [[ ! -d "${sandbox_name}" ]]; then
   echo 'sandbox rails application failed'
   exit 1
 fi
 
-cd ${sandbox_path}
-cat <<RUBY >> Gemfile
+cd "${sandbox_path}"
+cat >> Gemfile <<RUBY
 # By default, the solidus gem also includes the standard frontend via
 # the solidus_frontend gem. To make this extension work, you need to
 # exclude it and manually include all the other Solidus components.
@@ -85,49 +86,40 @@ gem 'rails-i18n'
 ${extension_gem_line}
 gem 'solidus_auth_devise'
 
-gem 'rspec-rails', groups: [:development, :test]
+${rspec_rails_gem_line}
 RUBY
 
 replace_in_database_yml() {
-  if [ $RAILSDB = "postgresql" ]; then
+  if [[ "${railsdb}" == "postgresql" ]]; then
     sed -i.bck "/^  adapter:/a \ \ $1:  $2" config/database.yml
-  elif [ $RAILSDB = "mysql" ]; then
+  elif [[ "${railsdb}" == "mysql" ]]; then
     sed -i.bck "s/^  $1:.*/\ \ $1: $2/" config/database.yml
   fi
-  if [ -f config/database.yml.bck ]; then
+
+  if [[ -f config/database.yml.bck ]]; then
     rm -f config/database.yml.bck
   fi
 }
 
-if [ ${HOST} ]; then
-  replace_in_database_yml "host" $HOST
-fi
-if [ ${USERNAME} ]; then
-  replace_in_database_yml "username" $USERNAME
-fi
-if [ ${PASSWORD} ]; then
-  replace_in_database_yml "password" $PASSWORD
+if [[ -n "${host}" ]]; then
+  replace_in_database_yml "host" "${host}"
 fi
 
-if [[ -n $SANDBOX_BUNDLE_PATH ]]; then
-  bundle config --local path $SANDBOX_BUNDLE_PATH
+if [[ -n "${username}" ]]; then
+  replace_in_database_yml "username" "${username}"
+fi
+
+if [[ -n "${password}" ]]; then
+  replace_in_database_yml "password" "${password}"
+fi
+
+if [[ -n "${SANDBOX_BUNDLE_PATH}" ]]; then
+  bundle config --local path "${SANDBOX_BUNDLE_PATH}"
 fi
 
 bundle install --gemfile Gemfile
 
 bundle exec rake db:drop db:create
-
-if [[ -n $SANDBOX_SKIP_SOLIDUS_INSTALL_SEED ]]; then
-  sandbox_skip_solidus_install_seed_argument='--seed=false'
-else
-  sandbox_skip_solidus_install_seed_argument=''
-fi
-
-if [[ -n $SANDBOX_SKIP_SOLIDUS_INSTALL_SAMPLE ]]; then
-  sandbox_skip_solidus_install_sample_argument='--sample=false'
-else
-  sandbox_skip_solidus_install_sample_argument=''
-fi
 
 bundle exec rails generate solidus:install \
   --auto-accept \
@@ -135,24 +127,22 @@ bundle exec rails generate solidus:install \
   --enforce_available_locales=true \
   --with-authentication=false \
   --payment-method=none \
-  $sandbox_skip_solidus_install_seed_argument \
-  $sandbox_skip_solidus_install_sample_argument \
-  $@
+  "$@"
 
 bundle exec rails generate solidus:auth:install --auto-run-migrations
 
-if [[ -z $GENERATE_FRONTEND ]]; then
-  if [[ -z $SKIP_SPECS ]]; then
+if [[ -n "${GENERATE_FRONTEND}" ]]; then
+  bundle exec "${extension_name}" --auto-accept "${generator_skip_specs_argument}"
+else
+  if [[ -z "${SKIP_SPECS}" ]]; then
     bundle exec rails g solidus_starter_frontend:rspec
     bundle exec rails g rspec:install
   fi
-else
-  bundle exec ${extension_name} --auto-accept $GENERATOR_SKIP_SPECS_ARGUMENT
 fi
 
 echo
-echo "🚀 Sandbox app successfully created for $extension_name!"
-echo "🚀 Using $RAILSDB and Solidus $BRANCH"
+echo "🚀 Sandbox app successfully created for ${extension_name}!"
+echo "🚀 Using ${railsdb} and Solidus ${branch}"
 echo "🚀 Use 'export DB=[postgres|mysql|sqlite]' to control the DB adapter"
 echo "🚀 Use 'export SOLIDUS_BRANCH=<BRANCH-NAME>' to control the Solidus version"
 echo "🚀 This app is intended for test purposes."
