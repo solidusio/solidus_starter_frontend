@@ -48,6 +48,10 @@ else
   solidus_install_user_class_argument="--user_class=Spree::User"
 fi
 
+if [[ ! -e Gemfile ]]; then
+  cat templates/gemfiles/010_sources.rb templates/gemfiles/020_rails.rb > Gemfile
+fi
+
 rm -rf "${sandbox_path}"
 bundle exec rails new "${sandbox_name}" --database="${railsdb}" \
   --skip-bundle \

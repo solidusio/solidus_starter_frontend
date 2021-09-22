@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-
-# frozen_string_literal: true
-
-require 'active_support'
-require 'rails/generators'
-
-Rails::Generators.invoke('solidus_starter_frontend')

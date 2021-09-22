@@ -32,12 +32,9 @@ commands:
       - run:
           name: 'Solidus <<parameters.branch>>: Generate Gemfile.lock'
           command: |
-            rm Gemfile
-
             cat \
               templates/gemfiles/010_sources.rb \
               templates/gemfiles/020_rails.rb \
-              templates/gemfiles/030_gemspec.rb \
               templates/gemfiles/040_solidus.rb \
               templates/gemfiles/050_solidus_i18n.rb \
               templates/gemfiles/060_solidus_auth_devise.rb \
