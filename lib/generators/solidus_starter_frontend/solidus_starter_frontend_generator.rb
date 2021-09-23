@@ -21,7 +21,17 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
       'app/views/spree/user_passwords',
       'app/views/spree/user_registrations',
       'app/views/spree/users',
-      'app/views/spree/user_sessions'
+      'app/views/spree/user_sessions',
+      'spec/controllers/spree/base_controller_spec.rb',
+      'spec/controllers/spree/checkout_controller_spec.rb',
+      'spec/controllers/spree/products_controller_spec.rb',
+      'spec/controllers/spree/user_passwords_controller_spec.rb',
+      'spec/controllers/spree/user_registrations_controller_spec.rb',
+      'spec/controllers/spree/users_controller_spec.rb',
+      'spec/controllers/spree/user_sessions_controller_spec.rb',
+      'spec/mailers/user_mailer_spec.rb',
+      'spec/support/solidus_starter_frontend/features/fill_addresses_fields.rb',
+      'spec/system/authentication'
     ]
 
   source_root File.expand_path('../../../templates', __dir__)
@@ -37,17 +47,8 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     require_solidus_starter_frontend_config
 
     if include_specs?
-      # We can't use Rails' `generate` method here to call the generators. When
-      # the solidus_starter_frontend generator is used as a standalone program
-      # (instead of added to an app's Gemfile), `generate` won't be able to pick
-      # up the other generators that the gem provides.
-      #
-      # We're able to use Thor's `invoke` action here instead of `generate`.
-      # However, `invoke` only works once per generator you want to call. Please
-      # see https://stackoverflow.com/a/12029262/65925 for more details.
-      #
-      # See also https://github.com/nebulab/solidus_starter_frontend/pull/174#discussion_r685626737.
-      invoke 'solidus_starter_frontend:rspec', [], 'skip-authentication' => options['skip-authentication']
+      install_spec_gems
+      copy_specs
       install_rspec
     end
   end
@@ -80,6 +81,16 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
 
   def require_solidus_starter_frontend_config
     inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
+  end
+
+  def install_spec_gems
+    append_gemfile_partial '110_solidus_starter_frontend_rspec_dependencies.rb'
+
+    run_bundle
+  end
+
+  def copy_specs
+    directory 'spec', 'spec', exclude_pattern: exclude_authentication_paths_pattern
   end
 
   def install_rspec
