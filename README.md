@@ -69,8 +69,7 @@ gem 'solidus_sample'
 And replace all the references of the string `Spree::Frontend::Config` in your
 project with `SolidusStarterFrontend::Config`.
 
-You'll also need to make sure that [Solidus Auth Devise]
-(https://github.com/solidusio/solidus_auth_devise) is installed in your
+You'll also need to make sure that [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise) is installed in your
 application.
 
 Finally, please note that `rspec-rails` is required to install
