@@ -26,15 +26,7 @@ module SolidusStarterFrontend
         run 'bundle install'
       end
 
-      # Copy spec files
-      directory 'spec/controllers', exclude_pattern: exclude_authentication_paths_pattern
-      directory 'spec/helpers'
-      directory 'spec/mailers', exclude_pattern: exclude_authentication_paths_pattern
-      directory 'spec/requests'
-      directory 'spec/support/solidus_starter_frontend', exclude_pattern: exclude_authentication_paths_pattern
-      directory 'spec/system', exclude_pattern: exclude_authentication_paths_pattern
-      directory 'spec/views'
-      template 'spec/solidus_starter_frontend_helper.rb.tt'
+      directory 'spec', 'spec', exclude_pattern: exclude_authentication_paths_pattern
     end
 
     private
