@@ -108,13 +108,14 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     end
   end
 
-  def include_authentication?
-    !options['skip-authentication']
+  def exclude_authentication_paths_pattern
+    return nil if include_authentication?
+
+    @exclude_authentication_paths_pattern ||= Regexp.new(AUTHENTICATION_PATHS.join('|'))
   end
 
-  def exclude_authentication_paths_pattern
-    @exclude_authentication_paths_pattern ||=
-      options['skip-authentication'] ? Regexp.new(AUTHENTICATION_PATHS.join('|')) : nil
+  def include_authentication?
+    !options['skip-authentication']
   end
 
   def include_specs?
