@@ -30,32 +30,12 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
   class_option 'skip-authentication', type: :boolean, default: false
 
   def install
-    # Copy directories
-    directory 'app', 'app', exclude_pattern: exclude_authentication_paths_pattern
+    copy_files
+    copy_routes
+    install_solidus_starter_frontend_gems
+    update_asset_files
+    require_solidus_starter_frontend_config
 
-    # Copy files
-    copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb' if include_authentication?
-    copy_file 'lib/solidus_starter_frontend_configuration.rb'
-    copy_file 'lib/solidus_starter_frontend/config.rb'
-
-    # Routes
-    template 'config/routes.rb.tt', 'tmp/routes.rb'
-    prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
-
-    # Gems
-
-    append_gemfile_partial '080_solidus_starter_frontend_dependencies.rb'
-
-    Bundler.with_original_env do
-      run 'bundle install'
-    end
-
-    # Text updates
-    append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
-    inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
-    gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
-
-    # Specs
     if include_specs?
       # We can't use Rails' `generate` method here to call the generators. When
       # the solidus_starter_frontend generator is used as a standalone program
@@ -68,15 +48,53 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
       #
       # See also https://github.com/nebulab/solidus_starter_frontend/pull/174#discussion_r685626737.
       invoke 'solidus_starter_frontend:rspec', [], 'skip-authentication' => options['skip-authentication']
-      invoke 'rspec:install'
+      install_rspec
     end
   end
 
   private
 
+  def copy_files
+    directory 'app', 'app', exclude_pattern: exclude_authentication_paths_pattern
+
+    copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb' if include_authentication?
+    copy_file 'lib/solidus_starter_frontend_configuration.rb'
+    copy_file 'lib/solidus_starter_frontend/config.rb'
+  end
+
+  def copy_routes
+    template 'config/routes.rb.tt', 'tmp/routes.rb'
+    prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
+  end
+
+  def install_solidus_starter_frontend_gems
+    append_gemfile_partial '080_solidus_starter_frontend_dependencies.rb'
+
+    run_bundle
+  end
+
+  def update_asset_files
+    append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
+    gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
+  end
+
+  def require_solidus_starter_frontend_config
+    inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
+  end
+
+  def install_rspec
+    invoke 'rspec:install'
+  end
+
   def append_gemfile_partial(filename)
     copy_file "gemfiles/#{filename}", "tmp/#{filename}"
     append_to_file 'Gemfile', File.read("tmp/#{filename}")
+  end
+
+  def run_bundle
+    Bundler.with_original_env do
+      run 'bundle install'
+    end
   end
 
   def include_authentication?

@@ -20,16 +20,27 @@ module SolidusStarterFrontend
     class_option 'skip-authentication', type: :boolean, default: false
 
     def install
-      append_gemfile_partial '110_solidus_starter_frontend_rspec_dependencies.rb'
-
-      Bundler.with_original_env do
-        run 'bundle install'
-      end
-
-      directory 'spec', 'spec', exclude_pattern: exclude_authentication_paths_pattern
+      install_spec_gems
+      copy_specs
     end
 
     private
+
+    def install_spec_gems
+      append_gemfile_partial '110_solidus_starter_frontend_rspec_dependencies.rb'
+
+      run_bundle
+    end
+
+    def run_bundle
+      Bundler.with_original_env do
+        run 'bundle install'
+      end
+    end
+
+    def copy_specs
+      directory 'spec', 'spec', exclude_pattern: exclude_authentication_paths_pattern
+    end
 
     def append_gemfile_partial(filename)
       copy_file "gemfiles/#{filename}", "tmp/#{filename}"
