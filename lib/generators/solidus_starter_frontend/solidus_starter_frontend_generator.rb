@@ -44,7 +44,6 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
 
     # Gems
 
-    append_gemfile_partial '060_solidus_auth_devise.rb' if include_authentication?
     append_gemfile_partial '080_solidus_starter_frontend_dependencies.rb'
 
     Bundler.with_original_env do
