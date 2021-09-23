@@ -36,10 +36,8 @@ extension_gem_line=$(cat templates/gemfiles/090_sandbox_solidus_starter_frontend
 sandbox_path="./${sandbox_name}"
 
 if [[ -n "${SKIP_SPECS}" ]]; then
-  generator_skip_specs_argument='--skip-specs'
   rspec_rails_gem_line=''
 else
-  generator_skip_specs_argument=''
   rspec_rails_gem_line=$(cat templates/gemfiles/100_rspec_rails.rb)
 fi
 
@@ -122,9 +120,7 @@ if [[ "${SANDBOX_SKIP_AUTHENTICATION}" != '1' ]]; then
   bundle exec rails generate solidus:auth:install --auto-run-migrations
 fi
 
-bundle exec "${extension_name}" \
-  --auto-accept \
-  "${generator_skip_specs_argument}"
+bundle exec "${extension_name}" --auto-accept
 
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"

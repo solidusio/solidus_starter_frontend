@@ -41,7 +41,7 @@ bin/rails generate solidus:install
 ```
 
 `rspec-rails` is required to install the frontend's test suite to your app. If
-you'd like to exclude the gem, you'll need to specify `--skip-specs` when you
+you'd like to exclude the gem, you'll need to specify `SKIP_SPECS=1` when you
 run `solidus_starter_frontend` later.
 
 ### For existing stores
@@ -66,7 +66,7 @@ project with `SolidusStarterFrontend::Config`.
 
 Finally, please note that `rspec-rails` is required to install
 the frontend's test suite to your app. If you'd like to exclude the gem, you'll
-need to specify `--skip-specs` when you run `solidus_starter_frontend` later.
+need to specify `SKIP_SPECS=1` when you run `solidus_starter_frontend` later.
 
 ### Frontend installation
 
@@ -82,7 +82,7 @@ assets, routes, controllers, and specs to your project. You can change easily
 anything that we created; this gives you a lot of freedom of customization.
 
 You can choose to exclude the RSpec test suite by running
-`solidus_starter_frontend --skip-specs`.
+`SKIP_SPECS=1 solidus_starter_frontend`.
 
 If your app has `solidus_auth_devise`, the template will install the frontend
 components for authentication.

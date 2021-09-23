@@ -36,8 +36,6 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
 
   source_root File.expand_path('../../../templates', __dir__)
 
-  class_option 'skip-specs', type: :boolean, default: false
-
   def install
     copy_files
     copy_routes
@@ -118,6 +116,6 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
   end
 
   def include_specs?
-    !options['skip-specs']
+    !ENV['SKIP_SPECS']
   end
 end
