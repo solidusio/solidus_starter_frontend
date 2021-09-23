@@ -84,8 +84,8 @@ anything that we created; this gives you a lot of freedom of customization.
 You can choose to exclude the RSpec test suite by running
 `solidus_starter_frontend --skip-specs`.
 
-You can also choose to skip installing the Solidus Auth Devise frontend components
-to your app by running `solidus_starter_frontend --skip-authentication`.
+If your app has `solidus_auth_devise`, the template will install the frontend
+components for authentication.
 
 Finally, please note that you won't be able to auto-update the storefront code
 with the next versions released since this project's gem will not be present in

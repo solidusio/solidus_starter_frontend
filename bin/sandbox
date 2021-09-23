@@ -44,11 +44,9 @@ else
 fi
 
 if [[ "${SANDBOX_SKIP_AUTHENTICATION}" == '1' ]]; then
-  generator_skip_authentication_argument='--skip-authentication'
   solidus_auth_devise_gem_line=''
   solidus_install_user_class_argument=""
 else
-  generator_skip_authentication_argument=''
   solidus_auth_devise_gem_line=$(cat templates/gemfiles/060_solidus_auth_devise.rb)
   solidus_install_user_class_argument="--user_class=Spree::User"
 fi
@@ -126,8 +124,7 @@ fi
 
 bundle exec "${extension_name}" \
   --auto-accept \
-  "${generator_skip_specs_argument}" \
-  "${generator_skip_authentication_argument}"
+  "${generator_skip_specs_argument}"
 
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"

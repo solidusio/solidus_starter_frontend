@@ -37,7 +37,6 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
   source_root File.expand_path('../../../templates', __dir__)
 
   class_option 'skip-specs', type: :boolean, default: false
-  class_option 'skip-authentication', type: :boolean, default: false
 
   def install
     copy_files
@@ -115,7 +114,7 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
   end
 
   def include_authentication?
-    !options['skip-authentication']
+    File.read('Gemfile').match(/gem ['"]solidus_auth_devise['"]/)
   end
 
   def include_specs?
