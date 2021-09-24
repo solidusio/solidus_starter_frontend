@@ -78,6 +78,7 @@ end
 def copy_files
   directory 'app', 'app', exclude_pattern: exclude_authentication_paths_pattern
 
+  copy_file 'config/initializers/canonical_rails.rb'
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb' if include_authentication?
   copy_file 'lib/solidus_starter_frontend_configuration.rb'
   copy_file 'lib/solidus_starter_frontend/config.rb'
