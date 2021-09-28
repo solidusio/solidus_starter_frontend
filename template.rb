@@ -90,7 +90,9 @@ def copy_routes
 end
 
 def install_solidus_starter_frontend_gems
-  append_gemfile_partial '080_solidus_starter_frontend_dependencies.rb'
+  gem 'canonical-rails'
+  gem 'solidus_support'
+  gem 'truncate_html'
 
   run_bundle
 end
@@ -105,7 +107,12 @@ def require_solidus_starter_frontend_config
 end
 
 def install_spec_gems
-  append_gemfile_partial '110_solidus_starter_frontend_rspec_dependencies.rb'
+  gem_group :development, :test do
+    gem 'apparition', '~> 0.6.0'
+    gem 'rails-controller-testing', '~> 1.0.5'
+    gem 'rspec-activemodel-mocks', '~> 1.1.0'
+    gem 'solidus_dev_support', '~> 2.5'
+  end
 
   run_bundle
 end
@@ -116,11 +123,6 @@ end
 
 def install_rspec
   generate 'rspec:install'
-end
-
-def append_gemfile_partial(filename)
-  copy_file "gemfiles/#{filename}", "tmp/#{filename}"
-  append_to_file 'Gemfile', File.read("tmp/#{filename}")
 end
 
 def exclude_authentication_paths_pattern
