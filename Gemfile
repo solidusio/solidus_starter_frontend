@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '>0.a'
+gem 'rails'
 
 # By default, the solidus gem also includes the standard frontend via
 # the solidus_frontend gem. To make this extension work, you need to
