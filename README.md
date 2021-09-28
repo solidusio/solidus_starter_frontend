@@ -36,13 +36,8 @@ Just run:
 rails new store --skip-javascript
 cd store
 bundle add solidus_core solidus_backend solidus_api solidus_sample
-bundle add rspec-rails --group 'development, test'
 bin/rails generate solidus:install
 ```
-
-`rspec-rails` is required to install the frontend's test suite to your app. If
-you'd like to exclude the gem, you'll need to specify `SKIP_SPECS=1` when you
-apply the template later.
 
 ### For existing stores
 
@@ -63,10 +58,6 @@ gem 'solidus_sample'
 
 And replace all the references of the string `Spree::Frontend::Config` in your
 project with `SolidusStarterFrontend::Config`.
-
-Finally, please note that `rspec-rails` is required to install
-the frontend's test suite to your app. If you'd like to exclude the gem, you'll
-need to specify `SKIP_SPECS=1` when you apply the template later.
 
 ### Frontend installation
 

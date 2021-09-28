@@ -34,13 +34,6 @@ extension_name="solidus_starter_frontend"
 sandbox_name='sandbox'
 sandbox_path="./${sandbox_name}"
 
-if [[ -n "${SKIP_SPECS}" ]]; then
-  rspec_rails_gem_line=''
-else
-  rspec_rails_gem_line="gem 'rspec-rails', groups: [:development, :test]
-"
-fi
-
 if [[ "${SANDBOX_SKIP_AUTHENTICATION}" == '1' ]]; then
   solidus_auth_devise_gem_line=''
   solidus_install_user_class_argument=""
@@ -85,8 +78,6 @@ gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 gem 'rails-i18n'
 
 ${solidus_auth_devise_gem_line}
-
-${rspec_rails_gem_line}
 RUBY
 
 replace_in_database_yml() {
