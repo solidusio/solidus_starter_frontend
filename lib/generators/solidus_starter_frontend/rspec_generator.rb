@@ -17,14 +17,7 @@ module SolidusStarterFrontend
       end
 
       # Copy spec files
-      directory 'spec/controllers'
-      directory 'spec/helpers'
-      directory 'spec/mailers'
-      directory 'spec/requests'
-      directory 'spec/support/solidus_starter_frontend'
-      directory 'spec/system'
-      directory 'spec/views'
-      copy_file 'spec/solidus_starter_frontend_helper.rb'
+      directory 'spec'
     end
   end
 end
