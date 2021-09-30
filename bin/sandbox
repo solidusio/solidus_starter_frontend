@@ -73,8 +73,6 @@ gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 
 gem 'rails-i18n'
 gem 'solidus_auth_devise'
-
-gem 'rspec-rails', groups: [:development, :test]
 RUBY
 
 replace_in_database_yml() {

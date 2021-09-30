@@ -36,7 +36,6 @@ Just run:
 rails new store --skip-javascript
 cd store
 bundle add solidus_core solidus_backend solidus_api solidus_sample
-bundle add rspec-rails --group 'development, test'
 bin/rails generate solidus:install --auto-accept
 ```
 
