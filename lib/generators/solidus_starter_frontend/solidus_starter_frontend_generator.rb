@@ -38,6 +38,20 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
 
     # Specs
+
+    gem_group :development, :test do
+      gem 'apparition', '~> 0.6.0'
+      gem 'rails-controller-testing', '~> 1.0.5'
+      gem 'rspec-activemodel-mocks', '~> 1.1.0'
+      gem 'solidus_dev_support', '~> 2.5'
+    end
+
+    Bundler.with_original_env do
+      run 'bundle install'
+    end
+
+    directory 'spec'
+
     # We can't use Rails' `generate` method here to call the generators. When
     # the solidus_starter_frontend generator is used as a standalone program
     # (instead of added to an app's Gemfile), `generate` won't be able to pick
@@ -48,7 +62,6 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     # see https://stackoverflow.com/a/12029262/65925 for more details.
     #
     # See also https://github.com/nebulab/solidus_starter_frontend/pull/174#discussion_r685626737.
-    invoke 'solidus_starter_frontend:rspec'
     invoke 'rspec:install'
   end
 end
