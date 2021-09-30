@@ -23,7 +23,6 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
 
     # Gems
     gem 'canonical-rails'
-    gem 'solidus_auth_devise'
     gem 'solidus_support'
     gem 'truncate_html'
 
