@@ -72,7 +72,6 @@ gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
 gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 
 gem 'rails-i18n'
-gem '${extension_name}', path: '..', require: false
 gem 'solidus_auth_devise'
 
 gem 'rspec-rails', groups: [:development, :test]
@@ -120,7 +119,7 @@ bundle exec rails generate solidus:install \
 
 bundle exec rails generate solidus:auth:install --auto-run-migrations
 
-bundle exec "${extension_name}" --auto-accept
+LOCATION='../template.rb' bundle exec rails app:template
 
 rm ../Gemfile ../Gemfile.lock
 

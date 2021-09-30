@@ -24,7 +24,7 @@ All of this while keeping and improving on the functionality of the current
 ## Installation
 
 By default, the `solidus` gem also includes the standard frontend via the
-`solidus_frontend` gem. To make this gem work, you need to exclude
+`solidus_frontend` gem. To make this template work, you need to exclude
 `solidus_frontend` gem and manually include the rest of the Solidus
 components.
 
@@ -75,13 +75,16 @@ application.
 You can copy the starter frontend files to your project:
 
 ```shell
-$ gem install solidus_starter_frontend
-$ solidus_starter_frontend
+$ LOCATION="https://raw.githubusercontent.com/nebulab/solidus_starter_frontend/master/template.rb" bin/rails app:template
 ```
 
-These commands will install the gem globally and copy this project's views,
-assets, routes, controllers, and specs to your project. You can change easily
-anything that we created; this gives you a lot of freedom of customization.
+These commands will copy the frontend views, assets, routes, controllers, and
+specs to your project. You can change easily anything that we created; this
+gives you a lot of freedom of customization.
+
+It is not possible right now to generate a new Rails app with the template, i.e.
+run `rails new --template=URL` since the template expects Solidus to be
+installed on the app.
 
 In addition, please note that the command will add Solidus Auth Devise
 frontend components to your app. At the moment, you will need to manually
