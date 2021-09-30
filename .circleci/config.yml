@@ -19,7 +19,7 @@ commands:
       command:
         type: string
         default: |
-          cd sandbox-generated
+          cd sandbox
           bundle exec rspec --format progress --format RspecJunitFormatter --out $TEST_RESULTS_PATH
       command_verb:
         type: string
@@ -53,7 +53,6 @@ commands:
           name: 'Solidus <<parameters.branch>>:  Install sandbox with generated starter frontend'
           command: bin/sandbox --seed=false --sample=false
           environment:
-            GENERATE_FRONTEND: 1
             SANDBOX_BUNDLE_PATH: ../vendor/bundle/<<parameters.branch>>
             SOLIDUS_BRANCH: <<parameters.branch>>
           when: always
@@ -71,7 +70,7 @@ commands:
             TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>/results.xml
           when: always
       - run:
-          command: rm -f Gemfile.lock && rm -fr spec/dummy && rm -rf sandbox-generated
+          command: rm -f Gemfile.lock && rm -fr spec/dummy && rm -rf sandbox
           name: 'Solidus <<parameters.branch>>: Clean up'
           when: always
 

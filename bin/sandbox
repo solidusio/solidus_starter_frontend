@@ -32,14 +32,7 @@ fi
 
 extension_name="solidus_starter_frontend"
 
-if [[ -n "${GENERATE_FRONTEND}" ]]; then
-  sandbox_name='sandbox-generated'
-  extension_gem_line="gem '${extension_name}', path: '..', require: false"
-else
-  sandbox_name='sandbox'
-  extension_gem_line="gem '${extension_name}', path: '..'"
-fi
-
+sandbox_name='sandbox'
 sandbox_path="./${sandbox_name}"
 
 rm -rf "${sandbox_path}"
@@ -75,7 +68,7 @@ gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
 gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 
 gem 'rails-i18n'
-${extension_gem_line}
+gem '${extension_name}', path: '..', require: false
 gem 'solidus_auth_devise'
 
 gem 'rspec-rails', groups: [:development, :test]
@@ -123,12 +116,7 @@ bundle exec rails generate solidus:install \
 
 bundle exec rails generate solidus:auth:install --auto-run-migrations
 
-if [[ -n "${GENERATE_FRONTEND}" ]]; then
-  bundle exec "${extension_name}" --auto-accept
-else
-  bundle exec rails g solidus_starter_frontend:rspec
-  bundle exec rails g rspec:install
-fi
+bundle exec "${extension_name}" --auto-accept
 
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"
