@@ -3,7 +3,7 @@
 require 'bundler'
 
 class SolidusStarterFrontendGenerator < Rails::Generators::Base
-  source_root File.expand_path('../../..', __dir__)
+  source_root File.expand_path('../../../templates', __dir__)
 
   def install
     # Copy directories

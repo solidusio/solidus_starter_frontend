@@ -2,7 +2,7 @@
 
 module SolidusStarterFrontend
   class RspecGenerator < Rails::Generators::Base
-    source_root File.expand_path('../../..', __dir__)
+    source_root File.expand_path('../../../templates', __dir__)
 
     def install
       gem_group :development, :test do
