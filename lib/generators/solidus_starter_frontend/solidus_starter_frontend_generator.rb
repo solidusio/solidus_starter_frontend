@@ -15,6 +15,7 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     copy_file 'lib/solidus_starter_frontend_configuration.rb'
     copy_file 'lib/solidus_starter_frontend/config.rb'
     copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
+    copy_file 'config/initializers/canonical_rails.rb'
 
     # Routes
     copy_file 'config/routes.rb', 'tmp/routes.rb'
