@@ -13,10 +13,7 @@ gem 'solidus_backend', github: solidus_repo, branch: solidus_branch
 gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
 gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 
-# Needed to help Bundler figure out how to resolve dependencies,
-# otherwise it takes forever to resolve them.
-# See https://github.com/bundler/bundler/issues/6677
-gem 'rails', '>0.a'
+gem 'rails'
 
 gem 'mysql2' if ENV['DB'] == 'mysql' || ENV['DB_ALL']
 
