@@ -46,10 +46,6 @@ to your application. At the moment, SolidusStarterFrontend requires the
 application to include the gem. In the future, we'll make Solidus Auth Devise
 optional.
 
-`rspec-rails` is required to install the frontend's test suite to your app. If
-you'd like to exclude the gem, you'll need to specify `--skip-specs` when you
-run `solidus_starter_frontend` later.
-
 ### For existing stores
 
 In your `Gemfile` replace:
@@ -74,10 +70,6 @@ You'll also need to make sure that [Solidus Auth Devise]
 (https://github.com/solidusio/solidus_auth_devise) is installed in your
 application.
 
-Finally, please note that `rspec-rails` is required to install
-the frontend's test suite to your app. If you'd like to exclude the gem, you'll
-need to specify `--skip-specs` when you run `solidus_starter_frontend` later.
-
 ### Frontend installation
 
 You can copy the starter frontend files to your project:
@@ -90,9 +82,6 @@ $ solidus_starter_frontend
 These commands will install the gem globally and copy this project's views,
 assets, routes, controllers, and specs to your project. You can change easily
 anything that we created; this gives you a lot of freedom of customization.
-
-You can choose to exclude the RSpec test suite by running
-`solidus_starter_frontend --skip-specs`.
 
 In addition, please note that the command will add Solidus Auth Devise
 frontend components to your app. At the moment, you will need to manually

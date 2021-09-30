@@ -42,14 +42,6 @@ fi
 
 sandbox_path="./${sandbox_name}"
 
-if [[ -n "${SKIP_SPECS}" ]]; then
-  generator_skip_specs_argument='--skip-specs'
-  rspec_rails_gem_line=''
-else
-  generator_skip_specs_argument=''
-  rspec_rails_gem_line="gem 'rspec-rails', groups: [:development, :test]"
-fi
-
 rm -rf "${sandbox_path}"
 bundle exec rails new "${sandbox_name}" --database="${railsdb}" \
   --skip-bundle \
@@ -86,7 +78,7 @@ gem 'rails-i18n'
 ${extension_gem_line}
 gem 'solidus_auth_devise'
 
-${rspec_rails_gem_line}
+gem 'rspec-rails', groups: [:development, :test]
 RUBY
 
 replace_in_database_yml() {
@@ -132,12 +124,10 @@ bundle exec rails generate solidus:install \
 bundle exec rails generate solidus:auth:install --auto-run-migrations
 
 if [[ -n "${GENERATE_FRONTEND}" ]]; then
-  bundle exec "${extension_name}" --auto-accept "${generator_skip_specs_argument}"
+  bundle exec "${extension_name}" --auto-accept
 else
-  if [[ -z "${SKIP_SPECS}" ]]; then
-    bundle exec rails g solidus_starter_frontend:rspec
-    bundle exec rails g rspec:install
-  fi
+  bundle exec rails g solidus_starter_frontend:rspec
+  bundle exec rails g rspec:install
 fi
 
 echo

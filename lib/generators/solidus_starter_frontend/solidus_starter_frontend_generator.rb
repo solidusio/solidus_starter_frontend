@@ -5,8 +5,6 @@ require 'bundler'
 class SolidusStarterFrontendGenerator < Rails::Generators::Base
   source_root File.expand_path('../../..', __dir__)
 
-  class_option 'skip-specs', type: :boolean, default: false
-
   def install
     # Copy directories
     directory 'app', 'app'
@@ -36,19 +34,17 @@ class SolidusStarterFrontendGenerator < Rails::Generators::Base
     gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
 
     # Specs
-    unless options['skip-specs']
-      # We can't use Rails' `generate` method here to call the generators. When
-      # the solidus_starter_frontend generator is used as a standalone program
-      # (instead of added to an app's Gemfile), `generate` won't be able to pick
-      # up the other generators that the gem provides.
-      #
-      # We're able to use Thor's `invoke` action here instead of `generate`.
-      # However, `invoke` only works once per generator you want to call. Please
-      # see https://stackoverflow.com/a/12029262/65925 for more details.
-      #
-      # See also https://github.com/nebulab/solidus_starter_frontend/pull/174#discussion_r685626737.
-      invoke 'solidus_starter_frontend:rspec'
-      invoke 'rspec:install'
-    end
+    # We can't use Rails' `generate` method here to call the generators. When
+    # the solidus_starter_frontend generator is used as a standalone program
+    # (instead of added to an app's Gemfile), `generate` won't be able to pick
+    # up the other generators that the gem provides.
+    #
+    # We're able to use Thor's `invoke` action here instead of `generate`.
+    # However, `invoke` only works once per generator you want to call. Please
+    # see https://stackoverflow.com/a/12029262/65925 for more details.
+    #
+    # See also https://github.com/nebulab/solidus_starter_frontend/pull/174#discussion_r685626737.
+    invoke 'solidus_starter_frontend:rspec'
+    invoke 'rspec:install'
   end
 end
