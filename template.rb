@@ -1,3 +1,11 @@
+def install
+  add_template_repository_to_source_path
+  install_gems
+  copy_solidus_starter_frontend_files
+  update_asset_files
+  require_solidus_starter_frontend_config
+  install_rspec
+end
 
 # Copied from: https://github.com/mattbrictson/rails-template
 # Add this template directory to source_paths so that Thor actions like
@@ -31,44 +39,54 @@ def add_template_repository_to_source_path
   source_paths.unshift(templates_dir)
 end
 
-add_template_repository_to_source_path
+def install_gems
+  add_solidus_starter_frontend_dependencies
+  add_spec_gems
 
-directory 'app', 'app'
-
-# Copy files
-copy_file 'lib/solidus_starter_frontend_configuration.rb'
-copy_file 'lib/solidus_starter_frontend/config.rb'
-copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
-copy_file 'config/initializers/canonical_rails.rb'
-
-# Routes
-copy_file 'config/routes.rb', 'tmp/routes.rb'
-prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
-
-# Gems
-gem 'canonical-rails'
-gem 'solidus_support'
-gem 'truncate_html'
-
-run_bundle
-
-# Text updates
-append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
-inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
-gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
-
-# Specs
-
-gem_group :development, :test do
-  gem 'rspec-rails'
-  gem 'apparition', '~> 0.6.0'
-  gem 'rails-controller-testing', '~> 1.0.5'
-  gem 'rspec-activemodel-mocks', '~> 1.1.0'
-  gem 'solidus_dev_support', '~> 2.5'
+  run_bundle
 end
 
-run_bundle
+def add_solidus_starter_frontend_dependencies
+  gem 'canonical-rails'
+  gem 'solidus_support'
+  gem 'truncate_html'
+end
 
-directory 'spec'
+def add_spec_gems
+  gem_group :development, :test do
+    gem 'rspec-rails'
+    gem 'apparition', '~> 0.6.0'
+    gem 'rails-controller-testing', '~> 1.0.5'
+    gem 'rspec-activemodel-mocks', '~> 1.1.0'
+    gem 'solidus_dev_support', '~> 2.5'
+  end
+end
 
-generate 'rspec:install'
+def copy_solidus_starter_frontend_files
+  directory 'app', 'app'
+
+  copy_file 'lib/solidus_starter_frontend_configuration.rb'
+  copy_file 'lib/solidus_starter_frontend/config.rb'
+  copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
+  copy_file 'config/initializers/canonical_rails.rb'
+
+  copy_file 'config/routes.rb', 'tmp/routes.rb'
+  prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
+
+  directory 'spec'
+end
+
+def update_asset_files
+  append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
+  gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
+end
+
+def require_solidus_starter_frontend_config
+  inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
+end
+
+def install_rspec
+  generate 'rspec:install'
+end
+
+install
