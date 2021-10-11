@@ -1,0 +1,92 @@
+def install
+  add_template_repository_to_source_path
+  install_gems
+  copy_solidus_starter_frontend_files
+  update_asset_files
+  require_solidus_starter_frontend_config
+  install_rspec
+end
+
+# Copied from: https://github.com/mattbrictson/rails-template
+# Add this template directory to source_paths so that Thor actions like
+# copy_file and template resolve against our source files. If this file was
+# invoked remotely via HTTP, that means the files are not present locally.
+# In that case, use `git clone` to download them to a local temporary dir.
+def add_template_repository_to_source_path
+  if __FILE__ =~ %r{\Ahttps?://}
+    require "tmpdir"
+
+    tempdir = Dir.mktmpdir("solidus_starter_frontend-")
+    repo_dir = tempdir
+
+    at_exit { FileUtils.remove_entry(tempdir) }
+
+    git clone: [
+      "--quiet",
+      "https://github.com/nebulab/solidus_starter_frontend.git",
+      tempdir
+    ].map(&:shellescape).join(" ")
+
+    if (branch = __FILE__[%r{solidus_starter_frontend/(.+)/template.rb}, 1])
+      Dir.chdir(tempdir) { git checkout: branch }
+    end
+  else
+    repo_dir = File.dirname(__FILE__)
+  end
+
+  templates_dir = Pathname.new(repo_dir).join('templates')
+
+  source_paths.unshift(templates_dir)
+end
+
+def install_gems
+  add_solidus_starter_frontend_dependencies
+  add_spec_gems
+
+  run_bundle
+end
+
+def add_solidus_starter_frontend_dependencies
+  gem 'canonical-rails'
+  gem 'solidus_support'
+  gem 'truncate_html'
+end
+
+def add_spec_gems
+  gem_group :development, :test do
+    gem 'rspec-rails'
+    gem 'apparition', '~> 0.6.0'
+    gem 'rails-controller-testing', '~> 1.0.5'
+    gem 'rspec-activemodel-mocks', '~> 1.1.0'
+    gem 'solidus_dev_support', '~> 2.5'
+  end
+end
+
+def copy_solidus_starter_frontend_files
+  directory 'app', 'app'
+
+  copy_file 'lib/solidus_starter_frontend_configuration.rb'
+  copy_file 'lib/solidus_starter_frontend/config.rb'
+  copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
+  copy_file 'config/initializers/canonical_rails.rb'
+
+  copy_file 'config/routes.rb', 'tmp/routes.rb'
+  prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
+
+  directory 'spec'
+end
+
+def update_asset_files
+  append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
+  gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
+end
+
+def require_solidus_starter_frontend_config
+  inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
+end
+
+def install_rspec
+  generate 'rspec:install'
+end
+
+install

@@ -96,13 +96,14 @@ def load_config
   @config['source_name'] ||= 'solidus'
   @config['source_branch'] ||= 'master'
   @config['source_base_path'] ||= 'frontend/'
+  @config['local_base_path'] ||= 'templates/'
 end
 
 def solidus_compare
   report = @config['project_paths'].map do |path|
     remote_source = "remotes/#{@config['source_name']}/#{@config['source_branch']}"
     remote_path = "#{@config['source_base_path']}#{path}"
-    result = `git diff "#{remote_source}" -- "#{remote_path}" "#{path}"`
+    result = `git diff "#{remote_source}" -- "#{remote_path}" "#{@config['local_base_path']}#{path}"`
     puts("error with git diff #{path}") & exit if $?.exitstatus != 0
 
     result.gsub!(/index\s[\w\d]+\.\.[\w\d]+\s[\w\d]+\n/, '')

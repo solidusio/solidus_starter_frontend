@@ -1,39 +1,40 @@
 ---
 project_paths:
-  - app/controllers
-  - app/helpers
+- app/controllers
+- app/helpers
 source_repo: https://github.com/solidusio/solidus.git
 source_name: solidus
 source_branch: master
 source_base_path: frontend/
+local_base_path: templates/
 ignore:
-  - path: app/controllers
-    diffs:
-      - file: frontend/app/controllers/spree/checkout_controller.rb
-        skip: true
-      - file: app/controllers/spree/user_confirmations_controller.rb
-        skip: true
-      - file: app/controllers/spree/user_passwords_controller.rb
-        skip: true
-      - file: app/controllers/spree/user_registrations_controller.rb
-        skip: true
-      - file: app/controllers/spree/users_controller.rb
-        skip: true
-      - file: app/controllers/spree/user_sessions_controller.rb
-        skip: true
-      - file: app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
-        skip: true
-      - hash: 1422395649
-        file: frontend/app/controllers/spree/coupon_codes_controller.rb
-      - hash: 2175977023
-        file: frontend/app/controllers/spree/home_controller.rb
-      - hash: 61096156
-        file: frontend/app/controllers/spree/products_controller.rb
-      - hash: 1682079912
-        file: frontend/app/controllers/spree/store_controller.rb
-      - hash: 910927973
-        file: frontend/app/controllers/spree/taxons_controller.rb
-      - hash: 3587971972
-        file: frontend/app/controllers/spree/content_controller.rb
-  - path: app/helpers
-    diffs: []
+- path: app/controllers
+  diffs:
+  - file: frontend/app/controllers/spree/checkout_controller.rb
+    skip: true
+  - file: templates/app/controllers/spree/user_confirmations_controller.rb
+    skip: true
+  - file: templates/app/controllers/spree/user_passwords_controller.rb
+    skip: true
+  - file: templates/app/controllers/spree/user_registrations_controller.rb
+    skip: true
+  - file: templates/app/controllers/spree/users_controller.rb
+    skip: true
+  - file: templates/app/controllers/spree/user_sessions_controller.rb
+    skip: true
+  - file: templates/app/controllers/concerns/solidus_starter_frontend/taxonomies.rb
+    skip: true
+  - hash: 2640709950
+    file: frontend/app/controllers/spree/coupon_codes_controller.rb
+  - hash: 3287963782
+    file: frontend/app/controllers/spree/home_controller.rb
+  - hash: 219962801
+    file: frontend/app/controllers/spree/products_controller.rb
+  - hash: 1022972206
+    file: frontend/app/controllers/spree/store_controller.rb
+  - hash: 3344682350
+    file: frontend/app/controllers/spree/taxons_controller.rb
+  - hash: 3587971972
+    file: frontend/app/controllers/spree/content_controller.rb
+- path: app/helpers
+  diffs: []
