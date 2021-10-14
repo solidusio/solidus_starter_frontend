@@ -46,5 +46,9 @@ module Spree
     def generate_shipping_method_rate_id(form, input_name, rate)
       "#{form.object_name.gsub(/[\[\]]/, '[' => '_', ']' => '_')}#{input_name}_#{rate.id}"
     end
+
+    def generate_address_input_id(form, input_name)
+      "#{form.object_name.gsub(/[\[\]]/, '[' => '_', ']' => '_')}#{input_name}"
+    end
   end
 end
