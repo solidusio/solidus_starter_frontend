@@ -18,8 +18,7 @@
     ) %>
   </div>
   <div class="auth-form__input-wrapper">
-    <%= render(
-      "spree/components/buttons/button_primary",
+    <%= solidus_button_primary(
       content: I18n.t("spree.continue"),
       full_width: true,
       name: :commit,

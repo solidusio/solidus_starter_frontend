@@ -16,8 +16,7 @@
       </div>
     <% end %>
 
-    <%= render(
-      "spree/components/buttons/button_primary",
+    <%= solidus_button_primary(
       content: t('spree.place_order'),
       disabled: requires_acceptance,
       name: :commit,

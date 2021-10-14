@@ -22,8 +22,7 @@
     <% end %>
   </fieldset>
 
-  <%= render(
-    'spree/components/buttons/button_primary',
+  <%= solidus_button_primary(
     content: I18n.t('spree.save_and_continue'),
     name: :commit,
     type: :submit

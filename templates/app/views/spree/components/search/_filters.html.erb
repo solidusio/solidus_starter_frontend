@@ -12,9 +12,10 @@
         base_class: 'filter') %>
     <% end %>
 
-    <%= render 'spree/components/buttons/button_primary',
+    <%= solidus_button_primary(
       content: t('spree.search'),
       type: :submit,
-      full_width: true %>
+      full_width: true
+    ) %>
   <% end %>
 <% end %>

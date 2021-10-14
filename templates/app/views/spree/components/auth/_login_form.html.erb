@@ -29,8 +29,7 @@
     <%= f.label :remember_me, I18n.t("spree.remember_me") %>
   </div>
   <div class="auth-form__input-wrapper">
-    <%= render(
-      "spree/components/buttons/button_primary",
+    <%= solidus_button_primary(
       content: I18n.t("spree.login"),
       full_width: true,
       name: :commit,

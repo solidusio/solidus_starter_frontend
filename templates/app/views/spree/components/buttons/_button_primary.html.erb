@@ -17,6 +17,8 @@
   classes.push("#{base_class}--full-width") if full_width
   classes.push("#{base_class}--small") if small
   class_names = classes.join(" ")
+
+  content = local_assigns[:content]
 %>
 
 <%= button_tag(

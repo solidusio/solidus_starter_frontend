@@ -4,8 +4,7 @@
   </p>
 
   <div class="cart-footer__primary-action">
-    <%= render(
-      'spree/components/buttons/button_primary',
+    <%= solidus_button_primary(
       content: I18n.t('spree.checkout'),
       id: 'checkout-link',
       name: :checkout,

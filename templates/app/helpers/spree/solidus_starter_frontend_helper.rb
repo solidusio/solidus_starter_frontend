@@ -93,6 +93,10 @@ module Spree
       end
     end
 
+    def solidus_button_primary(locals = {})
+      render partial: 'spree/components/buttons/button_primary', locals: locals
+    end
+
     def taxon_tree_with_base_class(root_taxon, current_taxon, base_class, max_level = 1)
       return '' if max_level < 1 || root_taxon.children.empty?
       content_tag :ul, class: base_class do
