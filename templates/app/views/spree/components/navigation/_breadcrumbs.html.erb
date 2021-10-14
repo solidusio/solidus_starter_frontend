@@ -6,8 +6,6 @@
 
   # Methods
   def breadcrumbs(taxon, separator, breadcrumb_class = 'inline')
-    return '' if current_page?('/') || taxon.nil?
-
     crumbs = [[t('spree.home'), spree.root_path]]
 
     crumbs << [t('spree.products'), products_path]
@@ -38,10 +36,10 @@
   end
 %>
 
-<% breadcrumbs = breadcrumbs(taxon, separator, "#{base_class}__content") %>
-
-<% if breadcrumbs.present? %>
+<% if current_page?('/') || taxon.nil? %>
+  <%# Do nothing %>
+<% else %>
   <div class="<%= base_class %>">
-    <%= breadcrumbs %>
+    <%= breadcrumbs(taxon, separator, "#{base_class}__content") %>
   </div>
 <% end %>
