@@ -9,10 +9,10 @@ module Spree
       subject(:normalized_input) { input.gsub(/\n\s*/, '') }
 
       context 'when only required arguments are provided' do
-        let(:arguments) { {} }
+        let(:arguments) { { content: 'some-content' } }
 
         let(:expected_result) do
-          %Q{<button type="button" class="button-inline" id="false"></button>}
+          %Q{<button name="button" type="button" class="button-inline">some-content</button>}
         end
 
         it 'returns an inline button tag' do

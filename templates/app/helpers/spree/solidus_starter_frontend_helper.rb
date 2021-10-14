@@ -80,8 +80,17 @@ module Spree
       "#{form.object_name.gsub(/[\[\]]/, '[' => '_', ']' => '_')}#{input_name}"
     end
 
-    def solidus_button_inline(locals = {})
-      render partial: 'spree/components/buttons/button_inline', locals: locals
+    def solidus_button_inline(options = {})
+      content = options.delete(:content)
+      classes = options.delete(:classes) { [] }
+
+      base_class = 'button-inline'
+      class_names = classes.push(base_class).join(' ')
+      default_options = { type: 'button', class: class_names }
+
+      button_tag(default_options.merge(options)) do
+        content
+      end
     end
 
     def taxon_tree_with_base_class(root_taxon, current_taxon, base_class, max_level = 1)
