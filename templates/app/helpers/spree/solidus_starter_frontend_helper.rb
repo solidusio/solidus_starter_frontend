@@ -43,6 +43,35 @@ module Spree
       )
     end
 
+    def filter_list(filter, css_class)
+      labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]}
+      return if labels.empty?
+
+      content_tag :ul, class: css_class do
+        labels.each do |name, value|
+          label = "#{filter[:name]}_#{name}".gsub(/\s+/,'_')
+          checked = params[:search] &&
+            params[:search][filter[:scope]] &&
+            params[:search][filter[:scope]].include?(value.to_s) ? true : false
+
+          concat filter_list_item(filter, checked, label, value, name)
+        end
+      end
+    end
+
+    def filter_list_item(filter, checked, label, value, name)
+      content_tag :li do
+        concat check_box_tag(
+          "search[#{filter[:scope].to_s}][]",
+          value,
+          checked,
+          id: label)
+
+        # concat label_tag(label, name)
+        concat ("<label for='#{label}'>#{name}</label>").html_safe
+      end
+    end
+
     def generate_shipping_method_rate_id(form, input_name, rate)
       "#{form.object_name.gsub(/[\[\]]/, '[' => '_', ']' => '_')}#{input_name}_#{rate.id}"
     end
