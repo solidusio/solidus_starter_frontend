@@ -5,8 +5,7 @@
 
   <div class="cart-secondary-actions__empty">
     <%= form_tag empty_cart_path, method: :put do %>
-      <%= render(
-        'spree/components/buttons/button_inline',
+      <%= solidus_button_inline(
         content: t('spree.empty_cart'),
         name: :commit,
         small: true,
