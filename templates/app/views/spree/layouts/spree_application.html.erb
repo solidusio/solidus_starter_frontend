@@ -17,7 +17,21 @@
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>">
     <%= render partial: 'spree/components/layout/header' %>
     <%= flash_messages %>
-    <%= render 'spree/components/navigation/breadcrumbs', taxon: @taxon, base_class: 'breadcrumbs' %>
+
+    <%
+      taxon = @taxon
+      separator = '&nbsp;&raquo;&nbsp;'
+      base_class = 'breadcrumbs'
+    %>
+
+    <% if current_page?('/') || taxon.nil? %>
+      <%# Do nothing %>
+    <% else %>
+      <div class="<%= base_class %>">
+        <%= breadcrumbs(taxon, separator, "#{base_class}__content") %>
+      </div>
+    <% end %>
+
     <main>
       <%= yield %>
     </main>
