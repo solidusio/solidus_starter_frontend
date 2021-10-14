@@ -2,6 +2,17 @@
 
 module Spree
   module SolidusStarterFrontendHelper
+    def available_locales
+      @available_locales ||= current_store.available_locales.map do |locale|
+        [
+          I18n.t('spree.i18n.this_file_language',
+          locale: locale,
+          default: locale.to_s,
+          fallback: false), locale
+        ]
+      end.sort
+    end
+
     def breadcrumbs(taxon, separator, breadcrumb_class = 'inline')
       crumbs = [[t('spree.home'), spree.root_path]]
 
