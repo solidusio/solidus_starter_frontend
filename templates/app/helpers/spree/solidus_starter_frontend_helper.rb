@@ -42,5 +42,9 @@ module Spree
         class: breadcrumb_class
       )
     end
+
+    def generate_shipping_method_rate_id(form, input_name, rate)
+      "#{form.object_name.gsub(/[\[\]]/, '[' => '_', ']' => '_')}#{input_name}_#{rate.id}"
+    end
   end
 end
