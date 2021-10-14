@@ -93,8 +93,25 @@ module Spree
       end
     end
 
-    def solidus_button_primary(locals = {})
-      render partial: 'spree/components/buttons/button_primary', locals: locals
+    def solidus_button_primary(options = {})
+      content = options.delete(:content)
+      bordered = options.delete(:bordered)
+      full_width = options.delete(:full_width)
+      small = options.delete(:small)
+      classes = options.delete(:classes) { [] }
+
+      base_class = 'button-primary'
+      classes.push(base_class)
+      classes.push("#{base_class}--bordered") if bordered
+      classes.push("#{base_class}--full-width") if full_width
+      classes.push("#{base_class}--small") if small
+      class_names = classes.join(' ')
+
+      default_options = { type: 'button', class: class_names }
+
+      button_tag(default_options.merge(options)) do
+        content
+      end
     end
 
     def taxon_tree_with_base_class(root_taxon, current_taxon, base_class, max_level = 1)

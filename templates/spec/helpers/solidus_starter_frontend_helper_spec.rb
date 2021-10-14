@@ -60,7 +60,7 @@ module Spree
         let(:arguments) { {} }
 
         let(:expected_result) do
-          %Q{<button type="button" class="button-primary"></button>}
+          %Q{<button name="button" type="button" class="button-primary"></button>}
         end
 
         it 'returns a primary button tag' do
