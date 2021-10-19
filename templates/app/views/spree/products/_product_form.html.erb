@@ -7,10 +7,10 @@
 %>
 
 <%= form_for :order, url: populate_orders_path, html: schema_properties do |f| %>
-  <%= render 'spree/components/products/product_variants' %>
+  <%= render 'product_variants' %>
 
   <% if @product.price_for_options(current_pricing_options)&.money and !@product.price.nil? %>
-    <%= render 'spree/components/products/product_submit' %>
+    <%= render 'product_submit' %>
   <% else %>
     <div id="product-price">
       <p data-js="price" itemprop="price">
