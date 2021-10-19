@@ -4,31 +4,23 @@
   <div class="horizontal-input-group">
     <div class="horizontal-input-group__input">
       <%
-        local_assigns = {
-          id: :quantity,
-          min: 1,
-          name: :quantity,
-          type: :number,
-          value: 1
-        }
-
         name = :quantity
 
         base_class = "text-input".freeze
 
         # Optional props
-        autocomplete = local_assigns.fetch(:autocomplete, false)
-        autofocus = local_assigns.fetch(:autofocus, false)
-        id = local_assigns.fetch(:id, false)
-        disabled = local_assigns.fetch(:disabled, false)
-        label = local_assigns.fetch(:label, false)
-        min = local_assigns.fetch(:min, false)
-        placeholder = local_assigns.fetch(:placeholder, false)
-        required = local_assigns.fetch(:required, false)
-        small = local_assigns.fetch(:small, false)
-        type = local_assigns.fetch(:type, :text)
-        value = local_assigns.fetch(:value, '')
-        classes = local_assigns.fetch(:classes, [])
+        autocomplete = false
+        autofocus = false
+        id = :quantity
+        disabled = false
+        label = false
+        min = 1
+        placeholder = false
+        required = false
+        small = false
+        type = :number
+        value = 1
+        classes = []
 
         # Classes
         classes.push(base_class)
