@@ -4,15 +4,8 @@
   <div class="horizontal-input-group">
     <div class="horizontal-input-group__input">
       <div class="text-input">
-        <input
-          name="quantity"
-          type="number"
-          value="1"
-          id="quantity"
-          min="1"
-        >
+        <%= text_field_tag :quantity, 1, type: :number, min: 1 %>
       </div>
-
     </div>
     <div class="horizontal-input-group__action">
       <%= render(
