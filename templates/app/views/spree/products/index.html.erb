@@ -13,10 +13,10 @@
           <%= t('spree.no_products_found') %>
         </h6>
       <% else %>
-        <%= render partial: 'spree/components/products/products', locals: { products: @products, taxon: @taxon } %>
+        <%= render partial: 'products', locals: { products: @products, taxon: @taxon } %>
       <% end %>
     <% else %>
-      <%= render partial: 'spree/components/products/products', locals: { products: @products, taxon: @taxon } %>
+      <%= render partial: 'products', locals: { products: @products, taxon: @taxon } %>
     <% end %>
   </section>
 </div>

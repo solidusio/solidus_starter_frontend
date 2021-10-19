@@ -6,7 +6,7 @@
   <section>
     <h1 class="products__taxon-title"><%= @taxon.name %></h1>
 
-    <%= render partial: 'spree/components/products/products', locals: { products: @products, taxon: @taxon } %>
+    <%= render partial: 'spree/products/products', locals: { products: @products, taxon: @taxon } %>
 
     <% unless params[:keywords].present? %>
       <% cache [I18n.locale, @taxon] do %>
