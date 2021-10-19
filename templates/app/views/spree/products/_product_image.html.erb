@@ -1,6 +1,6 @@
 <picture class="product-image">
   <%= render(ImageComponent.new(
-    image: defined?(image) && image || @product.gallery.images.first,
+    image: @product.gallery.images.first,
     size: :product,
     itemprop: "image",
     data: { js: 'product-main-image' }
