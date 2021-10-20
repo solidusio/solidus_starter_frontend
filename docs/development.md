@@ -22,6 +22,9 @@ Use Ctrl-C to stop
 
 Default username and password for admin are: `admin@example.com` and `test123`.
 
+You can run `bin/guard` to sync changes from the templates directory to the
+sandbox. Please see the Guardfile for the configuration.
+
 ## Solidus Compare tool
 `solidus_compare` is a tool that we created to keep track of the changes made to
 [solidus_frontend](https://github.com/solidusio/solidus/tree/master/frontend), 
