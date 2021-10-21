@@ -2,20 +2,20 @@
 
 <article class="cart-page">
   <% if @order.line_items.empty? %>
-    <%= render 'spree/components/cart/cart_empty' %>
+    <%= render 'cart_empty' %>
   <% else %>
     <%= form_for @order, url: update_cart_path, html: {id: 'update-cart'} do |order_form| %>
       <% order = order_form.object %>
-      <%= render 'spree/components/cart/cart_header' %>
+      <%= render 'cart_header' %>
       <%= render 'spree/shared/error_messages', target: order %>
-      <%= render 'spree/components/cart/cart_items', order_form: order_form %>
-      <%= render 'spree/components/cart/cart_footer', order: order %>
+      <%= render 'cart_items', order_form: order_form %>
+      <%= render 'cart_footer', order: order %>
     <% end %>
 
     <div class="cart-page__coupon-code">
-      <%= render 'spree/components/orders/coupon_code' %>
+      <%= render 'coupon_code' %>
     </div>
 
-    <%= render 'spree/components/cart/cart_secondary_actions' %>
+    <%= render 'cart_secondary_actions' %>
   <% end %>
 </article>
