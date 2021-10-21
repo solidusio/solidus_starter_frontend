@@ -5,6 +5,9 @@ require 'rails_helper'
 require 'rails-controller-testing'
 require 'rspec/active_model/mocks'
 
+require "view_component/test_helpers"
+require "capybara/rspec"
+
 # Requires factories and other useful helpers defined in spree_core.
 require 'solidus_dev_support/rspec/feature_helper'
 require 'spree/testing_support/caching'
@@ -34,6 +37,8 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include Capybara::RSpecMatchers, type: :component
 
   config.before(:each, with_signed_in_user: true) do
     sign_in(user)
