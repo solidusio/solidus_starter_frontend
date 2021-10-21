@@ -4,14 +4,10 @@
   </h1>
 
   <div class="cart-header__actions">
-    <%= render(
-      'spree/components/buttons/button_primary',
-      bordered: true,
-      content: t("spree.update"),
-      id: 'update-button',
-      name: :button,
-      small: true,
-      type: :submit
+    <%= button_tag(
+      t("spree.update"),
+      class: 'button-primary button-primary--bordered button-primary--small',
+      id: 'update-button'
     ) %>
   </div>
 </header>
