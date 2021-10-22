@@ -7,11 +7,7 @@
 %>
 
 <% if image_url = image.try(:url, size) %>
-  <% if image_alt = image.try(:alt) %>
-    <%= image_tag image_url, alt: image_alt, itemprop: itemprop, class: classes, data: data %>
-  <% else %>
-    <%= image_tag image_url, itemprop: itemprop, class: classes, data: data %>
-  <% end %>
+  <%= image_tag image_url, alt: image.try(:alt), itemprop: itemprop, class: classes, data: data %>
 <% else %>
   <div class="image-placeholder <%= size %>"></div>
 <% end %>
