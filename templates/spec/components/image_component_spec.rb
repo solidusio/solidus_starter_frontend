@@ -35,7 +35,7 @@ RSpec.describe ImageComponent, type: :component do
 
       let(:expected_match) do
         %Q{
-          <img alt="some-alt" class="" src="/assets/noimage/mini-.*.png" />
+          <img alt="some-alt" src="/assets/noimage/mini-.*.png" />
         }
       end
 
@@ -53,7 +53,7 @@ RSpec.describe ImageComponent, type: :component do
 
       let(:expected_match) do
         %Q{
-          <img class="" src="/assets/noimage/mini-.*.png" />
+          <img src="/assets/noimage/mini-.*.png" />
         }
       end
 
@@ -76,7 +76,7 @@ RSpec.describe ImageComponent, type: :component do
 
     let(:expected_match) do
       %Q{
-        <img itemprop="some-itemprop" class="some-class" data-key="value" src="/assets/noimage/small-.*.png" />
+        <img class="some-class" itemprop="some-itemprop" data-key="value" src="/assets/noimage/small-.*.png" />
       }
     end
 
