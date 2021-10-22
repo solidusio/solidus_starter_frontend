@@ -1,11 +1,10 @@
 <article class="order-item">
   <div class="order-item__image">
     <%= link_to(
-      render(
-        'spree/components/image',
+      render(ImageComponent.new(
         image: item.variant.gallery.images.first || item.variant.product.gallery.images.first,
         size: :small
-      ),
+      )),
       item.variant.product
     ) %>
   </div>
