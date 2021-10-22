@@ -27,9 +27,9 @@ services:
         PG_VERSION: 13
         NODE_VERSION: 14
         MYSQL_VERSION: "8.0"
-        BUNDLER_VERSION: 2
+        BUNDLER_VERSION: 1.17.3
     image: solidus_starter_frontend-0.1.0
-    command: bash -c "tail -f /dev/null"
+    command: bash -c "(bundle check || bundle) && tail -f /dev/null"
     environment:
       CAPYBARA_JS_DRIVER: apparition_docker_friendly
       DB_USERNAME: root

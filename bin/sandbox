@@ -35,10 +35,6 @@ extension_name="solidus_starter_frontend"
 sandbox_name='sandbox'
 sandbox_path="./${sandbox_name}"
 
-rm -f Gemfile Gemfile.lock
-bundle init
-bundle add rails
-
 rm -rf "${sandbox_path}"
 bundle exec rails new "${sandbox_name}" --database="${railsdb}" \
   --skip-bundle \
@@ -118,8 +114,6 @@ bundle exec rails generate solidus:install \
 bundle exec rails generate solidus:auth:install --auto-run-migrations
 
 LOCATION='../template.rb' bundle exec rails app:template
-
-rm ../Gemfile ../Gemfile.lock
 
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"
