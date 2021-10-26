@@ -11,12 +11,10 @@
   </div>
 
   <div class="coupon-code__action">
-    <%= render(
-      'spree/components/buttons/button_primary',
-      content: t('spree.apply_code'),
-      name: :commit,
-      small: true,
-      type: :submit
+    <%= button_tag(
+      t('spree.apply_code'),
+      class: 'button-primary button-primary--small',
+      name: :commit
     ) %>
   </div>
 <% end %>
