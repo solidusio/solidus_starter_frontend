@@ -3,14 +3,9 @@
 
   <div class="horizontal-input-group">
     <div class="horizontal-input-group__input">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :quantity,
-        min: 1,
-        name: :quantity,
-        type: :number,
-        value: 1
-      ) %>
+      <div class="text-input">
+        <%= text_field_tag :quantity, 1, type: :number, min: 1 %>
+      </div>
     </div>
     <div class="horizontal-input-group__action">
       <%= render(
