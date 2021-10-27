@@ -18,7 +18,7 @@
   <li class="<%= class_names %>" itemscope itemtype="http://schema.org/Product" id=<%= product_id %>>
     <article>
       <section class="product-card_image">
-        <%= link_to render('spree/components/image', image: product.gallery.images.first, size: :small, itemprop: "image"), url, itemprop: 'url' %>
+        <%= link_to render(ImageComponent.new(image: product.gallery.images.first, size: :small, itemprop: "image")), url, itemprop: 'url' %>
       </section>
       <header class="product-card_header">
         <h2>

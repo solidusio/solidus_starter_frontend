@@ -3,16 +3,16 @@
 <% cache [I18n.locale, current_pricing_options, @product] do %>
   <article class="product-page" itemscope itemtype="http://schema.org/Product">
     <div class="product-page__images">
-      <%= render 'spree/components/products/product_image' %>
-      <%= render 'spree/components/products/product_thumbnails' %>
+      <%= render 'product_image' %>
+      <%= render 'product_thumbnails' %>
     </div>
 
     <div class="product-page__info">
-      <%= render 'spree/components/products/product_info' %>
-      <%= render 'spree/components/products/product_promotions' %>
-      <%= render 'spree/components/products/product_form' %>
-      <%= render 'spree/components/products/product_properties' %>
-      <%= render 'spree/components/products/product_taxons' %>
+      <%= render 'product_info' %>
+      <%= render 'product_promotions' %>
+      <%= render 'product_form' %>
+      <%= render 'product_properties' %>
+      <%= render 'product_taxons' %>
     </div>
   </article>
 <% end %>

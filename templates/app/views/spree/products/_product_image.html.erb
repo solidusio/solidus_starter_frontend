@@ -1,8 +1,8 @@
 <picture class="product-image">
-  <%= render 'spree/components/image',
-    image: defined?(image) && image || @product.gallery.images.first,
+  <%= render(ImageComponent.new(
+    image: @product.gallery.images.first,
     size: :product,
     itemprop: "image",
     data: { js: 'product-main-image' }
-  %>
+  )) %>
 </picture>

@@ -2,11 +2,10 @@
   <% shipment_items.each do |shipment_item| %>
     <li>
       <div class="shipment-items__image">
-        <%= render(
-          'spree/components/image',
+        <%= render(ImageComponent.new(
           image: shipment_item.variant.gallery.images.first || shipment_item.variant.product.gallery.images.first,
           size: :small
-        ) %>
+        )) %>
       </div>
       <div class="shipment-items__name">
         <%= shipment_item.variant.name %>

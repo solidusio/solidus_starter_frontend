@@ -4,11 +4,10 @@
   <article class="cart-item">
     <div class="cart-item__image">
       <%= link_to(
-        render(
-          'spree/components/image',
+        render(ImageComponent.new(
           image: variant.gallery.images.first || variant.product.gallery.images.first,
           size: :small
-        ),
+        )),
         variant.product
       ) %>
     </div>
