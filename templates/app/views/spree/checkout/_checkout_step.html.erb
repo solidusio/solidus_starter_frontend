@@ -1,15 +1,14 @@
 <%= form_for @order, url: update_checkout_path(@order.state), html: { id: "checkout_form_#{@order.state}" } do |form| %>
   <% if @order.state == "address" || !@order.email? %>
-    <%= render(
-      "spree/components/forms/inputs/text",
-      id: :order_email,
-      label: "Customer E-Mail",
-      name: "order[email]",
-      placeholder: "name@example.com",
-      required: true,
-      type: :email,
-      value: @order.email
-    ) %>
+    <div class="text-input">
+      <%= label_tag 'order_email', 'Customer E-Mail:' %>
+      <%= text_field_tag 'order[email]',
+        @order.email,
+        type: 'email',
+        required: true,
+        placeholder: 'name@example.com'
+      %>
+    </div>
   <% end %>
 
   <%= render "spree/checkout/steps/#{@order.state}_step", form: form %>
