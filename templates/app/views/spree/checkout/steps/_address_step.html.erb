@@ -42,14 +42,15 @@
     ) %>
 
     <% if try_spree_current_user %>
-      <%= render(
-        "spree/components/forms/inputs/checkbox_input",
-        checked: try_spree_current_user.respond_to?(:persist_order_address),
-        id: "save-user-address",
-        label: I18n.t("spree.save_my_address"),
-        name: :save_user_address,
-        value: "1"
-      ) %>
+      <%= label_tag 'save-user-address', class: 'checkbox-input' do %>
+        <%= check_box_tag(
+          :save_user_address,
+          1,
+          try_spree_current_user.respond_to?(:persist_order_address),
+          id: 'save-user-address'
+        ) %>
+        <%= I18n.t("spree.save_my_address") %>
+      <% end %>
     <% end %>
   </div>
 </div>
