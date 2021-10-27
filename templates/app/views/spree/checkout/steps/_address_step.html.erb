@@ -20,14 +20,10 @@
     </legend>
 
     <%= form.fields_for :ship_address do |ship_form| %>
-      <%= render(
-        'spree/components/forms/inputs/checkbox_input',
-        checked: @order.shipping_eq_billing_address?,
-        id: :order_use_billing,
-        label: t('spree.use_billing_address'),
-        name: "order[use_billing]",
-        value: "1"
-      ) %>
+      <%= label_tag 'order_use_billing', class: 'checkbox-input' do %>
+        <%= check_box_tag('order[use_billing]', 1, @order.shipping_eq_billing_address?) %>
+        <%= t('spree.use_billing_address') %>
+      <% end %>
 
       <%= render(
         "spree/checkout/steps/address_step/address_inputs",
