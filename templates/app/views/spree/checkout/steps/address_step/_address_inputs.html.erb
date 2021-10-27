@@ -25,15 +25,18 @@
     </div>
   <% end %>
 
-  <%= render(
-    "spree/components/forms/inputs/text",
-    autocomplete: "#{address_type} address-line1",
-    id: generate_address_id(form, "address1"),
-    label: I18n.t("spree.street_address"),
-    name: "#{form.object_name}[address1]",
-    required: true,
-    value: address.address1
-  ) %>
+  <div class="text-input">
+    <% generate_address_id(form, "address1").tap do |address1_id| %>
+      <%= label_tag address1_id, "#{I18n.t("spree.street_address")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[address1]",
+        address.address1,
+        id: address1_id,
+        required: true,
+        autocomplete: "#{address_type} address-line1"
+      %>
+    <% end %>
+  </div>
 
   <%= render(
     "spree/components/forms/inputs/text",
