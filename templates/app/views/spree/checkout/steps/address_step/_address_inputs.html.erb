@@ -1,14 +1,17 @@
 <div class="address-inputs">
-  <%= render(
-    "spree/components/forms/inputs/text",
-    autocomplete: "#{address_type} given-name",
-    autofocus: true,
-    id: generate_address_id(form, "name"),
-    label: I18n.t("spree.name"),
-    name: "#{form.object_name}[name]",
-    required: true,
-    value: address.name
-  ) %>
+  <div class="text-input">
+    <% generate_address_id(form, "name").tap do |name_id| %>
+      <%= label_tag name_id, "#{I18n.t("spree.name")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[name]",
+        address.name,
+        id: name_id,
+        required: true,
+        autofocus: true,
+        autocomplete: "#{address_type} given-name"
+      %>
+    <% end %>
+  </div>
 
   <% if Spree::Config[:company] %>
     <%= render(
