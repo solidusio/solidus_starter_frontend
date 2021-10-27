@@ -37,4 +37,7 @@ ignore:
   - hash: 3587971972
     file: frontend/app/controllers/spree/content_controller.rb
 - path: app/helpers
-  diffs: []
+  diffs:
+  - file: templates/app/helpers/spree/solidus_starter_frontend_helper.rb
+    skip: true
+
