@@ -121,15 +121,18 @@
     </noscript>
   <% end %>
 
-  <%= render(
-    "spree/components/forms/inputs/text",
-    autocomplete: "#{address_type} postal-code",
-    id: generate_address_id(form, "zipcode"),
-    label: I18n.t("spree.zip"),
-    name: "#{form.object_name}[zipcode]",
-    required: address.require_zipcode?,
-    value: address.zipcode
-  ) %>
+  <div class="text-input">
+    <% generate_address_id(form, "zipcode").tap do |zipcode_id| %>
+      <%= label_tag zipcode_id, "#{I18n.t("spree.zip")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[zipcode]",
+        address.zipcode,
+        id: zipcode_id,
+        required: address.require_zipcode?,
+        autocomplete: "#{address_type} postal-code"
+      %>
+    <% end %>
+  </div>
 
   <%= render(
     "spree/components/forms/inputs/text",
