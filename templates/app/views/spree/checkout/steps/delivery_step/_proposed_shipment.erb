@@ -4,14 +4,14 @@
     <%= ship_form.object.stock_location.name %>
   </h2>
 
-  <%= render "spree/components/checkout/shipment_items", shipment_items: ship_form.object.manifest %>
+  <%= render "spree/checkout/steps/delivery_step/shipment_items", shipment_items: ship_form.object.manifest %>
 
   <h3 class="proposed-shipment__secondary-title">
     <%= t('spree.shipping_method') %>:
   </h3>
 
   <%= render(
-    "spree/components/checkout/shipping_methods",
+    "spree/checkout/steps/delivery_step/shipping_methods",
     form: ship_form,
     shipping_rates: ship_form.object.shipping_rates
   ) %>
