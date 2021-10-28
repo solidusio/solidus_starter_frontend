@@ -149,14 +149,17 @@
   </div>
 
   <% if Spree::Config[:alternative_shipping_phone] %>
-    <%= render(
-      "spree/components/forms/inputs/text",
-      autocomplete: "#{address_type} tel",
-      id: generate_address_id(form, "alternative_phone"),
-      label: I18n.t("spree.alternative_phone"),
-      name: "#{form.object_name}[alternative_phone]",
-      type: :tel,
-      value: address.alternative_phone
-    ) %>
+    <div class="text-input">
+      <% generate_address_id(form, "alternative_phone").tap do |alternative_phone_id| %>
+        <%= label_tag alternative_phone_id, "#{I18n.t("spree.alternative_phone")}:" %>
+
+        <%= text_field_tag "#{form.object_name}[alternative_phone]",
+          address.alternative_phone,
+          type: :tel,
+          id: alternative_phone_id,
+          autocomplete: "#{address_type} tel"
+        %>
+      <% end %>
+    </div>
   <% end %>
 </div>
