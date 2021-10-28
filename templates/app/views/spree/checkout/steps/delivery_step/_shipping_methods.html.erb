@@ -7,14 +7,17 @@
 <ul class="shipping-methods">
   <% shipping_rates.each do |rate| %>
     <li class="shipping-methods__rate">
-      <%= render(
-        'spree/components/forms/inputs/radio_input',
-        checked: rate.selected,
-        id: generate_id(form, "selected_shipping_rate_id", rate),
-        label: "#{rate.name} #{rate.display_cost}",
-        name: "#{form.object_name}[selected_shipping_rate_id]",
-        value: rate.id
-      ) %>
+      <% generate_id(form, "selected_shipping_rate_id", rate).tap do |selected_shipping_rate_id| %>
+        <%= label_tag selected_shipping_rate_id, class: "radio-input" do %>
+          <%= radio_button_tag(
+            "#{form.object_name}[selected_shipping_rate_id]",
+            rate.id,
+            rate.selected,
+            id: selected_shipping_rate_id
+          ) %>
+          <%= "#{rate.name} #{rate.display_cost}" %>
+        <% end %>
+      <% end %>
     </li>
   <% end %>
 </ul>
