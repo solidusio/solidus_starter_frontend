@@ -13,12 +13,10 @@
     <% end %>
 
     <% if Spree::Config[:shipping_instructions] %>
-      <%= render(
-        'spree/components/forms/inputs/textarea_input',
-        id: :order_special_instructions,
-        label: t('spree.shipping_instructions'),
-        name: 'order[special_instructions]'
-      ) %>
+      <div class="textarea-input">
+        <%= label_tag :order_special_instructions, "#{I18n.t('spree.shipping_instructions')}:" %>
+        <%= text_area_tag 'order[special_instructions]' %>
+      </div>
     <% end %>
   </fieldset>
 
