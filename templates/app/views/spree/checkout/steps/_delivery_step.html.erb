@@ -20,10 +20,9 @@
     <% end %>
   </fieldset>
 
-  <%= render(
-    'spree/components/buttons/button_primary',
-    content: I18n.t('spree.save_and_continue'),
-    name: :commit,
-    type: :submit
+  <%= button_tag(
+    I18n.t("spree.save_and_continue"),
+    class: 'button-primary',
+    name: :commit
   ) %>
 </div>
