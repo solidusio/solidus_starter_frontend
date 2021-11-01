@@ -13,13 +13,17 @@
     <% end %>
   </div>
 
-  <%= render(
-    "spree/components/forms/inputs/text",
-    autocomplete: "cc-number",
-    id: "card_number_#{payment_method.id}",
-    label: t('spree.card_number'),
-    name: "#{param_prefix}[number]"
-  ) %>
+  <div class="text-input">
+    <% "card_number_#{payment_method.id}".tap do |id| %>
+      <%= label_tag id, "#{t('spree.card_number')}:" %>
+
+      <%= text_field_tag "#{param_prefix}[number]",
+        nil,
+        id: id,
+        autocomplete: "cc-number"
+      %>
+    <% end %>
+  </div>
 
   <%= render(
     "spree/components/forms/inputs/text",
