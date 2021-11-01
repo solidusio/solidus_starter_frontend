@@ -5,12 +5,10 @@
 
   <div class="cart-secondary-actions__empty">
     <%= form_tag empty_cart_path, method: :put do %>
-      <%= render(
-        'spree/components/buttons/button_inline',
-        content: t('spree.empty_cart'),
-        name: :commit,
-        small: true,
-        type: :submit
+      <%= button_tag(
+        t('spree.empty_cart'),
+        class: 'button-inline',
+        name: :commit
       ) %>
     <% end %>
   </div>

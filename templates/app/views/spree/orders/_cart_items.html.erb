@@ -11,13 +11,13 @@
 
 <section class="cart-items">
   <%= render(
-    partial: 'spree/components/cart/cart_item',
+    partial: 'cart_item',
     collection: order.line_items,
     as: :line_item,
     locals: { order_form: order_form }
   ) %>
 
   <% if is_order_empty %>
-    <%= render 'spree/components/cart/cart_adjustments' %>
+    <%= render 'cart_adjustments' %>
   <% end %>
 </section>

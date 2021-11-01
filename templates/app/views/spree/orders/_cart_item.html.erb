@@ -13,7 +13,7 @@
     </div>
 
     <%= render(
-      'spree/components/orders/item_info',
+      'item_info',
       line_item: line_item,
       variant: variant,
       classes: ['cart-item__info']
@@ -24,14 +24,15 @@
     </div>
 
     <div class="cart-item__quantity">
-      <%= render(
-        'spree/components/forms/inputs/text',
-        id: "order_line_items_attributes_#{item_form.options[:child_index]}_quantity",
-        min: 0,
-        name: "order[line_items_attributes][#{item_form.options[:child_index]}][quantity]",
-        type: :number,
-        value: line_item.quantity
-      ) %>
+      <div class="text-input">
+        <%= text_field_tag "order[line_items_attributes][#{item_form.options[:child_index]}][quantity]",
+          line_item.quantity,
+          type: :number,
+          id: "order_line_items_attributes_#{item_form.options[:child_index]}_quantity",
+          min: 0
+        %>
+      </div>
+
     </div>
 
     <div class="cart-item__price">

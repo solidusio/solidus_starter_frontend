@@ -4,12 +4,11 @@
   </p>
 
   <div class="cart-footer__primary-action">
-    <%= render(
-      'spree/components/buttons/button_primary',
-      content: I18n.t('spree.checkout'),
+    <%= button_tag(
+      I18n.t('spree.checkout'),
+      class: 'button-primary',
       id: 'checkout-link',
-      name: :checkout,
-      type: :submit
+      name: :checkout
     ) %>
   </div>
 </footer>

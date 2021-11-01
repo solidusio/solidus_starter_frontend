@@ -1,6 +1,6 @@
 <div class="cart-adjustments" id="cart_adjustments">
   <%= render(
-    "spree/components/cart/cart_amount_row",
+    "cart_amount_row",
     type: t('spree.cart_subtotal', count: @order.line_items.sum(:quantity)),
     amount: @order.display_item_total
   ) %>
@@ -9,7 +9,7 @@
     <% @order.line_item_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
       <% if adjustments.sum(&:amount) != 0 %>
         <%= render(
-          "spree/components/cart/cart_adjustment",
+          "cart_adjustment",
           type: t('spree.promotion'),
           label: label,
           adjustments: adjustments
@@ -20,7 +20,7 @@
 
   <% @order.all_adjustments.tax.eligible.group_by(&:label).each do |label, adjustments| %>
     <%= render(
-      "spree/components/cart/cart_adjustment",
+      "cart_adjustment",
       type: t('spree.tax'),
       label: label,
       adjustments: adjustments
@@ -29,7 +29,7 @@
 
   <% @order.shipments.each do |shipment| %>
     <%= render(
-      "spree/components/cart/cart_amount_row",
+      "cart_amount_row",
       type: t('spree.shipping'),
       label: shipment.shipping_method.name,
       amount: shipment.display_total_before_tax
@@ -38,7 +38,7 @@
 
   <% @order.adjustments.eligible.group_by(&:label).each do |label, adjustments| %>
     <%= render(
-      "spree/components/cart/cart_adjustment",
+      "cart_adjustment",
       type: t('spree.adjustment'),
       label: label,
       adjustments: adjustments
