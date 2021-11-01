@@ -25,13 +25,17 @@
     <% end %>
   </div>
 
-  <%= render(
-    "spree/components/forms/inputs/text",
-    id: "card_expiry_#{payment_method.id}",
-    label: t('spree.expiration'),
-    name: "#{param_prefix}[expiry]",
-    placeholder: "MM / YY"
-  ) %>
+  <div class="text-input">
+    <% "card_expiry_#{payment_method.id}".tap do |id| %>
+      <%= label_tag id, "#{t('spree.expiration')}:" %>
+
+      <%= text_field_tag "#{param_prefix}[expiry]",
+        nil,
+        id: id,
+        placeholder: "MM / YY"
+      %>
+    <% end %>
+  </div>
 
   <%= render(
     "spree/components/forms/inputs/text",
