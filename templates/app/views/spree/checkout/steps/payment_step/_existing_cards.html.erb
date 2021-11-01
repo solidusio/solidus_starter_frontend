@@ -1,14 +1,18 @@
 <div class="existing-cards">
   <ul class="existing-cards__options">
     <li>
-      <%= render(
-        'spree/components/forms/inputs/radio_input',
-        checked: true,
-        id: 'use_existing_card_yes',
-        label: t('spree.use_existing_cc'),
-        name: "use_existing_card",
-        value: 'yes'
-      ) %>
+      <% 'use_existing_card_yes'.tap do |id| %>
+        <%= label_tag id, class: 'radio-input' do %>
+          <%= radio_button_tag(
+            'use_existing_card',
+            'yes',
+            true,
+            id: id
+          ) %>
+
+          <%= t('spree.use_existing_cc') %>
+        <% end %>
+      <% end %>
     </li>
     <li>
       <%= render(
