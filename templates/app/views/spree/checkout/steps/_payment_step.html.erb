@@ -4,11 +4,11 @@
       <%= t('spree.payment_information') %>
     </legend>
 
-    <%= render 'spree/components/checkout/payment_method_selector', methods: @order.available_payment_methods %>
-    <%= render 'spree/components/checkout/payment_method_controls', methods: @order.available_payment_methods %>
+    <%= render 'spree/checkout/steps/payment_step/payment_method_selector', methods: @order.available_payment_methods %>
+    <%= render 'spree/checkout/steps/payment_step/payment_method_controls', methods: @order.available_payment_methods %>
 
     <% if @wallet_payment_sources.present? %>
-      <%= render 'spree/components/checkout/existing_cards', wallet_payment_sources: @wallet_payment_sources %>
+      <%= render 'spree/checkout/steps/payment_step/existing_cards', wallet_payment_sources: @wallet_payment_sources %>
     <% end %>
   </fieldset>
 
