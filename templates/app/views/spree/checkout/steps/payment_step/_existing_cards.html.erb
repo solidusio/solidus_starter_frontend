@@ -15,13 +15,18 @@
       <% end %>
     </li>
     <li>
-      <%= render(
-        'spree/components/forms/inputs/radio_input',
-        id: 'use_existing_card_no',
-        label: t('spree.use_new_cc_or_payment_method'),
-        name: "use_existing_card",
-        value: 'no'
-      ) %>
+      <% 'use_existing_card_no'.tap do |id| %>
+        <%= label_tag id, class: 'radio-input' do %>
+          <%= radio_button_tag(
+            'use_existing_card',
+            'no',
+            false,
+            id: id
+          ) %>
+
+          <%= t('spree.use_new_cc_or_payment_method') %>
+        <% end %>
+      <% end %>
     </li>
   </ul>
 
