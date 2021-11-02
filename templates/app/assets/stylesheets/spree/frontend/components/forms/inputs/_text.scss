@@ -1,12 +1,12 @@
 .text-input {
-  > label {
+  label {
     display: block;
     font-size: $label-font-size;
     font-weight: $label-font-weight;
     margin-bottom: .3rem;
   }
 
-  > input {
+  input {
     border: solid 1px $color-border;
     border-radius: 1px;
     display: block;
@@ -23,13 +23,13 @@
   }
 
   &--small {
-    > label {
+    label {
       font-size: $label-font-size;
       font-weight: $label-font-weight;
       margin-bottom: 0;
     }
 
-    > input {
+    input {
       font-size: $input-font-size - .1;
       height: 3.2rem;
     }
