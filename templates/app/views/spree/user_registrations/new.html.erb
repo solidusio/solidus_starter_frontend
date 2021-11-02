@@ -31,14 +31,16 @@
     </div>
 
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :spree_user_password_confirmation,
-        label: I18n.t("spree.confirm_password"),
-        name: 'spree_user[password_confirmation]',
-        placeholder: "p455w0rd",
-        type: :password
-      ) %>
+      <div class="text-input">
+        <%= label_tag :spree_user_password_confirmation, "#{t("spree.confirm_password")}:" %>
+
+        <%= text_field_tag 'spree_user[password_confirmation]',
+          nil,
+          type: :password,
+          id: :spree_user_password_confirmation,
+          placeholder: "p455w0rd"
+        %>
+      </div>
     </div>
 
     <div class="auth-form__input-wrapper">
