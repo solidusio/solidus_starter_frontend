@@ -1,12 +1,8 @@
-<%
-  html = {
-    class: "auth-form",
-    id: "checkout_form_registration"
-  }
-  url = update_checkout_registration_path
+<%= form_for @order,
+  url: update_checkout_registration_path,
+  method: :put,
+  html: { class: "auth-form", id: "checkout_form_registration" } do |f|
 %>
-
-<%= form_for @order, url: url, method: :put, html: html do |f| %>
   <div class="auth-form__input-wrapper">
     <%= render(
       "spree/components/forms/inputs/text",

@@ -1,9 +1,4 @@
-<%
-  html = { class: "auth-form" }
-  url = spree.registration_path(resource)
-%>
-
-<%= form_for resource, as: :spree_user, url: url, html: html do |f| %>
+<%= form_for resource, as: :spree_user, url: spree.registration_path(resource), html: { class: "auth-form" } do |f| %>
   <div class="auth-form__input-wrapper">
     <%= render(
       "spree/components/forms/inputs/text",

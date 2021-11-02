@@ -1,9 +1,4 @@
-<%
-  html = { class: "auth-form" }
-  url = spree.update_password_path
-%>
-
-<%= form_for @spree_user, as: :spree_user, url: url, method: :put, html: html do |f| %>
+<%= form_for @spree_user, as: :spree_user, url: spree.update_password_path, method: :put, html: { class: "auth-form" } do |f| %>
   <div class="auth-form__input-wrapper">
     <%= render(
       "spree/components/forms/inputs/text",
