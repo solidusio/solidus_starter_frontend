@@ -3,50 +3,30 @@
 
   <%= render partial: 'spree/shared/error_messages', locals: { target: @user } %>
 
-  <%= form_for Spree::User.new, as: @user, url: spree.user_path(@user), method: :put do |f| %>
+  <%= form_for @user do |f| %>
     <div class="auth-form__input-wrapper">
-
       <div class="text-input">
-        <%= label_tag :spree_user_email, "#{t("spree.email")}:" %>
-
-        <%= text_field_tag 'user[email]',
-          @user.email,
-          type: 'email',
-          id: :spree_user_email
-        %>
+        <%= f.label :email, "#{t("spree.email")}:" %>
+        <%= f.email_field :email %>
       </div>
     </div>
 
     <div class="auth-form__input-wrapper">
       <div class="text-input">
-        <%= label_tag :password, "#{t("spree.password")}:" %>
-
-        <%= text_field_tag 'user[password]',
-          nil,
-          type: :password,
-          id: :password
-        %>
+        <%= f.label :password, "#{t("spree.password")}:" %>
+        <%= f.password_field :password %>
       </div>
     </div>
 
     <div class="auth-form__input-wrapper">
       <div class="text-input">
-        <%= label_tag :password_confirmation, "#{t("spree.confirm_password")}:" %>
-
-        <%= text_field_tag 'user[password_confirmation]',
-          nil,
-          type: :password,
-          id: :password_confirmation
-        %>
+        <%= f.label :password_confirmation, "#{t("spree.confirm_password")}:" %>
+        <%= f.password_field :password_confirmation %>
       </div>
     </div>
 
     <div class="auth-form__input-wrapper">
-      <%= button_tag(
-        t("spree.update"),
-        class: 'button-primary button-primary--full-width',
-        name: :commit
-      ) %>
+      <%= f.button t("spree.update"), name: :commit, class: 'button-primary button-primary--full-width' %>
     </div>
   <% end %>
 </article>
