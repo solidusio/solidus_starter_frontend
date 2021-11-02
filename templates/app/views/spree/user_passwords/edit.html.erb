@@ -5,35 +5,21 @@
 
   <%= form_for @spree_user, as: :spree_user, url: spree.update_password_path, method: :put, html: { class: "auth-form" } do |f| %>
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :spree_user_password,
-        label: I18n.t("spree.password"),
-        name: "spree_user[password]",
-        placeholder: "p455w0rd",
-        type: :password
-      ) %>
+      <div class="text-input">
+        <%= f.label :password, "#{t("spree.password")}:" %>
+        <%= f.password_field :password, placeholder: "p455w0rd" %>
+      </div>
     </div>
 
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :spree_user_password_confirmation,
-        label: I18n.t("spree.confirm_password"),
-        name: "spree_user[password_confirmation]",
-        placeholder: "p455w0rd",
-        type: :password
-      ) %>
+      <div class="text-input">
+        <%= f.label :password_confirmation, "#{t("spree.confirm_password")}:" %>
+        <%= f.password_field :password_confirmation, placeholder: "p455w0rd" %>
+      </div>
     </div>
 
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/buttons/button_primary",
-        content: I18n.t("spree.update"),
-        full_width: true,
-        name: :commit,
-        type: :submit
-      ) %>
+      <%= f.button t("spree.update"), name: :commit, class: 'button-primary button-primary--full-width' %>
     </div>
 
     <%= f.hidden_field :reset_password_token %>
