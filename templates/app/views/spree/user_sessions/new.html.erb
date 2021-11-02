@@ -5,14 +5,16 @@
 
   <%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path, html: { class: "auth-form" } do |f| %>
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :spree_user_email,
-        label: I18n.t("spree.email"),
-        name: 'spree_user[email]',
-        placeholder: "name@example.com",
-        type: :email
-      ) %>
+      <div class="text-input">
+        <%= label_tag :spree_user_email, "#{t("spree.email")}:" %>
+
+        <%= text_field_tag 'spree_user[email]',
+          nil,
+          type: 'email',
+          id: 'spree_user_email',
+          placeholder: 'name@example.com'
+        %>
+      </div>
     </div>
 
     <div class="auth-form__input-wrapper">
