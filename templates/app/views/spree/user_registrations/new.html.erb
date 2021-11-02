@@ -44,12 +44,10 @@
     </div>
 
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/buttons/button_primary",
-        content: I18n.t("spree.create"),
-        full_width: true,
-        name: :commit,
-        type: :submit
+      <%= button_tag(
+        t("spree.create"),
+        class: 'button-primary button-primary--full-width',
+        name: :commit
       ) %>
     </div>
 
