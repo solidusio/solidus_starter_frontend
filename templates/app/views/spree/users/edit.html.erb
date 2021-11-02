@@ -18,13 +18,15 @@
     </div>
 
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :password,
-        label: I18n.t("spree.password"),
-        name: 'user[password]',
-        type: :password
-      ) %>
+      <div class="text-input">
+        <%= label_tag :password, "#{t("spree.password")}:" %>
+
+        <%= text_field_tag 'user[password]',
+          nil,
+          type: :password,
+          id: :password
+        %>
+      </div>
     </div>
 
     <div class="auth-form__input-wrapper">
