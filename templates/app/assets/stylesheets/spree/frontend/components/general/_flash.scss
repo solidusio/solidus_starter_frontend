@@ -9,7 +9,8 @@
     background: $color-background-alert;
   }
 
-  &.error {
+  &.error,
+  &.registration_error {
     background: $color-background-error;
   }
 
