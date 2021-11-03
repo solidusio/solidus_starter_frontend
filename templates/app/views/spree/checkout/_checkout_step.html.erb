@@ -1,9 +1,4 @@
-<%
-  form_url = update_checkout_path(@order.state)
-  form_html = { id: "checkout_form_#{@order.state}" }
-%>
-
-<%= form_for @order, url: form_url, html: form_html do |form| %>
+<%= form_for @order, url: update_checkout_path(@order.state), html: { id: "checkout_form_#{@order.state}" } do |form| %>
   <% if @order.state == "address" || !@order.email? %>
     <%= render(
       "spree/components/forms/inputs/text",
