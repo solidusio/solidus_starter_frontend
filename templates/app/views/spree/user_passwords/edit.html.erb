@@ -1,7 +1,7 @@
-<%= render partial: 'spree/shared/error_messages', locals: { target: @spree_user } %>
-
 <article class="auth-container" id="change-password">
   <h1><%= I18n.t('spree.change_my_password') %></h1>
+
+  <%= render partial: 'spree/shared/error_messages', locals: { target: @spree_user } %>
 
   <%= render partial: 'spree/components/auth/change_form' %>
 </article>

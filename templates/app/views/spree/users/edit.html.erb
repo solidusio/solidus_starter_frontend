@@ -1,7 +1,7 @@
-<%= render partial: 'spree/shared/error_messages', locals: { target: @user } %>
-
 <article class="auth-container" id="edit-account">
   <h1><%= I18n.t('spree.editing_user') %></h1>
+
+  <%= render partial: 'spree/shared/error_messages', locals: { target: @user } %>
 
   <%= form_for Spree::User.new, as: @user, url: spree.user_path(@user), method: :put do |f| %>
     <div class="auth-form__input-wrapper">
