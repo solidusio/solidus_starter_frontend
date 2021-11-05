@@ -1,13 +1,7 @@
-<%
-  def generate_id(form, input_name, rate)
-    "#{form.object_name.gsub(/[\[\]]/, '[' => '_', ']' => '_')}#{input_name}_#{rate.id}"
-  end
-%>
-
 <ul class="shipping-methods">
   <% shipping_rates.each do |rate| %>
     <li class="shipping-methods__rate">
-      <% generate_id(form, "selected_shipping_rate_id", rate).tap do |selected_shipping_rate_id| %>
+      <% generate_selected_shipping_rate_id(form, "selected_shipping_rate_id", rate).tap do |selected_shipping_rate_id| %>
         <%= label_tag selected_shipping_rate_id, class: "radio-input" do %>
           <%= radio_button_tag(
             "#{form.object_name}[selected_shipping_rate_id]",
