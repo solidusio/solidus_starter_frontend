@@ -1,0 +1,165 @@
+<div class="address-inputs">
+  <div class="text-input">
+    <% generate_address_id(form, "name").tap do |name_id| %>
+      <%= label_tag name_id, "#{I18n.t("spree.name")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[name]",
+        address.name,
+        id: name_id,
+        required: true,
+        autofocus: true,
+        autocomplete: "#{address_type} given-name"
+      %>
+    <% end %>
+  </div>
+
+  <% if Spree::Config[:company] %>
+    <div class="text-input">
+      <%= label_tag :todo, "#{I18n.t("spree.company")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[company]",
+        address.company,
+        id: :todo,
+        autocomplete: "#{address_type} organization"
+      %>
+    </div>
+  <% end %>
+
+  <div class="text-input">
+    <% generate_address_id(form, "address1").tap do |address1_id| %>
+      <%= label_tag address1_id, "#{I18n.t("spree.street_address")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[address1]",
+        address.address1,
+        id: address1_id,
+        required: true,
+        autocomplete: "#{address_type} address-line1"
+      %>
+    <% end %>
+  </div>
+
+  <div class="text-input">
+    <% generate_address_id(form, "address2").tap do |address2_id| %>
+      <%= label_tag address2_id, "#{I18n.t("spree.street_address_2")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[address2]",
+        address.address2,
+        id: address2_id,
+        autocomplete: "#{address_type} address-line2"
+      %>
+    <% end %>
+  </div>
+
+  <div class="text-input">
+    <% generate_address_id(form, "city").tap do |city_id| %>
+      <%= label_tag city_id, "#{I18n.t("spree.city")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[city]",
+        address.city,
+        id: city_id,
+        required: true,
+        autocomplete: "#{address_type} address-level2"
+      %>
+    <% end %>
+  </div>
+
+  <div class="select-input">
+    <% generate_address_id(form, "country_id").tap do |country_id| %>
+      <%= label_tag country_id, "#{I18n.t("spree.country")}:" %>
+
+      <%= form.collection_select(
+        :country_id,
+        available_countries,
+        :id,
+        :name,
+        {},
+        autocomplete: "#{address_type} country-name",
+        class: 'js-trigger-state-change',
+        required: true,
+        "data-state-container": "##{address_type} .js-address-fields"
+      ) %>
+    <% end %>
+  </div>
+
+  <% if Spree::Config[:address_requires_state] %>
+    <% have_states = !address.country.states.empty? %>
+
+    <span class="js-address-fields" style="display: none;">
+      <div class="select-input">
+        <% generate_address_id(form, "state_id").tap do |state_id| %>
+          <%= label_tag state_id, "#{I18n.t("spree.state")}:" %>
+
+          <%= form.collection_select(
+            :state_id,
+            address.country.states,
+            :id,
+            :name,
+            { include_blank: true },
+            autocomplete: "#{address_type} address-level1",
+            class: 'required',
+            disabled: !have_states,
+            required: false
+          ) %>
+        <% end %>
+      </div>
+
+      <%= form.text_field(
+        :state_name,
+        class: !have_states ? 'required' : '',
+        style: have_states ? 'display: none;' : '',
+        disabled: have_states,
+        autocomplete: "#{address_type} address-level1"
+      ) %>
+    </span>
+    <noscript>
+      <%= form.text_field(
+        :state_name,
+        class: 'required',
+        autocomplete: "#{address_type} address-level1",
+        required: true
+      ) %>
+    </noscript>
+  <% end %>
+
+  <div class="text-input">
+    <% generate_address_id(form, "zipcode").tap do |zipcode_id| %>
+      <%= label_tag zipcode_id, "#{I18n.t("spree.zip")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[zipcode]",
+        address.zipcode,
+        id: zipcode_id,
+        required: address.require_zipcode?,
+        autocomplete: "#{address_type} postal-code"
+      %>
+    <% end %>
+  </div>
+
+  <div class="text-input">
+    <% generate_address_id(form, "phone").tap do |phone_id| %>
+      <%= label_tag phone_id, "#{I18n.t("spree.phone")}:" %>
+
+      <%= text_field_tag "#{form.object_name}[phone]",
+        address.phone,
+        type: :tel,
+        id: phone_id,
+        required: address.require_phone?,
+        autocomplete: "#{address_type} home tel"
+      %>
+    <% end %>
+  </div>
+
+  <% if Spree::Config[:alternative_shipping_phone] %>
+    <div class="text-input">
+      <% generate_address_id(form, "alternative_phone").tap do |alternative_phone_id| %>
+        <%= label_tag alternative_phone_id, "#{I18n.t("spree.alternative_phone")}:" %>
+
+        <%= text_field_tag "#{form.object_name}[alternative_phone]",
+          address.alternative_phone,
+          type: :tel,
+          id: alternative_phone_id,
+          autocomplete: "#{address_type} tel"
+        %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
