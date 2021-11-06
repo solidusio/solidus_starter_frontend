@@ -5,27 +5,24 @@
     </legend>
 
     <%= form.fields_for :shipments do |ship_form| %>
-      <%= render 'spree/components/checkout/proposed_shipment', ship_form: ship_form %>
+      <%= render 'spree/checkout/steps/delivery_step/proposed_shipment', ship_form: ship_form %>
     <% end %>
 
     <% if @differentiator.try(:missing?) %>
-      <%= render "spree/components/checkout/unshippable_items", items: @differentiator.missing %>
+      <%= render "spree/checkout/steps/delivery_step/unshippable_items", items: @differentiator.missing %>
     <% end %>
 
     <% if Spree::Config[:shipping_instructions] %>
-      <%= render(
-        'spree/components/forms/inputs/textarea_input',
-        id: :order_special_instructions,
-        label: t('spree.shipping_instructions'),
-        name: 'order[special_instructions]'
-      ) %>
+      <div class="textarea-input">
+        <%= label_tag :order_special_instructions, "#{I18n.t('spree.shipping_instructions')}:" %>
+        <%= text_area_tag 'order[special_instructions]' %>
+      </div>
     <% end %>
   </fieldset>
 
-  <%= render(
-    'spree/components/buttons/button_primary',
-    content: I18n.t('spree.save_and_continue'),
-    name: :commit,
-    type: :submit
+  <%= button_tag(
+    I18n.t("spree.save_and_continue"),
+    class: 'button-primary',
+    name: :commit
   ) %>
 </div>
