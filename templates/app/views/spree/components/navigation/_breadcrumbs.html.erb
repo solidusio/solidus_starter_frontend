@@ -10,7 +10,7 @@
 
     crumbs = [[t('spree.home'), spree.root_path]]
 
-    crumbs << [t('spree.products'), products_path]
+    crumbs << [t('spree.products'), spree.products_path]
     if taxon
       crumbs += taxon.ancestors.collect { |ancestor| [ancestor.name, spree.nested_taxons_path(ancestor.permalink)] }
       crumbs << [taxon.name, spree.nested_taxons_path(taxon.permalink)]

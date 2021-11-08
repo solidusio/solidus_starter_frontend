@@ -17,7 +17,7 @@
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>">
     <%= render partial: 'spree/components/layout/header' %>
     <%= flash_messages %>
-    <%= render 'spree/components/navigation/breadcrumbs', taxon: @taxon %>
+    <%= render BreadcrumbsComponent.new(@taxon) %>
     <main>
       <%= yield %>
     </main>
