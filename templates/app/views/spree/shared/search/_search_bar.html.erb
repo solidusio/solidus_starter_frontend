@@ -20,17 +20,6 @@
     ) %>
   <% end %>
 
-  <input
-    name="keywords"
-    placeholder="Hoodie, mug, shirt..."
-    type="search"
-    class="<%= "#{base_class}__input" %>"
-  >
-
-  <button
-    type="submit"
-    class="<%= "#{base_class}__button" %>"
-  >
-    Search
-  </button>
+  <%= search_field_tag 'keywords', nil, placeholder: 'Hoodie, mug, shirt...', class: "#{base_class}__input" %>
+  <%= button_tag 'Search', class: "#{base_class}__button" %>
 <% end %>
