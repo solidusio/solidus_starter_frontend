@@ -2,7 +2,7 @@
   # Props
   taxon = local_assigns.fetch(:taxon, nil)
   separator = local_assigns.fetch(:separator, '&nbsp;&raquo;&nbsp;')
-  base_class = local_assigns.fetch(:base_class, nil)
+  base_class = 'breadcrumbs'
 
   # Methods
   def breadcrumbs(taxon, separator, breadcrumb_class = 'inline')
