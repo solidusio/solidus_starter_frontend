@@ -47,13 +47,11 @@ class BreadcrumbsComponent < ViewComponent::Base
       { name: t('spree.products'), url: helpers.spree.products_path }
     ]
 
-    if taxon
-      @crumbs += taxon.ancestors.map do |ancestor|
-        { name: ancestor.name, url: helpers.spree.nested_taxons_path(ancestor.permalink) }
-      end
-
-      @crumbs << { name: taxon.name, url: helpers.spree.nested_taxons_path(taxon.permalink) }
+    @crumbs += taxon.ancestors.map do |ancestor|
+      { name: ancestor.name, url: helpers.spree.nested_taxons_path(ancestor.permalink) }
     end
+
+    @crumbs << { name: taxon.name, url: helpers.spree.nested_taxons_path(taxon.permalink) }
 
     @crumbs
   end
