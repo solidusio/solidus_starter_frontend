@@ -11,11 +11,7 @@ class BreadcrumbsComponent < ViewComponent::Base
   end
 
   def call
-    breadcrumbs = breadcrumbs(taxon, "#{BASE_CLASS}__content")
-
-    if breadcrumbs.present?
-      content_tag(:div, breadcrumbs, class: BASE_CLASS)
-    end
+    breadcrumbs(taxon, "#{BASE_CLASS}__content")
   end
 
   private
@@ -40,13 +36,17 @@ class BreadcrumbsComponent < ViewComponent::Base
     end
 
     content_tag(
-      :nav,
+      :div,
       content_tag(
-        :ol,
-        raw(items.map(&:mb_chars).join),
-        itemscope: '',
-        itemtype: 'https://schema.org/BreadcrumbList'),
-      class: breadcrumb_class
+        :nav,
+        content_tag(
+          :ol,
+          raw(items.map(&:mb_chars).join),
+          itemscope: '',
+          itemtype: 'https://schema.org/BreadcrumbList'),
+        class: breadcrumb_class
+      ),
+      class: BASE_CLASS
     )
   end
 end
