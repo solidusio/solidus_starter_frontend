@@ -13,24 +13,6 @@ class BreadcrumbsComponent < ViewComponent::Base
   def call
     return '' if current_page?('/') || taxon.nil?
 
-    breadcrumb_class = "#{BASE_CLASS}__content"
-
-    crumbs = [[t('spree.home'), helpers.spree.root_path]]
-
-    crumbs << [t('spree.products'), helpers.spree.products_path]
-    if taxon
-      crumbs += taxon.ancestors.collect { |ancestor| [ancestor.name, helpers.spree.nested_taxons_path(ancestor.permalink)] }
-      crumbs << [taxon.name, helpers.spree.nested_taxons_path(taxon.permalink)]
-    end
-
-    items = crumbs.each_with_index.collect do |crumb, index|
-      content_tag(:li, itemprop: 'itemListElement', itemscope: '', itemtype: 'https://schema.org/ListItem') do
-        link_to(crumb.last, itemprop: 'item') do
-          content_tag(:span, crumb.first, itemprop: 'name') + tag('meta', { itemprop: 'position', content: (index + 1).to_s }, false, false)
-        end + (crumb == crumbs.last ? '' : raw(SEPARATOR))
-      end
-    end
-
     content_tag(
       :div,
       content_tag(
@@ -44,5 +26,35 @@ class BreadcrumbsComponent < ViewComponent::Base
       ),
       class: BASE_CLASS
     )
+  end
+
+  private
+
+  def items
+    crumbs.each_with_index.collect do |crumb, index|
+      content_tag(:li, itemprop: 'itemListElement', itemscope: '', itemtype: 'https://schema.org/ListItem') do
+        link_to(crumb.last, itemprop: 'item') do
+          content_tag(:span, crumb.first, itemprop: 'name') + tag('meta', { itemprop: 'position', content: (index + 1).to_s }, false, false)
+        end + (crumb == crumbs.last ? '' : raw(SEPARATOR))
+      end
+    end
+  end
+
+  def crumbs
+    return @crumbs if @crumbs
+
+    @crumbs = [[t('spree.home'), helpers.spree.root_path]]
+    @crumbs << [t('spree.products'), helpers.spree.products_path]
+
+    if taxon
+      @crumbs += taxon.ancestors.collect { |ancestor| [ancestor.name, helpers.spree.nested_taxons_path(ancestor.permalink)] }
+      @crumbs << [taxon.name, helpers.spree.nested_taxons_path(taxon.permalink)]
+    end
+
+    @crumbs
+  end
+
+  def breadcrumb_class
+    "#{BASE_CLASS}__content"
   end
 end
