@@ -27,11 +27,15 @@ class BreadcrumbsComponent < ViewComponent::Base
   def items
     crumbs.map.with_index do |crumb, index|
       content_tag(:li, itemprop: 'itemListElement', itemscope: '', itemtype: 'https://schema.org/ListItem') do
-        link_to(crumb[:url], itemprop: 'item') do
-          content_tag(:span, crumb[:name], itemprop: 'name') +
-            tag('meta', { itemprop: 'position', content: (index + 1).to_s }, false, false)
-        end + (crumb == crumbs.last ? '' : raw(SEPARATOR))
+        item_link(crumb, index) + (crumb == crumbs.last ? '' : raw(SEPARATOR))
       end
+    end
+  end
+
+  def item_link(crumb, index)
+    link_to(crumb[:url], itemprop: 'item') do
+      content_tag(:span, crumb[:name], itemprop: 'name') +
+        tag('meta', { itemprop: 'position', content: (index + 1).to_s }, false, false)
     end
   end
 
