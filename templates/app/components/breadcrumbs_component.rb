@@ -11,30 +11,25 @@ class BreadcrumbsComponent < ViewComponent::Base
   end
 
   def call
-    return '' if current_page?('/') || taxon.nil?
+    return if current_page?('/') || taxon.nil?
 
-    content_tag(
-      :div,
-      content_tag(
-        :nav,
-        content_tag(
-          :ol,
-          raw(items.map(&:mb_chars).join),
-          itemscope: '',
-          itemtype: 'https://schema.org/BreadcrumbList'),
-        class: breadcrumb_class
-      ),
-      class: BASE_CLASS
-    )
+    content_tag(:div, class: BASE_CLASS) do
+      content_tag(:nav, class: breadcrumb_class) do
+        content_tag(:ol, itemscope: '', itemtype: 'https://schema.org/BreadcrumbList') do
+          raw(items.map(&:mb_chars).join)
+        end
+      end
+    end
   end
 
   private
 
   def items
-    crumbs.each_with_index.collect do |crumb, index|
+    crumbs.map.with_index do |crumb, index|
       content_tag(:li, itemprop: 'itemListElement', itemscope: '', itemtype: 'https://schema.org/ListItem') do
         link_to(crumb.last, itemprop: 'item') do
-          content_tag(:span, crumb.first, itemprop: 'name') + tag('meta', { itemprop: 'position', content: (index + 1).to_s }, false, false)
+          content_tag(:span, crumb.first, itemprop: 'name') +
+            tag('meta', { itemprop: 'position', content: (index + 1).to_s }, false, false)
         end + (crumb == crumbs.last ? '' : raw(SEPARATOR))
       end
     end
@@ -47,7 +42,7 @@ class BreadcrumbsComponent < ViewComponent::Base
     @crumbs << [t('spree.products'), helpers.spree.products_path]
 
     if taxon
-      @crumbs += taxon.ancestors.collect { |ancestor| [ancestor.name, helpers.spree.nested_taxons_path(ancestor.permalink)] }
+      @crumbs += taxon.ancestors.map { |ancestor| [ancestor.name, helpers.spree.nested_taxons_path(ancestor.permalink)] }
       @crumbs << [taxon.name, helpers.spree.nested_taxons_path(taxon.permalink)]
     end
 
