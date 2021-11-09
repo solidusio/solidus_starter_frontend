@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class BreadcrumbsComponent < ViewComponent::Base
+  SEPARATOR = '&nbsp;&raquo;&nbsp;'.freeze
+  BASE_CLASS = 'breadcrumbs'.freeze
+
   attr_reader :taxon
 
   def initialize(taxon)
@@ -8,19 +11,16 @@ class BreadcrumbsComponent < ViewComponent::Base
   end
 
   def call
-    separator = '&nbsp;&raquo;&nbsp;'
-    base_class = 'breadcrumbs'
-
-    breadcrumbs = breadcrumbs(taxon, separator, "#{base_class}__content")
+    breadcrumbs = breadcrumbs(taxon, "#{BASE_CLASS}__content")
 
     if breadcrumbs.present?
-      content_tag(:div, breadcrumbs, class: base_class)
+      content_tag(:div, breadcrumbs, class: BASE_CLASS)
     end
   end
 
   private
 
-  def breadcrumbs(taxon, separator, breadcrumb_class = 'inline')
+  def breadcrumbs(taxon, breadcrumb_class = 'inline')
     return '' if current_page?('/') || taxon.nil?
 
     crumbs = [[t('spree.home'), helpers.spree.root_path]]
@@ -31,13 +31,11 @@ class BreadcrumbsComponent < ViewComponent::Base
       crumbs << [taxon.name, helpers.spree.nested_taxons_path(taxon.permalink)]
     end
 
-    separator = raw(separator)
-
     items = crumbs.each_with_index.collect do |crumb, index|
       content_tag(:li, itemprop: 'itemListElement', itemscope: '', itemtype: 'https://schema.org/ListItem') do
         link_to(crumb.last, itemprop: 'item') do
           content_tag(:span, crumb.first, itemprop: 'name') + tag('meta', { itemprop: 'position', content: (index + 1).to_s }, false, false)
-        end + (crumb == crumbs.last ? '' : separator)
+        end + (crumb == crumbs.last ? '' : raw(SEPARATOR))
       end
     end
 
