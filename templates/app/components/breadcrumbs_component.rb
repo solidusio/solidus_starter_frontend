@@ -27,8 +27,8 @@ class BreadcrumbsComponent < ViewComponent::Base
   def items
     crumbs.map.with_index do |crumb, index|
       content_tag(:li, itemprop: 'itemListElement', itemscope: '', itemtype: 'https://schema.org/ListItem') do
-        link_to(crumb.last, itemprop: 'item') do
-          content_tag(:span, crumb.first, itemprop: 'name') +
+        link_to(crumb[:url], itemprop: 'item') do
+          content_tag(:span, crumb[:name], itemprop: 'name') +
             tag('meta', { itemprop: 'position', content: (index + 1).to_s }, false, false)
         end + (crumb == crumbs.last ? '' : raw(SEPARATOR))
       end
@@ -38,12 +38,17 @@ class BreadcrumbsComponent < ViewComponent::Base
   def crumbs
     return @crumbs if @crumbs
 
-    @crumbs = [[t('spree.home'), helpers.spree.root_path]]
-    @crumbs << [t('spree.products'), helpers.spree.products_path]
+    @crumbs = [
+      { name: t('spree.home'), url: helpers.spree.root_path },
+      { name: t('spree.products'), url: helpers.spree.products_path }
+    ]
 
     if taxon
-      @crumbs += taxon.ancestors.map { |ancestor| [ancestor.name, helpers.spree.nested_taxons_path(ancestor.permalink)] }
-      @crumbs << [taxon.name, helpers.spree.nested_taxons_path(taxon.permalink)]
+      @crumbs += taxon.ancestors.map do |ancestor|
+        { name: ancestor.name, url: helpers.spree.nested_taxons_path(ancestor.permalink) }
+      end
+
+      @crumbs << { name: taxon.name, url: helpers.spree.nested_taxons_path(taxon.permalink) }
     end
 
     @crumbs
