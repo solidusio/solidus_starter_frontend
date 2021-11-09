@@ -11,13 +11,9 @@ class BreadcrumbsComponent < ViewComponent::Base
   end
 
   def call
-    breadcrumbs(taxon, "#{BASE_CLASS}__content")
-  end
-
-  private
-
-  def breadcrumbs(taxon, breadcrumb_class = 'inline')
     return '' if current_page?('/') || taxon.nil?
+
+    breadcrumb_class = "#{BASE_CLASS}__content"
 
     crumbs = [[t('spree.home'), helpers.spree.root_path]]
 
