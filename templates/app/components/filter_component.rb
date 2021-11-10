@@ -2,6 +2,7 @@
 
 class FilterComponent < ViewComponent::Base
   BASE_CLASS = 'filter'.freeze
+  CSS_CLASS = "#{BASE_CLASS}__list".freeze
 
   attr_reader :filter, :search_params
 
@@ -13,8 +14,6 @@ class FilterComponent < ViewComponent::Base
   def call
     title = filter[:name]
 
-    filter_list = filter_list("#{BASE_CLASS}__list")
-
     if filter_list.present?
       contents = []
       contents << content_tag(:h6, title, class: "#{BASE_CLASS}__title") if title
@@ -25,11 +24,13 @@ class FilterComponent < ViewComponent::Base
 
   private
 
-  def filter_list(css_class)
+  def filter_list
+    return @filter_list if @filter_list
+
     labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]}
     return if labels.empty?
 
-    content_tag :ul, class: css_class do
+    @filter_list = content_tag :ul, class: CSS_CLASS do
       labels.each do |name, value|
         label = "#{filter[:name]}_#{name}".gsub(/\s+/,'_')
         checked = search_params &&
