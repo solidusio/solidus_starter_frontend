@@ -28,26 +28,26 @@ class FilterComponent < ViewComponent::Base
 
     @filter_list = content_tag :ul, class: CSS_CLASS do
       labels.each do |name, value|
-        label = "#{filter[:name]}_#{name}".gsub(/\s+/,'_')
+        id = "#{filter[:name]}_#{name}".gsub(/\s+/,'_')
         checked = search_params &&
           search_params[filter[:scope]] &&
           search_params[filter[:scope]].include?(value.to_s) ? true : false
 
-        concat filter_list_item(checked, label, value, name)
+        concat filter_list_item(checked, id, value, name)
       end
     end
   end
 
-  def filter_list_item(checked, label, value, name)
+  def filter_list_item(checked, id, value, name)
     content_tag :li do
       concat check_box_tag(
         "search[#{filter[:scope].to_s}][]",
         value,
         checked,
-        id: label)
+        id: id)
 
       # concat label_tag(label, name)
-      concat ("<label for='#{label}'>#{name}</label>").html_safe
+      concat ("<label for='#{id}'>#{name}</label>").html_safe
     end
   end
 
