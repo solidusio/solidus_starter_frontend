@@ -28,9 +28,7 @@ class FilterComponent < ViewComponent::Base
     return if labels.empty?
 
     @filter_list = content_tag :ul, class: CSS_CLASS do
-      labels.each do |name, value|
-        concat filter_list_item(value, name)
-      end
+      safe_join(labels.map { |name, value| filter_list_item(value, name) })
     end
   end
 
