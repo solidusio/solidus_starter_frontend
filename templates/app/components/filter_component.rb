@@ -12,16 +12,14 @@ class FilterComponent < ViewComponent::Base
   end
 
   def call
-    return unless filter_list
-
-    contents = []
-    contents << content_tag(:h6, title, class: "#{BASE_CLASS}__title") if title
-    contents << filter_list
-
-    safe_join(contents)
+    safe_join([filter_list_title, filter_list].compact) if filter_list
   end
 
   private
+
+  def filter_list_title
+    content_tag(:h6, title, class: "#{BASE_CLASS}__title") if title
+  end
 
   def filter_list
     return @filter_list if @filter_list
