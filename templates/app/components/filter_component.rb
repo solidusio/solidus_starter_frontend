@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 class FilterComponent < ViewComponent::Base
-  attr_reader :local_assigns
+  attr_reader :filter, :search_params
 
-  def initialize(local_assigns = {})
-    @local_assigns = local_assigns
+  def initialize(filter:, search_params:)
+    @filter = filter
+    @search_params = search_params
   end
 
   def call
-    # Props
-    filter = local_assigns.fetch(:filter, nil)
-    search_params = local_assigns.fetch(:search_params, nil)
     title = filter[:name]
     base_class = 'filter'
 

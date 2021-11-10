@@ -5,15 +5,8 @@ RSpec.describe FilterComponent, type: :component do
     let(:filter) { Spree::Core::ProductFilters.price_filter }
     let(:search_params) { {} }
 
-    let(:local_assigns) do
-      {
-        filter: filter,
-        search_params: search_params
-      }
-    end
-
     let(:component) do
-      render_inline(described_class.new(local_assigns))
+      render_inline(described_class.new(filter: filter, search_params: search_params))
 
       Capybara.string(rendered_component)
     end
