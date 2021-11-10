@@ -12,8 +12,6 @@ class FilterComponent < ViewComponent::Base
   end
 
   def call
-    title = filter[:name]
-
     if filter_list.present?
       contents = []
       contents << content_tag(:h6, title, class: "#{BASE_CLASS}__title") if title
@@ -26,8 +24,6 @@ class FilterComponent < ViewComponent::Base
 
   def filter_list
     return @filter_list if @filter_list
-
-    labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]}
     return if labels.empty?
 
     @filter_list = content_tag :ul, class: CSS_CLASS do
@@ -53,5 +49,13 @@ class FilterComponent < ViewComponent::Base
       # concat label_tag(label, name)
       concat ("<label for='#{label}'>#{name}</label>").html_safe
     end
+  end
+
+  def title
+    filter[:name]
+  end
+
+  def labels
+    @labels ||= filter[:labels] || filter[:conds].map { |m,c| [m,m] }
   end
 end
