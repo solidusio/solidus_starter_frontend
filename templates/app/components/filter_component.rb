@@ -42,13 +42,12 @@ class FilterComponent < ViewComponent::Base
         filter_list_item_checked?(value),
         id: id)
 
-      # concat label_tag(label, name)
-      concat ("<label for='#{id}'>#{name}</label>").html_safe
+      concat label_tag(id, name)
     end
   end
 
   def filter_list_item_id(name)
-    "#{filter[:name]}_#{name}".gsub(/\s+/,'_')
+    sanitize_to_id("#{filter[:name]}_#{name}")
   end
 
   def filter_list_item_checked?(value)

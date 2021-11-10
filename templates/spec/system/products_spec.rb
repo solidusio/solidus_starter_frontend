@@ -225,14 +225,14 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
 
     it 'should be able to display products priced under 10 dollars' do
       within(:css, '.taxonomies') { click_link 'Ruby on Rails' }
-      check 'Price_Range_Under_$10.00'
+      check 'Price_Range_Under__10.00'
       within(:css, '#sidebar_products_search') { click_button 'Search' }
       expect(page).to have_content('No products found')
     end
 
     it 'should be able to display products priced between 15 and 18 dollars' do
       within(:css, '.taxonomies') { click_link 'Ruby on Rails' }
-      check 'Price_Range_$15.00_-_$18.00'
+      check 'Price_Range__15.00_-__18.00'
       within(:css, '#sidebar_products_search') { click_button 'Search' }
 
       expect(page.all('ul.products-grid li').size).to eq(3)
@@ -246,7 +246,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     it 'should be able to display products priced between 15 and 18 dollars across multiple pages' do
       stub_spree_preferences(products_per_page: 2)
       within(:css, '.taxonomies') { click_link 'Ruby on Rails' }
-      check 'Price_Range_$15.00_-_$18.00'
+      check 'Price_Range__15.00_-__18.00'
       within(:css, '#sidebar_products_search') { click_button 'Search' }
 
       expect(page.all('ul.products-grid li').size).to eq(2)
@@ -260,8 +260,8 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
 
     it 'should be able to display products priced 18 dollars and above' do
       within(:css, '.taxonomies') { click_link 'Ruby on Rails' }
-      check 'Price_Range_$18.00_-_$20.00'
-      check 'Price_Range_$20.00_or_over'
+      check 'Price_Range__18.00_-__20.00'
+      check 'Price_Range__20.00_or_over'
       within(:css, '#sidebar_products_search') { click_button 'Search' }
       expect(page.all('ul.products-grid li').size).to eq(4)
       tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
