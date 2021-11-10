@@ -8,7 +8,7 @@ class FilterComponent < ViewComponent::Base
 
   def initialize(filter:, search_params:)
     @filter = filter
-    @search_params = search_params
+    @search_params = search_params || {}
   end
 
   def call
@@ -52,9 +52,7 @@ class FilterComponent < ViewComponent::Base
   end
 
   def filter_list_item_checked?(value)
-    search_params &&
-      search_params[filter[:scope]] &&
-      search_params[filter[:scope]].include?(value.to_s) ? true : false
+    search_params[filter[:scope]]&.include?(value.to_s)
   end
 
   def title
