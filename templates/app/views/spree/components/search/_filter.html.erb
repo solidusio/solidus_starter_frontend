@@ -1,8 +1,8 @@
 <%
   # Props
-  title = local_assigns.fetch(:title, nil)
   filter = local_assigns.fetch(:filter, nil)
-  base_class = local_assigns.fetch(:base_class, nil)
+  title = filter[:name]
+  base_class = 'filter'
 
   # Methods
   def filter_list(filter, css_class)

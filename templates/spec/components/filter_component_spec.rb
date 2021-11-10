@@ -4,13 +4,7 @@ RSpec.describe FilterComponent, type: :component do
   describe '#call' do
     let(:filter) { Spree::Core::ProductFilters.price_filter }
 
-    let(:local_assigns) do
-      {
-        title: filter[:name],
-        filter: filter,
-        base_class: 'filter'
-      }
-    end
+    let(:local_assigns) { { filter: filter } }
 
     let(:component) do
       render_inline(described_class.new(local_assigns))
