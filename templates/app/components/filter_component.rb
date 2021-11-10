@@ -28,11 +28,11 @@ class FilterComponent < ViewComponent::Base
     return if labels.empty?
 
     @filter_list = content_tag :ul, class: CSS_CLASS do
-      safe_join(labels.map { |name, value| filter_list_item(value, name) })
+      safe_join(labels.map { |name, value| filter_list_item(name: name, value: value) })
     end
   end
 
-  def filter_list_item(value, name)
+  def filter_list_item(name:, value:)
     id = filter_list_item_id(name)
 
     content_tag :li do
