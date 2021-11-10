@@ -1,7 +1,7 @@
 <article class="auth-container" id="change-password">
   <h1><%= I18n.t('spree.change_my_password') %></h1>
 
-  <%= render partial: 'spree/shared/error_messages', locals: { target: @spree_user } %>
+  <%= render 'spree/shared/error_messages', target: @spree_user %>
 
   <%= form_for @spree_user, as: :spree_user, url: spree.update_password_path, method: :put, html: { class: "auth-form" } do |f| %>
     <div class="auth-form__input-wrapper">
