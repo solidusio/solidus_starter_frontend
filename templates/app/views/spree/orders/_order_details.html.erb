@@ -2,7 +2,7 @@
   <div class="order-details__info">
     <% if order.has_checkout_step?("address") %>
       <%= render(
-        'spree/components/orders/address_overview',
+        'spree/orders/address_overview',
         address: order.bill_address,
         title: t('spree.billing_address')
       ) %>
@@ -10,13 +10,13 @@
 
     <% if order.has_checkout_step?("delivery") %>
       <%= render(
-        'spree/components/orders/address_overview',
+        'spree/orders/address_overview',
         address: order.ship_address,
         title: t('spree.shipping_address')
       ) %>
 
       <%= render(
-        'spree/components/orders/order_shipments',
+        'spree/orders/order_shipments',
         order: order,
         title: t('spree.shipments')
       ) %>
@@ -24,12 +24,12 @@
 
     <% if order.has_checkout_step?("payment") %>
       <%= render(
-        'spree/components/orders/payment_info',
+        'spree/orders/payment_info',
         order: order
       ) %>
     <% end %>
   </div>
 
-  <%= render 'spree/components/orders/order_items', order: order %>
-  <%= render 'spree/components/orders/line_items', order: order %>
+  <%= render 'spree/orders/order_items', order: order %>
+  <%= render 'spree/orders/line_items', order: order %>
 </div>

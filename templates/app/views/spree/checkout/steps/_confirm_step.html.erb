@@ -4,7 +4,7 @@
       <%= t('spree.confirm') %>
     </legend>
 
-    <%= render 'spree/components/orders/order_details', order: @order %>
+    <%= render 'spree/orders/order_details', order: @order %>
   </fieldset>
 
   <% SolidusStarterFrontend::Config[:require_terms_and_conditions_acceptance].tap do |requires_acceptance| %>
@@ -16,12 +16,11 @@
       </div>
     <% end %>
 
-    <%= render(
-      "spree/components/buttons/button_primary",
-      content: t('spree.place_order'),
-      disabled: requires_acceptance,
+    <%= button_tag(
+      I18n.t('spree.place_order'),
+      class: 'button-primary',
       name: :commit,
-      type: :submit
+      disabled: requires_acceptance
     ) %>
   <% end %>
 </div>
