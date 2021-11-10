@@ -1,5 +1,5 @@
 .textarea-input {
-  > label {
+  label {
     display: block;
     font-size: 1rem;
     font-weight: 700;
@@ -7,7 +7,7 @@
     text-transform: uppercase;
   }
 
-  > textarea {
+  textarea {
     border: solid 1px $color-border;
     border-radius: 1px;
     display: block;

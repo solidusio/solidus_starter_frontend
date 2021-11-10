@@ -1,12 +1,12 @@
 .select-input {
-  > label {
+  label {
     display: block;
     font-size: $label-font-size;
     font-weight: $label-font-weight;
     margin-bottom: .3rem;
   }
 
-  > select {
+  select {
     appearance: none;
     background: $color-copy-bright;
     border: solid 1px $color-border;

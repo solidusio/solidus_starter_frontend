@@ -46,10 +46,6 @@
   </div>
 
   <%= form_with(url: spree.logout_path, method: Devise.sign_out_via, local: true) do %>
-    <%= render(
-      "spree/components/buttons/button_primary",
-      content: I18n.t('spree.logout'),
-      type: :submit
-    ) %>
+    <%= button_tag(t("spree.logout"), class: 'button-primary') %>
   <% end %>
 </div>

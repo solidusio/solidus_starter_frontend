@@ -1,45 +1,32 @@
 <article class="auth-container" id="edit-account">
   <h1><%= I18n.t('spree.editing_user') %></h1>
 
-  <%= render partial: 'spree/shared/error_messages', locals: { target: @user } %>
+  <%= render 'spree/shared/error_messages', target: @user %>
 
-  <%= form_for Spree::User.new, as: @user, url: spree.user_path(@user), method: :put do |f| %>
+  <%= form_for @user do |f| %>
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :spree_user_email,
-        label: I18n.t("spree.email"),
-        name: 'user[email]',
-        type: :email,
-        value: @user.email
-      ) %>
+      <div class="text-input">
+        <%= f.label :email, "#{t("spree.email")}:" %>
+        <%= f.email_field :email %>
+      </div>
     </div>
+
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :password,
-        label: I18n.t("spree.password"),
-        name: 'user[password]',
-        type: :password
-      ) %>
+      <div class="text-input">
+        <%= f.label :password, "#{t("spree.password")}:" %>
+        <%= f.password_field :password %>
+      </div>
     </div>
+
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/forms/inputs/text",
-        id: :password_confirmation,
-        label: I18n.t("spree.confirm_password"),
-        name: 'user[password_confirmation]',
-        type: :password
-      ) %>
+      <div class="text-input">
+        <%= f.label :password_confirmation, "#{t("spree.confirm_password")}:" %>
+        <%= f.password_field :password_confirmation %>
+      </div>
     </div>
+
     <div class="auth-form__input-wrapper">
-      <%= render(
-        "spree/components/buttons/button_primary",
-        content: I18n.t('spree.update'),
-        full_width: true,
-        name: :commit,
-        type: :submit
-      ) %>
+      <%= f.button t("spree.update"), name: :commit, class: 'button-primary button-primary--full-width' %>
     </div>
   <% end %>
 </article>

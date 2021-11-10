@@ -3,5 +3,46 @@
 <article class="auth-container" id="existing-customer">
   <h1><%= I18n.t('spree.login_as_existing') %></h1>
 
-  <%= render partial: 'spree/components/auth/login_form' %>
+  <%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path, html: { class: "auth-form" } do |f| %>
+    <div class="auth-form__input-wrapper">
+      <div class="text-input">
+        <%= label_tag :spree_user_email, "#{t("spree.email")}:" %>
+
+        <%= text_field_tag 'spree_user[email]',
+          nil,
+          type: 'email',
+          id: 'spree_user_email',
+          placeholder: 'name@example.com'
+        %>
+      </div>
+    </div>
+
+    <div class="auth-form__input-wrapper">
+      <div class="text-input">
+        <%= label_tag :spree_user_password, "#{t("spree.password")}:" %>
+
+        <%= text_field_tag 'spree_user[password]',
+          nil,
+          type: :password,
+          id: :spree_user_password,
+          placeholder: "p455w0rd"
+        %>
+      </div>
+    </div>
+
+    <div class="auth-form__input-wrapper">
+      <%= f.check_box :remember_me, tabindex: 3 %>
+      <%= f.label :remember_me, I18n.t("spree.remember_me") %>
+    </div>
+
+    <div class="auth-form__input-wrapper">
+      <%= button_tag(
+        t("spree.login"),
+        class: 'button-primary button-primary--full-width',
+        name: :commit
+      ) %>
+    </div>
+
+    <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.create_a_new_account"), spree.signup_path %> | <%= link_to I18n.t("spree.forgot_password"), spree.recover_password_path %>
+  <% end %>
 </article>
