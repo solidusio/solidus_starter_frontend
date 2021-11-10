@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class FilterComponent < ViewComponent::Base
+  BASE_CLASS = 'filter'.freeze
+
   attr_reader :filter, :search_params
 
   def initialize(filter:, search_params:)
@@ -10,13 +12,12 @@ class FilterComponent < ViewComponent::Base
 
   def call
     title = filter[:name]
-    base_class = 'filter'
 
-    filter_list = filter_list("#{base_class}__list")
+    filter_list = filter_list("#{BASE_CLASS}__list")
 
     if filter_list.present?
       contents = []
-      contents << content_tag(:h6, title, class: "#{base_class}__title") if title
+      contents << content_tag(:h6, title, class: "#{BASE_CLASS}__title") if title
       contents << filter_list
       safe_join(contents)
     end
