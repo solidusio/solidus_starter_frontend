@@ -12,7 +12,7 @@ class FilterComponent < ViewComponent::Base
     title = filter[:name]
     base_class = 'filter'
 
-    filter_list = filter_list(filter, "#{base_class}__list", search_params)
+    filter_list = filter_list("#{base_class}__list")
 
     if filter_list.present?
       contents = []
@@ -24,7 +24,7 @@ class FilterComponent < ViewComponent::Base
 
   private
 
-  def filter_list(filter, css_class, search_params)
+  def filter_list(css_class)
     labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]}
     return if labels.empty?
 
@@ -35,12 +35,12 @@ class FilterComponent < ViewComponent::Base
           search_params[filter[:scope]] &&
           search_params[filter[:scope]].include?(value.to_s) ? true : false
 
-        concat filter_list_item(filter, checked, label, value, name)
+        concat filter_list_item(checked, label, value, name)
       end
     end
   end
 
-  def filter_list_item(filter, checked, label, value, name)
+  def filter_list_item(checked, label, value, name)
     content_tag :li do
       concat check_box_tag(
         "search[#{filter[:scope].to_s}][]",
