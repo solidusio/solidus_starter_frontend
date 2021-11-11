@@ -3,6 +3,8 @@
     <%= render 'spree/layouts/top_bar', taxons: taxons, taxon: taxon %>
   </div>
   <div class="header__primary-navigation">
-    <%= render 'spree/shared/navigation/category_navigation' %>
+    <div class="category-navigation">
+      <%= render partial: 'spree/components/navigation/categories' %>
+    </div>
   </div>
 </header>
