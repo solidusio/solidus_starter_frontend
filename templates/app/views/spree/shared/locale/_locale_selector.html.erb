@@ -13,7 +13,7 @@
   <div class="locale-selector">
     <%= form_tag spree.select_locale_path do %>
       <div class="locale-selector__select-input select-input">
-        <label><%= t('spree.i18n.language') %>:</label>
+        <%= label_tag :switch_to_locale, "#{t('spree.i18n.language')}:" %>
         <%= select_tag(:switch_to_locale, options_for_select(available_locales, I18n.locale)) %>
       </div>
     <% end %>
