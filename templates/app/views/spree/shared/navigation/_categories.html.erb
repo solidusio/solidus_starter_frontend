@@ -3,7 +3,7 @@
 <nav class="categories">
   <% cache [I18n.locale, categories, @taxon] do %>
     <%= render(
-      'spree/components/navigation/taxons_tree',
+      'spree/shared/navigation/taxons_tree',
       root: categories.root,
       current: @taxon,
       depth: 1,

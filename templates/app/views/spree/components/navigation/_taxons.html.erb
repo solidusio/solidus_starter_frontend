@@ -6,7 +6,7 @@
     <% taxonomies.each do |taxonomy| %>
       <% cache [I18n.locale, taxonomy, @taxon, max_level] do %>
         <%= render(
-          'spree/components/navigation/taxons_tree',
+          'spree/shared/navigation/taxons_tree',
           root: taxonomy.root,
           current: @taxon,
           depth: max_level,
