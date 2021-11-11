@@ -15,7 +15,7 @@
     <%= yield :head %>
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>">
-    <%= render 'spree/layouts/header' %>
+    <%= render 'spree/layouts/header', taxons: @taxons, taxon: @taxon %>
     <%= flash_messages %>
     <%= render BreadcrumbsComponent.new(@taxon) %>
     <main>
