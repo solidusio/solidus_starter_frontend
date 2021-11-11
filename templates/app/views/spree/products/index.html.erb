@@ -3,7 +3,7 @@
     <% if "spree/products" == params[:controller] && @taxon %>
       <%= render 'spree/shared/search/filters', taxon: @taxon %>
     <% else %>
-      <%= render 'spree/shared/navigation/taxonomies' %>
+      <%= render 'spree/shared/navigation/taxonomies', taxon: @taxon %>
     <% end %>
   </aside>
   <section class="products_section">
