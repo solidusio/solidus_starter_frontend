@@ -1,7 +1,7 @@
 <div class="products">
   <aside>
     <%= render 'spree/components/navigation/taxonomies' %>
-    <%= render 'spree/shared/search/filters' if @taxon.children.empty? %>
+    <%= render 'spree/shared/search/filters', taxon: @taxon if @taxon.children.empty? %>
   </aside>
   <section>
     <h1 class="products__taxon-title"><%= @taxon.name %></h1>

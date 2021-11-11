@@ -1,4 +1,4 @@
-<% filters = applicable_filters_for(@taxon) %>
+<% filters = applicable_filters_for(taxon) %>
 
 <% unless filters.empty? %>
   <%= form_tag '', method: :get, id: 'sidebar_products_search' do %>
