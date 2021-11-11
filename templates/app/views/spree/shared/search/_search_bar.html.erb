@@ -2,9 +2,9 @@
   base_class = "search-bar".freeze
 
   # Data
-  @taxons = @taxon && @taxon.parent ? @taxon.parent.children : Spree::Taxon.roots
-  options = [[t('spree.all_departments'), '']] + @taxons.map {|t| [t.name, t.id]}
-  selected = @taxon ? @taxon.id : params[:taxon]
+  taxons = taxon && taxon.parent ? taxon.parent.children : Spree::Taxon.roots
+  options = [[t('spree.all_departments'), '']] + taxons.map {|t| [t.name, t.id]}
+  selected = taxon ? taxon.id : params[:taxon]
 
   # Classes
   classes = local_assigns.fetch(:classes, [])
@@ -12,7 +12,7 @@
 %>
 
 <%= form_tag spree.products_path, class: class_names, method: :get do %>
-  <% cache [I18n.locale, @taxons] do %>
+  <% cache [I18n.locale, taxons] do %>
     <%= select_tag(
       :taxon,
       options_for_select(options, selected),
