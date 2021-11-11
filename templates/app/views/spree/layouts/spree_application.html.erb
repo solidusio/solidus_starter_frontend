@@ -15,13 +15,13 @@
     <%= yield :head %>
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>">
-    <%= render partial: 'spree/components/layout/header' %>
+    <%= render 'spree/layouts/header' %>
     <%= flash_messages %>
     <%= render BreadcrumbsComponent.new(@taxon) %>
     <main>
       <%= yield %>
     </main>
     <%= yield :templates %>
-    <%= render partial: 'spree/components/layout/footer' %>
+    <%= render 'spree/layouts/footer' %>
   </body>
 </html>
