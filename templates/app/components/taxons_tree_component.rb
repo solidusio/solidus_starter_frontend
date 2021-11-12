@@ -36,7 +36,7 @@ class TaxonsTreeComponent < ViewComponent::Base
 
     content_tag :ul, class: base_class do
       taxons = root_taxon.children.map do |taxon|
-        css_class = (current_taxon && current_taxon.self_and_ancestors.include?(taxon)) ? 'current' : nil
+        css_class = 'current' if current_taxon&.self_and_ancestors&.include?(taxon)
 
         content_tag :li, class: css_class do
           link_to(taxon.name, seo_url(taxon)) +
