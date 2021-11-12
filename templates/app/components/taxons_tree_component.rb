@@ -18,19 +18,18 @@ class TaxonsTreeComponent < ViewComponent::Base
   end
 
   def call
-    taxons_list = tree(root_taxon, "#{base_class}__list", max_level)
-
-    if taxons_list
-      results = []
-
-      results << content_tag(:h6, title, class: "#{base_class}__title") if title
-      results << taxons_list
-
-      safe_join(results.compact)
-    end
+    safe_join([header_tag, taxons_list].compact) if taxons_list
   end
 
   private
+
+  def taxons_list
+    @taxons_list ||= tree(root_taxon, "#{base_class}__list", max_level)
+  end
+
+  def header_tag
+    content_tag(:h6, title, class: "#{base_class}__title") if title
+  end
 
   def tree(root_taxon, base_class, max_level = 1)
     return if max_level < 1 || root_taxon.children.empty?
