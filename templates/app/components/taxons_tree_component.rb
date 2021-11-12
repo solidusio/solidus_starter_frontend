@@ -24,14 +24,14 @@ class TaxonsTreeComponent < ViewComponent::Base
   private
 
   def taxons_list
-    @taxons_list ||= tree(root_taxon, "#{base_class}__list", max_level)
+    @taxons_list ||= tree(root_taxon: root_taxon, base_class: "#{base_class}__list", max_level: max_level)
   end
 
   def header_tag
     content_tag(:h6, title, class: "#{base_class}__title") if title
   end
 
-  def tree(root_taxon, base_class, max_level = 1)
+  def tree(root_taxon:, base_class:, max_level:)
     return if max_level < 1 || root_taxon.children.empty?
 
     content_tag :ul, class: base_class do
@@ -40,7 +40,7 @@ class TaxonsTreeComponent < ViewComponent::Base
 
         content_tag :li, class: css_class do
           link_to(taxon.name, seo_url(taxon)) +
-            tree(taxon, nil, max_level - 1)
+            tree(root_taxon: taxon, base_class: nil, max_level: max_level - 1)
         end
       end
 
