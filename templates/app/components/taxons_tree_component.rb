@@ -1,19 +1,23 @@
 # frozen_string_literal: true
 
 class TaxonsTreeComponent < ViewComponent::Base
-  attr_reader :local_assigns
+  attr_reader :root_taxon, :title, :current_taxon, :max_level, :base_class
 
-  def initialize(local_assigns = {})
-    @local_assigns = local_assigns
+  def initialize(
+    root_taxon:,
+    title: nil,
+    current_taxon: nil,
+    max_level: 1,
+    base_class: nil
+  )
+    @root_taxon = root_taxon
+    @title = title
+    @current_taxon = current_taxon
+    @max_level = max_level
+    @base_class = base_class
   end
 
   def call
-    title = local_assigns.fetch(:title, nil)
-    root_taxon = local_assigns[:root_taxon]
-    current_taxon = local_assigns.fetch(:current_taxon, nil)
-    max_level = local_assigns.fetch(:max_level, 1)
-    base_class = local_assigns.fetch(:base_class, nil)
-
     taxons_list = tree(root_taxon, current_taxon, "#{base_class}__list", max_level)
 
     if taxons_list.present?
