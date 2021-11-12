@@ -20,7 +20,7 @@ class TaxonsTreeComponent < ViewComponent::Base
   def call
     taxons_list = tree(root_taxon, "#{base_class}__list", max_level)
 
-    if taxons_list.present?
+    if taxons_list
       results = []
 
       results << content_tag(:h6, title, class: "#{base_class}__title") if title
@@ -33,7 +33,7 @@ class TaxonsTreeComponent < ViewComponent::Base
   private
 
   def tree(root_taxon, base_class, max_level = 1)
-    return '' if max_level < 1 || root_taxon.children.empty?
+    return if max_level < 1 || root_taxon.children.empty?
 
     content_tag :ul, class: base_class do
       taxons = root_taxon.children.map do |taxon|
