@@ -9,7 +9,7 @@ class TaxonsTreeComponent < ViewComponent::Base
 
   def call
     title = local_assigns.fetch(:title, nil)
-    root = local_assigns.fetch(:root, nil)
+    root = local_assigns[:root]
     current = local_assigns.fetch(:current, nil)
     depth = local_assigns.fetch(:depth, 1)
     base_class = local_assigns.fetch(:base_class, nil)
