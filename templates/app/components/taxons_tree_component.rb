@@ -7,7 +7,9 @@ class TaxonsTreeComponent < ViewComponent::Base
     @local_assigns = local_assigns
   end
 
-  def call
-    render 'spree/shared/navigation/taxons_tree', local_assigns: local_assigns
+  private
+
+  def seo_url(taxon)
+    helpers.spree.nested_taxons_path(taxon.permalink)
   end
 end
