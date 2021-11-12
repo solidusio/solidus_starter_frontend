@@ -18,7 +18,7 @@ class TaxonsTreeComponent < ViewComponent::Base
   end
 
   def call
-    taxons_list = tree(root_taxon, current_taxon, "#{base_class}__list", max_level)
+    taxons_list = tree(root_taxon, "#{base_class}__list", max_level)
 
     if taxons_list.present?
       results = []
@@ -32,7 +32,7 @@ class TaxonsTreeComponent < ViewComponent::Base
 
   private
 
-  def tree(root_taxon, current_taxon, base_class, max_level = 1)
+  def tree(root_taxon, base_class, max_level = 1)
     return '' if max_level < 1 || root_taxon.children.empty?
 
     content_tag :ul, class: base_class do
@@ -41,7 +41,7 @@ class TaxonsTreeComponent < ViewComponent::Base
 
         content_tag :li, class: css_class do
           link_to(taxon.name, seo_url(taxon)) +
-            tree(taxon, current_taxon, nil, max_level - 1)
+            tree(taxon, nil, max_level - 1)
         end
       end
 
