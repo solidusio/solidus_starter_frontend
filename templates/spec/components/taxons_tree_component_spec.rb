@@ -28,9 +28,9 @@ RSpec.describe TaxonsTreeComponent, type: :component do
     let(:local_assigns) do
       {
         title: title,
-        root: root_taxon,
-        current: current_taxon,
-        depth: max_level,
+        root_taxon: root_taxon,
+        current_taxon: current_taxon,
+        max_level: max_level,
         base_class: base_class
       }
     end

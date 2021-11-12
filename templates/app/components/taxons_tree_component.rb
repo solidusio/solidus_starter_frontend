@@ -9,12 +9,12 @@ class TaxonsTreeComponent < ViewComponent::Base
 
   def call
     title = local_assigns.fetch(:title, nil)
-    root = local_assigns[:root]
-    current = local_assigns.fetch(:current, nil)
-    depth = local_assigns.fetch(:depth, 1)
+    root_taxon = local_assigns[:root_taxon]
+    current_taxon = local_assigns.fetch(:current_taxon, nil)
+    max_level = local_assigns.fetch(:max_level, 1)
     base_class = local_assigns.fetch(:base_class, nil)
 
-    taxons_list = tree(root, current, "#{base_class}__list", depth)
+    taxons_list = tree(root_taxon, current_taxon, "#{base_class}__list", max_level)
 
     if taxons_list.present?
       results = []
