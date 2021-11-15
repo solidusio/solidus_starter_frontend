@@ -34,7 +34,7 @@
     </div>
 
     <div class="cart-item__remove">
-      <%= submit_tag(
+      <%= order_form.submit(
         'Remove',
         class: 'delete',
         id: "delete_#{dom_id(line_item)}",
