@@ -90,17 +90,12 @@
   </div>
 
   <div class="text-input">
-    <% generate_address_id(form, "phone").tap do |phone_id| %>
-      <%= label_tag phone_id, "#{I18n.t("spree.phone")}:" %>
+    <%= form.label :phone, "#{I18n.t("spree.phone")}:" %>
 
-      <%= text_field_tag "#{form.object_name}[phone]",
-        address.phone,
-        type: :tel,
-        id: phone_id,
-        required: address.require_phone?,
-        autocomplete: "#{address_type} home tel"
-      %>
-    <% end %>
+    <%= form.telephone_field :phone,
+      required: address.require_phone?,
+      autocomplete: "#{address_type} home tel"
+    %>
   </div>
 
   <% if Spree::Config[:alternative_shipping_phone] %>
