@@ -6,13 +6,8 @@
 
   <% if Spree::Config[:company] %>
     <div class="text-input">
-      <%= label_tag :todo, "#{I18n.t("spree.company")}:" %>
-
-      <%= text_field_tag "#{form.object_name}[company]",
-        address.company,
-        id: :todo,
-        autocomplete: "#{address_type} organization"
-      %>
+      <%= form.label :company, "#{I18n.t("spree.company")}:" %>
+      <%= form.text_field :company, autocomplete: "#{address_type} organization" %>
     </div>
   <% end %>
 
