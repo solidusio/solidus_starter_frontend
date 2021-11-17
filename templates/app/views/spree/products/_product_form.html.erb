@@ -6,8 +6,8 @@
   }
 %>
 
-<%= form_for :order, url: populate_orders_path, html: schema_properties do |f| %>
-  <%= render 'product_variants', product: product %>
+<%= form_tag populate_orders_path, schema_properties do |f| %>
+  <%= render 'product_variants', product: product, form: f %>
 
   <% if product.price_for_options(current_pricing_options)&.money and !product.price.nil? %>
     <%= render 'product_submit', product: product %>
