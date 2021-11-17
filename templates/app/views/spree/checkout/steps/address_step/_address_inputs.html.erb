@@ -27,21 +27,19 @@
   </div>
 
   <div class="select-input">
-    <% generate_address_id(form, "country_id").tap do |country_id| %>
-      <%= label_tag country_id, "#{I18n.t("spree.country")}:" %>
+    <%= form.label :country_id, "#{I18n.t("spree.country")}:" %>
 
-      <%= form.collection_select(
-        :country_id,
-        available_countries,
-        :id,
-        :name,
-        {},
-        autocomplete: "#{address_type} country-name",
-        class: 'js-trigger-state-change',
-        required: true,
-        "data-state-container": "##{address_type} .js-address-fields"
-      ) %>
-    <% end %>
+    <%= form.collection_select(
+      :country_id,
+      available_countries,
+      :id,
+      :name,
+      {},
+      autocomplete: "#{address_type} country-name",
+      class: 'js-trigger-state-change',
+      required: true,
+      "data-state-container": "##{address_type} .js-address-fields"
+    ) %>
   </div>
 
   <% if Spree::Config[:address_requires_state] %>
