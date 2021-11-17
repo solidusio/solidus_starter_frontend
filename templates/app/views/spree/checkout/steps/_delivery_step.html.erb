@@ -14,8 +14,8 @@
 
     <% if Spree::Config[:shipping_instructions] %>
       <div class="textarea-input">
-        <%= label_tag :order_special_instructions, "#{I18n.t('spree.shipping_instructions')}:" %>
-        <%= text_area_tag 'order[special_instructions]' %>
+        <%= form.label :special_instructions, "#{I18n.t('spree.shipping_instructions')}:" %>
+        <%= form.text_area :special_instructions %>
       </div>
     <% end %>
   </fieldset>
