@@ -1,16 +1,7 @@
 <div class="address-inputs">
   <div class="text-input">
-    <% generate_address_id(form, "name").tap do |name_id| %>
-      <%= label_tag name_id, "#{I18n.t("spree.name")}:" %>
-
-      <%= text_field_tag "#{form.object_name}[name]",
-        address.name,
-        id: name_id,
-        required: true,
-        autofocus: true,
-        autocomplete: "#{address_type} given-name"
-      %>
-    <% end %>
+    <%= form.label :name, "#{I18n.t("spree.name")}:" %>
+    <%= form.text_field :name, required: true, autofocus: true, autocomplete: "#{address_type} given-name" %>
   </div>
 
   <% if Spree::Config[:company] %>
