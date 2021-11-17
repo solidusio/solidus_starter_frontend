@@ -6,5 +6,5 @@
     </div>
   <% end %>
 
-  <%= render "spree/checkout/steps/#{order.state}_step", form: form %>
+  <%= render "spree/checkout/steps/#{order.state}_step", form: form, differentiator: @differentiator %>
 <% end %>
