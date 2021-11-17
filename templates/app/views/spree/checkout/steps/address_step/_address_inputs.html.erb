@@ -47,21 +47,19 @@
 
     <span class="js-address-fields" style="display: none;">
       <div class="select-input">
-        <% generate_address_id(form, "state_id").tap do |state_id| %>
-          <%= label_tag state_id, "#{I18n.t("spree.state")}:" %>
+        <%= form.label :state_id, "#{I18n.t("spree.state")}:" %>
 
-          <%= form.collection_select(
-            :state_id,
-            address.country.states,
-            :id,
-            :name,
-            { include_blank: true },
-            autocomplete: "#{address_type} address-level1",
-            class: 'required',
-            disabled: !have_states,
-            required: false
-          ) %>
-        <% end %>
+        <%= form.collection_select(
+          :state_id,
+          address.country.states,
+          :id,
+          :name,
+          { include_blank: true },
+          autocomplete: "#{address_type} address-level1",
+          class: 'required',
+          disabled: !have_states,
+          required: false
+        ) %>
       </div>
 
       <%= form.text_field(
