@@ -6,27 +6,15 @@
   <%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path, html: { class: "auth-form" } do |f| %>
     <div class="auth-form__input-wrapper">
       <div class="text-input">
-        <%= label_tag :spree_user_email, "#{t("spree.email")}:" %>
-
-        <%= text_field_tag 'spree_user[email]',
-          nil,
-          type: 'email',
-          id: 'spree_user_email',
-          placeholder: 'name@example.com'
-        %>
+        <%= f.label :email, "#{t("spree.email")}:" %>
+        <%= f.email_field :email, placeholder: 'name@example.com' %>
       </div>
     </div>
 
     <div class="auth-form__input-wrapper">
       <div class="text-input">
-        <%= label_tag :spree_user_password, "#{t("spree.password")}:" %>
-
-        <%= text_field_tag 'spree_user[password]',
-          nil,
-          type: :password,
-          id: :spree_user_password,
-          placeholder: "p455w0rd"
-        %>
+        <%= f.label :password, "#{t("spree.password")}:" %>
+        <%= f.password_field :password, placeholder: "p455w0rd" %>
       </div>
     </div>
 
@@ -36,7 +24,7 @@
     </div>
 
     <div class="auth-form__input-wrapper">
-      <%= button_tag(
+      <%= f.button(
         t("spree.login"),
         class: 'button-primary button-primary--full-width',
         name: :commit
