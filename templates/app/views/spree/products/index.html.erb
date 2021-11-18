@@ -1,9 +1,9 @@
 <div class="products">
   <aside>
     <% if "spree/products" == params[:controller] && @taxon %>
-      <%= render partial: 'spree/components/search/filters' %>
+      <%= render 'spree/shared/search/filters', taxon: @taxon %>
     <% else %>
-      <%= render partial: 'spree/components/navigation/taxonomies' %>
+      <%= render 'spree/components/navigation/taxonomies' %>
     <% end %>
   </aside>
   <section class="products_section">
@@ -13,10 +13,10 @@
           <%= t('spree.no_products_found') %>
         </h6>
       <% else %>
-        <%= render partial: 'products', locals: { products: @products, taxon: @taxon } %>
+        <%= render 'products', products: @products, taxon: @taxon %>
       <% end %>
     <% else %>
-      <%= render partial: 'products', locals: { products: @products, taxon: @taxon } %>
+      <%= render 'products', products: @products, taxon: @taxon %>
     <% end %>
   </section>
 </div>
