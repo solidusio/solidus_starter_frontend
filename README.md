@@ -41,9 +41,8 @@ bin/rails generate solidus:install --auto-accept
 
 Please note that `--auto-accept` will add
 [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
-to your application. At the moment, SolidusStarterFrontend requires the
-application to include the gem. In the future, we'll make Solidus Auth Devise
-optional.
+to your application. SolidusStarterFrontend requires the application to include
+the gem.
 
 ### For existing stores
 
