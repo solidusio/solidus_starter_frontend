@@ -1,5 +1,5 @@
 <%
-  variants = @product.variants_and_option_values_for(current_pricing_options)
+  variants = product.variants_and_option_values_for(current_pricing_options)
 %>
 
 <% if variants.any? %>
@@ -32,5 +32,5 @@
     </ul>
   </section>
 <% else %>
-  <%= hidden_field_tag "variant_id", @product.master.id %>
+  <%= hidden_field_tag "variant_id", product.master.id %>
 <% end %>

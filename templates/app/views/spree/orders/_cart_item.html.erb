@@ -25,14 +25,8 @@
 
     <div class="cart-item__quantity">
       <div class="text-input">
-        <%= text_field_tag "order[line_items_attributes][#{item_form.options[:child_index]}][quantity]",
-          line_item.quantity,
-          type: :number,
-          id: "order_line_items_attributes_#{item_form.options[:child_index]}_quantity",
-          min: 0
-        %>
+        <%= item_form.text_field :quantity, type: 'number', min: 0 %>
       </div>
-
     </div>
 
     <div class="cart-item__price">
@@ -40,7 +34,7 @@
     </div>
 
     <div class="cart-item__remove">
-      <%= submit_tag(
+      <%= order_form.submit(
         'Remove',
         class: 'delete',
         id: "delete_#{dom_id(line_item)}",

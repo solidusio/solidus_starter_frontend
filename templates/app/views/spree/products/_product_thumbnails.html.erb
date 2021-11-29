@@ -1,8 +1,8 @@
-<% if @product.gallery.images.size > 1 %>
+<% if product.gallery.images.size > 1 %>
   <ul class="product-thumbnails">
-    <% @product.gallery.images.each do |image| %>
+    <% product.gallery.images.each do |image| %>
 
-      <% next if image.viewable_id != @product.master.id %>
+      <% next if image.viewable_id != product.master.id %>
       <%= content_tag(
         :li,
         class: 'product-thumbnails__all',
@@ -12,9 +12,9 @@
       <% end %>
     <% end %>
 
-    <% if @product.has_variants? %>
-      <% @product.gallery.images.each do |image| %>
-        <% next if image.viewable_id == @product.master.id %>
+    <% if product.has_variants? %>
+      <% product.gallery.images.each do |image| %>
+        <% next if image.viewable_id == product.master.id %>
         <%= content_tag(
           :li,
           class: 'product-thumbnails__variant',

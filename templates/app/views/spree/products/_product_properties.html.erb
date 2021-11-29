@@ -1,4 +1,4 @@
-<% unless @product_properties.empty? %>
+<% unless product_properties.empty? %>
   <section class="product-properties">
     <h2 class="product-properties__title">
       <%= t('spree.properties')%>
@@ -6,7 +6,7 @@
 
     <table class="product-properties__table">
       <tbody>
-        <% @product_properties.each do |product_property| %>
+        <% product_properties.each do |product_property| %>
           <tr>
             <td><%= product_property.property.presentation %></td>
             <td><%= product_property.value %></td>
