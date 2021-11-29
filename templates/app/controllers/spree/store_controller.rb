@@ -7,7 +7,7 @@ module Spree
     include SolidusStarterFrontend::Taxonomies
 
     def unauthorized
-      render 'spree/shared/unauthorized', layout: Spree::Config[:layout], status: 401
+      render 'spree/shared/auth/unauthorized', layout: Spree::Config[:layout], status: 401
     end
 
     def cart_link

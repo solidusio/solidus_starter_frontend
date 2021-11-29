@@ -6,6 +6,6 @@ RSpec.describe 'spree/checkout/_checkout_summary.html.erb', type: :view do
   # Regression spec for https://github.com/spree/spree/issues/4223
   it 'does not use the @order instance variable' do
     order = stub_model(Spree::Order)
-    render partial: 'spree/checkout/checkout_summary', locals: { order: order }
+    render 'spree/checkout/checkout_summary', order: order
   end
 end
