@@ -4,7 +4,7 @@
 
   <div class="checkout__main">
     <section class="checkout__step">
-      <%= render "checkout_step" %>
+      <%= render "checkout_step", order: @order %>
     </section>
 
     <% if @order.state != "confirm" %>
