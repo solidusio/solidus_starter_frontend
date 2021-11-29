@@ -1,11 +1,11 @@
 <% categories = taxonomies.first %>
 
 <nav class="categories">
-  <% cache [I18n.locale, categories, @taxon] do %>
+  <% cache [I18n.locale, categories, taxon] do %>
     <%= render(
-      'spree/components/navigation/taxons_tree',
+      'spree/shared/navigation/taxons_tree',
       root: categories.root,
-      current: @taxon,
+      current: taxon,
       depth: 1,
       base_class: 'categories') if categories %>
   <% end %>

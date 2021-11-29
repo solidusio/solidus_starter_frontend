@@ -30,7 +30,7 @@ ignore:
     file: frontend/app/controllers/spree/home_controller.rb
   - hash: 219962801
     file: frontend/app/controllers/spree/products_controller.rb
-  - hash: 1022972206
+  - hash: 2783056918
     file: frontend/app/controllers/spree/store_controller.rb
   - hash: 3344682350
     file: frontend/app/controllers/spree/taxons_controller.rb

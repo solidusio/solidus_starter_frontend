@@ -12,14 +12,10 @@
 <% if available_locales.many? %>
   <div class="locale-selector">
     <%= form_tag spree.select_locale_path do %>
-      <%= render(
-        "spree/components/forms/inputs/select_input",
-        name: :switch_to_locale,
-        options: available_locales,
-        selected: I18n.locale,
-        label: I18n.t('spree.i18n.language'),
-        classes: ['locale-selector__select-input']
-      ) %>
+      <div class="locale-selector__select-input select-input">
+        <%= label_tag :switch_to_locale, "#{t('spree.i18n.language')}:" %>
+        <%= select_tag(:switch_to_locale, options_for_select(available_locales, I18n.locale)) %>
+      </div>
     <% end %>
   </div>
 <% end %>
