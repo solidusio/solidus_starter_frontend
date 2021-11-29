@@ -41,9 +41,8 @@ bin/rails generate solidus:install --auto-accept
 
 Please note that `--auto-accept` will add
 [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
-to your application. At the moment, SolidusStarterFrontend requires the
-application to include the gem. In the future, we'll make Solidus Auth Devise
-optional.
+to your application. SolidusStarterFrontend requires the application to include
+the gem.
 
 ### For existing stores
 
@@ -65,9 +64,9 @@ gem 'solidus_sample'
 And replace all the references of the string `Spree::Frontend::Config` in your
 project with `SolidusStarterFrontend::Config`.
 
-You'll also need to make sure that [Solidus Auth Devise]
-(https://github.com/solidusio/solidus_auth_devise) is installed in your
-application.
+You'll also need to make sure that
+[Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
+is installed in your application.
 
 ### Frontend installation
 
