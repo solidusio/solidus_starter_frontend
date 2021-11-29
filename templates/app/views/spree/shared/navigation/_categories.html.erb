@@ -2,11 +2,10 @@
 
 <nav class="categories">
   <% cache [I18n.locale, categories, taxon] do %>
-    <%= render(
-      'spree/shared/navigation/taxons_tree',
-      root: categories.root,
-      current: taxon,
-      depth: 1,
-      base_class: 'categories') if categories %>
+    <%= render(TaxonsTreeComponent.new(
+      root_taxon: categories.root,
+      current_taxon: taxon,
+      max_level: 1,
+      base_class: 'categories')) if categories %>
   <% end %>
 </nav>
