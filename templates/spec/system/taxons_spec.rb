@@ -65,6 +65,11 @@ RSpec.describe 'viewing products', type: :system, inaccessible: true do
 
   context "taxon pages" do
     include_context "custom products"
+
+    let(:product_names) do
+      page.all('ul.products-grid li a').map(&:text).flatten.reject(&:blank?).sort
+    end
+
     before do
       visit spree.products_path
     end
@@ -72,66 +77,27 @@ RSpec.describe 'viewing products', type: :system, inaccessible: true do
     it "should be able to visit brand Ruby on Rails" do
       within(:css, '.taxonomies') { click_link "Ruby on Rails" }
 
-      expect(page.all('ul.products-grid li').size).to eq(7)
-      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
-      tmp.delete("")
-      array = ["Ruby on Rails Bag",
-               "Ruby on Rails Baseball Jersey",
-               "Ruby on Rails Jr. Spaghetti",
-               "Ruby on Rails Mug",
-               "Ruby on Rails Ringer T-Shirt",
-               "Ruby on Rails Stein",
-               "Ruby on Rails Tote"]
-      expect(tmp.sort!).to eq(array)
-    end
-
-    it "should be able to visit brand Ruby" do
-      within(:css, '.taxonomies') { click_link "Ruby" }
-
-      expect(page.all('ul.products-grid li').size).to eq(1)
-      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
-      tmp.delete("")
-      expect(tmp.sort!).to eq(["Ruby Baseball Jersey"])
-    end
-
-    it "should be able to visit brand Apache" do
-      within(:css, '.taxonomies') { click_link "Apache" }
-
-      expect(page.all('ul.products-grid li').size).to eq(1)
-      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
-      tmp.delete("")
-      expect(tmp.sort!).to eq(["Apache Baseball Jersey"])
+      expect(product_names).to contain_exactly(
+        "Ruby on Rails Bag",
+        "Ruby on Rails Baseball Jersey",
+        "Ruby on Rails Jr. Spaghetti",
+        "Ruby on Rails Mug",
+        "Ruby on Rails Ringer T-Shirt",
+        "Ruby on Rails Stein",
+        "Ruby on Rails Tote"
+      )
     end
 
     it "should be able to visit category Clothing" do
       click_link "Clothing"
 
-      expect(page.all('ul.products-grid li').size).to eq(5)
-      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
-      tmp.delete("")
-      expect(tmp.sort!).to eq(["Apache Baseball Jersey",
-                               "Ruby Baseball Jersey",
-                               "Ruby on Rails Baseball Jersey",
-                               "Ruby on Rails Jr. Spaghetti",
-                               "Ruby on Rails Ringer T-Shirt"])
-    end
-
-    it "should be able to visit category Mugs" do
-      click_link "Mugs"
-
-      expect(page.all('ul.products-grid li').size).to eq(2)
-      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
-      tmp.delete("")
-      expect(tmp.sort!).to eq(["Ruby on Rails Mug", "Ruby on Rails Stein"])
-    end
-
-    it "should be able to visit category Bags" do
-      click_link "Bags"
-
-      expect(page.all('ul.products-grid li').size).to eq(2)
-      tmp = page.all('ul.products-grid li a').map(&:text).flatten.compact
-      tmp.delete("")
-      expect(tmp.sort!).to eq(["Ruby on Rails Bag", "Ruby on Rails Tote"])
+      expect(product_names).to contain_exactly(
+        "Apache Baseball Jersey",
+        "Ruby Baseball Jersey",
+        "Ruby on Rails Baseball Jersey",
+        "Ruby on Rails Jr. Spaghetti",
+        "Ruby on Rails Ringer T-Shirt"
+      )
     end
   end
 
