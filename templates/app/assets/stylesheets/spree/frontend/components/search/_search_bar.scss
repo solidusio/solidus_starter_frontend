@@ -32,3 +32,23 @@
     padding: 0 2rem;
   }
 }
+
+// Solidus Demo override
+// https://github.com/solidusio/solidus-demo/blob/3c11395ef6bfda0b906f68dbd11ab5ff567da747/app/assets/stylesheets/components/search/_search_bar.scss
+
+.search-bar {
+  border: 0;
+
+  &__input {
+    border-bottom: 1px solid #d8d8dd;
+    padding: 0 1rem;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+
+  &__button {
+    border-left: 0;
+    background: transparent;
+    padding: 0 2rem 0 1rem;
+  }
+}
