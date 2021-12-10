@@ -1,31 +1,4 @@
 .cart-link {
-  > a {
-    font-size: $font-size-small;
-    text-transform: uppercase;
-
-    > span {
-      color: #fff;
-      background: $color-accent;
-      border-radius: 2rem;
-      font-weight: $font-weight-bolder;
-      margin-left: .3rem;
-      padding: .5rem 1.2rem;
-
-      .money-decimal {
-        font-size: $font-size-small - .2;
-      }
-    }
-  }
-}
-
-// https://github.com/solidusio/solidus-demo/blob/3c11395ef6bfda0b906f68dbd11ab5ff567da747/app/assets/stylesheets/components/cart/_cart_link.scss
-
-$color-white:           #FFFFFF;
-$color-blue:            #3C76F0;
-$font-weight-bold:      600;
-$font-size-base:        14px;
-
-.cart-link {
   padding: 5px;
 }
 
@@ -39,6 +12,11 @@ $font-size-base:        14px;
   position: relative;
 
   .link-text {
+    $color-white:           #FFFFFF;
+    $color-blue:            #3C76F0;
+    $font-weight-bold:      600;
+    $font-size-base:        14px;
+
     color: $color-white;
     background: $color-blue;
     font-weight: $font-weight-bold;
