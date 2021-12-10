@@ -126,15 +126,6 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
         end
       end
 
-      it 'when adding a product to the cart', js: true do
-        visit spree.product_path(product)
-        click_button 'Add To Cart'
-        find('.logo').click
-        within('.cart-info') do
-          expect(page).to have_content('19.99 ₽')
-        end
-      end
-
       it "when on the 'address' state of the cart", js: true do
         visit spree.product_path(product)
         click_button 'Add To Cart'
