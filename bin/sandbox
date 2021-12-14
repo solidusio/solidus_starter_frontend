@@ -115,6 +115,8 @@ bundle exec rails generate solidus:auth:install --auto-run-migrations
 
 LOCATION='../template.rb' bundle exec rails app:template
 
+bundle binstub rspec-core
+
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"
 echo "🚀 Using ${railsdb} and Solidus ${branch}"
