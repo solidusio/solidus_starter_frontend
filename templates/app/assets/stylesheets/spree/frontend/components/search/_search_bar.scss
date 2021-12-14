@@ -1,5 +1,5 @@
 .search-bar {
-  border: solid 1px $color-border-medium;
+  border: 0;
   border-radius: 2px;
   display: flex;
   font-size: $input-font-size;
@@ -18,17 +18,19 @@
 
   &__input {
     border: 0;
+    border-bottom: 1px solid #d8d8dd;
+    border-radius: 0;
     flex-grow: 1;
-    padding: 0 2rem;
     outline: none;
+    padding: 0 1rem;
+    -webkit-appearance: none;
   }
 
   &__button {
-    background: $color-background-light;
+    background: transparent;
     border: 0;
-    border-left: 1px solid $color-border-medium;
     color: $color-copy-light;
     font-weight: $buttons-font-weight;
-    padding: 0 2rem;
+    padding: 0 2rem 0 1rem;
   }
 }
