@@ -15,7 +15,7 @@
     </div>
   <% end %>
   <%= render 'product_variants' %>
-  <% if @product.price and !@product.price.nil? %>
+  <% if @product.price %>
     <%= render 'product_submit', product: product %>
   <% else %>
     <div id="product-price">
