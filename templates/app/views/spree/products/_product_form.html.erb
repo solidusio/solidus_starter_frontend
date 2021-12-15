@@ -6,10 +6,16 @@
   }
 %>
 
-<%= form_tag populate_orders_path, schema_properties do |f| %>
-  <%= render 'product_variants', product: product, form: f %>
-
-  <% if product.price_for_options(current_pricing_options)&.money and !product.price.nil? %>
+<%= form_for :order, url: populate_orders_path, html: schema_properties do |f| %>
+  <% if product_variants_with_options.any? %>
+    <div class="variant-container">
+      <% sorted_option_types(@product).each_with_index do |option_type, i| %>
+        <div class="variant-selection"><%= render partial: 'spree/products/product_selection/option_type', :locals => { :option_type => option_type, :index => i } %></div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= render 'product_variants' %>
+  <% if @product.price and !@product.price.nil? %>
     <%= render 'product_submit', product: product %>
   <% else %>
     <div id="product-price">

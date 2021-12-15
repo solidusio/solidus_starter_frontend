@@ -166,7 +166,8 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
 
     it 'displays price of first variant listed', js: true do
       click_link product.name
-      within("[data-js='price']") do
+
+      within("#product-price") do
         expect(page).to have_content variant.price
         expect(page).not_to have_content I18n.t('spree.out_of_stock')
       end
