@@ -85,7 +85,7 @@ function updateView(variant) {
 function selectVariant() {
   this.variant = document.querySelector(`[data-option-value-ids="${JSON.stringify(this.currentSelection())}"]`);
   if (this.variant) {
-    this.variant.checked = true;
+    this.variant.click();
     this.updateView(this.variant);
   } else {
     this.priceTarget.innerText = "Not found, please select all optionTypeSelector";

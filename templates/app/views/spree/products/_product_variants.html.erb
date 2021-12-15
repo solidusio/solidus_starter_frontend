@@ -15,6 +15,8 @@
             'variant_id',
             variant.id,
             index == 0,
+            "data-js" => 'variant-radio',
+            "data-js_price" => variant.price_for_options(current_pricing_options)&.money.to_s,
             "data-option-value-ids" => sorted_option_values(variant).to_json,
             "data-target" => "variantOptions",
             "data-price" => variant.price_for(current_pricing_options).to_html
