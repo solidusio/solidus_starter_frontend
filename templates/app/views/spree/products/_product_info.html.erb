@@ -1,24 +1,5 @@
 <header class="product-info">
-  <h1 class="product-info__title" itemprop="name">
-    <%= product.name %>
-  </h1>
-
-  <% if @product.price_for_options(current_pricing_options)&.money and !@product.price.nil? %>
-    <h2 class="product-price" id="product-price">
-      <%= content_tag(
-        :span,
-        display_price(@product),
-        itemprop: 'price',
-        content: @product.price_for_options(current_pricing_options)&.money.to_d,
-        data: { js: 'price' }
-      ) %>
-
-      <span
-        itemprop="priceCurrency"
-        content="<%= current_pricing_options.currency %>"
-      ></span>
-    </h2>
-  <% end %>
+  <%= render 'product_header', product: product %>
 
   <p class="product-info__description" itemprop="description">
     <%= product_description(product) rescue t('spree.product_has_no_description') %>
