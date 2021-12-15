@@ -1,7 +1,8 @@
-<header class="product-info">
-  <%= render 'product_header', product: product %>
-
-  <p class="product-info__description" itemprop="description">
-    <%= product_description(product) rescue t('spree.product_has_no_description') %>
+<div class="product-page__description">
+  <h2 class="product-description__title">
+      <%= t('description') %>
+  </h2>
+  <p class="product-description" itemprop="description">
+    <%= product_description(@product) rescue t('spree.product_has_no_description') %>
   </p>
-</header>
+</div>

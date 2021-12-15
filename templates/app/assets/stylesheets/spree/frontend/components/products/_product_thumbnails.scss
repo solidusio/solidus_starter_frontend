@@ -5,3 +5,29 @@
   overflow: auto;
   padding: 0;
 }
+
+.product-thumbnails {
+  overflow: initial;
+
+  li {
+    padding: 1rem .8rem;
+    width: 60px;
+    height: auto;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (min-width:900px) {
+    flex-direction: column;
+    overflow: unset;
+    align-items: center;
+    padding-right: 2rem;
+
+    li {
+      padding: 0 0 1rem;
+    }
+  }
+}
