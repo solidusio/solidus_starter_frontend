@@ -1,5 +1,5 @@
 <%
-  variants = @product.variants_and_option_values_for(current_pricing_options)
+  variants = product.variants_and_option_values_for(current_pricing_options)
 %>
 
 <% if variants.any? %>
@@ -24,9 +24,11 @@
 
           <%= label_tag "variant_id_#{ variant.id }" do %>
             <%= variant_options variant %>
+
             <% if variant_price variant %>
               <span class="price diff"><%= variant_price variant %></span>
             <% end %>
+
             <% unless variant.can_supply? %>
               <span class="out-of-stock"><%= t('spree.out_of_stock') %></span>
             <% end %>
@@ -36,5 +38,5 @@
     </ul>
   </section>
 <% else %>
-  <%= hidden_field_tag "variant_id", @product.master.id %>
+  <%= hidden_field_tag "variant_id", product.master.id %>
 <% end %>
