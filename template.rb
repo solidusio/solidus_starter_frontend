@@ -5,6 +5,7 @@ def install
   update_asset_files
   require_solidus_starter_frontend_config
   install_rspec
+  print_security_update_message
 end
 
 # Copied from: https://github.com/mattbrictson/rails-template
@@ -88,6 +89,19 @@ end
 
 def install_rspec
   generate 'rspec:install'
+end
+
+def print_security_update_message
+  message = <<~TEXT
+    RECOMMENDED: To receive security announcements concerning Solidus Starter
+    Frontend, please subscribe to the Solidus Security mailing list
+    (https://groups.google.com/forum/#!forum/solidus-security). The mailing
+    list is very low traffic, and it receives the public notifications the
+    moment the vulnerability is published. For more information, please check
+    out https://solidus.io/security.
+  TEXT
+
+  print_wrapped set_color(message.gsub("\n", ' '), :yellow)
 end
 
 install

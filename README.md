@@ -92,6 +92,15 @@ Finally, please note that since the starter frontend is a Rails application
 template, it doesn't have the capability to automatically update your
 storefront code whenever the template is updated.
 
+## Security updates
+
+To receive security announcements concerning Solidus Starter Frontend, please
+subscribe to the
+[Solidus Security mailing list](https://groups.google.com/forum/#!forum/solidus-security).
+The mailing list is very low traffic, and it receives the public notifications
+the moment the vulnerability is published. For more information, please check out
+https://solidus.io/security.
+
 ## Development
 
 For information about contributing to this project please refer to this
