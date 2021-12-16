@@ -24,3 +24,19 @@
     }
   }
 }
+
+.cart-secondary-actions {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  order: 2;
+
+  @media (min-width: 900px) {
+    margin-top: 0;
+    margin-bottom: 0;
+    order: initial;
+  }
+
+  &__continue::before {
+    content: '';
+  }
+}

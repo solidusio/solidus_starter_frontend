@@ -19,3 +19,44 @@
     padding-left: 2rem;
   }
 }
+
+.cart-footer {
+  flex-direction: column;
+  align-items: flex-end;
+
+  @media (min-width: 900px) {
+    margin-top: 105px;
+  }
+
+  & > * {
+    flex-grow: 1;
+  }
+
+  &__total {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > strong {
+      padding-left: 1rem;
+    }
+
+    @media (min-width: 900px) {
+      min-width: 286px;
+    }
+  }
+
+  &__primary-action {
+    padding: 3rem 0 0 0;
+    min-width: 100%;
+
+    @media (min-width: 900px) {
+      min-width: 286px;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+}
