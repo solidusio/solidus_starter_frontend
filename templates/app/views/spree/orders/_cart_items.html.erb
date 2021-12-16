@@ -10,6 +10,13 @@
 %>
 
 <section class="cart-items">
+  <div class="cart-items-header">
+    <h2 class="cart-items-header__title">Item</h2>
+    <h2 class="cart-items-header__title">Price</h2>
+    <h2 class="cart-items-header__title">Quantity</h2>
+    <h2 class="cart-items-header__title">Subtotal</h2>
+  </div>
+
   <%= render(
     partial: 'cart_item',
     collection: order.line_items,
