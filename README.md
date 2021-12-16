@@ -88,9 +88,9 @@ In addition, please note that the command will add Solidus Auth Devise
 frontend components to your app. At the moment, you will need to manually
 remove the gem and its frontend components if you don't need them.
 
-Finally, please note that you won't be able to auto-update the storefront code
-with the next versions released since this project's gem will not be present in
-your Gemfile.
+Finally, please note that since the starter frontend is a Rails application
+template, it doesn't have the capability to automatically update your
+storefront code whenever the template is updated.
 
 ## Development
 
