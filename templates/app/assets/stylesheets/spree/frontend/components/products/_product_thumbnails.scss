@@ -2,12 +2,8 @@
   display: flex;
   list-style-type: none;
   margin: 0;
-  overflow: auto;
-  padding: 0;
-}
-
-.product-thumbnails {
   overflow: initial;
+  padding: 0;
 
   li {
     padding: 1rem .8rem;
