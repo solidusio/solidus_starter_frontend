@@ -3,24 +3,18 @@
   margin: 0 auto;
   max-width: 86rem;
 
-  &__coupon-code {
-    display: flex;
-    justify-content: flex-end;
-
-    @include desktop {
-      display: block;
-      margin-top: -7.5rem;
-    }
-  }
-}
-
-.cart-page {
   @media (min-width: 900px) {
     padding-bottom: 18rem;
   }
 
   &__coupon-code {
+    display: flex;
     justify-content: center;
+
+    @include desktop {
+      display: block;
+      margin-top: -7.5rem;
+    }
 
     @media (min-width: 900px) {
       margin-top: 0;

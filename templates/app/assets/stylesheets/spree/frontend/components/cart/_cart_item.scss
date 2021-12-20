@@ -1,6 +1,10 @@
 .cart-item {
+  align-items: center;
   border-bottom: solid 1px $color-border-light;
+  display: grid;
   font-size: $font-size-small;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 2rem;
   padding: 2rem 0;
 
   @include desktop {
@@ -50,6 +54,10 @@
     }
   }
 
+  @media (min-width: 600px) {
+    display: flex;
+  }
+
   &:first-child {
     border-top: solid 1px $color-border-light;
   }
@@ -61,9 +69,15 @@
   &__quantity,
   &__price,
   &__remove {
-    margin: 10px 0 10px auto;
-    text-align: right;
-    width: 10rem;
+    margin: 10px 0 10px 0;
+    text-align: left;
+    width: auto;
+
+    @media (min-width: 900px) {
+      width: 8rem;
+      text-align: right;
+      margin: 10px 0 10px auto;
+    }
   }
 
   &__remove {
@@ -74,6 +88,27 @@
       padding: 0;
       text-decoration: underline;
     }
+
+    .delete {
+      width: 26px;
+      height: 26px;
+      color: transparent;
+      background: asset_data_url("icon-delete.svg") no-repeat;
+      background-size: 100% auto;
+      background-position: center;
+    }
+  }
+
+  &__price-single,
+  &__price {
+    @media (min-width: 900px) {
+      padding: 0 4rem 0;
+    }
+  }
+
+  &__image img {
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -115,52 +150,4 @@
       }
     }
   }
-}
-
-.cart-item {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 2rem;
-  align-items: center;
-
-  @media (min-width: 600px) {
-    display: flex;
-  }
-}
-
-.cart-item__quantity,
-.cart-item__price,
-.cart-item__remove {
-  text-align: left;
-  width: auto;
-  margin: 10px 0 10px 0;
-
-  @media (min-width: 900px) {
-    width: 8rem;
-    text-align: right;
-    margin: 10px 0 10px auto;
-  }
-}
-
-.cart-item__price-single,
-.cart-item__price {
-  @media (min-width: 900px) {
-    padding: 0 4rem 0;
-  }
-}
-
-.cart-item__remove {
-  .delete {
-    width: 26px;
-    height: 26px;
-    color: transparent;
-    background: asset_data_url("icon-delete.svg") no-repeat;
-    background-size: 100% auto;
-    background-position: center;
-  }
-}
-
-.cart-item__image img {
-  max-width: 100%;
-  height: auto;
 }
