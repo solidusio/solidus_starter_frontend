@@ -3,11 +3,11 @@
     <%= option_type.presentation %>:
 
     <span class="selected-value" id='<%= "selected-#{option_type.name}" %>' >
-      <%= option_values(option_type).first&.presentation %>
+      <%= option_values(product: product, option_type: option_type).first&.presentation %>
     </span>
 
     <div class="selection-container">
-      <% option_values(option_type).each_with_index do |option_value, i| %>
+      <% option_values(product: product, option_type: option_type).each_with_index do |option_value, i| %>
         <label class="selection-item">
           <%= tag(
             :input,
