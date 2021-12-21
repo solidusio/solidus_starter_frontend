@@ -51,7 +51,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     it 'should return the correct title when displaying a single product' do
       click_link jersey.name
       expect(page).to have_title('Ruby on Rails Baseball Jersey - ' + store_name)
-      within('h1.product-info__title') do
+      within('h1.product-header__title') do
         expect(page).to have_content('Ruby on Rails Baseball Jersey')
       end
     end
@@ -166,7 +166,8 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
 
     it 'displays price of first variant listed', js: true do
       click_link product.name
-      within("[data-js='price']") do
+
+      within("#product-price") do
         expect(page).to have_content variant.price
         expect(page).not_to have_content I18n.t('spree.out_of_stock')
       end
@@ -253,7 +254,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     product = Spree::Product.find_by(name: 'Ruby on Rails Baseball Jersey')
     click_link product.name
 
-    within('h1.product-info__title') do
+    within('h1.product-header__title') do
       expect(page).to have_content('Ruby on Rails Baseball Jersey')
     end
   end
