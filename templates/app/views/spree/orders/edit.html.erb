@@ -12,10 +12,12 @@
       <%= render 'cart_footer', order_form: order_form %>
     <% end %>
 
-    <div class="cart-page__coupon-code">
-      <%= render 'coupon_code' %>
-    </div>
+    <div class="cart-page__other-actions">
+      <%= render 'cart_secondary_actions' %>
 
-    <%= render 'cart_secondary_actions' %>
+      <div class="cart-page__coupon-code">
+        <%= render 'coupon_code' %>
+      </div>
+    </div>
   <% end %>
 </article>

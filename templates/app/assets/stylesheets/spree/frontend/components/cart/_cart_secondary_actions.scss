@@ -1,11 +1,19 @@
 .cart-secondary-actions {
   display: flex;
   font-size: $font-size-small;
-  margin-top: 10rem;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+  order: 2;
+
+  @media (min-width: 900px) {
+    margin-top: 0;
+    margin-bottom: 0;
+    order: initial;
+  }
 
   &__continue {
     &::before {
-      content: "←";
+      content: '';
       font-size: $font-size-small - .2;
       margin-right: .3rem;
     }
