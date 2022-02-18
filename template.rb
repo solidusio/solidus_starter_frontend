@@ -76,6 +76,15 @@ def copy_solidus_starter_frontend_files
   prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
 
   directory 'spec'
+  directory 'vendor', force: forcefully_replace_any_solidus_frontend_assets?
+end
+
+# In CI, the Rails environment is test. In that Rails environment,
+# `Solidus::InstallGenerator#setup_assets` adds `solidus_frontend` assets to
+# vendor. We'd want to forcefully replace those `solidus_frontend` assets with
+# SolidusStarterFrontend assets in CI.
+def forcefully_replace_any_solidus_frontend_assets?
+  Rails.env.test?
 end
 
 def update_asset_files
