@@ -1,5 +1,5 @@
 # Solidus Starter Frontend
-[![Gem Version](https://badge.fury.io/rb/solidus_starter_frontend.svg)](https://badge.fury.io/rb/solidus_starter_frontend) [![CircleCI](https://circleci.com/gh/nebulab/solidus_starter_frontend.svg?style=shield)](https://circleci.com/gh/nebulab/solidus_starter_frontend)
+[![CircleCI](https://circleci.com/gh/solidusio/solidus_starter_frontend.svg?style=shield)](https://circleci.com/gh/solidusio/solidus_starter_frontend)
 
 `solidus_starter_frontend` is a new starter storefront for [Solidus][solidus].
 
