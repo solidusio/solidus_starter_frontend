@@ -23,11 +23,14 @@ RSpec.describe Spree::BaseController, type: :controller do
       end
 
       context "when http_referrer is present" do
-        before { request.env['HTTP_REFERER'] = '/redirect' }
+        let(:request_referer_path) { '/redirect' }
+        let(:request_referer) { "#{request.protocol}#{request.host}#{request_referer_path}" }
+
+        before { request.env['HTTP_REFERER'] = request_referer }
 
         it "redirects back" do
           get :index
-          expect(response).to redirect_to('/redirect')
+          expect(response).to redirect_to(request_referer_path)
         end
       end
     end
@@ -41,11 +44,14 @@ RSpec.describe Spree::BaseController, type: :controller do
       end
 
       context "when http_referrer is present" do
-        before { request.env['HTTP_REFERER'] = '/redirect' }
+        let(:request_referer_path) { '/redirect' }
+        let(:request_referer) { "#{request.protocol}#{request.host}#{request_referer_path}" }
+
+        before { request.env['HTTP_REFERER'] = request_referer }
 
         it "redirects back" do
           get :index
-          expect(response).to redirect_to('/redirect')
+          expect(response).to redirect_to(request_referer_path)
         end
       end
     end
