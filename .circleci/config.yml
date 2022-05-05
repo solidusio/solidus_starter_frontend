@@ -60,14 +60,14 @@ jobs:
     steps:
       - checkout
       - test-branch:
-          branch: master
+          branch: v3.1.5
       - solidusio_extensions/store-test-results
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
     steps:
       - checkout
       - test-branch:
-          branch: master
+          branch: v3.1.5
       - solidusio_extensions/store-test-results
   solidus-compare:
     docker:
