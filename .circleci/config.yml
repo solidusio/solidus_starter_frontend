@@ -47,7 +47,7 @@ commands:
           command: <<parameters.command>>
           environment:
             SOLIDUS_BRANCH: <<parameters.branch>>
-            TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>/results.xml
+            TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-7-solidus-<<parameters.branch>>/results.xml
           when: always
       - run:
           command: rm -rf sandbox
