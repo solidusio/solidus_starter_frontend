@@ -10,6 +10,15 @@ orbs:
   solidusio_extensions: solidusio/extensions@volatile
 
 commands:
+  setup:
+    steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - checkout
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
+
   test-branch:
     description:
       Runs tests for a specific Solidus branch.
@@ -65,12 +74,7 @@ jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - checkout
-      - run:
-          name: Install libvips
-          command: sudo apt-get install -y libvips
+      - setup
       - test-branch:
           branch: v3.1.5
           rails_version: "~> 6.1"
@@ -78,12 +82,7 @@ jobs:
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
     steps:
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - checkout
-      - run:
-          name: Install libvips
-          command: sudo apt-get install -y libvips
+      - setup
       - test-branch:
           branch: v3.1.5
           rails_version: "~> 6.1"
@@ -91,12 +90,7 @@ jobs:
   run-specs-with-postgres-and-solidus-master:
     executor: solidusio_extensions/postgres
     steps:
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - checkout
-      - run:
-          name: Install libvips
-          command: sudo apt-get install -y libvips
+      - setup
       - test-branch:
           branch: master
           rails_version: "~> 7.0"
@@ -104,12 +98,7 @@ jobs:
   run-specs-with-mysql-and-solidus-master:
     executor: solidusio_extensions/mysql
     steps:
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - checkout
-      - run:
-          name: Install libvips
-          command: sudo apt-get install -y libvips
+      - setup
       - test-branch:
           branch: master
           rails_version: "~> 7.0"
