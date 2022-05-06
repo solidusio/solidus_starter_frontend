@@ -68,6 +68,9 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - checkout
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
       - test-branch:
           branch: v3.1.5
           rails_version: "~> 6.1"
@@ -78,6 +81,9 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - checkout
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
       - test-branch:
           branch: v3.1.5
           rails_version: "~> 6.1"
@@ -88,6 +94,9 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - checkout
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
       - test-branch:
           branch: master
           rails_version: "~> 7.0"
@@ -98,6 +107,9 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - checkout
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
       - test-branch:
           branch: master
           rails_version: "~> 7.0"
