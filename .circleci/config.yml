@@ -140,4 +140,6 @@ workflows:
     jobs:
       - run-specs-with-postgres
       - run-specs-with-mysql
+      - run-specs-with-postgres-and-solidus-master
+      - run-specs-with-mysql-and-solidus-master
       - solidus-compare
