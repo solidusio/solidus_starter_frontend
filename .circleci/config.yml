@@ -1,6 +1,8 @@
 version: 2.1
 
 orbs:
+  browser-tools: circleci/browser-tools@1.3.0
+
   # Always take the latest version of the orb, this allows us to
   # run specs against Solidus supported versions only without the need
   # to change this configuration every time a Solidus version is released
@@ -47,7 +49,7 @@ commands:
           command: <<parameters.command>>
           environment:
             SOLIDUS_BRANCH: <<parameters.branch>>
-            TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-5-6-solidus-<<parameters.branch>>/results.xml
+            TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-7-solidus-<<parameters.branch>>/results.xml
           when: always
       - run:
           command: rm -rf sandbox
@@ -58,16 +60,20 @@ jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - checkout
       - test-branch:
-          branch: master
+          branch: v3.1.5
       - solidusio_extensions/store-test-results
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
     steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - checkout
       - test-branch:
-          branch: master
+          branch: v3.1.5
       - solidusio_extensions/store-test-results
   solidus-compare:
     docker:
