@@ -87,7 +87,7 @@ jobs:
           branch: v3.1.5
           rails_version: "~> 6.1"
       - solidusio_extensions/store-test-results
-  run-specs-with-postgres-and-solidus-master:
+  run-specs-with-postgres-and-solidus-latest:
     executor: solidusio_extensions/postgres
     steps:
       - setup
@@ -95,7 +95,7 @@ jobs:
           branch: master
           rails_version: "~> 7.0"
       - solidusio_extensions/store-test-results
-  run-specs-with-mysql-and-solidus-master:
+  run-specs-with-mysql-and-solidus-latest:
     executor: solidusio_extensions/mysql
     steps:
       - setup
@@ -126,8 +126,8 @@ workflows:
     jobs:
       - run-specs-with-postgres
       - run-specs-with-mysql
-      - run-specs-with-postgres-and-solidus-master
-      - run-specs-with-mysql-and-solidus-master
+      - run-specs-with-postgres-and-solidus-latest
+      - run-specs-with-mysql-and-solidus-latest
       - solidus-compare
   "Weekly run specs against master":
     triggers:
@@ -140,6 +140,6 @@ workflows:
     jobs:
       - run-specs-with-postgres
       - run-specs-with-mysql
-      - run-specs-with-postgres-and-solidus-master
-      - run-specs-with-mysql-and-solidus-master
+      - run-specs-with-postgres-and-solidus-latest
+      - run-specs-with-mysql-and-solidus-latest
       - solidus-compare
