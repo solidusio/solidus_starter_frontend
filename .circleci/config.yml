@@ -10,6 +10,15 @@ orbs:
   solidusio_extensions: solidusio/extensions@volatile
 
 commands:
+  setup:
+    steps:
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - checkout
+      - run:
+          name: Install libvips
+          command: sudo apt-get install -y libvips
+
   test-branch:
     description:
       Runs tests for a specific Solidus branch.
@@ -26,6 +35,8 @@ commands:
       command_verb:
         type: string
         default: Runs tests
+      rails_version:
+        type: string
 
     steps:
       - run:
@@ -35,12 +46,14 @@ commands:
             bundle install
             bundle clean
           environment:
+            RAILS_VERSION: <<parameters.rails_version>>
             SOLIDUS_BRANCH: <<parameters.branch>>
           when: always
       - run:
           name: 'Solidus <<parameters.branch>>:  Install sandbox with generated starter frontend'
           command: bin/sandbox --seed=false --sample=false
           environment:
+            RAILS_VERSION: <<parameters.rails_version>>
             SANDBOX_BUNDLE_PATH: ../vendor/bundle/<<parameters.branch>>
             SOLIDUS_BRANCH: <<parameters.branch>>
           when: always
@@ -48,6 +61,7 @@ commands:
           name: '<<parameters.command_verb>> on Solidus <<parameters.branch>>'
           command: <<parameters.command>>
           environment:
+            RAILS_VERSION: <<parameters.rails_version>>
             SOLIDUS_BRANCH: <<parameters.branch>>
             TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-7-solidus-<<parameters.branch>>/results.xml
           when: always
@@ -60,21 +74,36 @@ jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - checkout
+      - setup
       - test-branch:
           branch: v3.1.5
+          rails_version: "~> 6.1"
       - solidusio_extensions/store-test-results
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
     steps:
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - checkout
+      - setup
       - test-branch:
           branch: v3.1.5
+          rails_version: "~> 6.1"
       - solidusio_extensions/store-test-results
+  run-specs-with-postgres-and-solidus-latest:
+    executor: solidusio_extensions/postgres
+    steps:
+      - setup
+      - test-branch:
+          branch: master
+          rails_version: "~> 7.0"
+      - solidusio_extensions/store-test-results
+  run-specs-with-mysql-and-solidus-latest:
+    executor: solidusio_extensions/mysql
+    steps:
+      - setup
+      - test-branch:
+          branch: master
+          rails_version: "~> 7.0"
+      - solidusio_extensions/store-test-results
+
   solidus-compare:
     docker:
       - image: circleci/ruby:latest
@@ -97,6 +126,8 @@ workflows:
     jobs:
       - run-specs-with-postgres
       - run-specs-with-mysql
+      - run-specs-with-postgres-and-solidus-latest
+      - run-specs-with-mysql-and-solidus-latest
       - solidus-compare
   "Weekly run specs against master":
     triggers:
@@ -109,4 +140,6 @@ workflows:
     jobs:
       - run-specs-with-postgres
       - run-specs-with-mysql
+      - run-specs-with-postgres-and-solidus-latest
+      - run-specs-with-mysql-and-solidus-latest
       - solidus-compare

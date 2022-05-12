@@ -19,3 +19,4 @@ spec/examples.txt
 .ruby-version
 .ruby-gemset
 .env
+Gemfile.lock
