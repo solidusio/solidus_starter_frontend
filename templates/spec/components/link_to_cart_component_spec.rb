@@ -7,22 +7,14 @@ RSpec.describe LinkToCartComponent, type: :component do
     described_class.new(text)
   end
 
-  let(:rendered_link_to_cart_component) do
-    render_inline(link_to_cart_component)
+  let(:current_order) { nil }
 
-    rendered_component
-  end
-
-  let(:rendered_link_to_cart_component_node) do
-    Capybara.string(rendered_link_to_cart_component)
-  end
-
-  describe '#call' do
-    let(:current_order) { nil }
-
+  context 'when rendered' do
     before do
       expect(link_to_cart_component)
         .to receive(:current_order).at_least(:once).and_return(current_order)
+
+      render_inline(link_to_cart_component)
     end
 
     describe 'concerning current_order' do
@@ -30,7 +22,7 @@ RSpec.describe LinkToCartComponent, type: :component do
         let(:current_order) { nil }
 
         it 'renders an empty cart' do
-          link = rendered_link_to_cart_component_node.find('a.cart-info')
+          link = page.find('a.cart-info')
 
           aggregate_failures do
             expect(link).to_not be_nil
@@ -47,7 +39,7 @@ RSpec.describe LinkToCartComponent, type: :component do
           let(:line_items_count) { 0 }
 
           it 'renders an empty cart' do
-            expect(rendered_link_to_cart_component_node.find('a.cart-info').text).to be_empty
+            expect(page.find('a.cart-info').text).to be_empty
           end
         end
 
@@ -55,7 +47,7 @@ RSpec.describe LinkToCartComponent, type: :component do
           let(:line_items_count) { 1 }
 
           it 'renders a cart with its item count' do
-            expect(rendered_link_to_cart_component_node.find('a.cart-info.full .link-text'))
+            expect(page.find('a.cart-info.full .link-text'))
               .to have_content(line_items_count)
           end
         end
