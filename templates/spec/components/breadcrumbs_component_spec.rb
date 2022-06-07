@@ -8,27 +8,23 @@ require 'spree/taxon'
 RSpec.describe BreadcrumbsComponent, type: :component do
   let(:request_url) { '/' }
 
-  subject(:component) do
-    render_inline(described_class.new(taxon))
-
-    rendered_component
-  end
-
   let(:breadcrumb_items) do
-    Capybara.string(component).all('a[itemprop=item]').map(&:text)
+    page.all('a[itemprop=item]').map(&:text)
   end
 
-  before  do
-    allow(self.request).to receive(:path).and_return(request_url)
-  end
+  context 'when rendered' do
+    before do
+      allow(self.request).to receive(:path).and_return(request_url)
 
-  describe '#call' do
-    let(:taxon) { nil }
+      render_inline(described_class.new(taxon))
+    end
 
     context 'when the taxon is nil' do
       let(:taxon) { nil }
 
-      it { is_expected.to be_blank }
+      it 'does not render any breadcrumb items' do
+        expect(breadcrumb_items.size).to eq(0)
+      end
     end
 
     context 'when the taxon is present' do
@@ -39,7 +35,9 @@ RSpec.describe BreadcrumbsComponent, type: :component do
       context 'when the current page is the root page' do
         let(:request_url) { '/' }
 
-        it { is_expected.to be_blank }
+        it 'does not render any breadcrumb items' do
+          expect(breadcrumb_items.size).to eq(0)
+        end
       end
 
       context 'when the current page is not the root page' do
