@@ -20,7 +20,7 @@ RSpec.describe 'checkout with unshippable items', type: :system, inaccessible: t
     order.recalculate
 
     allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-    allow_any_instance_of(Spree::CheckoutController).to receive_messages(try_spree_current_user: user)
+    allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
     allow_any_instance_of(Spree::CheckoutController).to receive_messages(skip_state_validation?: true)
     allow_any_instance_of(Spree::CheckoutController).to receive_messages(ensure_sufficient_stock_lines: true)
   end

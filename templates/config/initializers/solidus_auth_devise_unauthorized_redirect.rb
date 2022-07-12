@@ -1,6 +1,6 @@
 Rails.application.config.to_prepare do
   Spree::BaseController.unauthorized_redirect = -> do
-    if try_spree_current_user
+    if spree_current_user
       flash[:error] = I18n.t('spree.authorization_failure')
 
       if Spree::Auth::Engine.redirect_back_on_unauthorized?
