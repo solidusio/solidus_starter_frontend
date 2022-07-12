@@ -364,7 +364,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
+      expect(page).to have_current_path(spree.order_path(order))
       expect(page).to have_content("Ending in #{credit_card.last_digits}")
     end
 
@@ -376,7 +376,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
+      expect(page).to have_current_path(spree.order_path(order))
       expect(page).to have_content('Ending in 1111')
     end
   end
