@@ -43,12 +43,12 @@
       name: :commit
     ) %>
 
-    <% if try_spree_current_user %>
+    <% if spree_current_user %>
       <%= label_tag 'save-user-address', class: 'checkbox-input' do %>
         <%= check_box_tag(
           :save_user_address,
           1,
-          try_spree_current_user.respond_to?(:persist_order_address),
+          spree_current_user.respond_to?(:persist_order_address),
           id: 'save-user-address'
         ) %>
         <%= I18n.t("spree.save_my_address") %>
