@@ -73,7 +73,7 @@ is installed in your application.
 You can copy the starter frontend files to your project:
 
 ```shell
-$ LOCATION="https://raw.githubusercontent.com/solidusio/solidus_starter_frontend/master/template.rb" bin/rails app:template
+$ LOCATION="https://raw.githubusercontent.com/solidusio/solidus_starter_frontend/main/template.rb" bin/rails app:template
 ```
 
 These commands will copy the frontend views, assets, routes, controllers, and

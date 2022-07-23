@@ -76,7 +76,7 @@ jobs:
     steps:
       - setup
       - test-branch:
-          branch: v3.1.5
+          branch: v3.1
           rails_version: "~> 6.1"
       - solidusio_extensions/store-test-results
   run-specs-with-mysql:
@@ -84,7 +84,7 @@ jobs:
     steps:
       - setup
       - test-branch:
-          branch: v3.1.5
+          branch: v3.1
           rails_version: "~> 6.1"
       - solidusio_extensions/store-test-results
   run-specs-with-postgres-and-solidus-latest:
