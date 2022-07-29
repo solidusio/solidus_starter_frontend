@@ -51,7 +51,7 @@ def add_solidus_starter_frontend_dependencies
   gem 'canonical-rails'
   gem 'solidus_support'
   gem 'truncate_html'
-  gem 'view_component', require: 'view_component/engine'
+  gem 'view_component', '~> 2.46'
 end
 
 def add_spec_gems
