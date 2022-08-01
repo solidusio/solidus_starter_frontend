@@ -148,12 +148,6 @@ module Spree
       end
     end
 
-    # Should be overriden if you have areas of your checkout that don't match
-    # up to a step within checkout_steps, such as a registration step
-    def skip_state_validation?
-      false
-    end
-
     def load_order
       @order = current_order
       redirect_to(spree.cart_path) && return unless @order
