@@ -11,7 +11,9 @@ Frontend) will not work with this project because they rely on defacing some
 views items that don't exist here.
 
 ## Objectives
+
 We aim to deliver:
+
 - a minimal, semantic and accessible HTML skeleton
 - a reusable component based architecture
 - simple SASS styling strictly based on BEM
@@ -23,11 +25,6 @@ All of this while keeping and improving on the functionality of the current
 
 ## Installation
 
-By default, the `solidus` gem also includes the standard frontend via the
-`solidus_frontend` gem. To make this template work, you need to exclude
-`solidus_frontend` gem and manually include the rest of the Solidus
-components.
-
 ### For a new store
 
 Just run:
@@ -35,9 +32,12 @@ Just run:
 ```bash
 rails new store --skip-javascript
 cd store
-bundle add solidus_core solidus_backend solidus_api solidus_sample
+bundle add solidus
 bin/rails generate solidus:install --auto-accept
 ```
+
+That will create a new Solidus application with SolidusStarterFrontend as its
+storefront.
 
 Please note that `--auto-accept` will add
 [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
@@ -68,29 +68,29 @@ You'll also need to make sure that
 [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
 is installed in your application.
 
-### Frontend installation
-
-You can copy the starter frontend files to your project:
+You can then copy the starter frontend files to your project:
 
 ```shell
 $ LOCATION="https://raw.githubusercontent.com/solidusio/solidus_starter_frontend/main/template.rb" bin/rails app:template
 ```
 
-These commands will copy the frontend views, assets, routes, controllers, and
-specs to your project. You can change easily anything that we created; this
-gives you a lot of freedom of customization.
+## Considerations
+
+The installation of Solidus Starter Frontend will copy the frontend views,
+assets, routes, controllers, and specs to your project. You can change easily
+anything that we created; this gives you a lot of freedom of customization.
+
+Note that since the Solidus Starter Frontend is a Rails
+application template, it doesn't have the capability to automatically update
+your storefront code whenever the template is updated.
 
 It is not possible right now to generate a new Rails app with the template, i.e.
 run `rails new --template=URL` since the template expects Solidus to be
 installed on the app.
 
-In addition, please note that the command will add Solidus Auth Devise
-frontend components to your app. At the moment, you will need to manually
-remove the gem and its frontend components if you don't need them.
-
-Finally, please note that since the starter frontend is a Rails application
-template, it doesn't have the capability to automatically update your
-storefront code whenever the template is updated.
+In addition, please note that it will add Solidus Auth Devise frontend
+components to your app. At the moment, you will need to manually remove the gem
+and its frontend components if you don't need them.
 
 ## Security updates
 
