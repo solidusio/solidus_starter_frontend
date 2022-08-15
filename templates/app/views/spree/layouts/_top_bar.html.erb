@@ -3,6 +3,12 @@
   <div class="top-bar__search">
     <%= render 'spree/shared/search/search_bar', taxons: taxons, taxon: taxon %>
   </div>
-  <%= render 'spree/shared/auth/auth_link' %>
+
+  <% if spree_current_user %>
+    <%= link_to I18n.t('spree.my_account'), spree.account_path, class: 'auth-link' %>
+  <% else %>
+    <%= link_to I18n.t('spree.login'), spree.login_path, class: 'auth-link' %>
+  <% end %>
+
   <%= render 'spree/shared/cart/cart_link' %>
 </div>
