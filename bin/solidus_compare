@@ -92,10 +92,10 @@ def load_config
   @config ||= {}
   @config['ignore'] ||= []
   @config['project_paths'] ||= []
-  @config['source_repo'] ||= 'https://github.com/solidusio/solidus.git'
-  @config['source_name'] ||= 'solidus'
+  @config['source_repo'] ||= 'https://github.com/solidusio/solidus_frontend.git'
+  @config['source_name'] ||= 'solidus_frontend'
   @config['source_branch'] ||= 'master'
-  @config['source_base_path'] ||= 'frontend/'
+  @config['source_base_path'] ||= './'
   @config['local_base_path'] ||= 'templates/'
 end
 
