@@ -101,7 +101,9 @@ end
 
 def solidus_compare
   report = @config['project_paths'].map do |path|
-    remote_source = "remotes/#{@config['source_name']}/#{@config['source_branch']}"
+    remote_source =
+      @config['source_commit'] || "remotes/#{@config['source_name']}/#{@config['source_branch']}"
+
     remote_path = "#{@config['source_base_path']}#{path}"
     result = `git diff "#{remote_source}" -- "#{remote_path}" "#{@config['local_base_path']}#{path}"`
     puts("error with git diff #{path}") & exit if $?.exitstatus != 0
