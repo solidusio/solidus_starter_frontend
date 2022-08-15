@@ -3,8 +3,7 @@ project_paths:
 - app/controllers
 - app/helpers
 source_repo: https://github.com/solidusio/solidus.git
-source_name: solidus
-source_branch: master
+source_commit: 935c8aeaaa2e427b6ea8f53d220b99aef2d98bf3
 source_base_path: frontend/
 local_base_path: templates/
 ignore:
