@@ -109,6 +109,7 @@ bundle exec rails generate solidus:install \
   --enforce_available_locales=true \
   --with-authentication=false \
   --payment-method=none \
+  --frontend=none \
   "$@"
 
 bundle exec rails generate solidus:auth:install --auto-run-migrations
