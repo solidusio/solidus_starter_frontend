@@ -62,7 +62,7 @@ gem 'solidus_sample'
 ```
 
 And replace all the references of the string `Spree::Frontend::Config` in your
-project with `SolidusStarterFrontend::Config`.
+project with their actual values.
 
 You'll also need to make sure that
 [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
