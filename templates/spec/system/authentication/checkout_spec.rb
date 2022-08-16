@@ -67,6 +67,7 @@ RSpec.feature 'Checkout', :js, type: :system do
 
       click_button 'Save and Continue'
       click_button 'Save and Continue'
+      check 'Agree to Terms of Service'
       click_button 'Place Order'
 
       expect(page).to have_text 'Your order has been processed successfully'
@@ -93,6 +94,7 @@ RSpec.feature 'Checkout', :js, type: :system do
 
       click_button 'Save and Continue'
       click_button 'Save and Continue'
+      check 'Agree to Terms of Service'
       click_button 'Place Order'
 
       expect(page).to have_text 'Your order has been processed successfully'
@@ -151,6 +153,7 @@ RSpec.feature 'Checkout', :js, type: :system do
 
       click_button 'Save and Continue'
       click_button 'Save and Continue'
+      check 'Agree to Terms of Service'
       click_button 'Place Order'
 
       expect(page).to have_text 'Your order has been processed successfully'
