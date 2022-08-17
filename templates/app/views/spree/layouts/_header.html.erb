@@ -4,7 +4,17 @@
   </div>
   <div class="header__primary-navigation">
     <div class="category-navigation">
-      <%= render 'spree/shared/navigation/categories', taxon: taxon %>
+      <% categories = taxonomies.first %>
+
+      <nav class="categories">
+        <% cache [I18n.locale, categories, taxon] do %>
+          <%= render(TaxonsTreeComponent.new(
+            root_taxon: categories.root,
+            current_taxon: taxon,
+            max_level: 1,
+            base_class: 'categories')) if categories %>
+        <% end %>
+      </nav>
     </div>
   </div>
 </header>

@@ -1,9 +1,0 @@
-<div class="cart-link" id="link-to-cart">
-  <noscript>
-    <%= link_to t('spree.cart'), spree.cart_path %>
-  </noscript>
-</div>
-
-<script>
-  Solidus.fetch_cart('<%= j spree.cart_link_path %>')
-</script>
