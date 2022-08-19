@@ -18,7 +18,7 @@ module Spree
     private
 
     def config_locale
-      SolidusStarterFrontend::Config[:locale]
+      I18n.locale
     end
 
     def lock_order

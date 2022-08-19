@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe 'Checkout confirm page submission', type: :system do
+RSpec.describe 'Checkout confirm page submission', :js, type: :system do
   include_context 'checkout setup'
 
   context "when the product from the order is not backorderable but has enough stock quantity" do
@@ -29,6 +29,7 @@ RSpec.describe 'Checkout confirm page submission', type: :system do
         end
 
         it 'redirects to cart page and shows an unavailable product message' do
+          check 'Agree to Terms of Service'
           click_button "Place Order"
           expect(page).to have_content "#{order_product.name} became unavailable"
           expect(page).to have_current_path spree.cart_path
@@ -49,6 +50,7 @@ RSpec.describe 'Checkout confirm page submission', type: :system do
         end
 
         it "redirects to the address checkout page and shows an availability changed message" do
+          check 'Agree to Terms of Service'
           click_button "Place Order"
           error_message = "Quantity selected of #{order_product.name} is not available. Still, items may be available from another stock location, please try again."
           expect(page).to have_content error_message
@@ -56,6 +58,7 @@ RSpec.describe 'Checkout confirm page submission', type: :system do
         end
 
         it "can still complete the order using the backorderable stock location by restarting the checkout" do
+          check 'Agree to Terms of Service'
           click_button "Place Order"
           expect(page).to have_current_path spree.checkout_state_path(:address)
           click_button "Save and Continue"
@@ -64,6 +67,7 @@ RSpec.describe 'Checkout confirm page submission', type: :system do
           expect(page).to have_current_path spree.checkout_state_path(:payment)
           click_button "Save and Continue"
           expect(page).to have_current_path spree.checkout_state_path(:confirm)
+          check 'Agree to Terms of Service'
           click_button "Place Order"
           expect(page).to have_content 'Your order has been processed successfully'
         end

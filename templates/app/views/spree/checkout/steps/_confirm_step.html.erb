@@ -7,22 +7,18 @@
     <%= render 'spree/orders/order_details', order: @order %>
   </fieldset>
 
-  <% SolidusStarterFrontend::Config[:require_terms_and_conditions_acceptance].tap do |requires_acceptance| %>
-    <% if requires_acceptance %>
-      <div class="terms_and_conditions">
-        <%= render 'spree/checkout/terms_and_conditions' %>
-        <%= check_box_tag :accept_terms_and_conditions, 'accepted', false %>
-        <%= label_tag :accept_terms_and_conditions, t('spree.agree_to_terms_of_service') %>
-      </div>
-    <% end %>
+  <div class="terms_and_conditions">
+    <%= render 'spree/checkout/terms_and_conditions' %>
+    <%= check_box_tag :accept_terms_and_conditions, 'accepted', false %>
+    <%= label_tag :accept_terms_and_conditions, t('spree.agree_to_terms_of_service') %>
+  </div>
 
-    <%= button_tag(
-      I18n.t('spree.place_order'),
-      class: 'button-primary',
-      name: :commit,
-      disabled: requires_acceptance
-    ) %>
-  <% end %>
+  <%= button_tag(
+    I18n.t('spree.place_order'),
+    class: 'button-primary',
+    name: :commit,
+    disabled: true
+  ) %>
 </div>
 
 <script>

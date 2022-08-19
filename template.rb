@@ -3,7 +3,6 @@ def install
   install_gems
   copy_solidus_starter_frontend_files
   update_asset_files
-  require_solidus_starter_frontend_config
   install_rspec
   print_security_update_message
 end
@@ -67,8 +66,6 @@ end
 def copy_solidus_starter_frontend_files
   directory 'app', 'app'
 
-  copy_file 'lib/solidus_starter_frontend_configuration.rb'
-  copy_file 'lib/solidus_starter_frontend/config.rb'
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
   copy_file 'config/initializers/canonical_rails.rb'
 
@@ -90,10 +87,6 @@ end
 def update_asset_files
   append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
   gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
-end
-
-def require_solidus_starter_frontend_config
-  inject_into_file 'config/initializers/spree.rb', "require_relative Rails.root.join('lib/solidus_starter_frontend/config')\n", before: /Spree.config do/, verbose: true
 end
 
 def install_rspec

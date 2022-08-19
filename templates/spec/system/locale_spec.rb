@@ -6,7 +6,6 @@ RSpec.describe 'setting locale', type: :system do
   let!(:store) { create(:store) }
   def with_locale(locale)
     I18n.locale = locale
-    stub_spree_preferences(SolidusStarterFrontend::Config, locale: locale)
     yield
   ensure
     I18n.locale = I18n.default_locale

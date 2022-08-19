@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe 'Checkout', type: :system, inaccessible: true do
+RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
   include SystemHelpers
 
   include_context 'checkout setup'
@@ -228,6 +228,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
     it "does not allow successful order submission" do
       visit spree.checkout_path
       order.payments.first.update state: :void
+      check 'Agree to Terms of Service'
       click_button 'Place Order'
       expect(page).to have_current_path spree.checkout_state_path(:payment)
     end
@@ -255,6 +256,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       fill_in "Expiration", with: '04 / 20'
       fill_in "Card Code", with: '123'
       click_button "Save and Continue"
+      check 'Agree to Terms of Service'
       click_button "Place Order"
       expect(page).to have_content("Bogus Gateway: Forced failure")
       expect(page.current_url).to include("/checkout/payment")
@@ -297,6 +299,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       # prevent form submit to verify button is disabled
       page.execute_script("document.getElementById('checkout_form_confirm').onsubmit = function(){return false;}")
 
+      check 'Agree to Terms of Service'
       expect(page).not_to have_selector('button.button-primary[disabled]')
       click_button "Place Order"
       expect(page).to have_selector('button.button-primary[disabled]')
@@ -361,6 +364,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       expect(find("#use_existing_card_yes")).to be_checked
 
       click_on "Save and Continue"
+      check 'Agree to Terms of Service'
       click_on "Place Order"
 
       order = Spree::Order.last
@@ -373,6 +377,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       fill_in_credit_card
 
       click_on "Save and Continue"
+      check 'Agree to Terms of Service'
       click_on "Place Order"
 
       order = Spree::Order.last
@@ -405,6 +410,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       click_on "Save and Continue"
       click_on "Save and Continue"
       click_on "Save and Continue"
+      check 'Agree to Terms of Service'
       click_on "Place Order"
 
       order = Spree::Order.last
@@ -544,6 +550,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       click_button "Save and Continue"
 
       expect(current_path).to eq spree.checkout_state_path('confirm')
+      check 'Agree to Terms of Service'
       click_button "Place Order"
     end
   end
@@ -592,6 +599,7 @@ RSpec.describe 'Checkout', type: :system, inaccessible: true do
       visit spree.checkout_state_path(:delivery)
       click_button "Save and Continue"
       click_button "Save and Continue"
+      check 'Agree to Terms of Service'
       click_button "Place Order"
     end
 
