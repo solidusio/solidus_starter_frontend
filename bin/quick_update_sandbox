@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+extension_name="solidus_starter_frontend"
+
+sandbox_name='sandbox'
+sandbox_path="./${sandbox_name}"
+
+cd "${sandbox_path}"
+
+LOCATION='../template.rb' QUICK_UPDATE=1 bundle exec rails app:template
+
+echo
+echo "🚀 Sandbox app successfully updated for ${extension_name}!"

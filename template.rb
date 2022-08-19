@@ -1,10 +1,13 @@
 def install
   add_template_repository_to_source_path
-  install_gems
+  install_gems unless quick_update?
   copy_solidus_starter_frontend_files
-  update_asset_files
-  install_rspec
-  print_security_update_message
+
+  unless quick_update?
+    update_asset_files
+    install_rspec
+    print_security_update_message
+  end
 end
 
 # Copied from: https://github.com/mattbrictson/rails-template
@@ -69,6 +72,7 @@ def copy_solidus_starter_frontend_files
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
   copy_file 'config/initializers/canonical_rails.rb'
 
+  copy_file 'config/solidus_default_routes.rb', 'config/routes.rb' if quick_update?
   copy_file 'config/routes.rb', 'tmp/routes.rb'
   prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
 
@@ -104,6 +108,10 @@ def print_security_update_message
   TEXT
 
   print_wrapped set_color(message.gsub("\n", ' '), :yellow)
+end
+
+def quick_update?
+  ENV.fetch('QUICK_UPDATE', nil)
 end
 
 install
