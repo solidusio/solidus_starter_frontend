@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Spree::UserRegistrationsController < Devise::RegistrationsController
+class UserRegistrationsController < Devise::RegistrationsController
   helper 'spree/base', 'spree/store'
 
   include Spree::Core::ControllerHelpers::Auth
