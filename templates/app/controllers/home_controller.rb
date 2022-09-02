@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HomeController < Spree::StoreController
+class HomeController < StoreController
   helper 'spree/products'
   respond_to :html
 

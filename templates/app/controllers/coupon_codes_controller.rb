@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CouponCodesController < Spree::StoreController
+class CouponCodesController < StoreController
   before_action :load_order, only: :create
   around_action :lock_order, only: :create
 

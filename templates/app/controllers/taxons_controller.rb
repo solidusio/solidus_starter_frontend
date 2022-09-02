@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TaxonsController < Spree::StoreController
+class TaxonsController < StoreController
   helper 'spree/products', 'spree/taxon_filters'
 
   before_action :load_taxon, only: [:show]

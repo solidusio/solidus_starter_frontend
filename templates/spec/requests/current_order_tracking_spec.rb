@@ -6,7 +6,7 @@ RSpec.describe 'current order tracking', type: :request, with_signed_in_user: tr
   let!(:store) { create(:store) }
   let(:user) { create(:user) }
 
-  class TestController < Spree::StoreController
+  class TestController < StoreController
     def create_order
       @order = current_order(create_order_if_necessary: true)
       head :ok

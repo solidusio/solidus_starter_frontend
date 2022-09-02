@@ -15,9 +15,9 @@ RSpec.describe 'Checkout confirm page submission', :js, type: :system do
     before do
       order_stock_item.update! backorderable: false
       order_stock_item.set_count_on_hand(1)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
-      allow_any_instance_of(Spree::OrdersController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
+      allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
     end
 
     context 'when there are not other backorderable stock locations' do

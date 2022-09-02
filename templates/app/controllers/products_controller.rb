@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProductsController < Spree::StoreController
+class ProductsController < StoreController
   before_action :load_product, only: :show
   before_action :load_taxon, only: :index
 

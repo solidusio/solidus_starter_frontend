@@ -4,7 +4,7 @@
 # actually a Checkout object. There's enough distinct logic specific to
 # checkout which has nothing to do with updating an order that this approach
 # is warranted.
-class CheckoutController < Spree::StoreController
+class CheckoutController < StoreController
   before_action :load_order
   around_action :lock_order
 

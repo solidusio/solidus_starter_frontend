@@ -13,7 +13,7 @@ RSpec.describe 'User update', type: :request do
       # So, if at some point Rails changed the given options, we should update it
       # here.
       around do |example|
-        controller = Spree::UsersController
+        controller = UsersController
         old_allow_forgery_protection_value = controller.allow_forgery_protection
         old_forgery_protection_strategy = controller.forgery_protection_strategy
         controller.skip_forgery_protection

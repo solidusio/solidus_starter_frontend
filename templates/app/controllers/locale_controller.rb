@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LocaleController < Spree::StoreController
+class LocaleController < StoreController
   def set
     requested_locale = params[:switch_to_locale] || params[:locale]
 
