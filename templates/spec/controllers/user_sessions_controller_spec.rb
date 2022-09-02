@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe Spree::UserSessionsController, type: :controller do
+RSpec.describe UserSessionsController, type: :controller do
   let(:user) { create(:user) }
 
   before { @request.env['devise.mapping'] = Devise.mappings[:spree_user] }

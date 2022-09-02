@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe Spree::UserRegistrationsController, type: :controller do
+RSpec.describe UserRegistrationsController, type: :controller do
   before { @request.env['devise.mapping'] = Devise.mappings[:spree_user] }
 
   context '#create' do

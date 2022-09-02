@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe Spree::BaseController, type: :controller do
+RSpec.describe BaseController, type: :controller do
   describe '#unauthorized_redirect' do
     controller(described_class) do
       def index; authorize!(:read, :something); end

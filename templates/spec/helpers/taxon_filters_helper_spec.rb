@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe Spree::TaxonFiltersHelper, type: :helper do
+RSpec.describe TaxonFiltersHelper, type: :helper do
   let(:taxon) { nil }
   subject { applicable_filters_for(taxon) }
 

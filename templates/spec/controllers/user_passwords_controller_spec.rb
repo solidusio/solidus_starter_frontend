@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe Spree::UserPasswordsController, type: :controller do
+RSpec.describe UserPasswordsController, type: :controller do
   let(:token) { 'some_token' }
 
   before { @request.env['devise.mapping'] = Devise.mappings[:spree_user] }

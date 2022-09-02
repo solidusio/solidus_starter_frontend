@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe Spree::ProductsController, type: :controller do
+RSpec.describe ProductsController, type: :controller do
   let!(:product) { create(:product, available_on: 1.year.from_now) }
   let!(:user)    { build(:user, spree_api_key: 'fake') }
 
