@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserMailer < BaseMailer
+class UserMailer < Spree::BaseMailer
   def reset_password_instructions(user, token, *_args)
     @store = Spree::Store.default
     @edit_password_reset_url = spree.edit_spree_user_password_url(reset_password_token: token, host: @store.url)
