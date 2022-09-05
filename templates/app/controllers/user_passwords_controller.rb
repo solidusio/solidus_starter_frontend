@@ -9,6 +9,8 @@ class UserPasswordsController < Devise::PasswordsController
   include Spree::Core::ControllerHelpers::Store
   include SolidusStarterFrontend::Taxonomies
 
+  layout 'storefront'
+
   # Overridden due to bug in Devise.
   #   respond_with resource, location: new_session_path(resource_name)
   # is generating bad url /session/new.user

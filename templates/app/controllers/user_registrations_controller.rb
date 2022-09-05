@@ -9,6 +9,8 @@ class UserRegistrationsController < Devise::RegistrationsController
   include Spree::Core::ControllerHelpers::Store
   include SolidusStarterFrontend::Taxonomies
 
+  layout 'storefront'
+
   before_action :check_permissions, only: [:edit, :update]
   skip_before_action :require_no_authentication
 

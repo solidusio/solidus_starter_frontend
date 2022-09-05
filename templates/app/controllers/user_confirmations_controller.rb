@@ -9,6 +9,8 @@ class UserConfirmationsController < Devise::ConfirmationsController
   include Spree::Core::ControllerHelpers::Store
   include SolidusStarterFrontend::Taxonomies
 
+  layout 'storefront'
+
   protected
 
   def after_confirmation_path_for(resource_name, resource)
