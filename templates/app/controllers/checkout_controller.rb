@@ -20,7 +20,7 @@ class CheckoutController < StoreController
 
   before_action :setup_for_current_state, only: [:edit, :update]
 
-  helper 'orders'
+  helper 'orders', 'spree/checkout'
 
   rescue_from Spree::Core::GatewayError, with: :rescue_from_spree_gateway_error
   rescue_from Spree::Order::InsufficientStock, with: :insufficient_stock_error
