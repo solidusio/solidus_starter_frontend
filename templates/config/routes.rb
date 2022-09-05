@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   devise_for(:spree_user, {
     class_name: 'Spree::User',
     controllers: {
-      sessions: 'spree/user_sessions',
-      registrations: 'spree/user_registrations',
-      passwords: 'spree/user_passwords',
-      confirmations: 'spree/user_confirmations'
+      sessions: 'user_sessions',
+      registrations: 'user_registrations',
+      passwords: 'user_passwords',
+      confirmations: 'user_confirmations'
     },
     skip: [:unlocks, :omniauth_callbacks],
     path_names: { sign_out: 'logout' },
