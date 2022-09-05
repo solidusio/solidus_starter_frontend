@@ -1,6 +1,6 @@
 <div class="products">
   <aside>
-    <% if "spree/products" == params[:controller] && @taxon %>
+    <% if "products" == params[:controller] && @taxon %>
       <%= render 'shared/search/filters', taxon: @taxon %>
     <% else %>
       <%= render 'shared/navigation/taxonomies', taxon: @taxon %>
