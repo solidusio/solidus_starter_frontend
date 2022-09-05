@@ -90,6 +90,16 @@ def copy_solidus_starter_frontend_files
   copy_file 'config/initializers/canonical_rails.rb'
 
   application <<~RUBY
+    # Load monkey patches
+    monkey_patches = "#{Rails.root}/app/monkey_patches"
+    Rails.autoloaders.main.ignore(monkey_patches)
+
+    config.to_prepare do
+      Dir.glob("#{monkey_patches}/**/*_monkey_patch.rb").each do |monkey_patch|
+        load monkey_patch
+      end
+    end
+
     if defined?(FactoryBotRails)
       initializer after: "factory_bot.set_factory_paths" do
         require 'spree/testing_support'
