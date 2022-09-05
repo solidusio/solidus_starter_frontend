@@ -23,7 +23,7 @@ RSpec.describe 'Home layout', type: :request, with_signed_in_user: true do
   context "layout" do
     it "renders default layout" do
       get spree.root_path
-      expect(response).to render_template(layout: 'spree/layouts/spree_application')
+      expect(response).to render_template(layout: 'layouts/storefront')
     end
 
     context "different layout specified in config" do
