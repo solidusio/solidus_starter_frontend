@@ -9,7 +9,7 @@ RSpec.describe 'Order Contents', type: :request do
   context "#create" do
     it "creates a new order when none specified" do
       expect do
-        post spree.order_contents_path, params: { variant_id: variant.id }
+        post order_contents_path, params: { variant_id: variant.id }
       end.to change(Spree::Order, :count).by(1)
 
       expect(response).to be_redirect
@@ -26,9 +26,9 @@ RSpec.describe 'Order Contents', type: :request do
 
       it "handles population", with_signed_in_user: true do
         expect do
-          post spree.order_contents_path, params: { variant_id: variant.id, quantity: 5 }
+          post order_contents_path, params: { variant_id: variant.id, quantity: 5 }
         end.to change { user.orders.count }.by(1)
-        expect(response).to redirect_to spree.cart_path
+        expect(response).to redirect_to cart_path
         order = user.orders.first
         expect(order.line_items.size).to eq(1)
         line_item = order.line_items.first
@@ -39,12 +39,12 @@ RSpec.describe 'Order Contents', type: :request do
       context 'when fails to populate' do
         it "shows an error when quantity is invalid" do
           post(
-            spree.order_contents_path,
-            headers: { 'HTTP_REFERER' => spree.root_path },
+            order_contents_path,
+            headers: { 'HTTP_REFERER' => root_path },
             params: { variant_id: variant.id, quantity: -1 }
           )
 
-          expect(response).to redirect_to(spree.root_path)
+          expect(response).to redirect_to(root_path)
           expect(flash[:error]).to eq(
             I18n.t('spree.please_enter_reasonable_quantity')
           )
@@ -54,10 +54,10 @@ RSpec.describe 'Order Contents', type: :request do
       context "when quantity is empty string" do
         it "populates order with 1 of given variant" do
           expect do
-            post spree.order_contents_path, params: { variant_id: variant.id, quantity: '' }
+            post order_contents_path, params: { variant_id: variant.id, quantity: '' }
           end.to change { Spree::Order.count }.by(1)
           order = Spree::Order.last
-          expect(response).to redirect_to spree.cart_path
+          expect(response).to redirect_to cart_path
           expect(order.line_items.size).to eq(1)
           line_item = order.line_items.first
           expect(line_item.variant_id).to eq(variant.id)
@@ -68,10 +68,10 @@ RSpec.describe 'Order Contents', type: :request do
       context "when quantity is nil" do
         it "populates order with 1 of given variant" do
           expect do
-            post spree.order_contents_path, params: { variant_id: variant.id, quantity: nil }
+            post order_contents_path, params: { variant_id: variant.id, quantity: nil }
           end.to change { Spree::Order.count }.by(1)
           order = Spree::Order.last
-          expect(response).to redirect_to spree.cart_path
+          expect(response).to redirect_to cart_path
           expect(order.line_items.size).to eq(1)
           line_item = order.line_items.first
           expect(line_item.variant_id).to eq(variant.id)

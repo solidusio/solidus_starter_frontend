@@ -15,14 +15,14 @@ RSpec.describe 'Home layout', type: :request, with_signed_in_user: true do
   end
 
   it "provides current user to the searcher class" do
-    get spree.root_path
+    get root_path
     expect(searcher_class).to have_received(:current_user=).with(user)
     expect(response.status).to eq(200)
   end
 
   context "layout" do
     it "renders default layout" do
-      get spree.root_path
+      get root_path
       expect(response).to render_template(layout: 'layouts/storefront')
     end
   end

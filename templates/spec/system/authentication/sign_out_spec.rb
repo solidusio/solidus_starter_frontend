@@ -11,7 +11,7 @@ RSpec.feature 'Sign Out', type: :system, js: true do
   end
 
   background do
-    visit spree.login_path
+    visit login_path
     fill_in 'Email', with: user.email
     fill_in 'Password:', with: user.password
     # Regression test for #1257
@@ -22,7 +22,7 @@ RSpec.feature 'Sign Out', type: :system, js: true do
   scenario 'allow a signed in user to logout' do
     click_link 'My Account'
     click_button 'Logout'
-    visit spree.root_path
+    visit root_path
     expect(page).to have_text 'LOGIN'
     expect(page).not_to have_text 'LOGOUT'
   end

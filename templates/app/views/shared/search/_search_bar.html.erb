@@ -11,7 +11,7 @@
   class_names = classes.push(base_class).join(" ")
 %>
 
-<%= form_tag spree.products_path, class: class_names, method: :get do %>
+<%= form_tag products_path, class: class_names, method: :get do %>
   <% cache [I18n.locale, taxons] do %>
     <%= select_tag(
       :taxon,

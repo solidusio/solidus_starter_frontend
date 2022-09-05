@@ -10,7 +10,7 @@ RSpec.describe UsersController, type: :controller do
   context '#load_object' do
     it 'redirects to signup path if user is not found' do
       put :update, params: { user: { email: 'foobar@example.com' } }
-      expect(response).to redirect_to spree.login_path
+      expect(response).to redirect_to login_path
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe UsersController, type: :controller do
         end
 
         it 'redirects to account url' do
-          expect(response).to redirect_to spree.account_url(only_path: true)
+          expect(response).to redirect_to account_url(only_path: true)
         end
       end
 
@@ -59,7 +59,7 @@ RSpec.describe UsersController, type: :controller do
           let(:signout_after_change) { true }
 
           it 'redirects to login url' do
-            expect(response).to redirect_to spree.login_url(only_path: true)
+            expect(response).to redirect_to login_url(only_path: true)
           end
         end
 
@@ -67,7 +67,7 @@ RSpec.describe UsersController, type: :controller do
           let(:signout_after_change) { false }
 
           it 'redirects to account url' do
-            expect(response).to redirect_to spree.account_url(only_path: true)
+            expect(response).to redirect_to account_url(only_path: true)
           end
         end
       end

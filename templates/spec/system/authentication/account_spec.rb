@@ -6,7 +6,7 @@ RSpec.feature 'Accounts', type: :system do
   context 'editing' do
     scenario 'can edit an admin user' do
       user = create(:admin_user, email: 'admin@person.com', password: 'password', password_confirmation: 'password')
-      visit spree.login_path
+      visit login_path
 
       fill_in 'Email', with: user.email
       fill_in 'Password:', with: user.password
@@ -18,7 +18,7 @@ RSpec.feature 'Accounts', type: :system do
 
     scenario 'can edit a new user' do
       stub_spree_preferences(Spree::Auth::Config, signout_after_password_change: false)
-      visit spree.signup_path
+      visit signup_path
 
       fill_in 'Email', with: 'email@person.com'
       fill_in 'Password:', with: 'password'
@@ -40,7 +40,7 @@ RSpec.feature 'Accounts', type: :system do
     scenario 'can edit an existing user account' do
       stub_spree_preferences(Spree::Auth::Config ,signout_after_password_change: false)
       user = create(:user, email: 'email@person.com', password: 'secret', password_confirmation: 'secret')
-      visit spree.login_path
+      visit login_path
 
       fill_in 'Email', with: user.email
       fill_in 'Password:', with: user.password

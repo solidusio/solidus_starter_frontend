@@ -43,15 +43,15 @@ class BreadcrumbsComponent < ViewComponent::Base
     return @crumbs if @crumbs
 
     @crumbs = [
-      { name: t('spree.home'), url: helpers.spree.root_path },
-      { name: t('spree.products'), url: helpers.spree.products_path }
+      { name: t('spree.home'), url: helpers.root_path },
+      { name: t('spree.products'), url: helpers.products_path }
     ]
 
     @crumbs += taxon.ancestors.map do |ancestor|
-      { name: ancestor.name, url: helpers.spree.nested_taxons_path(ancestor.permalink) }
+      { name: ancestor.name, url: helpers.nested_taxons_path(ancestor.permalink) }
     end
 
-    @crumbs << { name: taxon.name, url: helpers.spree.nested_taxons_path(taxon.permalink) }
+    @crumbs << { name: taxon.name, url: helpers.nested_taxons_path(taxon.permalink) }
 
     @crumbs
   end

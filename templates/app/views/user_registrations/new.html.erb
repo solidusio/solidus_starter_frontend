@@ -3,7 +3,7 @@
 
   <%= render 'spree/shared/error_messages', target: resource %>
 
-  <%= form_for resource, as: :spree_user, url: spree.registration_path(resource), html: { class: "auth-form" } do |f| %>
+  <%= form_for resource, as: :spree_user, url: registration_path(resource), html: { class: "auth-form" } do |f| %>
     <div class="auth-form__input-wrapper">
       <div class="text-input">
         <%= f.label :email, "#{t("spree.email")}:" %>
@@ -29,6 +29,6 @@
       <%= f.button t("spree.create"), name: :commit, class: 'button-primary button-primary--full-width' %>
     </div>
 
-    <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.login_as_existing"), spree.login_path %>
+    <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.login_as_existing"), login_path %>
   <% end %>
 </article>

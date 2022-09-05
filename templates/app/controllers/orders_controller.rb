@@ -51,7 +51,7 @@ class OrdersController < StoreController
       @order.empty!
     end
 
-    redirect_to spree.cart_path
+    redirect_to cart_path
   end
 
   def accurate_title

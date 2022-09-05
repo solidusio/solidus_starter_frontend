@@ -16,7 +16,7 @@ RSpec.describe 'setting locale', type: :system do
 
     it 'should be in french' do
       with_locale('fr') do
-        visit spree.root_path
+        visit root_path
         click_link 'Panier'
         expect(page).to have_content('Panier')
       end

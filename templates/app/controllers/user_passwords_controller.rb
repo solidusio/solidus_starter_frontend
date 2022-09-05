@@ -16,7 +16,7 @@ class UserPasswordsController < Devise::PasswordsController
   # is generating bad url /session/new.user
   #
   # overridden to:
-  #   respond_with resource, location: spree.login_path
+  #   respond_with resource, location: login_path
   #
   def create
     self.resource = resource_class.send_reset_password_instructions(params[resource_name])
@@ -24,7 +24,7 @@ class UserPasswordsController < Devise::PasswordsController
     set_flash_message(:notice, :send_instructions) if is_navigational_format?
 
     if resource.errors.empty?
-      respond_with resource, location: spree.login_path
+      respond_with resource, location: login_path
     else
       respond_with_navigational(resource) { render :new }
     end
@@ -51,6 +51,6 @@ class UserPasswordsController < Devise::PasswordsController
   end
 
   def new_session_path(resource_name)
-    spree.send("new_#{resource_name}_session_path")
+    send("new_#{resource_name}_session_path")
   end
 end

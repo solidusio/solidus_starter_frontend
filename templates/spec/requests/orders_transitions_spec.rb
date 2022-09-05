@@ -22,7 +22,7 @@ RSpec.describe 'Order transitions', type: :request, with_guest_session: true do
     it "calls the transition callback" do
       expect(order.number).not_to eq 'test'
       order.line_items << create(:line_item)
-      put spree.order_path(order.number), params: { checkout: "checkout" }
+      put order_path(order.number), params: { checkout: "checkout" }
       expect(order.reload.number).to eq 'test'
     end
   end

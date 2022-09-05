@@ -19,7 +19,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     FactoryBot.create(:product, name: "E-11")
     promotion.actions << action
 
-    visit spree.root_path
+    visit root_path
     click_link "DL-44"
     click_button "Add To Cart"
   end
@@ -31,7 +31,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     expect(page).to have_content("This coupon code could not be applied to the cart at this time")
 
     # Add another item to our cart.
-    visit spree.root_path
+    visit root_path
     click_link "DL-44"
     click_button "Add To Cart"
 
@@ -78,7 +78,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     end
 
     # Add a different product to our cart with quantity of 2.
-    visit spree.root_path
+    visit root_path
     click_link "E-11"
     fill_in "quantity", with: "2"
     click_button "Add To Cart"
@@ -112,7 +112,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
       end
 
       # Add two different products to our cart
-      visit spree.root_path
+      visit root_path
       click_link "E-11"
       click_button "Add To Cart"
       within("#cart_adjustments") do

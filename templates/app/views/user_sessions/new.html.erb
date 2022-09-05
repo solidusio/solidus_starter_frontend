@@ -3,7 +3,7 @@
 <article class="auth-container" id="existing-customer">
   <h1><%= I18n.t('spree.login_as_existing') %></h1>
 
-  <%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path, html: { class: "auth-form" } do |f| %>
+  <%= form_for Spree::User.new, as: :spree_user, url: create_new_session_path, html: { class: "auth-form" } do |f| %>
     <div class="auth-form__input-wrapper">
       <div class="text-input">
         <%= f.label :email, "#{t("spree.email")}:" %>
@@ -31,6 +31,6 @@
       ) %>
     </div>
 
-    <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.create_a_new_account"), spree.signup_path %> | <%= link_to I18n.t("spree.forgot_password"), spree.recover_password_path %>
+    <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.create_a_new_account"), signup_path %> | <%= link_to I18n.t("spree.forgot_password"), recover_password_path %>
   <% end %>
 </article>

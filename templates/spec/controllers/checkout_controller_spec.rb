@@ -27,7 +27,7 @@ RSpec.describe CheckoutController, type: :controller do
       context 'when not authenticated as guest' do
         it 'redirects to registration step' do
           get :edit, params: { state: 'address' }
-          expect(response).to redirect_to spree.checkout_registration_path
+          expect(response).to redirect_to checkout_registration_path
         end
       end
 
@@ -46,7 +46,7 @@ RSpec.describe CheckoutController, type: :controller do
 
           it 'redirects to registration step' do
             get :edit, params: { state: 'address' }
-            expect(response).to redirect_to spree.checkout_registration_path
+            expect(response).to redirect_to checkout_registration_path
           end
         end
       end
@@ -90,7 +90,7 @@ RSpec.describe CheckoutController, type: :controller do
         it 'redirects to the tokenized order view' do
           request.cookie_jar.signed[:guest_token] = 'ABC'
           post :update, params: { state: 'confirm' }
-          expect(response).to redirect_to spree.token_order_path(order, 'ABC')
+          expect(response).to redirect_to token_order_path(order, 'ABC')
           expect(flash.notice).to eq I18n.t('spree.order_processed_successfully')
         end
       end
@@ -104,7 +104,7 @@ RSpec.describe CheckoutController, type: :controller do
 
         it 'redirects to the standard order view' do
           post :update, params: { state: 'confirm' }
-          expect(response).to redirect_to spree.order_path(order)
+          expect(response).to redirect_to order_path(order)
         end
       end
     end
@@ -134,7 +134,7 @@ RSpec.describe CheckoutController, type: :controller do
 
     it 'redirects to the checkout_path after saving' do
       subject
-      expect(response).to redirect_to spree.checkout_path
+      expect(response).to redirect_to checkout_path
     end
 
     # Regression test for https://github.com/solidusio/solidus/issues/1588
@@ -158,7 +158,7 @@ RSpec.describe CheckoutController, type: :controller do
         expect {
           subject
         }.not_to change { Spree::Address.count }
-        expect(response).to redirect_to spree.checkout_path
+        expect(response).to redirect_to checkout_path
       end
     end
 

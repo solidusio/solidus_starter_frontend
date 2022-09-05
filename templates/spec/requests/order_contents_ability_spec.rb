@@ -12,8 +12,8 @@ RSpec.describe 'Order contents permissions', type: :request do
 
     context '#create' do
       it 'checks if user is authorized for :update' do
-        post spree.order_contents_path, params: { variant_id: variant.id }
-        expect(response).to redirect_to(spree.login_path)
+        post order_contents_path, params: { variant_id: variant.id }
+        expect(response).to redirect_to(login_path)
       end
     end
   end

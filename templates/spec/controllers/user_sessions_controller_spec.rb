@@ -77,7 +77,7 @@ RSpec.describe UserSessionsController, type: :controller do
       context "when html format is requested" do
         it "redirects to default after signing in" do
           subject
-          expect(response).to redirect_to spree.root_path
+          expect(response).to redirect_to root_path
         end
       end
 
@@ -124,7 +124,7 @@ RSpec.describe UserSessionsController, type: :controller do
     it "redirects to default after signing out" do
       subject
       expect(controller.spree_current_user).to be_nil
-      expect(response).to redirect_to spree.root_path
+      expect(response).to redirect_to root_path
     end
   end
 end

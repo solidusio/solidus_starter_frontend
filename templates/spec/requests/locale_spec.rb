@@ -8,7 +8,7 @@ RSpec.describe 'Locale', type: :request do
   context 'switch_to_locale specified' do
     context "available locale" do
       it 'sets locale and redirects' do
-        get spree.locale_set_path, params: { switch_to_locale: 'fr' }
+        get locale_set_path, params: { switch_to_locale: 'fr' }
         expect(I18n.locale).to eq :fr
         expect(response).to redirect_to('/')
         expect(session[:locale]).to eq('fr')
@@ -18,7 +18,7 @@ RSpec.describe 'Locale', type: :request do
 
     context "unavailable locale" do
       it 'does not change locale and redirects' do
-        get spree.locale_set_path, params: { switch_to_locale: 'klingon' }
+        get locale_set_path, params: { switch_to_locale: 'klingon' }
         expect(I18n.locale).to eq :en
         expect(response).to redirect_to('/')
         expect(flash[:error]).to eq(I18n.t("spree.locale_not_changed"))
@@ -29,7 +29,7 @@ RSpec.describe 'Locale', type: :request do
   context 'locale specified' do
     context "available locale" do
       it 'sets locale and redirects' do
-        get spree.locale_set_path, params: { locale: 'fr' }
+        get locale_set_path, params: { locale: 'fr' }
         expect(I18n.locale).to eq :fr
         expect(response).to redirect_to('/')
         expect(flash[:notice]).to eq(I18n.t("spree.locale_changed"))
@@ -38,7 +38,7 @@ RSpec.describe 'Locale', type: :request do
 
     context "unavailable locale" do
       it 'does not change locale and redirects' do
-        get spree.locale_set_path, params: { locale: 'klingon' }
+        get locale_set_path, params: { locale: 'klingon' }
         expect(I18n.locale).to eq :en
         expect(response).to redirect_to('/')
         expect(flash[:error]).to eq(I18n.t("spree.locale_not_changed"))
@@ -48,7 +48,7 @@ RSpec.describe 'Locale', type: :request do
 
   context 'both locale and switch_to_locale specified' do
     it 'uses switch_to_locale value' do
-      get spree.locale_set_path, params: { locale: 'en', switch_to_locale: 'fr' }
+      get locale_set_path, params: { locale: 'en', switch_to_locale: 'fr' }
       expect(I18n.locale).to eq :fr
       expect(response).to redirect_to('/')
       expect(flash[:notice]).to eq(I18n.t("spree.locale_changed"))

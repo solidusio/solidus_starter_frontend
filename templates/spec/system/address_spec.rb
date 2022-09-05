@@ -9,7 +9,7 @@ RSpec.describe 'Address', type: :system, inaccessible: true do
   let!(:order) { create(:order_with_totals, state: 'cart') }
 
   before do
-    visit spree.root_path
+    visit root_path
 
     click_link 'RoR Mug'
     click_button 'add-to-cart-button'

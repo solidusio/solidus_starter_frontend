@@ -17,7 +17,7 @@ RSpec.describe 'First Order promotion', type: :system do
   before do
     create(:store)
     product = FactoryBot.create(:product)
-    visit spree.root_path
+    visit root_path
     click_link product.name
     click_button "Add To Cart"
   end

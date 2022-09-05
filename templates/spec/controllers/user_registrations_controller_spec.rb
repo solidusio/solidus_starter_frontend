@@ -8,7 +8,7 @@ RSpec.describe UserRegistrationsController, type: :controller do
   context '#create' do
     before do
       allow(controller).to receive(:after_sign_up_path_for) do
-        spree.root_path(thing: 7)
+        root_path(thing: 7)
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe UserRegistrationsController, type: :controller do
 
       it 'redirects to after_sign_up path' do
         subject
-        expect(response).to redirect_to spree.root_path(thing: 7)
+        expect(response).to redirect_to root_path(thing: 7)
       end
 
       context 'with a guest token present' do

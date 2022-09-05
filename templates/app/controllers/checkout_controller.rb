@@ -53,7 +53,7 @@ class CheckoutController < StoreController
 
   def update_registration
     if params[:order][:email] =~ Devise.email_regexp && current_order.update(email: params[:order][:email])
-      redirect_to spree.checkout_path
+      redirect_to checkout_path
     else
       flash[:registration_error] = t(:email_is_invalid, scope: [:errors, :messages])
       @user = Spree::User.new
@@ -149,7 +149,7 @@ class CheckoutController < StoreController
 
   def load_order
     @order = current_order
-    redirect_to(spree.cart_path) && return unless @order
+    redirect_to(cart_path) && return unless @order
   end
 
   # Allow the customer to only go back or stay on the current state
@@ -165,19 +165,19 @@ class CheckoutController < StoreController
 
   def ensure_checkout_allowed
     unless @order.checkout_allowed?
-      redirect_to spree.cart_path
+      redirect_to cart_path
     end
   end
 
   def ensure_order_not_completed
-    redirect_to spree.cart_path if @order.completed?
+    redirect_to cart_path if @order.completed?
   end
 
   def ensure_sufficient_stock_lines
     if @order.insufficient_stock_lines.present?
       out_of_stock_items = @order.insufficient_stock_lines.collect(&:name).to_sentence
       flash[:error] = t('spree.inventory_error_flash_for_insufficient_quantity', names: out_of_stock_items)
-      redirect_to spree.cart_path
+      redirect_to cart_path
     end
   end
 
@@ -235,7 +235,7 @@ class CheckoutController < StoreController
         item_names = unavailable_items.map(&:name).to_sentence
         flash[:error] = t('spree.inventory_error_flash_for_insufficient_shipment_quantity', unavailable_items: item_names)
         @order.restart_checkout_flow
-        redirect_to spree.checkout_state_path(@order.state)
+        redirect_to checkout_state_path(@order.state)
       end
     end
   end
@@ -259,7 +259,7 @@ class CheckoutController < StoreController
     return unless registration_required?
 
     store_location
-    redirect_to spree.checkout_registration_path
+    redirect_to checkout_registration_path
   end
 
   def registration_required?
@@ -279,8 +279,8 @@ class CheckoutController < StoreController
   # Overrides the equivalent method defined in Spree::Core.  This variation of the method will ensure that users
   # are redirected to the tokenized order url unless authenticated as a registered user.
   def completion_route
-    return spree.order_path(@order) if spree_current_user
+    return order_path(@order) if spree_current_user
 
-    spree.token_order_path(@order, @order.guest_token)
+    token_order_path(@order, @order.guest_token)
   end
 end

@@ -71,7 +71,7 @@ RSpec.describe 'viewing products', type: :system, inaccessible: true do
     end
 
     before do
-      visit spree.products_path
+      visit products_path
     end
 
     it "should be able to visit brand Ruby on Rails" do
@@ -104,7 +104,7 @@ RSpec.describe 'viewing products', type: :system, inaccessible: true do
   # Regression test for https://github.com/solidusio/solidus/issues/2602
   context "root taxon page" do
     it "shows taxon previews" do
-      visit spree.nested_taxons_path(taxonomy.root)
+      visit nested_taxons_path(taxonomy.root)
 
       expect(page).to have_css('ul.products-grid li', count: 2)
       expect(page).to have_content("Superman T-Shirt", count: 2)
@@ -114,7 +114,7 @@ RSpec.describe 'viewing products', type: :system, inaccessible: true do
       before { Spree::Price.update_all(currency: "CAD") }
 
       it "shows no products" do
-        visit spree.nested_taxons_path(taxonomy.root)
+        visit nested_taxons_path(taxonomy.root)
 
         expect(page).to have_css('ul.products-grid li', count: 0)
         expect(page).to have_no_content("Superman T-Shirt")

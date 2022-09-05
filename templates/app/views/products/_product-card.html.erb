@@ -7,7 +7,7 @@
   # Classes
   class_names = classes.push(base_class).join(" ")
 
-  url = spree.product_path(product, taxon_id: @taxon.try(:id))
+  url = product_path(product, taxon_id: @taxon.try(:id))
   cached = @taxon.present? ?
     [I18n.locale, current_pricing_options, @taxon, product] :
     [I18n.locale, current_pricing_options, product]

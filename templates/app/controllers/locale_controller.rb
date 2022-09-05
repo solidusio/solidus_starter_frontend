@@ -12,7 +12,7 @@ class LocaleController < StoreController
       flash[:error] = t('spree.locale_not_changed')
     end
 
-    redirect_to spree.root_path
+    redirect_to root_path
   end
 
   private

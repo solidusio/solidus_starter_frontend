@@ -1,7 +1,7 @@
 <div class="account-summary">
   <div class="account-summary__profile">
     <h2><%= I18n.t('spree.email') %></h2>
-    <p><%= @user.email %> (<%= link_to I18n.t('spree.edit'), spree.edit_account_path %>)</p>
+    <p><%= @user.email %> (<%= link_to I18n.t('spree.edit'), edit_account_path %>)</p>
   </div>
 
   <div class="account-summary__orders">
@@ -45,7 +45,7 @@
     <% end %>
   </div>
 
-  <%= form_with(url: spree.logout_path, method: Devise.sign_out_via, local: true) do %>
+  <%= form_with(url: logout_path, method: Devise.sign_out_via, local: true) do %>
     <%= button_tag(t("spree.logout"), class: 'button-primary') %>
   <% end %>
 </div>

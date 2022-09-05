@@ -5,7 +5,7 @@ require 'solidus_starter_frontend_helper'
 RSpec.feature 'Sign Up', type: :system do
   context 'with valid data' do
     scenario 'create a new user' do
-      visit spree.signup_path
+      visit signup_path
 
       fill_in 'Email', with: 'email@person.com'
       fill_in 'Password:', with: 'password'
@@ -19,7 +19,7 @@ RSpec.feature 'Sign Up', type: :system do
 
   context 'with invalid data' do
     scenario 'does not create a new user' do
-      visit spree.signup_path
+      visit signup_path
 
       fill_in 'Email', with: 'email@person.com'
       fill_in 'Password:', with: 'password'

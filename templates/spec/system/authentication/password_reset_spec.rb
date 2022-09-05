@@ -13,7 +13,7 @@ RSpec.feature 'Reset Password', type: :system do
     let!(:user) { create(:user, email: 'foobar@example.com', password: 'secret', password_confirmation: 'secret') }
 
     scenario 'allows a user to supply an email for the password reset' do
-      visit spree.login_path
+      visit login_path
       click_link 'Forgot Password?'
       fill_in_email
       click_button 'Reset my password'
@@ -25,7 +25,7 @@ RSpec.feature 'Reset Password', type: :system do
   # https://github.com/solidusio/solidus_auth_devise/pull/155
   # to the non-admin login
   scenario 'does not reveal email addresses if they are not found' do
-    visit spree.login_path
+    visit login_path
     click_link 'Forgot Password?'
     fill_in_email
     click_button 'Reset my password'
