@@ -16,7 +16,7 @@ module Spree
         css_class = 'full'
       end
 
-      link_to text.html_safe, spree.cart_path, class: "cart-info #{css_class}"
+      link_to text.html_safe, cart_path, class: "cart-info #{css_class}"
     end
 
     # human readable list of variant options
@@ -58,7 +58,7 @@ module Spree
     end
 
     def logo(image_path = Spree::Config[:logo])
-      link_to image_tag(image_path), spree.root_path
+      link_to image_tag(image_path), root_path
     end
 
     def flash_messages(opts = {})
@@ -75,12 +75,12 @@ module Spree
     def taxon_breadcrumbs(taxon, separator = '&nbsp;&raquo;&nbsp;', breadcrumb_class = 'inline')
       return '' if current_page?('/') || taxon.nil?
 
-      crumbs = [[t('spree.home'), spree.root_path]]
+      crumbs = [[t('spree.home'), root_path]]
 
       crumbs << [t('spree.products'), products_path]
       if taxon
-        crumbs += taxon.ancestors.collect { |ancestor| [ancestor.name, spree.nested_taxons_path(ancestor.permalink)] } unless taxon.ancestors.empty?
-        crumbs << [taxon.name, spree.nested_taxons_path(taxon.permalink)]
+        crumbs += taxon.ancestors.collect { |ancestor| [ancestor.name, nested_taxons_path(ancestor.permalink)] } unless taxon.ancestors.empty?
+        crumbs << [taxon.name, nested_taxons_path(taxon.permalink)]
       end
 
       separator = raw(separator)
@@ -126,7 +126,7 @@ module Spree
     end
 
     def seo_url(taxon)
-      spree.nested_taxons_path(taxon.permalink)
+      nested_taxons_path(taxon.permalink)
     end
 
     def display_price(product_or_variant)
