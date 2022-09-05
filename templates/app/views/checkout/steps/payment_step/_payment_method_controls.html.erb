@@ -2,7 +2,7 @@
   <% methods.each do |method| %>
     <li id="payment_method_<%= method.id %>">
       <%= render(
-        "spree/checkout/payment/#{method.partial_name}",
+        "checkout/payment/#{method.partial_name}",
         payment_method: method
       ) %>
     </li>

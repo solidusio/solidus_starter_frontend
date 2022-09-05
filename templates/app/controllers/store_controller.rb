@@ -8,12 +8,12 @@ class StoreController < Spree::BaseController
   layout 'storefront'
 
   def unauthorized
-    render 'spree/shared/auth/unauthorized', layout: Spree::Config[:layout], status: 401
+    render 'shared/auth/unauthorized', layout: Spree::Config[:layout], status: 401
   end
 
   def cart_link
-    render partial: 'spree/shared/cart/link_to_cart'
-    fresh_when(current_order, template: 'spree/shared/cart/_link_to_cart')
+    render partial: 'shared/cart/link_to_cart'
+    fresh_when(current_order, template: 'shared/cart/_link_to_cart')
   end
 
   private

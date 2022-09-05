@@ -4,11 +4,11 @@
       <%= t('spree.confirm') %>
     </legend>
 
-    <%= render 'spree/orders/order_details', order: @order %>
+    <%= render 'orders/order_details', order: @order %>
   </fieldset>
 
   <div class="terms_and_conditions">
-    <%= render 'spree/checkout/terms_and_conditions' %>
+    <%= render 'checkout/terms_and_conditions' %>
     <%= check_box_tag :accept_terms_and_conditions, 'accepted', false %>
     <%= label_tag :accept_terms_and_conditions, t('spree.agree_to_terms_of_service') %>
   </div>

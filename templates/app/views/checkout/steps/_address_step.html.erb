@@ -8,7 +8,7 @@
 
     <%= form.fields_for :bill_address do |bill_form| %>
       <%= render(
-        "spree/checkout/steps/address_step/address_inputs",
+        "checkout/steps/address_step/address_inputs",
         form: bill_form,
         address_type: "billing",
         address: order.bill_address
@@ -28,7 +28,7 @@
       <% end %>
 
       <%= render(
-        "spree/checkout/steps/address_step/address_inputs",
+        "checkout/steps/address_step/address_inputs",
         form: ship_form,
         address_type: "shipping",
         address: order.ship_address

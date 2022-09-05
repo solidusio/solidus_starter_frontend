@@ -4,7 +4,7 @@
   </h2>
 
   <%= render(
-    'spree/orders/order_items',
+    'orders/order_items',
     order: order,
     classes: ['order-items--summary']
   )%>
@@ -70,6 +70,6 @@
   </dl>
 
   <% if order.state == 'payment' %>
-    <%= render 'spree/orders/coupon_code' %>
+    <%= render 'orders/coupon_code' %>
   <% end %>
 </section>

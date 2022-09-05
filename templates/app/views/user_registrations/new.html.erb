@@ -1,7 +1,7 @@
 <article class="auth-container" id="new-customer">
   <h1><%= I18n.t('spree.new_customer') %></h1>
 
-  <%= render 'spree/shared/error_messages', target: resource %>
+  <%= render 'shared/error_messages', target: resource %>
 
   <%= form_for resource, as: :spree_user, url: registration_path(resource), html: { class: "auth-form" } do |f| %>
     <div class="auth-form__input-wrapper">

@@ -11,7 +11,7 @@
     <div class="variant-container">
       <% sorted_option_types(product).each_with_index do |option_type, i| %>
         <div class="variant-selection">
-          <%= render 'spree/products/product_selection/option_type', product: product, option_type: option_type, index: i %>
+          <%= render 'products/product_selection/option_type', product: product, option_type: option_type, index: i %>
         </div>
       <% end %>
     </div>
