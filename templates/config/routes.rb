@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Spree::Core::Engine.routes.draw do
+Rails.application.routes.draw do
   root to: 'home#index'
 
   devise_for(:spree_user, {
