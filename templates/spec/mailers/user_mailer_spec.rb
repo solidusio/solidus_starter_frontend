@@ -6,7 +6,7 @@ RSpec.describe UserMailer, type: :mailer do
 
   before do
     user = create(:user)
-    Spree::UserMailer.reset_password_instructions(user, 'token goes here').deliver_now
+    described_class.reset_password_instructions(user, 'token goes here').deliver_now
     @message = ActionMailer::Base.deliveries.last
   end
 
