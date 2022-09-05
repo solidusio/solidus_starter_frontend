@@ -4,7 +4,7 @@ class ProductsController < StoreController
   before_action :load_product, only: :show
   before_action :load_taxon, only: :index
 
-  helper 'spree/taxons', 'spree/taxon_filters'
+  helper 'spree/taxons', 'taxon_filters'
 
   respond_to :html
 
