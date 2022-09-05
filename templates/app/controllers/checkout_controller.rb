@@ -64,7 +64,7 @@ class CheckoutController < StoreController
   private
 
   def update_order
-    OrderUpdateAttributes.new(@order, update_params, request_env: request.headers.env).apply
+    Spree::OrderUpdateAttributes.new(@order, update_params, request_env: request.headers.env).apply
   end
 
   def assign_temp_address
