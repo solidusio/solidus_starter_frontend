@@ -4,7 +4,7 @@ class UsersController < StoreController
   skip_before_action :set_current_order, only: :show, raise: false
   prepend_before_action :authorize_actions, only: :new
 
-  include SolidusStarterFrontend::Taxonomies
+  include Taxonomies
 
   def show
     load_object

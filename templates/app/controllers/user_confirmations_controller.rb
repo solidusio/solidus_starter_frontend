@@ -7,7 +7,7 @@ class UserConfirmationsController < Devise::ConfirmationsController
   include Spree::Core::ControllerHelpers::Common
   include Spree::Core::ControllerHelpers::Order
   include Spree::Core::ControllerHelpers::Store
-  include SolidusStarterFrontend::Taxonomies
+  include Taxonomies
 
   layout 'storefront'
 
