@@ -67,7 +67,16 @@ def add_solidus_starter_frontend_spec_dependencies
     gem 'apparition', '~> 0.6.0', github: 'twalpole/apparition'
     gem 'rails-controller-testing', '~> 1.0.5'
     gem 'rspec-activemodel-mocks', '~> 1.1.0'
-    gem 'solidus_dev_support', '~> 2.5'
+
+    gem 'capybara-screenshot', '~> 1.0'
+    gem 'database_cleaner', '~> 1.7'
+    gem 'factory_bot', '>= 4.8'
+    gem 'factory_bot_rails'
+    gem 'ffaker', '~> 2.13'
+    gem 'rubocop', '~> 1.0'
+    gem 'rubocop-performance', '~> 1.5'
+    gem 'rubocop-rails', '~> 2.3'
+    gem 'rubocop-rspec', '~> 2.0'
   end
 end
 
@@ -76,6 +85,19 @@ def copy_solidus_starter_frontend_files
 
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
   copy_file 'config/initializers/canonical_rails.rb'
+
+  application <<~RUBY
+    if defined?(FactoryBotRails)
+      initializer after: "factory_bot.set_factory_paths" do
+        require 'spree/testing_support'
+        FactoryBot.definition_file_paths = [
+          *Spree::TestingSupport::FactoryBot.definition_file_paths,
+          Rails.root.join('spec/fixtures/factories'),
+        ]
+      end
+    end
+
+  RUBY
 
   copy_file 'config/routes.rb', 'tmp/routes.rb'
   prepend_file 'config/routes.rb', File.read('tmp/routes.rb')
