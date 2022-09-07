@@ -21,15 +21,16 @@ def add_template_repository_to_source_path
     url_path = URI.parse(__FILE__).path
     branch = url_path[%r{solidus_starter_frontend/(raw/)?(.+?)/template.rb}, 2]
     owner = url_path[%r{/([^/]+)/solidus_starter_frontend/}, 1]
+
     at_exit { FileUtils.remove_entry(tempdir) }
 
     git clone: [
       "--quiet",
+      "--depth", "1",
+      *(["--branch", branch] if branch),
       "https://github.com/#{owner}/solidus_starter_frontend.git",
       tempdir
     ].map(&:shellescape).join(" ")
-
-    Dir.chdir(tempdir) { git checkout: branch } if branch
   else
     repo_dir = File.dirname(__FILE__)
   end
