@@ -41,7 +41,7 @@ end
 
 def install_gems
   add_solidus_starter_frontend_dependencies
-  add_spec_gems
+  add_solidus_starter_frontend_spec_dependencies
 
   run_bundle
 end
@@ -53,7 +53,7 @@ def add_solidus_starter_frontend_dependencies
   gem 'view_component', '~> 2.46'
 end
 
-def add_spec_gems
+def add_solidus_starter_frontend_spec_dependencies
   gem_group :development, :test do
     gem 'rspec-rails'
     gem 'apparition', '~> 0.6.0', github: 'twalpole/apparition'
