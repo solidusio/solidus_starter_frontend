@@ -13,27 +13,29 @@ end
 # invoked remotely via HTTP, that means the files are not present locally.
 # In that case, use `git clone` to download them to a local temporary dir.
 def add_template_repository_to_source_path
+  require "shellwords"
+  require "securerandom"
+
   if __FILE__ =~ %r{\Ahttps?://}
-    require "tmpdir"
-
-    tempdir = Dir.mktmpdir("solidus_starter_frontend-")
-    repo_dir = tempdir
+    require 'uri'
     url_path = URI.parse(__FILE__).path
-    branch = url_path[%r{solidus_starter_frontend/(raw/)?(.+?)/template.rb}, 2]
     owner = url_path[%r{/([^/]+)/solidus_starter_frontend/}, 1]
+    branch = url_path[%r{solidus_starter_frontend/(raw/)?(.+?)/template.rb}, 2]
 
-    at_exit { FileUtils.remove_entry(tempdir) }
-
-    git clone: [
-      "--quiet",
-      "--depth", "1",
-      *(["--branch", branch] if branch),
-      "https://github.com/#{owner}/solidus_starter_frontend.git",
-      tempdir
-    ].map(&:shellescape).join(" ")
+    repo_source = "https://github.com/#{owner}/solidus_starter_frontend.git"
   else
-    repo_dir = File.dirname(__FILE__)
+    branch = nil
+    repo_source = "file://#{File.dirname(__FILE__)}"
   end
+  repo_dir = Rails.root.join("tmp/solidus_starter_frontend-#{SecureRandom.hex}").tap(&:mkpath).to_s
+
+  git clone: [
+    "--quiet",
+    "--depth", "1",
+    *(["--branch", branch] if branch),
+    repo_source,
+    repo_dir,
+  ].compact.shelljoin
 
   templates_dir = Pathname.new(repo_dir).join('templates')
 
