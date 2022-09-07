@@ -143,7 +143,7 @@ end
 # END require 'solidus_dev_support/rspec/feature_helper'
 require 'spree/testing_support/caching'
 require 'spree/testing_support/order_walkthrough'
-require 'spree/testing_support/translations' unless Spree.solidus_gem_version < Gem::Version.new('2.11')
+require 'spree/testing_support/translations'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
