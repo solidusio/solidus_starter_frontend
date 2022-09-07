@@ -44,7 +44,7 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
     expect(page).to have_content("Your cart is empty")
 
     within "#link-to-cart" do
-      expect(page).to have_no_content
+      expect(page.text).to eq('')
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
     expect(page).to have_content("Your cart is empty")
 
     within "#link-to-cart" do
-      expect(page).to have_no_content
+      expect(page.text).to eq('')
     end
   end
 

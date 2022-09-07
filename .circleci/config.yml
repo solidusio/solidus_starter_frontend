@@ -72,7 +72,9 @@ commands:
 
 jobs:
   run-specs-with-postgres:
-    executor: solidusio_extensions/postgres
+    executor:
+        name: solidusio_extensions/postgres
+        ruby_version: '2.7'
     steps:
       - setup
       - test-branch:
@@ -80,7 +82,9 @@ jobs:
           rails_version: "~> 6.1"
       - solidusio_extensions/store-test-results
   run-specs-with-mysql:
-    executor: solidusio_extensions/mysql
+    executor:
+        name: solidusio_extensions/mysql
+        ruby_version: '3.0'
     steps:
       - setup
       - test-branch:
@@ -88,7 +92,9 @@ jobs:
           rails_version: "~> 6.1"
       - solidusio_extensions/store-test-results
   run-specs-with-postgres-and-solidus-latest:
-    executor: solidusio_extensions/postgres
+    executor:
+        name: solidusio_extensions/postgres
+        ruby_version: '3.0'
     steps:
       - setup
       - test-branch:
@@ -96,7 +102,10 @@ jobs:
           rails_version: "~> 7.0"
       - solidusio_extensions/store-test-results
   run-specs-with-mysql-and-solidus-latest:
-    executor: solidusio_extensions/mysql
+    executor:
+        name: solidusio_extensions/mysql
+        ruby_version: '3.1'
+
     steps:
       - setup
       - test-branch:
