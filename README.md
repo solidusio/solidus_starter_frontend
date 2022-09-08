@@ -18,7 +18,7 @@ We aim to deliver:
 - a reusable component based architecture
 - simple SASS styling strictly based on BEM
 - the elimination of jQuery as a dependency by rewriting frontend functionality
-in vanilla JavaScript
+  in vanilla JavaScript
 
 All of this while keeping and improving on the functionality of the current
 [Solidus][solidus] frontend subcomponent.
@@ -33,16 +33,14 @@ Just run:
 rails new store --skip-javascript
 cd store
 bundle add solidus
-bin/rails generate solidus:install --auto-accept
+bin/rails generate solidus:install --frontend=soldius_starter_frontend
 ```
 
 That will create a new Solidus application with SolidusStarterFrontend as its
 storefront.
 
-Please note that `--auto-accept` will add
-[Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
-to your application. SolidusStarterFrontend requires the application to include
-the gem.
+Please note that [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
+will also be added to your application as it's required by SolidusStarterFrontend.
 
 ### For existing stores
 
@@ -68,10 +66,11 @@ You'll also need to make sure that
 [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
 is installed in your application.
 
-You can then copy the starter frontend files to your project:
+Then you can run the app template with this command:
 
 ```shell
-$ LOCATION="https://raw.githubusercontent.com/solidusio/solidus_starter_frontend/main/template.rb" bin/rails app:template
+$ bin/rails app:template LOCATION="https://github.com/solidusio/solidus_starter_frontend/raw/master/template.rb"
+$ bin/rails db:migrate
 ```
 
 ## Considerations
