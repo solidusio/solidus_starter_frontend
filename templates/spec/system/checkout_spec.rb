@@ -632,7 +632,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
         # Unlike with the other examples in this spec, calling
         # `checkout_as_guest` in this example causes this example to fail
         # intermittently. Please see
-        # https://github.com/nebulab/solidus_starter_frontend/pull/172/files#r683067589
+        # https://github.com/solidusio/solidus_starter_frontend/pull/172/files#r683067589
         # for more details.
         within '#existing-customer' do
           fill_in 'Email:', with: user.email

@@ -23,7 +23,7 @@ def add_template_repository_to_source_path
 
     git clone: [
       "--quiet",
-      "https://github.com/nebulab/solidus_starter_frontend.git",
+      "https://github.com/solidusio/solidus_starter_frontend.git",
       tempdir
     ].map(&:shellescape).join(" ")
 
