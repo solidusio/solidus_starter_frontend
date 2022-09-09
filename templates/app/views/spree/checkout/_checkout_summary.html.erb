@@ -47,10 +47,9 @@
       <% end %>
     <% end %>
 
-    <% if order.adjustments.nonzero.eligible.exists? %>
+    <% if order.adjustments.nonzero.non_tax.eligible.exists? %>
       <div class="checkout-summary__entry" id="summary-order-charges">
-        <% order.adjustments.nonzero.eligible.each do |adjustment| %>
-        <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
+        <% order.adjustments.nonzero.non_tax.eligible.each do |adjustment| %>
           <dt><%= adjustment.label %>:</dt>
           <dd><%= adjustment.display_amount.to_html %></dd>
         <% end %>
