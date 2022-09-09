@@ -36,7 +36,7 @@ RSpec.describe TaxonsTreeComponent, type: :component do
 
   context 'when rendered' do
     before do
-      render_inline(described_class.new(local_assigns))
+      render_inline(described_class.new(**local_assigns))
     end
 
     describe 'concerning max_level and root_taxon' do
