@@ -19,7 +19,7 @@ class Spree::UsersController < Spree::StoreController
         session[:guest_token] = nil
       end
 
-      redirect_back_or_default(root_url)
+      redirect_to stored_spree_user_location_or(spree.root_path)
     else
       render :new
     end
