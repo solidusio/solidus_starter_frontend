@@ -105,6 +105,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
         allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
         allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
         allow_any_instance_of(Spree::OrdersController).to receive_messages(spree_current_user: user)
+        allow_any_instance_of(Spree::OrderContentsController).to receive_messages(spree_current_user: user)
 
         add_mug_to_cart
         click_button "Checkout"
@@ -595,6 +596,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
       allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
       allow_any_instance_of(Spree::OrdersController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(Spree::OrderContentsController).to receive_messages(spree_current_user: user)
 
       visit spree.checkout_state_path(:delivery)
       click_button "Save and Continue"

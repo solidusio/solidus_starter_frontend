@@ -14,13 +14,6 @@ RSpec.describe 'Order permissions', type: :request do
   context 'when an order exists in the cookies.signed', with_guest_session: true do
     before { order.update(guest_token: nil) }
 
-    context '#populate' do
-      it 'checks if user is authorized for :update' do
-        post spree.populate_orders_path, params: { variant_id: variant.id }
-        expect(response).to redirect_to(spree.login_path)
-      end
-    end
-
     context '#edit' do
       it 'checks if user is authorized for :read' do
         get spree.cart_path
