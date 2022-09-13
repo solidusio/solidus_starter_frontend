@@ -46,7 +46,6 @@ Spree::Core::Engine.routes.draw do
   get '/checkout/:state', to: 'checkout#edit', as: :checkout_state
   get '/checkout', to: 'checkout#edit', as: :checkout
 
-  get '/orders/populate', to: 'orders#populate_redirect'
   get '/orders/:id/token/:token' => 'orders#show', as: :token_order
 
   resources :orders, except: [:index, :new, :create, :destroy] do

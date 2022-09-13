@@ -78,11 +78,6 @@ module Spree
       end
     end
 
-    def populate_redirect
-      flash[:error] = t('spree.populate_get_error')
-      redirect_to spree.cart_path
-    end
-
     def empty
       if @order = current_order
         authorize! :update, @order, cookies.signed[:guest_token]
