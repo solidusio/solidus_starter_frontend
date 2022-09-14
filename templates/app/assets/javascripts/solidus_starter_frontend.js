@@ -7,9 +7,9 @@
 //= require spree/frontend/all
 
 //= require spree
-//= require spree/frontend/utils
-//= require spree/frontend/checkout
-//= require spree/frontend/product
-//= require spree/frontend/cart
-//= require spree/frontend/locale_selector
-//= require spree/frontend/product_selection_component
+//= require utils
+//= require checkout
+//= require product
+//= require cart
+//= require locale_selector
+//= require product_selection_component

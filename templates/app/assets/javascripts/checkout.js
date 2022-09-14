@@ -1,6 +1,6 @@
 //= require_self
-//= require spree/frontend/checkout/address
-//= require spree/frontend/checkout/payment
+//= require checkout/address
+//= require checkout/payment
 
 Solidus.disableSaveOnClick = () => {
   const form = document.querySelector('form.edit_order');
