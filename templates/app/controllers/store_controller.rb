@@ -5,6 +5,8 @@ class StoreController < Spree::BaseController
   include Spree::Core::ControllerHelpers::Order
   include SolidusStarterFrontend::Taxonomies
 
+  layout 'storefront'
+
   def unauthorized
     render 'spree/shared/auth/unauthorized', layout: Spree::Config[:layout], status: 401
   end
