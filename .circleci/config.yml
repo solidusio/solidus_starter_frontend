@@ -31,6 +31,7 @@ commands:
         type: string
         default: |
           cd sandbox
+          bundle add rspec_junit_formatter --group test
           bundle exec rspec --format progress --format RspecJunitFormatter --out $TEST_RESULTS_PATH
       command_verb:
         type: string
