@@ -18,18 +18,18 @@ def add_template_repository_to_source_path
 
     tempdir = Dir.mktmpdir("solidus_starter_frontend-")
     repo_dir = tempdir
-
+    url_path = URI.parse(__FILE__).path
+    branch = url_path[%r{solidus_starter_frontend/(raw/)?(.+?)/template.rb}, 2]
+    owner = url_path[%r{/([^/]+)/solidus_starter_frontend/}, 1]
     at_exit { FileUtils.remove_entry(tempdir) }
 
     git clone: [
       "--quiet",
-      "https://github.com/nebulab/solidus_starter_frontend.git",
+      "https://github.com/#{owner}/solidus_starter_frontend.git",
       tempdir
     ].map(&:shellescape).join(" ")
 
-    if (branch = __FILE__[%r{solidus_starter_frontend/(.+)/template.rb}, 1])
-      Dir.chdir(tempdir) { git checkout: branch }
-    end
+    Dir.chdir(tempdir) { git checkout: branch } if branch
   else
     repo_dir = File.dirname(__FILE__)
   end
@@ -40,10 +40,18 @@ def add_template_repository_to_source_path
 end
 
 def install_gems
+  add_solidus_auth_devise_if_missing
   add_solidus_starter_frontend_dependencies
-  add_spec_gems
+  add_solidus_starter_frontend_spec_dependencies
 
   run_bundle
+end
+
+def add_solidus_auth_devise_if_missing
+  unless Bundler.locked_gems.dependencies['solidus_auth_devise']
+    bundle_command 'add solidus_auth_devise'
+    generate 'solidus:auth:install'
+  end
 end
 
 def add_solidus_starter_frontend_dependencies
@@ -53,7 +61,7 @@ def add_solidus_starter_frontend_dependencies
   gem 'view_component', '~> 2.46'
 end
 
-def add_spec_gems
+def add_solidus_starter_frontend_spec_dependencies
   gem_group :development, :test do
     gem 'rspec-rails'
     gem 'apparition', '~> 0.6.0', github: 'twalpole/apparition'
