@@ -18,18 +18,18 @@ def add_template_repository_to_source_path
 
     tempdir = Dir.mktmpdir("solidus_starter_frontend-")
     repo_dir = tempdir
-
+    url_path = URI.parse(__FILE__).path
+    branch = url_path[%r{solidus_starter_frontend/(raw/)?(.+?)/template.rb}, 2]
+    owner = url_path[%r{/([^/]+)/solidus_starter_frontend/}, 1]
     at_exit { FileUtils.remove_entry(tempdir) }
 
     git clone: [
       "--quiet",
-      "https://github.com/solidusio/solidus_starter_frontend.git",
+      "https://github.com/#{owner}/solidus_starter_frontend.git",
       tempdir
     ].map(&:shellescape).join(" ")
 
-    if (branch = __FILE__[%r{solidus_starter_frontend/(.+)/template.rb}, 1])
-      Dir.chdir(tempdir) { git checkout: branch }
-    end
+    Dir.chdir(tempdir) { git checkout: branch } if branch
   else
     repo_dir = File.dirname(__FILE__)
   end
