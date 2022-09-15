@@ -8,6 +8,7 @@ guard :shell do
       rsync \
         --archive \
         --exclude='config/routes.rb' \
+        --verbose \
         templates/ \
         sandbox
     }
