@@ -36,6 +36,8 @@ Spree::Core::Engine.routes.draw do
 
   resources :products, only: [:index, :show]
 
+  resources :order_contents, only: :create
+
   get '/locale/set', to: 'locale#set'
   post '/locale/set', to: 'locale#set', as: :select_locale
 
@@ -46,11 +48,9 @@ Spree::Core::Engine.routes.draw do
   get '/checkout/:state', to: 'checkout#edit', as: :checkout_state
   get '/checkout', to: 'checkout#edit', as: :checkout
 
-  get '/orders/populate', to: 'orders#populate_redirect'
   get '/orders/:id/token/:token' => 'orders#show', as: :token_order
 
   resources :orders, except: [:index, :new, :create, :destroy] do
-    post :populate, on: :collection
     resources :coupon_codes, only: :create
   end
 

@@ -25,14 +25,6 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
     expect(page).to have_selector('button#update-button[disabled]')
   end
 
-  # Regression test for https://github.com/spree/spree/issues/2006
-  it "does not error out with a 404 when GET'ing to /orders/populate" do
-    visit '/orders/populate'
-    within(".error") do
-      expect(page).to have_content(I18n.t('spree.populate_get_error'))
-    end
-  end
-
   it 'allows you to remove an item from the cart', js: true do
     create(:product, name: "RoR Mug")
     visit spree.root_path
