@@ -7,7 +7,6 @@
 // https://github.com/solidusio/solidus/blob/master/core/lib/generators/solidus/install/install_generator.rb
 //= require spree/frontend/all
 
-//= require spree
 //= require utils
 //= require checkout
 //= require product
