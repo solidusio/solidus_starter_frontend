@@ -91,11 +91,10 @@ def copy_solidus_starter_frontend_files
 
   application <<~RUBY
     # Load monkey patches
-    monkey_patches = "#{Rails.root}/app/monkey_patches"
-    Rails.autoloaders.main.ignore(monkey_patches)
+    Rails.autoloaders.main.ignore(Rails.root.join('app/monkey_patches'))
 
     config.to_prepare do
-      Dir.glob("#{monkey_patches}/**/*_monkey_patch.rb").each do |monkey_patch|
+      Dir.glob(Rails.root.join('app/monkey_patches/**/*_monkey_patch.rb')).each do |monkey_patch|
         load monkey_patch
       end
     end
