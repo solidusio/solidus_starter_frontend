@@ -102,17 +102,17 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       end
 
       before do
-        allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-        allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
-        allow_any_instance_of(Spree::OrdersController).to receive_messages(spree_current_user: user)
-        allow_any_instance_of(Spree::OrderContentsController).to receive_messages(spree_current_user: user)
+        allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
+        allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
+        allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
+        allow_any_instance_of(OrderContentsController).to receive_messages(spree_current_user: user)
 
         add_mug_to_cart
         click_button "Checkout"
         # We need an order reload here to get newly associated addresses.
         # Then we go back to address where we are supposed to be redirected.
         order.reload
-        visit spree.checkout_state_path(:address)
+        visit checkout_state_path(:address)
       end
 
       context "when user has default addresses saved" do
@@ -173,11 +173,11 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
           # Simulate user login
           Spree::Order.last.associate_user!(user)
-          allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
-          allow_any_instance_of(Spree::OrdersController).to receive_messages(spree_current_user: user)
+          allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
+          allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
 
           # Simulate redirect back to address after login
-          visit spree.checkout_state_path(:address)
+          visit checkout_state_path(:address)
         end
 
         context "when does not have saved addresses" do
@@ -222,16 +222,16 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       order.user = user
       order.recalculate
 
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
+      allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
     end
 
     it "does not allow successful order submission" do
-      visit spree.checkout_path
+      visit checkout_path
       order.payments.first.update state: :void
       check 'Agree to Terms of Service'
       click_button 'Place Order'
-      expect(page).to have_current_path spree.checkout_state_path(:payment)
+      expect(page).to have_current_path checkout_state_path(:payment)
     end
   end
 
@@ -245,12 +245,12 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       order.user = user
       order.recalculate
 
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
+      allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
     end
 
     it "redirects to payment page", inaccessible: true do
-      visit spree.checkout_state_path(:delivery)
+      visit checkout_state_path(:delivery)
       click_button "Save and Continue"
       choose "Credit Card"
       fill_in "Card Number", with: '123'
@@ -277,13 +277,13 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     end
 
     before(:each) do
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(skip_state_validation?: true)
+      allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
+      allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(CheckoutController).to receive_messages(skip_state_validation?: true)
     end
 
     it "prevents double clicking the payment button on checkout", js: true do
-      visit spree.checkout_state_path(:payment)
+      visit checkout_state_path(:payment)
 
       # prevent form submit to verify button is disabled
       page.execute_script("document.getElementById('checkout_form_payment').onsubmit = function(){return false;}")
@@ -295,7 +295,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
     it "prevents double clicking the confirm button on checkout", js: true do
       order.payments << create(:payment)
-      visit spree.checkout_state_path(:confirm)
+      visit checkout_state_path(:confirm)
 
       # prevent form submit to verify button is disabled
       page.execute_script("document.getElementById('checkout_form_confirm').onsubmit = function(){return false;}")
@@ -322,10 +322,10 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       order.user = create(:user)
       order.recalculate
 
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: order.user)
+      allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
+      allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: order.user)
 
-      visit spree.checkout_state_path(:payment)
+      visit checkout_state_path(:payment)
     end
 
     it "the first payment method should be selected", js: true do
@@ -354,11 +354,11 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       user.wallet.add(credit_card)
       order = Spree::TestingSupport::OrderWalkthrough.up_to(:delivery)
 
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
-      allow_any_instance_of(Spree::OrdersController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
+      allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
 
-      visit spree.checkout_state_path(:payment)
+      visit checkout_state_path(:payment)
     end
 
     it "selects first source available and customer moves on" do
@@ -369,7 +369,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(spree.order_path(order))
+      expect(page).to have_current_path(order_path(order))
       expect(page).to have_content("Ending in #{credit_card.last_digits}")
     end
 
@@ -382,7 +382,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(spree.order_path(order))
+      expect(page).to have_current_path(order_path(order))
       expect(page).to have_content('Ending in 1111')
     end
   end
@@ -399,9 +399,9 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       fill_in_address
       click_on "Save and Continue"
       click_on "Save and Continue"
-      expect(page).to have_current_path(spree.checkout_state_path("payment"))
+      expect(page).to have_current_path(checkout_state_path("payment"))
 
-      visit spree.root_path
+      visit root_path
       click_link bag.name
       click_button "add-to-cart-button"
 
@@ -415,7 +415,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(spree.token_order_path(order, order.guest_token))
+      expect(page).to have_current_path(token_order_path(order, order.guest_token))
     end
   end
 
@@ -427,12 +427,12 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       fill_in_address
       click_on "Save and Continue"
       click_on "Save and Continue"
-      expect(page).to have_current_path(spree.checkout_state_path("payment"))
+      expect(page).to have_current_path(checkout_state_path("payment"))
     end
 
     context "and updates line item quantity and try to reach payment page" do
       before do
-        visit spree.cart_path
+        visit cart_path
         within '.cart-item__quantity' do
           fill_in first("input")["name"], with: 3
         end
@@ -441,12 +441,12 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       end
 
       it "redirects user back to address step" do
-        visit spree.checkout_state_path("payment")
-        expect(page).to have_current_path(spree.checkout_state_path("address"))
+        visit checkout_state_path("payment")
+        expect(page).to have_current_path(checkout_state_path("address"))
       end
 
       it "updates shipments properly through step address -> delivery transitions" do
-        visit spree.checkout_state_path("payment")
+        visit checkout_state_path("payment")
         click_on "Save and Continue"
         click_on "Save and Continue"
 
@@ -458,18 +458,18 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       let!(:bag) { create(:product, name: "RoR Bag") }
 
       before do
-        visit spree.root_path
+        visit root_path
         click_link bag.name
         click_button "add-to-cart-button"
       end
 
       it "redirects user back to address step" do
-        visit spree.checkout_state_path("payment")
-        expect(page).to have_current_path(spree.checkout_state_path("address"))
+        visit checkout_state_path("payment")
+        expect(page).to have_current_path(checkout_state_path("address"))
       end
 
       it "updates shipments properly through step address -> delivery transitions" do
-        visit spree.checkout_state_path("payment")
+        visit checkout_state_path("payment")
         click_on "Save and Continue"
         click_on "Save and Continue"
 
@@ -494,7 +494,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       click_on "Save and Continue"
 
       click_on "Save and Continue"
-      expect(page).to have_current_path(spree.checkout_state_path("payment"))
+      expect(page).to have_current_path(checkout_state_path("payment"))
     end
 
     it "applies them & refreshes the page on user clicking the Apply Code button" do
@@ -517,7 +517,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     context "doesn't fill in coupon code input" do
       it "advances just fine" do
         click_on "Save and Continue"
-        expect(page).to have_current_path(spree.checkout_state_path("confirm"))
+        expect(page).to have_current_path(checkout_state_path("confirm"))
       end
     end
   end
@@ -544,13 +544,13 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     end
 
     it "goes right payment step and place order just fine" do
-      expect(page).to have_current_path(spree.checkout_state_path('payment'))
+      expect(page).to have_current_path(checkout_state_path('payment'))
 
       choose "Credit Card"
       fill_in_credit_card
       click_button "Save and Continue"
 
-      expect(current_path).to eq spree.checkout_state_path('confirm')
+      expect(current_path).to eq checkout_state_path('confirm')
       check 'Agree to Terms of Service'
       click_button "Place Order"
     end
@@ -577,8 +577,8 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       before do
         user = create(:user)
         Spree::Order.last.update_column :user_id, user.id
-        allow_any_instance_of(Spree::OrdersController).to receive_messages(spree_current_user: user)
-        allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
+        allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
+        allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
         click_button "Checkout"
       end
 
@@ -593,12 +593,12 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     let!(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:delivery) }
 
     before(:each) do
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order)
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(spree_current_user: user)
-      allow_any_instance_of(Spree::OrdersController).to receive_messages(spree_current_user: user)
-      allow_any_instance_of(Spree::OrderContentsController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
+      allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
+      allow_any_instance_of(OrderContentsController).to receive_messages(spree_current_user: user)
 
-      visit spree.checkout_state_path(:delivery)
+      visit checkout_state_path(:delivery)
       click_button "Save and Continue"
       click_button "Save and Continue"
       check 'Agree to Terms of Service'
@@ -610,7 +610,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     end
 
     it "does not display a thank you message on that order future visits" do
-      visit spree.order_path(order)
+      visit order_path(order)
       expect(page).to_not have_content(I18n.t('spree.thank_you_for_your_order'))
     end
   end
@@ -629,7 +629,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
       it "displays the entered state name without evaluating" do
         add_mug_to_cart
-        visit spree.checkout_state_path(:address)
+        visit checkout_state_path(:address)
 
         # Unlike with the other examples in this spec, calling
         # `checkout_as_guest` in this example causes this example to fail
@@ -652,7 +652,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
         fill_in "Zip", with: "H0H0H0"
 
         click_on 'Save and Continue'
-        visit spree.checkout_state_path(:address)
+        visit checkout_state_path(:address)
 
         expect(page).to have_field(state_name_css, with: xss_string)
       end
@@ -721,7 +721,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
   end
 
   def add_mug_to_cart
-    visit spree.root_path
+    visit root_path
     click_link mug.name
     click_button "add-to-cart-button"
   end

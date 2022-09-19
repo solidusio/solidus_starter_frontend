@@ -12,7 +12,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
   end
 
   before(:each) do
-    visit spree.root_path
+    visit root_path
   end
 
   it 'should be able to show the shopping cart after adding a product to it' do
@@ -28,13 +28,13 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     let(:product) { Spree::Product.available.first }
 
     it 'should not use the *_url helper to generate the product links' do
-      visit spree.root_path
-      expect(page).not_to have_xpath(".//a[@href='#{spree.product_url(product, host: current_host)}']")
+      visit root_path
+      expect(page).not_to have_xpath(".//a[@href='#{product_url(product, host: current_host)}']")
     end
 
     it 'should use *_path helper to generate the product links' do
-     visit spree.root_path
-     expect(page).to have_xpath(".//a[@href='#{spree.product_path(product)}']")
+     visit root_path
+     expect(page).to have_xpath(".//a[@href='#{product_path(product)}']")
     end
   end
 
@@ -111,7 +111,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     # Regression tests for https://github.com/spree/spree/issues/2737
     context 'uses руб as the currency symbol' do
       it 'on products page' do
-        visit spree.root_path
+        visit root_path
         within("#product_#{product.id}") do
           within('.price') do
             expect(page).to have_content('19.99 ₽')
@@ -120,14 +120,14 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
       end
 
       it 'on product page' do
-        visit spree.product_path(product)
+        visit product_path(product)
         within("[data-js='price']") do
           expect(page).to have_content('19.99 ₽')
         end
       end
 
       it "when on the 'address' state of the cart", js: true do
-        visit spree.product_path(product)
+        visit product_path(product)
         click_button 'Add To Cart'
         checkout_as_guest
 
@@ -199,7 +199,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     end
 
     it 'should not display no image available' do
-      visit spree.root_path
+      visit root_path
       expect(page).to have_xpath("//img[contains(@src,'blank')]")
     end
   end
@@ -208,12 +208,12 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     expect(page.all('ul.products-grid li').size).to eq(9)
     stub_spree_preferences(show_products_without_price: false)
     stub_spree_preferences(currency: 'CAN')
-    visit spree.root_path
+    visit root_path
     expect(page.all('ul.products-grid li').size).to eq(0)
   end
 
   it 'can filter products' do
-    visit spree.products_path
+    visit products_path
 
     within(:css, '.taxonomies') { click_link 'Ruby on Rails' }
     check 'Price_Range__15.00_-__18.00'
@@ -227,7 +227,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
 
   it 'should be able to put a product without a description in the cart' do
     product = FactoryBot.create(:base_product, description: nil, name: 'Sample', price: '19.99')
-    visit spree.product_path(product)
+    visit product_path(product)
     expect(page).to have_content 'This product has no description'
     click_button 'add-to-cart-button'
     expect(page).to have_content 'This product has no description'
@@ -237,7 +237,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     product = FactoryBot.create(:base_product, description: nil, name: 'Sample', price: '19.99')
     stub_spree_preferences(currency: 'CAN')
     stub_spree_preferences(show_products_without_price: true)
-    visit spree.product_path(product)
+    visit product_path(product)
     expect(page).to have_content 'This product is not available in the selected currency'
     expect(page).not_to have_content 'add-to-cart-button'
   end
@@ -246,7 +246,7 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     product = FactoryBot.create(:base_product, description: nil, name: 'Sample', price: '19.99')
     stub_spree_preferences(currency: 'CAN')
     stub_spree_preferences(show_products_without_price: true)
-    visit spree.products_path
+    visit products_path
     expect(page).to have_content(product.name)
   end
 

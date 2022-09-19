@@ -1,7 +1,0 @@
-<%= render 'spree/shared/error_messages', target: @user %>
-
-<%= render template: 'spree/user_sessions/new' %>
-
-<% if Spree::Config[:allow_guest_checkout] %>
-  <%= render template: 'spree/user_sessions/guest' %>
-<% end %>

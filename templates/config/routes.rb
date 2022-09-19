@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
-Spree::Core::Engine.routes.draw do
+Rails.application.routes.draw do
   root to: 'home#index'
 
-  devise_for(:spree_user, {
+  devise_for(:user, {
     class_name: 'Spree::User',
+    singular: :spree_user,
     controllers: {
-      sessions: 'spree/user_sessions',
-      registrations: 'spree/user_registrations',
-      passwords: 'spree/user_passwords',
-      confirmations: 'spree/user_confirmations'
+      sessions: 'user_sessions',
+      registrations: 'user_registrations',
+      passwords: 'user_passwords',
+      confirmations: 'user_confirmations'
     },
     skip: [:unlocks, :omniauth_callbacks],
-    path_names: { sign_out: 'logout' },
-    path_prefix: :user,
-    router_name: :spree
+    path_names: { sign_out: 'logout' }
   })
 
   resources :users, only: [:edit, :update]

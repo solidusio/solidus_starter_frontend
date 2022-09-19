@@ -24,7 +24,7 @@ RSpec.feature 'Checkout', :js, type: :system do
     # Bypass gateway error on checkout | ..or stub a gateway
     stub_spree_preferences(allow_checkout_on_gateway_error: true)
 
-    visit spree.root_path
+    visit root_path
   end
 
   # Regression test for https://github.com/solidusio/solidus/issues/1588
@@ -78,7 +78,7 @@ RSpec.feature 'Checkout', :js, type: :system do
       click_link 'RoR Mug'
       click_button 'Add To Cart'
 
-      visit spree.login_path
+      visit login_path
       fill_in 'Email', with: user.email
       fill_in 'Password:', with: user.password
       click_button 'Login'
@@ -107,7 +107,7 @@ RSpec.feature 'Checkout', :js, type: :system do
       click_link 'RoR Mug'
       click_button 'Add To Cart'
 
-      visit spree.login_path
+      visit login_path
       click_link 'Forgot Password?'
       fill_in 'spree_user_email', with: 'email@person.com'
       click_button 'Reset my password'
@@ -115,10 +115,10 @@ RSpec.feature 'Checkout', :js, type: :system do
       # Need to do this now because the token stored in the DB is the encrypted version
       # The 'plain-text' version is sent in the email and there's one way to get that!
       reset_password_email = ActionMailer::Base.deliveries.first
-      token_url_regex = /\/user\/spree_user\/password\/edit\?reset_password_token=(.*)$/
+      token_url_regex = /\/user\/password\/edit\?reset_password_token=(.*)$/
       token = token_url_regex.match(reset_password_email.body.to_s)[1]
 
-      visit spree.edit_spree_user_password_path(reset_password_token: token)
+      visit edit_spree_user_password_path(reset_password_token: token)
       fill_in 'Password:', with: 'password'
       fill_in 'Password Confirmation', with: 'password'
       click_button 'Update'

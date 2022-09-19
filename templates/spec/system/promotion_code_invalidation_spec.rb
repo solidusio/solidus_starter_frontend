@@ -17,11 +17,11 @@ RSpec.describe 'Promotion Code Invalidation', type: :system, js: true do
     FactoryBot.create(:product, name: "DL-44")
     FactoryBot.create(:product, name: "E-11")
 
-    visit spree.root_path
+    visit root_path
     click_link "DL-44"
     click_button "Add To Cart"
 
-    visit spree.root_path
+    visit root_path
     click_link "E-11"
     click_button "Add To Cart"
   end
@@ -44,7 +44,7 @@ RSpec.describe 'Promotion Code Invalidation', type: :system, js: true do
     end
 
     # Add it back
-    visit spree.root_path
+    visit root_path
     click_link "DL-44"
     click_button "Add To Cart"
     within("#cart_adjustments") do

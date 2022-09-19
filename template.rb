@@ -89,7 +89,26 @@ def copy_solidus_starter_frontend_files
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
   copy_file 'config/initializers/canonical_rails.rb'
 
+  copy_file 'config/initializers/devise.rb', 'tmp/devise.rb'
+  append_file 'config/initializers/devise.rb', File.read('tmp/devise.rb')
+
   application <<~RUBY
+    if Rails.autoloaders.main
+      # Rails 7
+      Rails.autoloaders.main.ignore(Rails.root.join('app/monkey_patches'))
+    else
+      # Rails 6 and older
+      config.after_initialize do
+        Rails.autoloaders.main.ignore(Rails.root.join('app/monkey_patches'))
+      end
+    end
+
+    config.to_prepare do
+      Dir.glob(Rails.root.join('app/monkey_patches/**/*_monkey_patch.rb')).each do |monkey_patch|
+        load monkey_patch
+      end
+    end
+
     if defined?(FactoryBotRails)
       initializer after: "factory_bot.set_factory_paths" do
         require 'spree/testing_support'

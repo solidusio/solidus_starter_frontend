@@ -6,14 +6,14 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
   before { create(:store) }
 
   it "shows cart icon on non-cart pages" do
-    visit spree.root_path
+    visit root_path
     expect(page).to have_selector("#link-to-cart a", visible: true)
   end
 
   it "prevents double clicking the remove button on cart", js: true do
     @product = create(:product, name: "RoR Mug")
 
-    visit spree.root_path
+    visit root_path
     click_link "RoR Mug"
     click_button "add-to-cart-button"
 
@@ -27,7 +27,7 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
 
   it 'allows you to remove an item from the cart', js: true do
     create(:product, name: "RoR Mug")
-    visit spree.root_path
+    visit root_path
     click_link "RoR Mug"
     click_button "add-to-cart-button"
     find('.delete').click
@@ -42,7 +42,7 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
 
   it 'allows you to empty the cart', js: true do
     create(:product, name: "RoR Mug")
-    visit spree.root_path
+    visit root_path
     click_link "RoR Mug"
     click_button "add-to-cart-button"
 
@@ -63,10 +63,10 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
     before { variant.option_values.destroy_all }
 
     it "still adds product to cart", inaccessible: true do
-      visit spree.product_path(product)
+      visit product_path(product)
       click_button "add-to-cart-button"
 
-      visit spree.cart_path
+      visit cart_path
       expect(page).to have_content(product.name)
     end
   end

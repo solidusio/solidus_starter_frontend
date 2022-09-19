@@ -49,6 +49,6 @@ class TaxonsTreeComponent < ViewComponent::Base
   end
 
   def seo_url(taxon)
-    helpers.spree.nested_taxons_path(taxon.permalink)
+    helpers.nested_taxons_path(taxon.permalink)
   end
 end

@@ -18,7 +18,7 @@ RSpec.describe Spree::BaseController, type: :controller do
       context "when http_referrer is not present" do
         it "redirects to unauthorized path" do
           get :index
-          expect(response).to redirect_to(spree.unauthorized_path)
+          expect(response).to redirect_to(unauthorized_path)
         end
       end
 
@@ -39,7 +39,7 @@ RSpec.describe Spree::BaseController, type: :controller do
       context "when http_referrer is not present" do
         it "redirects to login path" do
           get :index
-          expect(response).to redirect_to(spree.login_path)
+          expect(response).to redirect_to(login_path)
         end
       end
 
