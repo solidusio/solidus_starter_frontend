@@ -90,8 +90,15 @@ def copy_solidus_starter_frontend_files
   copy_file 'config/initializers/canonical_rails.rb'
 
   application <<~RUBY
-    # Load monkey patches
-    Rails.autoloaders.main.ignore(Rails.root.join('app/monkey_patches'))
+    if Rails.autoloaders.main
+      # Rails 7
+      Rails.autoloaders.main.ignore(Rails.root.join('app/monkey_patches'))
+    else
+      # Rails 6 and older
+      config.after_initialize do
+        Rails.autoloaders.main.ignore(Rails.root.join('app/monkey_patches'))
+      end
+    end
 
     config.to_prepare do
       Dir.glob(Rails.root.join('app/monkey_patches/**/*_monkey_patch.rb')).each do |monkey_patch|
