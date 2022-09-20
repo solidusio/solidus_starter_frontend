@@ -5,5 +5,4 @@
 // the compiled file.
 //
 //= require rails-ujs
-//= require spree/frontend
 //= require_tree .
