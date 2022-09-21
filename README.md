@@ -33,7 +33,7 @@ Just run:
 rails new store --skip-javascript
 cd store
 bundle add solidus
-bin/rails generate solidus:install --frontend=soldius_starter_frontend
+bin/rails generate solidus:install --frontend=solidus_starter_frontend
 ```
 
 That will create a new Solidus application with SolidusStarterFrontend as its
@@ -69,7 +69,7 @@ is installed in your application.
 Then you can run the app template with this command:
 
 ```shell
-$ bin/rails app:template LOCATION="https://github.com/solidusio/solidus_starter_frontend/raw/master/template.rb"
+$ bin/rails app:template LOCATION="https://github.com/solidusio/solidus_starter_frontend/raw/main/template.rb"
 $ bin/rails db:migrate
 ```
 
