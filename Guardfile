@@ -7,7 +7,6 @@ guard :shell do
     rspec_command = %Q{
       rsync \
         --archive \
-        --exclude='config/routes.rb' \
         --verbose \
         templates/ \
         sandbox
