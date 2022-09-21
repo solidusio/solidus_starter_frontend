@@ -68,7 +68,6 @@ gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
 gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 
 gem 'rails-i18n'
-gem 'solidus_auth_devise'
 
 # mail gem dependencies
 # Prevents "cannot load such file -- net/smtp" with Ruby 3.1 and Rails 6.
@@ -112,16 +111,11 @@ bundle exec rake db:drop db:create
 
 bundle exec rails generate solidus:install \
   --auto-accept \
-  --user_class=Spree::User \
   --enforce_available_locales=true \
-  --with-authentication=false \
-  --payment-method=none \
   --frontend=none \
-  "$@"
+  $@
 
-bundle exec rails generate solidus:auth:install --auto-run-migrations
-
-LOCATION='../template.rb' bundle exec rails app:template
+bundle exec rails app:template LOCATION="$PWD/../template.rb"
 
 bundle binstub rspec-core
 
