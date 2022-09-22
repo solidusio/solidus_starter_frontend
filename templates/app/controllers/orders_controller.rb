@@ -38,7 +38,6 @@ class OrdersController < StoreController
   def edit
     @order = current_order(build_order_if_necessary: true)
     authorize! :edit, @order, cookies.signed[:guest_token]
-    associate_user
     if params[:id] && @order.number != params[:id]
       flash[:error] = t('spree.cannot_edit_orders')
       redirect_to cart_path
