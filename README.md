@@ -25,15 +25,13 @@ All of this while keeping and improving on the functionality of the current
 
 ## Installation
 
-### For a new store
-
 Just run:
 
 ```bash
 rails new store --skip-javascript
 cd store
 bundle add solidus
-bin/rails generate solidus:install --frontend=soldius_starter_frontend
+bin/rails generate solidus:install --frontend=solidus_starter_frontend
 ```
 
 That will create a new Solidus application with SolidusStarterFrontend as its
@@ -41,37 +39,6 @@ storefront.
 
 Please note that [Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
 will also be added to your application as it's required by SolidusStarterFrontend.
-
-### For existing stores
-
-In your `Gemfile` replace:
-
-```ruby
-gem 'solidus'
-```
-
-with:
-
-```ruby
-gem 'solidus_core'
-gem 'solidus_api'
-gem 'solidus_backend'
-gem 'solidus_sample'
-```
-
-And replace all the references of the string `Spree::Frontend::Config` in your
-project with their actual values.
-
-You'll also need to make sure that
-[Solidus Auth Devise](https://github.com/solidusio/solidus_auth_devise)
-is installed in your application.
-
-Then you can run the app template with this command:
-
-```shell
-$ bin/rails app:template LOCATION="https://github.com/solidusio/solidus_starter_frontend/raw/master/template.rb"
-$ bin/rails db:migrate
-```
 
 ## Considerations
 
