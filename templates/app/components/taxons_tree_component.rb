@@ -39,16 +39,12 @@ class TaxonsTreeComponent < ViewComponent::Base
         css_class = 'current' if current_taxon&.self_and_ancestors&.include?(taxon)
 
         content_tag :li, class: css_class do
-          link_to(taxon.name, seo_url(taxon)) +
+          link_to(taxon.name, render(SeoUrlComponent.new(taxon))) +
             tree(root_taxon: taxon, base_class: nil, max_level: max_level - 1)
         end
       end
 
       safe_join(taxons, "\n")
     end
-  end
-
-  def seo_url(taxon)
-    helpers.nested_taxons_path(taxon.permalink)
   end
 end
