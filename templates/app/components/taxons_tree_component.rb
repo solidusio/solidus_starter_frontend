@@ -39,7 +39,7 @@ class TaxonsTreeComponent < ViewComponent::Base
         css_class = 'current' if current_taxon&.self_and_ancestors&.include?(taxon)
 
         content_tag :li, class: css_class do
-          link_to(taxon.name, render(SeoUrlComponent.new(taxon))) +
+          link_to(taxon.name, helpers.taxon_seo_url(taxon)) +
             tree(root_taxon: taxon, base_class: nil, max_level: max_level - 1)
         end
       end
