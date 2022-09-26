@@ -92,6 +92,7 @@ def copy_solidus_starter_frontend_files
 
   append_file 'config/initializers/devise.rb', <<~RUBY
     Devise.setup do |config|
+      config.parent_controller = 'StoreDeviseController'
       config.mailer = 'UserMailer'
     end
   RUBY
