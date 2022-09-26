@@ -18,17 +18,18 @@ window.addEventListener('DOMContentLoaded', () => {
   const termsCheckbox = document.getElementById('accept_terms_and_conditions');
 
   if (termsCheckbox) {
-    termsCheckbox.addEventListener('change', () => {
-      const submitButton = termsCheckbox.closest('form')
-        .querySelector('[type="submit"]');
-
+    const form = termsCheckbox.closest('form');
+    const submitButton = form.querySelector('[type="submit"]');
+    form.onsubmit = function () {
       if (termsCheckbox.checked) {
+        submitButton.innerHTML = 'Submitting...';
+        return true;
+      } else {
+        alert('Please review and accept the Terms of Service');
         submitButton.removeAttribute('disabled');
         submitButton.classList.remove('disabled');
-      } else {
-        submitButton.setAttribute('disabled', true);
-        submitButton.classList.add('disabled');
-      }
-    });
-  }
+        return false;
+      };
+    }; 
+  };
 });

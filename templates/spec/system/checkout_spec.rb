@@ -297,13 +297,16 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       order.payments << create(:payment)
       visit checkout_state_path(:confirm)
 
+      # Test TOS not checked alert
+      accept_alert('Please review and accept the Terms of Service') { click_button "Place Order" }
+
       # prevent form submit to verify button is disabled
       page.execute_script("document.getElementById('checkout_form_confirm').onsubmit = function(){return false;}")
 
       check 'Agree to Terms of Service'
-      expect(page).not_to have_selector('button.button-primary[disabled]')
       click_button "Place Order"
-      expect(page).to have_selector('button.button-primary[disabled]')
+      button = find('button.button-primary')
+      expect(button).to be_disabled
     end
   end
 
