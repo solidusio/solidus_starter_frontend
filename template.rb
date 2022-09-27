@@ -168,9 +168,8 @@ def install_routes
       resources :coupon_codes, only: :create
     end
 
-    resource :order, as: :cart, only: ['edit']
+    resource :cart, controller: 'orders', only: ['edit', 'update']
 
-    patch '/cart', to: 'orders#update', as: :update_cart
     put '/cart/empty', to: 'orders#empty', as: :empty_cart
 
     # route globbing for pretty nested taxon and product paths
