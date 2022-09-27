@@ -1,19 +1,14 @@
-def install
-  add_template_repository_to_source_path
-  install_gems
-  copy_solidus_starter_frontend_files
-  install_routes
-  update_asset_files
-  install_rspec
-  print_security_update_message
-end
+with_log = ->(message, &block) {
+  say_status :installing, "[solidus_starter_frontend] #{message}", :blue
+  block.call
+}
 
 # Copied from: https://github.com/mattbrictson/rails-template
 # Add this template directory to source_paths so that Thor actions like
 # copy_file and template resolve against our source files. If this file was
 # invoked remotely via HTTP, that means the files are not present locally.
 # In that case, use `git clone` to download them to a local temporary dir.
-def add_template_repository_to_source_path
+with_log['fetching remote templates'] do
   require "shellwords"
   require "securerandom"
 
@@ -43,29 +38,17 @@ def add_template_repository_to_source_path
   source_paths.unshift(templates_dir)
 end
 
-def install_gems
-  add_solidus_auth_devise_if_missing
-  add_solidus_starter_frontend_dependencies
-  add_solidus_starter_frontend_spec_dependencies
-
-  run_bundle
-end
-
-def add_solidus_auth_devise_if_missing
+with_log['installing gems'] do
   unless Bundler.locked_gems.dependencies['solidus_auth_devise']
     bundle_command 'add solidus_auth_devise'
     generate 'solidus:auth:install'
   end
-end
 
-def add_solidus_starter_frontend_dependencies
   gem 'canonical-rails'
   gem 'solidus_support'
   gem 'truncate_html'
   gem 'view_component', '~> 2.46'
-end
 
-def add_solidus_starter_frontend_spec_dependencies
   gem_group :development, :test do
     gem 'rspec-rails'
     gem 'apparition', '~> 0.6.0', github: 'twalpole/apparition'
@@ -82,9 +65,11 @@ def add_solidus_starter_frontend_spec_dependencies
     gem 'rubocop-rails', '~> 2.3'
     gem 'rubocop-rspec', '~> 2.0'
   end
+
+  run_bundle
 end
 
-def copy_solidus_starter_frontend_files
+with_log['installing files'] do
   directory 'app', 'app'
 
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
@@ -111,10 +96,15 @@ def copy_solidus_starter_frontend_files
   RUBY
 
   directory 'spec'
-  directory 'vendor', force: forcefully_replace_any_solidus_frontend_assets?
+
+  # In CI, the Rails environment is test. In that Rails environment,
+  # `Solidus::InstallGenerator#setup_assets` adds `solidus_frontend` assets to
+  # vendor. We'd want to forcefully replace those `solidus_frontend` assets with
+  # SolidusStarterFrontend assets in CI.
+  directory 'vendor', force: Rails.env.test?
 end
 
-def install_routes
+with_log['installing routes'] do
   route <<~RUBY
     root to: 'home#index'
 
@@ -181,24 +171,16 @@ def install_routes
   RUBY
 end
 
-# In CI, the Rails environment is test. In that Rails environment,
-# `Solidus::InstallGenerator#setup_assets` adds `solidus_frontend` assets to
-# vendor. We'd want to forcefully replace those `solidus_frontend` assets with
-# SolidusStarterFrontend assets in CI.
-def forcefully_replace_any_solidus_frontend_assets?
-  Rails.env.test?
-end
-
-def update_asset_files
+with_log['patching asset files'] do
   append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
   gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
 end
 
-def install_rspec
+with_log['setting up rspec'] do
   generate 'rspec:install'
 end
 
-def print_security_update_message
+with_log['security advisory'] do
   message = <<~TEXT
     RECOMMENDED: To receive security announcements concerning Solidus Starter
     Frontend, please subscribe to the Solidus Security mailing list
@@ -210,5 +192,3 @@ def print_security_update_message
 
   print_wrapped set_color(message.gsub("\n", ' '), :yellow)
 end
-
-install
