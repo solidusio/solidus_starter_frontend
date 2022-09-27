@@ -69,12 +69,15 @@ gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
 
 gem 'rails-i18n'
 
-# mail gem dependencies
-# Prevents "cannot load such file -- net/smtp" with Ruby 3.1 and Rails 6.
-# See https://stackoverflow.com/a/70500221/65925.
-gem 'net-smtp', require: false
-gem 'net-imap', require: false
-gem 'net-pop', require: false
+if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new(3)
+  # mail gem dependencies
+  # Prevents "cannot load such file -- net/smtp" with Ruby 3.1 and Rails 6.
+  # See https://stackoverflow.com/a/70500221/65925.
+  gem 'net-smtp', require: false
+  gem 'net-imap', require: false
+  gem 'net-pop', require: false
+end
+
 RUBY
 
 replace_in_database_yml() {
