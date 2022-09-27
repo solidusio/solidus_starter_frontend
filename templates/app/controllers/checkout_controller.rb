@@ -14,7 +14,6 @@ class CheckoutController < StoreController
   before_action :ensure_sufficient_stock_lines
   before_action :ensure_valid_state
 
-  before_action :associate_user
   before_action :check_registration, except: [:registration, :update_registration]
   before_action :check_authorization
 

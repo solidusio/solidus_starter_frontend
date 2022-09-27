@@ -8,7 +8,7 @@ RSpec.describe 'Checkout confirm page submission', :js, type: :system do
   context "when the product from the order is not backorderable but has enough stock quantity" do
     let(:user) { create(:user) }
 
-    let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:payment) }
+    let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:payment, user: user) }
     let(:order_product) { order.products.first }
     let(:order_stock_item) { order.line_items.first.variant.stock_items.first }
 

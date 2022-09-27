@@ -352,7 +352,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
     before do
       user.wallet.add(credit_card)
-      order = Spree::TestingSupport::OrderWalkthrough.up_to(:delivery)
+      order = Spree::TestingSupport::OrderWalkthrough.up_to(:delivery, user: user)
 
       allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
       allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
@@ -590,7 +590,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
   context "when order is completed" do
     let!(:user) { create(:user) }
-    let!(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:delivery) }
+    let!(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:delivery, user: user) }
 
     before(:each) do
       allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
