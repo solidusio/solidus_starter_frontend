@@ -62,10 +62,10 @@ RSpec.describe 'Address', type: :system, inaccessible: true do
           page.find(@state_name_css).set('Toscana')
 
           select france.name, from: 'Country'
-
-          expect(page).to have_no_css(@state_name_css)
-          expect(page).to have_no_css(@state_select_css)
         end
+
+        expect(page).to have_no_css(@state_name_css)
+        expect(page).to have_no_css(@state_select_css)
       end
     end
   end
