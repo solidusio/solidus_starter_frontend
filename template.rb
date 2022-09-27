@@ -168,7 +168,8 @@ def install_routes
       resources :coupon_codes, only: :create
     end
 
-    get '/cart', to: 'orders#edit', as: :cart
+    resource :order, as: :cart, only: ['edit']
+
     patch '/cart', to: 'orders#update', as: :update_cart
     put '/cart/empty', to: 'orders#empty', as: :empty_cart
 
