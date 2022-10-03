@@ -189,6 +189,17 @@ with_log['installing routes'] do
     get '/cart_link', to: 'store#cart_link', as: :cart_link
 
   RUBY
+
+  append_file "public/robots.txt", <<-ROBOTS.strip_heredoc
+    User-agent: *
+    Disallow: /checkout
+    Disallow: /cart
+    Disallow: /orders
+    Disallow: /user
+    Disallow: /account
+    Disallow: /api
+    Disallow: /password
+  ROBOTS
 end
 
 with_log['patching asset files'] do
