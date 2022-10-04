@@ -28,13 +28,6 @@ RSpec.describe 'Order permissions', type: :request do
       end
     end
 
-    context '#empty' do
-      it 'checks if user is authorized for :update' do
-        put empty_cart_path
-        expect(response).to redirect_to(login_path)
-      end
-    end
-
     context "#show" do
       it "checks against the specified order" do
         get order_path(id: order.number)

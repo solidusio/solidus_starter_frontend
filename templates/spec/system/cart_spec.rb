@@ -40,21 +40,6 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
     end
   end
 
-  it 'allows you to empty the cart', js: true do
-    create(:product, name: "RoR Mug")
-    visit root_path
-    click_link "RoR Mug"
-    click_button "add-to-cart-button"
-
-    expect(page).to have_content("RoR Mug")
-    click_on "Empty Cart"
-    expect(page).to have_content("Your cart is empty")
-
-    within "#link-to-cart" do
-      expect(page.text).to eq('')
-    end
-  end
-
   # regression for https://github.com/spree/spree/issues/2276
   context "product contains variants but no option values" do
     let(:variant) { create(:variant) }
