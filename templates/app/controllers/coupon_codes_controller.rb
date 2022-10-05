@@ -19,7 +19,7 @@ class CouponCodesController < StoreController
             flash[:error] = handler.error
           end
 
-          redirect_back fallback_location: cart_path
+          redirect_back fallback_location: edit_cart_path
         end
       end
     end

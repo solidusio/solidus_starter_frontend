@@ -179,7 +179,8 @@ with_log['installing routes'] do
       resources :coupon_codes, only: :create
     end
 
-    get '/cart', to: 'orders#edit', as: :cart
+    resource :cart, only: :edit
+
     patch '/cart', to: 'orders#update', as: :update_cart
     put '/cart/empty', to: 'orders#empty', as: :empty_cart
 

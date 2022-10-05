@@ -33,7 +33,7 @@ class CartLineItemsController < StoreController
           redirect_back_or_default(root_path)
           return
         else
-          redirect_to cart_path
+          redirect_to edit_cart_path
         end
       end
     end

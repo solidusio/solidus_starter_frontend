@@ -89,6 +89,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: user)
           allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
           allow_any_instance_of(CouponCodesController).to receive_messages(spree_current_user: user)
+          allow_any_instance_of(CartsController).to receive_messages(spree_current_user: user)
           allow_any_instance_of(CartLineItemsController).to receive_messages(spree_current_user: user)
         end
 
@@ -161,7 +162,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
         end
 
         specify do
-          visit cart_path
+          visit edit_cart_path
 
           fill_in "coupon_code", with: "onetwo"
           click_button "Apply Code"
@@ -193,7 +194,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           click_link "Spree Mug"
           click_button "add-to-cart-button"
 
-          visit cart_path
+          visit edit_cart_path
           fill_in "coupon_code", with: "onetwo"
           click_button "Apply Code"
 
@@ -234,7 +235,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           click_link "Spree Mug"
           click_button "add-to-cart-button"
 
-          visit cart_path
+          visit edit_cart_path
 
           within '.cart-footer__total' do
             expect(page).to have_content("$30.00")

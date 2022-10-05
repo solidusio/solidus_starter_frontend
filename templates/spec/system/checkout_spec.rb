@@ -104,6 +104,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       before do
         allow_any_instance_of(CheckoutsController).to receive_messages(current_order: order)
         allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: user)
+        allow_any_instance_of(CartsController).to receive_messages(spree_current_user: user)
         allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
         allow_any_instance_of(CartLineItemsController).to receive_messages(spree_current_user: user)
 
@@ -435,7 +436,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
     context "and updates line item quantity and try to reach payment page" do
       before do
-        visit cart_path
+        visit edit_cart_path
         within '.cart-item__quantity' do
           fill_in first("input")["name"], with: 3
         end
