@@ -53,6 +53,8 @@ class OrdersController < StoreController
     redirect_to cart_path
   end
 
+  private
+
   def accurate_title
     if @order && @order.completed?
       t('spree.order_number', number: @order.number)
@@ -60,8 +62,6 @@ class OrdersController < StoreController
       t('spree.shopping_cart')
     end
   end
-
-  private
 
   def store_guest_token
     cookies.permanent.signed[:guest_token] = params[:token] if params[:token]
