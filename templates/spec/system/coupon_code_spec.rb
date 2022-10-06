@@ -89,7 +89,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
           allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
           allow_any_instance_of(CouponCodesController).to receive_messages(spree_current_user: user)
-          allow_any_instance_of(OrderContentsController).to receive_messages(spree_current_user: user)
+          allow_any_instance_of(CartLineItemsController).to receive_messages(spree_current_user: user)
         end
 
         context 'with saved credit card' do

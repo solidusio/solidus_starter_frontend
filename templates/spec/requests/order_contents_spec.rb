@@ -2,14 +2,14 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe 'Order Contents', type: :request do
+RSpec.describe 'Cart Line Items', type: :request do
   let!(:store) { create(:store) }
   let(:variant) { create(:variant) }
 
   context "#create" do
     it "creates a new order when none specified" do
       expect do
-        post order_contents_path, params: { variant_id: variant.id }
+        post cart_line_items_path, params: { variant_id: variant.id }
       end.to change(Spree::Order, :count).by(1)
 
       expect(response).to be_redirect
@@ -26,7 +26,7 @@ RSpec.describe 'Order Contents', type: :request do
 
       it "handles population", with_signed_in_user: true do
         expect do
-          post order_contents_path, params: { variant_id: variant.id, quantity: 5 }
+          post cart_line_items_path, params: { variant_id: variant.id, quantity: 5 }
         end.to change { user.orders.count }.by(1)
         expect(response).to redirect_to cart_path
         order = user.orders.first
@@ -39,7 +39,7 @@ RSpec.describe 'Order Contents', type: :request do
       context 'when fails to populate' do
         it "shows an error when quantity is invalid" do
           post(
-            order_contents_path,
+            cart_line_items_path,
             headers: { 'HTTP_REFERER' => root_path },
             params: { variant_id: variant.id, quantity: -1 }
           )
@@ -54,7 +54,7 @@ RSpec.describe 'Order Contents', type: :request do
       context "when quantity is empty string" do
         it "populates order with 1 of given variant" do
           expect do
-            post order_contents_path, params: { variant_id: variant.id, quantity: '' }
+            post cart_line_items_path, params: { variant_id: variant.id, quantity: '' }
           end.to change { Spree::Order.count }.by(1)
           order = Spree::Order.last
           expect(response).to redirect_to cart_path
@@ -68,7 +68,7 @@ RSpec.describe 'Order Contents', type: :request do
       context "when quantity is nil" do
         it "populates order with 1 of given variant" do
           expect do
-            post order_contents_path, params: { variant_id: variant.id, quantity: nil }
+            post cart_line_items_path, params: { variant_id: variant.id, quantity: nil }
           end.to change { Spree::Order.count }.by(1)
           order = Spree::Order.last
           expect(response).to redirect_to cart_path

@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe 'Order contents permissions', type: :request do
+RSpec.describe 'Cart line item permissions', type: :request do
   let(:order) { create(:order, user: nil, store: store) }
   let!(:store) { create(:store) }
   let(:variant) { create(:variant) }
@@ -12,7 +12,7 @@ RSpec.describe 'Order contents permissions', type: :request do
 
     context '#create' do
       it 'checks if user is authorized for :update' do
-        post order_contents_path, params: { variant_id: variant.id }
+        post cart_line_items_path, params: { variant_id: variant.id }
         expect(response).to redirect_to(login_path)
       end
     end

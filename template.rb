@@ -160,7 +160,7 @@ with_log['installing routes'] do
 
     resources :products, only: [:index, :show]
 
-    resources :order_contents, only: :create
+    resources :cart_line_items, only: :create
 
     get '/locale/set', to: 'locale#set'
     post '/locale/set', to: 'locale#set', as: :select_locale
