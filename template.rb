@@ -179,9 +179,8 @@ with_log['installing routes'] do
       resources :coupon_codes, only: :create
     end
 
-    resource :cart, only: :edit
+    resource :cart, only: [:edit, :update]
 
-    patch '/cart', to: 'orders#update', as: :update_cart
     put '/cart/empty', to: 'orders#empty', as: :empty_cart
 
     # route globbing for pretty nested taxon and product paths

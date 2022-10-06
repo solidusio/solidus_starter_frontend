@@ -581,6 +581,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       before do
         user = create(:user)
         Spree::Order.last.update_column :user_id, user.id
+        allow_any_instance_of(CartsController).to receive_messages(spree_current_user: user)
         allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
         allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: user)
         click_button "Checkout"
