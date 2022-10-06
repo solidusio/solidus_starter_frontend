@@ -23,7 +23,7 @@ RSpec.describe 'Order permissions', type: :request do
 
     context '#update' do
       it 'checks if user is authorized for :update' do
-        put order_path(order.number), params: { order: { email: "foo@bar.com" } }
+        patch update_cart_path, params: { order: { email: "foo@bar.com" } }
         expect(response).to redirect_to(login_path)
       end
     end
