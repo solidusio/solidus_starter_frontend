@@ -19,10 +19,10 @@ RSpec.describe 'checkout with unshippable items', type: :system, inaccessible: t
     order.user = user
     order.recalculate
 
-    allow_any_instance_of(CheckoutController).to receive_messages(current_order: order)
-    allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
-    allow_any_instance_of(CheckoutController).to receive_messages(skip_state_validation?: true)
-    allow_any_instance_of(CheckoutController).to receive_messages(ensure_sufficient_stock_lines: true)
+    allow_any_instance_of(CheckoutsController).to receive_messages(current_order: order)
+    allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: user)
+    allow_any_instance_of(CheckoutsController).to receive_messages(skip_state_validation?: true)
+    allow_any_instance_of(CheckoutsController).to receive_messages(ensure_sufficient_stock_lines: true)
   end
 
   it 'displays and removes' do

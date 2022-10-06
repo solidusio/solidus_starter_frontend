@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_helper'
 
-RSpec.describe CheckoutController, type: :controller do
+RSpec.describe CheckoutsController, type: :controller do
   let(:order) { create(:order_with_line_items, email: nil, user: nil, guest_token: token) }
   let(:user)  { build(:user, spree_api_key: 'fake') }
   let(:token) { 'some_token' }
