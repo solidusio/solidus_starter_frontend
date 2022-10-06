@@ -39,6 +39,15 @@ class CartsController < StoreController
     end
   end
 
+  def empty
+    if @order = current_order
+      authorize! :update, @order, cookies.signed[:guest_token]
+      @order.empty!
+    end
+
+    redirect_to edit_cart_path
+  end
+
   private
 
   def accurate_title

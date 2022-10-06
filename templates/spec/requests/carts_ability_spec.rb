@@ -23,5 +23,12 @@ RSpec.describe 'Cart permissions', type: :request do
         expect(response).to redirect_to(login_path)
       end
     end
+
+    context '#empty' do
+      it 'checks if user is authorized for :update' do
+        put empty_cart_path
+        expect(response).to redirect_to(login_path)
+      end
+    end
   end
 end

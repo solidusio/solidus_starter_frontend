@@ -12,23 +12,10 @@ class OrdersController < StoreController
     authorize! :show, @order, cookies.signed[:guest_token]
   end
 
-  def empty
-    if @order = current_order
-      authorize! :update, @order, cookies.signed[:guest_token]
-      @order.empty!
-    end
-
-    redirect_to edit_cart_path
-  end
-
   private
 
   def accurate_title
-    if @order && @order.completed?
-      t('spree.order_number', number: @order.number)
-    else
-      t('spree.shopping_cart')
-    end
+    t('spree.order_number', number: @order.number)
   end
 
   def store_guest_token
