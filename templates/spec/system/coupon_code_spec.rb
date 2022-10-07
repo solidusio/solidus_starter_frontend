@@ -86,7 +86,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
         let!(:user) { create(:user, bill_address: create(:address), ship_address: create(:address)) }
 
         before do
-          allow_any_instance_of(CheckoutController).to receive_messages(spree_current_user: user)
+          allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: user)
           allow_any_instance_of(OrdersController).to receive_messages(spree_current_user: user)
           allow_any_instance_of(CouponCodesController).to receive_messages(spree_current_user: user)
           allow_any_instance_of(CartLineItemsController).to receive_messages(spree_current_user: user)
@@ -124,7 +124,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
       end
     end
 
-    # CheckoutController
+    # CheckoutsController
     context "on the cart page" do
       before do
         visit root_path
