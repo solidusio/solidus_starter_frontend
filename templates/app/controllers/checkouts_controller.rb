@@ -6,8 +6,8 @@
 # is warranted.
 class CheckoutsController < CheckoutBaseController
   before_action :ensure_valid_state
-  before_action :check_registration, except: [:update_registration]
-  before_action :setup_for_current_state, only: [:edit, :update]
+  before_action :check_registration
+  before_action :setup_for_current_state
 
   # Updates the order and advances to the next state (when possible.)
   def update
@@ -28,16 +28,6 @@ class CheckoutsController < CheckoutBaseController
 
     else
       render :edit
-    end
-  end
-
-  def update_registration
-    if params[:order][:email] =~ Devise.email_regexp && current_order.update(email: params[:order][:email])
-      redirect_to checkout_path
-    else
-      flash[:registration_error] = t(:email_is_invalid, scope: [:errors, :messages])
-      @user = Spree::User.new
-      render 'registration'
     end
   end
 
@@ -169,8 +159,10 @@ class CheckoutsController < CheckoutBaseController
       permit(:email)
   end
 
+  # HACK: We can't remove `skip_state_validation?` as of now because it is
+  # stubbed in some system tests.
   def skip_state_validation?
-    %w(update_registration).include?(params[:action])
+    false
   end
 
   # Introduces a registration step whenever the +registration_step+ preference is true.

@@ -3,5 +3,5 @@
 <%= render template: 'user_sessions/new' %>
 
 <% if Spree::Config[:allow_guest_checkout] %>
-  <%= render template: 'user_sessions/guest' %>
+  <%= render 'checkout_guest_sessions/form' %>
 <% end %>
