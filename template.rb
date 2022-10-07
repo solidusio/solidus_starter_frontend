@@ -165,8 +165,9 @@ with_log['installing routes'] do
     get '/locale/set', to: 'locale#set'
     post '/locale/set', to: 'locale#set', as: :select_locale
 
+    resource :checkout_session, only: :new
+
     # non-restful checkout stuff
-    get '/checkout/registration', to: 'checkouts#registration', as: :checkout_registration
     put '/checkout/registration', to: 'checkouts#update_registration', as: :update_checkout_registration
     patch '/checkout/update/:state', to: 'checkouts#update', as: :update_checkout
     get '/checkout/:state', to: 'checkouts#edit', as: :checkout_state

@@ -6,7 +6,7 @@
 # is warranted.
 class CheckoutsController < CheckoutBaseController
   before_action :ensure_valid_state
-  before_action :check_registration, except: [:registration, :update_registration]
+  before_action :check_registration, except: [:update_registration]
   before_action :setup_for_current_state, only: [:edit, :update]
 
   # Updates the order and advances to the next state (when possible.)
@@ -29,10 +29,6 @@ class CheckoutsController < CheckoutBaseController
     else
       render :edit
     end
-  end
-
-  def registration
-    @user = Spree::User.new
   end
 
   def update_registration
@@ -174,7 +170,7 @@ class CheckoutsController < CheckoutBaseController
   end
 
   def skip_state_validation?
-    %w(registration update_registration).include?(params[:action])
+    %w(update_registration).include?(params[:action])
   end
 
   # Introduces a registration step whenever the +registration_step+ preference is true.
@@ -182,7 +178,7 @@ class CheckoutsController < CheckoutBaseController
     return unless registration_required?
 
     store_location
-    redirect_to checkout_registration_path
+    redirect_to new_checkout_session_path
   end
 
   def registration_required?

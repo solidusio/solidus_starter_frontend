@@ -27,7 +27,7 @@ RSpec.describe CheckoutsController, type: :controller do
       context 'when not authenticated as guest' do
         it 'redirects to registration step' do
           get :edit, params: { state: 'address' }
-          expect(response).to redirect_to checkout_registration_path
+          expect(response).to redirect_to new_checkout_session_path
         end
       end
 
@@ -46,7 +46,7 @@ RSpec.describe CheckoutsController, type: :controller do
 
           it 'redirects to registration step' do
             get :edit, params: { state: 'address' }
-            expect(response).to redirect_to checkout_registration_path
+            expect(response).to redirect_to new_checkout_session_path
           end
         end
       end
@@ -107,19 +107,6 @@ RSpec.describe CheckoutsController, type: :controller do
           expect(response).to redirect_to order_path(order)
         end
       end
-    end
-  end
-
-  context '#registration' do
-    it 'does not check registration' do
-      expect(controller).not_to receive(:check_registration)
-      get :registration
-    end
-
-    it 'checks if the user is authorized for :edit' do
-      expect(controller).to receive(:authorize!).with(:edit, order, token)
-      request.cookie_jar.signed[:guest_token] = token
-      get :registration, params: {}
     end
   end
 
