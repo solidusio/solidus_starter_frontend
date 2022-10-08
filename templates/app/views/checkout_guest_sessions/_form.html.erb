@@ -2,8 +2,8 @@
   <h1><%= I18n.t('spree.guest_user_account') %></h1>
 
   <%= form_for @order,
-    url: update_checkout_registration_path,
-    method: :put,
+    url: checkout_guest_session_path,
+    method: :post,
     html: { class: "auth-form", id: "checkout_form_registration" } do |f|
   %>
     <div class="auth-form__input-wrapper">
