@@ -56,13 +56,13 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
     it 'checks if the user is authorized for :edit' do
       expect do
-        patch update_checkout_path(state: 'address', order: { bill_address_attributes: address_params })
+        patch checkout_path(state: 'address', order: { bill_address_attributes: address_params })
       end.to change { order.reload.state }.from('cart').to('delivery')
     end
 
     context "save successful" do
       def post_address
-        patch update_checkout_path(state: "address",
+        patch checkout_path(state: "address",
                                          order: {
                                            bill_address_attributes: address_params,
                                            use_billing: true
@@ -75,7 +75,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
         let!(:order) { create(:order_with_line_items, state: 'cart') }
 
         it "assigns order" do
-          patch update_checkout_path(state: 'address', order: { bill_address_attributes: address_params })
+          patch checkout_path(state: 'address', order: { bill_address_attributes: address_params })
           expect(assigns[:order]).not_to be_nil
         end
 
@@ -93,7 +93,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
           let(:order) { create(:order_with_line_items) }
 
           def post_persist_address
-            patch update_checkout_path(state: "address",
+            patch checkout_path(state: "address",
                                              order: {
                                                bill_address_attributes: address_params,
                                                use_billing: true
@@ -121,7 +121,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
           let(:order_bill_address_attributes) { order.reload.bill_address.attributes.except("created_at", "updated_at").compact }
 
           it "tries to associate user addresses to order" do
-            patch update_checkout_path(state: 'address', order: { email: 'test@email.com' })
+            patch checkout_path(state: 'address', order: { email: 'test@email.com' })
 
             expect(order_ship_address_attributes).to eq user_ship_address_attributes
             expect(order_bill_address_attributes).to eq user_bill_address_attributes
@@ -130,7 +130,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
         context "when a billing and shipping address" do
           subject do
-            patch update_checkout_path(
+            patch checkout_path(
               state: 'address',
               order: {
                 bill_address_attributes: order.bill_address.attributes.except("created_at", "updated_at").compact,
@@ -190,7 +190,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
         end
 
         it 'sets the payment amount' do
-          patch update_checkout_path(params)
+          patch checkout_path(params)
           order.reload
           expect(order.state).to eq('new_step')
           expect(order.payments.size).to eq(1)
@@ -218,7 +218,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
         context 'when a permitted payment method' do
           it 'sets the payment amount' do
-            patch update_checkout_path(params)
+            patch checkout_path(params)
             order.reload
             expect(order.state).to eq('confirm')
             expect(order.payments.size).to eq(1)
@@ -231,7 +231,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
           it 'sets the payment amount' do
             expect do
-              patch update_checkout_path(params)
+              patch checkout_path(params)
             end.to raise_error(ActiveRecord::RecordNotFound)
 
             expect(order.state).to eq('payment')
@@ -258,7 +258,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
           it 'does not change the address' do
             expect do
-              patch update_checkout_path(state: 'payment', params: params)
+              patch checkout_path(state: 'payment', params: params)
             end.not_to(change { order.reload.ship_address.zipcode })
           end
         end
@@ -278,17 +278,17 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
         # This inadvertently is a regression test for https://github.com/spree/spree/issues/2694
         it "redirects to the order view" do
-          patch update_checkout_path(state: "confirm")
+          patch checkout_path(state: "confirm")
           expect(response).to redirect_to order_path(order)
         end
 
         it "populates the flash message" do
-          patch update_checkout_path(state: "confirm")
+          patch checkout_path(state: "confirm")
           expect(flash.notice).to eq(I18n.t('spree.order_processed_successfully'))
         end
 
         it "removes completed order from current_order" do
-          patch update_checkout_path(state: "confirm")
+          patch checkout_path(state: "confirm")
           expect(assigns(:current_order)).to be_nil
           expect(assigns(:order)).to eql order
         end
@@ -297,13 +297,13 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
     context "save unsuccessful" do
       it "does not assign order" do
-        patch update_checkout_path(state: "address", order: { bill_address_attributes: address_params })
+        patch checkout_path(state: "address", order: { bill_address_attributes: address_params })
         expect(assigns[:order]).not_to be_nil
       end
 
       it "renders the edit template" do
         order.line_items.destroy_all
-        patch update_checkout_path(state: "address", order: { bill_address_attributes: address_params })
+        patch checkout_path(state: "address", order: { bill_address_attributes: address_params })
         expect(response).to redirect_to(edit_cart_path)
       end
     end
@@ -313,7 +313,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
       let(:order) { create(:order_with_line_items, guest_token: nil, user_id: nil) }
 
       it "redirects to the edit_cart_path" do
-        patch update_checkout_path(state: "confirm")
+        patch checkout_path(state: "confirm")
         expect(response).to redirect_to edit_cart_path
       end
     end
@@ -326,7 +326,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
       before do
         allow(Spree::OrderUpdater).to receive(:new).and_return(updater_instance)
         allow(updater_instance).to receive(:update_payment_state).and_raise(Spree::Core::GatewayError.new('Invalid something or other.'))
-        patch update_checkout_path(state: order.state, order: { bill_address_attributes: address_params })
+        patch checkout_path(state: order.state, order: { bill_address_attributes: address_params })
       end
 
       it "renders the edit template and display exception message" do
@@ -346,7 +346,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
         end
 
         it "due to the order having errors" do
-          patch update_checkout_path(state: order.state, order: { bill_address_attributes: address_params })
+          patch checkout_path(state: order.state, order: { bill_address_attributes: address_params })
           expect(flash[:error]).to eq("Valid shipping address required")
           expect(response).to redirect_to(edit_checkout_path(state: 'address'))
         end
@@ -360,7 +360,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
         end
 
         it "redirects due to no available shipping rates for any of the shipments" do
-          patch update_checkout_path(state: "address", order: { bill_address_attributes: address_params })
+          patch checkout_path(state: "address", order: { bill_address_attributes: address_params })
           expect(request.flash.to_h['error']).to eq(I18n.t('spree.items_cannot_be_shipped'))
           expect(response).to redirect_to(edit_checkout_path(state: 'address'))
         end
@@ -374,7 +374,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
       before { payment_source.destroy! }
 
       it "fails to transition from payment to complete" do
-        patch update_checkout_path(state: order.state, order: {})
+        patch checkout_path(state: order.state, order: {})
         expect(flash[:error]).to eq(I18n.t('spree.payment_processing_failed'))
       end
     end
@@ -391,7 +391,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
         end
 
         it "redirects the customer to the cart page with an error message" do
-          patch update_checkout_path(state: "address", order: { bill_address_attributes: address_params })
+          patch checkout_path(state: "address", order: { bill_address_attributes: address_params })
           expect(flash[:error]).to eq(I18n.t('spree.insufficient_stock_for_order'))
           expect(response).to redirect_to(edit_cart_path)
         end
@@ -409,7 +409,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
           end
 
           it "redirects the customer to the address checkout page with an error message" do
-            patch update_checkout_path(state: "address", order: { bill_address_attributes: address_params })
+            patch checkout_path(state: "address", order: { bill_address_attributes: address_params })
             error = I18n.t('spree.inventory_error_flash_for_insufficient_shipment_quantity', unavailable_items: order.products.first.name)
             expect(flash[:error]).to eq(error)
             expect(response).to redirect_to(edit_checkout_path(state: :address))
@@ -430,7 +430,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
       before do
         order
         Spree::StockItem.update_all(count_on_hand: 0, backorderable: false)
-        patch update_checkout_path(state: "payment")
+        patch checkout_path(state: "payment")
       end
 
       it "redirects to cart" do
@@ -464,7 +464,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
     it "doesn't remove unshippable items before payment" do
       expect do
-        patch update_checkout_path(state: "payment")
+        patch checkout_path(state: "payment")
       end.to_not(change { order.line_items })
     end
   end
@@ -479,7 +479,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
     it "removes unshippable items before payment" do
       expect do
-        patch update_checkout_path(state: "payment", order: { email: "johndoe@example.com" })
+        patch checkout_path(state: "payment", order: { email: "johndoe@example.com" })
       end.to change { order.line_items.reload.to_a.size }.from(1).to(0)
     end
   end

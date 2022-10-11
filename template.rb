@@ -168,10 +168,7 @@ with_log['installing routes'] do
     resource :checkout_session, only: :new
     resource :checkout_guest_session, only: :create
 
-    resource :checkout, only: :edit
-
-    # non-restful checkout stuff
-    patch '/checkout/update/:state', to: 'checkouts#update', as: :update_checkout
+    resource :checkout, only: [:edit, :update]
 
     get '/orders/:id/token/:token' => 'orders#show', as: :token_order
 

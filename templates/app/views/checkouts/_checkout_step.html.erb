@@ -1,4 +1,4 @@
-<%= form_for order, url: update_checkout_path(order.state), html: { id: "checkout_form_#{order.state}" } do |form| %>
+<%= form_for order, url: checkout_path(state: order.state), html: { id: "checkout_form_#{order.state}" } do |form| %>
   <% if order.state == "address" || !order.email? %>
     <div class="text-input">
       <%= form.label :email, 'Customer E-Mail:' %>
