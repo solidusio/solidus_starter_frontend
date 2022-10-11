@@ -47,7 +47,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
       order.update_column(:state, "address")
 
       get edit_checkout_path, params: { state: "delivery" }
-      expect(response).to redirect_to checkout_state_path("address")
+      expect(response).to redirect_to edit_checkout_path(state: "address")
     end
   end
 
@@ -86,7 +86,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
         it "redirects the next state" do
           post_address
-          expect(response).to redirect_to checkout_state_path("delivery")
+          expect(response).to redirect_to edit_checkout_path(state: "delivery")
         end
 
         context "current_user respond to save address method" do
@@ -348,7 +348,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
         it "due to the order having errors" do
           patch update_checkout_path(state: order.state, order: { bill_address_attributes: address_params })
           expect(flash[:error]).to eq("Valid shipping address required")
-          expect(response).to redirect_to(checkout_state_path('address'))
+          expect(response).to redirect_to(edit_checkout_path(state: 'address'))
         end
       end
 
@@ -362,7 +362,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
         it "redirects due to no available shipping rates for any of the shipments" do
           patch update_checkout_path(state: "address", order: { bill_address_attributes: address_params })
           expect(request.flash.to_h['error']).to eq(I18n.t('spree.items_cannot_be_shipped'))
-          expect(response).to redirect_to(checkout_state_path('address'))
+          expect(response).to redirect_to(edit_checkout_path(state: 'address'))
         end
       end
     end
@@ -412,7 +412,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
             patch update_checkout_path(state: "address", order: { bill_address_attributes: address_params })
             error = I18n.t('spree.inventory_error_flash_for_insufficient_shipment_quantity', unavailable_items: order.products.first.name)
             expect(flash[:error]).to eq(error)
-            expect(response).to redirect_to(checkout_state_path(state: :address))
+            expect(response).to redirect_to(edit_checkout_path(state: :address))
           end
         end
       end

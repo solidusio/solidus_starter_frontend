@@ -58,7 +58,7 @@ RSpec.describe 'Cart', type: :request do
           patch cart_path, params: { checkout: true }
         end.to change { order.reload.state }.from('cart').to('address')
 
-        expect(response).to redirect_to checkout_state_path('address')
+        expect(response).to redirect_to edit_checkout_path(state: 'address')
       end
     end
   end

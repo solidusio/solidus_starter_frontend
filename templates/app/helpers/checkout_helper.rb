@@ -16,7 +16,7 @@ module CheckoutHelper
 
       if state_index < current_index
         css_classes << 'completed'
-        text = link_to text, checkout_state_path(state)
+        text = link_to text, edit_checkout_path(state: state)
       end
 
       css_classes << 'next' if state_index == current_index + 1

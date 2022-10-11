@@ -26,7 +26,7 @@ RSpec.describe 'checkout with unshippable items', type: :system, inaccessible: t
   end
 
   it 'displays and removes' do
-    visit checkout_state_path(:delivery)
+    visit edit_checkout_path(state: :delivery)
     expect(page).to have_content('Unshippable Items')
 
     click_button "Save and Continue"

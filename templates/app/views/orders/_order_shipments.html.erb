@@ -5,7 +5,7 @@
 
   <%= link_to(
     "[#{t('spree.actions.edit')}]",
-    checkout_state_path(:delivery),
+    edit_checkout_path(state: :delivery),
     { class: 'order-shipments__edit' }
   ) unless @order.completed? %>
 

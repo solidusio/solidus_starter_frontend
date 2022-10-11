@@ -172,7 +172,6 @@ with_log['installing routes'] do
 
     # non-restful checkout stuff
     patch '/checkout/update/:state', to: 'checkouts#update', as: :update_checkout
-    get '/checkout/:state', to: 'checkouts#edit', as: :checkout_state
 
     get '/orders/:id/token/:token' => 'orders#show', as: :token_order
 

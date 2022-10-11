@@ -29,7 +29,7 @@ class CheckoutBaseController < StoreController
   # truthy).
   def ensure_order_is_not_skipping_states
     if params[:state]
-      redirect_to checkout_state_path(@order.state) if @order.can_go_to_state?(params[:state]) && !skip_state_validation?
+      redirect_to edit_checkout_path(state: @order.state) if @order.can_go_to_state?(params[:state]) && !skip_state_validation?
       @order.state = params[:state]
     end
   end
@@ -70,7 +70,7 @@ class CheckoutBaseController < StoreController
         item_names = unavailable_items.map(&:name).to_sentence
         flash[:error] = t('spree.inventory_error_flash_for_insufficient_shipment_quantity', unavailable_items: item_names)
         @order.restart_checkout_flow
-        redirect_to checkout_state_path(@order.state)
+        redirect_to edit_checkout_path(state: @order.state)
       end
     end
   end
