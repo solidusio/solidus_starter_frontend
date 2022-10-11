@@ -15,7 +15,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
     let!(:order) { create(:order_with_line_items) }
 
     it 'checks if the user is authorized for :edit' do
-      get checkout_path, params: { state: "address" }
+      get edit_checkout_path, params: { state: "address" }
 
       expect(assigns[:order]).to eq order
       expect(status).to eq(200)
@@ -23,21 +23,21 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
 
     it "redirects to the cart path if checkout_allowed? return false" do
       order.line_items.destroy_all
-      get checkout_path, params: { state: "delivery" }
+      get edit_checkout_path, params: { state: "delivery" }
 
       expect(response).to redirect_to(edit_cart_path)
     end
 
     it "redirects to the cart path if current_order is nil" do
       order.destroy
-      get checkout_path, params: { state: "delivery" }
+      get edit_checkout_path, params: { state: "delivery" }
 
       expect(response).to redirect_to(edit_cart_path)
     end
 
     it "redirects to cart if order is completed" do
       order.touch(:completed_at)
-      get checkout_path, params: { state: "address" }
+      get edit_checkout_path, params: { state: "address" }
 
       expect(response).to redirect_to(edit_cart_path)
     end
@@ -46,7 +46,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
     it "redirects to current step trying to access a future step" do
       order.update_column(:state, "address")
 
-      get checkout_path, params: { state: "delivery" }
+      get edit_checkout_path, params: { state: "delivery" }
       expect(response).to redirect_to checkout_state_path("address")
     end
   end
@@ -458,7 +458,7 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
     end
 
     it "doesn't set a default shipping address on the order" do
-      get checkout_path, params: { state: order.state, order: { bill_address_attributes: address_params } }
+      get edit_checkout_path, params: { state: order.state, order: { bill_address_attributes: address_params } }
       expect(assigns[:order].ship_address).to be_nil
     end
 

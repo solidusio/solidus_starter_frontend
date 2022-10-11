@@ -228,7 +228,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     end
 
     it "does not allow successful order submission" do
-      visit checkout_path
+      visit edit_checkout_path
       order.payments.first.update state: :void
       check 'Agree to Terms of Service'
       click_button 'Place Order'
