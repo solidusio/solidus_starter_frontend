@@ -14,27 +14,6 @@ RSpec.describe 'Order permissions', type: :request do
   context 'when an order exists in the cookies.signed', with_guest_session: true do
     before { order.update(guest_token: nil) }
 
-    context '#edit' do
-      it 'checks if user is authorized for :read' do
-        get cart_path
-        expect(response).to redirect_to(login_path)
-      end
-    end
-
-    context '#update' do
-      it 'checks if user is authorized for :update' do
-        put order_path(order.number), params: { order: { email: "foo@bar.com" } }
-        expect(response).to redirect_to(login_path)
-      end
-    end
-
-    context '#empty' do
-      it 'checks if user is authorized for :update' do
-        put empty_cart_path
-        expect(response).to redirect_to(login_path)
-      end
-    end
-
     context "#show" do
       it "checks against the specified order" do
         get order_path(id: order.number)

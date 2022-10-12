@@ -26,6 +26,6 @@ class StoreController < Spree::BaseController
     Spree::OrderMutex.with_lock!(@order) { yield }
   rescue Spree::OrderMutex::LockFailed
     flash[:error] = t('spree.order_mutex_error')
-    redirect_to cart_path
+    redirect_to edit_cart_path
   end
 end

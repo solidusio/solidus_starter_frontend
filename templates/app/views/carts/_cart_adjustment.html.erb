@@ -7,7 +7,7 @@
 
 <% if adjustments_sum != 0 %>
   <%= render(
-    "cart_amount_row",
+    "carts/cart_amount_row",
     type: t('spree.tax'),
     label: label,
     amount: Spree::Money.new(adjustments_sum, currency: @order.currency)

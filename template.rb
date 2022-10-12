@@ -175,13 +175,13 @@ with_log['installing routes'] do
 
     get '/orders/:id/token/:token' => 'orders#show', as: :token_order
 
-    resources :orders, except: [:index, :new, :create, :destroy] do
+    resources :orders, only: :show do
       resources :coupon_codes, only: :create
     end
 
-    get '/cart', to: 'orders#edit', as: :cart
-    patch '/cart', to: 'orders#update', as: :update_cart
-    put '/cart/empty', to: 'orders#empty', as: :empty_cart
+    resource :cart, only: [:edit, :update] do
+      put 'empty'
+    end
 
     # route globbing for pretty nested taxon and product paths
     get '/t/*id', to: 'taxons#show', as: :nested_taxons
