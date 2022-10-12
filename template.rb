@@ -172,9 +172,9 @@ with_log['installing routes'] do
 
     get '/orders/:id/token/:token' => 'orders#show', as: :token_order
 
-    resources :orders, only: :show do
-      resources :coupon_codes, only: :create
-    end
+    resources :orders, only: :show
+
+    resources :coupon_codes, only: :create
 
     resource :cart, only: [:edit, :update] do
       put 'empty'
