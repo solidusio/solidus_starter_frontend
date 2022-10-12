@@ -192,6 +192,6 @@ class CheckoutsController < CheckoutBaseController
   def completion_route
     return order_path(@order) if spree_current_user
 
-    token_order_path(@order, @order.guest_token)
+    order_path(@order, token: @order.guest_token)
   end
 end

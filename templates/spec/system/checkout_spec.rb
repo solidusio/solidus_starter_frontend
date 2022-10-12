@@ -419,7 +419,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       click_on "Place Order"
 
       order = Spree::Order.last
-      expect(page).to have_current_path(token_order_path(order, order.guest_token))
+      expect(page).to have_current_path(order_path(order, token: order.guest_token))
     end
   end
 

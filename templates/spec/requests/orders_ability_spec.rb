@@ -8,7 +8,7 @@ RSpec.describe 'Order permissions', type: :request do
   let(:variant) { create(:variant) }
 
   it 'understands order routes with token' do
-    expect(token_order_path('R123456', 'ABCDEF')).to eq('/orders/R123456/token/ABCDEF')
+    expect(order_path('R123456', token: 'ABCDEF')).to eq('/orders/R123456?token=ABCDEF')
   end
 
   context 'when an order exists in the cookies.signed', with_guest_session: true do
