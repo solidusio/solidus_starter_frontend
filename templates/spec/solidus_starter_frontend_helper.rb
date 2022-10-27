@@ -35,7 +35,6 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   config.raise_errors_for_deprecations!
-  config.infer_spec_type_from_file_location!
   config.disable_monkey_patching!
   config.infer_spec_type_from_file_location!
 
