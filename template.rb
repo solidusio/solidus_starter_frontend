@@ -5,6 +5,19 @@ with_log = ->(message, &block) {
   block.call
 }
 
+bundle_command = ->(command) do
+  say_status :run, "bundle #{command}"
+  bundle_path = Gem.bin_path("bundler", "bundle")
+
+  BundlerContext.with_original_env do
+    system(
+      Gem.ruby,
+      bundle_path,
+      *command.shellsplit,
+    )
+  end
+end
+
 with_log['checking versions'] do
   if Rails.gem_version < Gem::Version.new('6.1')
     say_status :unsupported, shell.set_color(
@@ -60,7 +73,7 @@ end
 
 with_log['installing gems'] do
   unless Bundler.locked_gems.dependencies['solidus_auth_devise']
-    bundle_command 'add solidus_auth_devise'
+    bundle_command['add solidus_auth_devise']
     generate 'solidus:auth:install'
   end
 
