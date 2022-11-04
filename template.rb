@@ -9,8 +9,10 @@ bundle_command = ->(command) do
   say_status :run, "bundle #{command}"
   bundle_path = Gem.bin_path("bundler", "bundle")
 
-  BundlerContext.with_original_env do
+  require 'bundler'
+  ::Bundler.with_original_env do
     system(
+      {'BUNDLE_SUPPRESS_INSTALL_USING_MESSAGES' => 'true'},
       Gem.ruby,
       bundle_path,
       *command.shellsplit,
@@ -72,11 +74,6 @@ with_log['fetching remote templates'] do
 end
 
 with_log['installing gems'] do
-  unless Bundler.locked_gems.dependencies['solidus_auth_devise']
-    bundle_command['add solidus_auth_devise']
-    generate 'solidus:auth:install'
-  end
-
   gem 'canonical-rails'
   gem 'solidus_support'
   gem 'truncate_html'
@@ -99,7 +96,23 @@ with_log['installing gems'] do
     gem 'rubocop-rspec', '~> 2.0'
   end
 
-  run_bundle
+  bundle_command["install"]
+
+  Bundler.reset_paths! # ensure the list of `locked_gems` is up to date
+  unless Bundler.locked_gems.dependencies['solidus_auth_devise']
+    in_root do
+      gemfile_code = <<~RUBY
+
+        # FIXME: Please remove this line if `solidus_auth_devise` appears anywhere else in the gemfile
+        #        or replace it with a simple `gem 'solidus_auth_devise'` otherwise.
+        gem 'solidus_auth_devise' unless File.read(__FILE__).lines[__LINE__..-1].grep(/solidus_auth_devise/).any?
+      RUBY
+      say_status :gemfile, 'solidus_auth_devise'
+      append_file_with_newline "Gemfile", gemfile_code, verbose: false
+    end
+    bundle_command["install"]
+    generate 'solidus:auth:install'
+  end
 end
 
 with_log['installing files'] do
