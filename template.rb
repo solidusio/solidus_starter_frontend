@@ -11,6 +11,7 @@ bundle_command = ->(command) do
 
   BundlerContext.with_original_env do
     system(
+      {'BUNDLE_SUPPRESS_INSTALL_USING_MESSAGES' => 'true'},
       Gem.ruby,
       bundle_path,
       *command.shellsplit,
