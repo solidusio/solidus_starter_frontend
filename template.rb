@@ -227,7 +227,7 @@ end
 
 with_log['security advisory'] do
   message = <<~TEXT
-    RECOMMENDED: To receive security announcements concerning Solidus Starter
+    To receive security announcements concerning Solidus Starter
     Frontend, please subscribe to the Solidus Security mailing list
     (https://groups.google.com/forum/#!forum/solidus-security). The mailing
     list is very low traffic, and it receives the public notifications the
@@ -235,5 +235,5 @@ with_log['security advisory'] do
     out https://solidus.io/security.
   TEXT
 
-  print_wrapped set_color(message.gsub("\n", ' '), :yellow)
+  say_status :RECOMMENDED, set_color(message.gsub("\n", ' '), :yellow), :yellow
 end
