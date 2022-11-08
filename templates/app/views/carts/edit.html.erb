@@ -20,4 +20,8 @@
       </div>
     </div>
   <% end %>
+
+  <% Spree::PaymentMethod.available_to_users.select{ |payment_method| payment_method.try(:display_on_cart) }.each do |payment_method| %>
+    <%= render partial: "orders/payment/#{payment_method.cart_partial_name}", locals: {payment_method: payment_method} %>
+  <% end %>
 </article>
