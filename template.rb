@@ -69,14 +69,24 @@ with_log['installing gems'] do
   gem 'truncate_html'
   gem 'view_component', '~> 2.46'
 
-  gem_group :development, :test do
-    gem 'rspec-rails'
-    gem 'apparition', '~> 0.6.0', github: 'twalpole/apparition'
-    gem 'rails-controller-testing', '~> 1.0.5'
-    gem 'rspec-activemodel-mocks', '~> 1.1.0'
+  gem_group :test do
+    # We need to add capybara along with a javascript driver to support the provided system specs.
+    # `rails new` will add the following gems for system tests unless `--skip-test` is provided.
+    # We want to stick with them but we can't be sure about how the app was generated, so we'll
+    # add them only if they're not already in the Gemfile.
+    gem "capybara" unless Bundler.locked_gems.dependencies['capybara']
+    gem "selenium-webdriver" unless Bundler.locked_gems.dependencies['selenium-webdriver']
+    gem "webdrivers" unless Bundler.locked_gems.dependencies['webdrivers']
 
     gem 'capybara-screenshot', '~> 1.0'
     gem 'database_cleaner', '~> 1.7'
+  end
+
+  gem_group :development, :test do
+    gem 'rspec-rails'
+    gem 'rails-controller-testing', '~> 1.0.5'
+    gem 'rspec-activemodel-mocks', '~> 1.1.0'
+
     gem 'factory_bot', '>= 4.8'
     gem 'factory_bot_rails'
     gem 'ffaker', '~> 2.13'
