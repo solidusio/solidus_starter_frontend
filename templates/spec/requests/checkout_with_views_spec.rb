@@ -22,7 +22,7 @@ RSpec.describe 'Checkout view rendering', type: :request, with_signed_in_user: t
       end
 
       it "displays rate cost in correct currency" do
-        get checkout_path
+        get edit_checkout_path
         html = Nokogiri::HTML(response.body)
         expect(html.css('.shipping-methods__rate').text.strip).to include("£10")
       end

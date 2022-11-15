@@ -23,7 +23,7 @@ RSpec.describe 'Checkout confirm page submission', :js, type: :system do
     context 'when there are not other backorderable stock locations' do
       context 'when the customer is on the confirm page and the availabilty drops to zero' do
         before do
-          visit checkout_state_path(:confirm)
+          visit edit_checkout_path(state: :confirm)
           order_stock_item.set_count_on_hand(0)
           order.line_items.first.variant.stock_items.reload
         end
@@ -44,7 +44,7 @@ RSpec.describe 'Checkout confirm page submission', :js, type: :system do
 
       context 'when the customer is on the confirm page and the availabilty drops to zero' do
         before do
-          visit checkout_state_path(:confirm)
+          visit edit_checkout_path(state: :confirm)
           order_stock_item.set_count_on_hand(0)
           order.line_items.first.variant.stock_items.reload
         end
@@ -54,19 +54,19 @@ RSpec.describe 'Checkout confirm page submission', :js, type: :system do
           click_button "Place Order"
           error_message = "Quantity selected of #{order_product.name} is not available. Still, items may be available from another stock location, please try again."
           expect(page).to have_content error_message
-          expect(page).to have_current_path checkout_state_path(:address)
+          expect(page).to have_current_path edit_checkout_path(state: :address)
         end
 
         it "can still complete the order using the backorderable stock location by restarting the checkout" do
           check 'Agree to Terms of Service'
           click_button "Place Order"
-          expect(page).to have_current_path checkout_state_path(:address)
+          expect(page).to have_current_path edit_checkout_path(state: :address)
           click_button "Save and Continue"
-          expect(page).to have_current_path checkout_state_path(:delivery)
+          expect(page).to have_current_path edit_checkout_path(state: :delivery)
           click_button "Save and Continue"
-          expect(page).to have_current_path checkout_state_path(:payment)
+          expect(page).to have_current_path edit_checkout_path(state: :payment)
           click_button "Save and Continue"
-          expect(page).to have_current_path checkout_state_path(:confirm)
+          expect(page).to have_current_path edit_checkout_path(state: :confirm)
           check 'Agree to Terms of Service'
           click_button "Place Order"
           expect(page).to have_content 'Your order has been processed successfully'
