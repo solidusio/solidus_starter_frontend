@@ -15,7 +15,7 @@ case "${DB}" in
     username="${DB_USERNAME}"
     password="${DB_PASSWORD}"
     ;;
-  sqlite|'')
+  sqlite3|sqlite|'')
     railsdb="sqlite3"
     ;;
   *)
