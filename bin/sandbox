@@ -24,12 +24,6 @@ case "${DB}" in
     ;;
 esac
 
-if [[ -n "${SOLIDUS_BRANCH}" ]]; then
-  branch="${SOLIDUS_BRANCH}"
-else
-  branch="master"
-fi
-
 extension_name="solidus_starter_frontend"
 
 sandbox_name='sandbox'
@@ -119,7 +113,7 @@ bundle binstub rspec-core
 
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"
-echo "🚀 Using ${railsdb} and Solidus ${branch}"
+echo "🚀 Using ${railsdb}"
 echo "🚀 Use 'export DB=[postgres|mysql|sqlite]' to control the DB adapter"
 echo "🚀 Use 'export SOLIDUS_BRANCH=<BRANCH-NAME>' to control the Solidus version"
 echo "🚀 This app is intended for test purposes."
