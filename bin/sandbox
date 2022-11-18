@@ -59,7 +59,6 @@ if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new(3)
   gem 'net-imap', require: false
   gem 'net-pop', require: false
 end
-
 RUBY
 
 replace_in_database_yml() {
