@@ -99,6 +99,6 @@ bundle exec rails generate solidus:install --auto-accept $@
 
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"
-echo "🚀 Using ${railsdb} and Solidus ${branch}"
+echo "🚀 Using ${railsdb}"
 echo "🚀 Use 'export DB=[postgres|mysql|sqlite]' to control the DB adapter"
 echo "🚀 This app is intended for test purposes."
