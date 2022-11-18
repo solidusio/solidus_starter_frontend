@@ -109,8 +109,6 @@ bundle exec rails generate solidus:install \
 
 bundle exec rails app:template LOCATION="$PWD/../template.rb"
 
-bundle binstub rspec-core
-
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"
 echo "🚀 Using ${railsdb}"
