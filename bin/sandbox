@@ -58,16 +58,11 @@ cat >> Gemfile <<RUBY
 
 solidus_repo = ENV.fetch('SOLIDUS_REPO', 'solidusio/solidus')
 solidus_branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
-solidus_i18n_repo = ENV.fetch('SOLIDUS_I18N_REPO', 'solidusio/solidus_i18n')
-solidus_i18n_branch = ENV.fetch('SOLIDUS_I18N_BRANCH', 'master')
 
 gem 'solidus_core', github: solidus_repo, branch: solidus_branch
 gem 'solidus_api', github: solidus_repo, branch: solidus_branch
 gem 'solidus_backend', github: solidus_repo, branch: solidus_branch
 gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
-gem 'solidus_i18n', github: solidus_i18n_repo, branch: solidus_i18n_branch
-
-gem 'rails-i18n'
 
 if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new(3)
   # mail gem dependencies
