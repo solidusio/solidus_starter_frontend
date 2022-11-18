@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails/generators'
+require 'rails/generators/app_base'
 require 'generators/solidus/install/install_generator/install_frontend'
 
 module SSFSolidus32Patch
