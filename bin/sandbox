@@ -46,17 +46,10 @@ fi
 
 cd "${sandbox_path}"
 cat >> Gemfile <<RUBY
-# By default, the solidus gem also includes the standard frontend via
-# the solidus_frontend gem. To make this extension work, you need to
-# exclude it and manually include all the other Solidus components.
-
 solidus_repo = ENV.fetch('SOLIDUS_REPO', 'solidusio/solidus')
 solidus_branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
 
-gem 'solidus_core', github: solidus_repo, branch: solidus_branch
-gem 'solidus_api', github: solidus_repo, branch: solidus_branch
-gem 'solidus_backend', github: solidus_repo, branch: solidus_branch
-gem 'solidus_sample', github: solidus_repo, branch: solidus_branch
+gem 'solidus', github: solidus_repo, branch: solidus_branch
 
 if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new(3)
   # mail gem dependencies
@@ -101,13 +94,8 @@ bundle install --gemfile Gemfile
 
 bundle exec rake db:drop db:create
 
-bundle exec rails generate solidus:install \
-  --auto-accept \
-  --enforce_available_locales=true \
-  --frontend=none \
-  $@
-
-bundle exec rails app:template LOCATION="$PWD/../template.rb"
+export FRONTEND="$PWD/../template.rb"
+bundle exec rails generate solidus:install --auto-accept $@
 
 echo
 echo "🚀 Sandbox app successfully created for ${extension_name}!"
