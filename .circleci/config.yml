@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   browser-tools: circleci/browser-tools@1.3.0
+  slack: circleci/slack@4.9.3
 
   # Always take the latest version of the orb, this allows us to
   # run specs against Solidus supported versions only without the need
@@ -72,6 +73,13 @@ commands:
           name: 'Solidus <<parameters.branch>>: Clean up'
           when: always
 
+  notify:
+    steps:
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+          branch_pattern: main, v[0-9]+\.[0-9]+
+
 jobs:
   run-specs:
     executor:
@@ -83,6 +91,7 @@ jobs:
           branch: <<parameters.solidus_branch>>
           rails_version: <<parameters.rails_version>>
       - solidusio_extensions/store-test-results
+      - notify
     parameters:
       solidus_branch:
         type: string
@@ -101,25 +110,31 @@ workflows:
   "Run specs on supported Solidus versions":
     jobs:
       - run-specs:
+          context: slack-secrets
           name: run-specs-with-solidus-3-2-rails-7-ruby-3-1-postgres
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-solidus-latest
           solidus_branch: 'master'
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-rails-6
           rails_version: '~> 6.1'
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-ruby-3-0
           ruby_version: '3.0'
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-ruby-2
           ruby_version: '2.7'
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-mysql
           database: 'mysql'
 
@@ -133,24 +148,30 @@ workflows:
                 - master
     jobs:
       - run-specs:
+          context: slack-secrets
           name: run-specs-with-solidus-3-2-rails-7-ruby-3-1-postgres
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-solidus-latest
           solidus_branch: 'master'
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-rails-6
           rails_version: '~> 6.1'
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-ruby-3-0
           ruby_version: '3.0'
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-ruby-2
           ruby_version: '2.7'
 
       - run-specs:
+          context: slack-secrets
           name: run-specs-but-with-mysql
           database: 'mysql'
