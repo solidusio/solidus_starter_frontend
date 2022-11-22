@@ -17,13 +17,12 @@ RUN apt-get update -qq \
     sqlite3 \
     libsqlite3-dev \
     chromium \
+    libvips \
+    chromium-driver \
   && rm -rf /var/cache/apt/lists/*
 
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
   && echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' $PG_VERSION > /etc/apt/sources.list.d/pgdg.list
-
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8C718D3B5072E1F5 \
- && echo "deb http://repo.mysql.com/apt/debian/ buster mysql-"$MYSQL_VERSION > /etc/apt/sources.list.d/mysql.list
 
 RUN curl -sSL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash -
 
@@ -31,9 +30,9 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrad
   DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     libpq-dev \
     postgresql-client-$PG_VERSION \
-    mysql-client \
+    default-mysql-client \
     nodejs \
-  &&  rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/*
 
 ENV APP_USER=solidus_starter_frontend_user \
     LANG=C.UTF-8 \
