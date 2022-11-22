@@ -31,7 +31,7 @@ services:
     image: solidus_starter_frontend-0.1.0
     command: bash -c "(bundle check || bundle) && tail -f /dev/null"
     environment:
-      CAPYBARA_DRIVER: selenium_chrome_headless_docker_friendly
+      CAPYBARA_JS_DRIVER: selenium_chrome_headless_docker_friendly
       DB_USERNAME: root
       DB_PASSWORD: password
       DB_ALL: "1"
