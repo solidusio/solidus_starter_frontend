@@ -100,16 +100,7 @@ with_log['installing gems'] do
 
   Bundler.reset_paths! # ensure the list of `locked_gems` is up to date
   unless Bundler.locked_gems.dependencies['solidus_auth_devise']
-    in_root do
-      gemfile_code = <<~RUBY
-
-        # FIXME: Please remove this line if `solidus_auth_devise` appears anywhere else in the gemfile
-        #        or replace it with a simple `gem 'solidus_auth_devise'` otherwise.
-        gem 'solidus_auth_devise' unless File.read(__FILE__).lines[__LINE__..-1].grep(/solidus_auth_devise/).any?
-      RUBY
-      say_status :gemfile, 'solidus_auth_devise'
-      append_file_with_newline "Gemfile", gemfile_code, verbose: false
-    end
+    gem 'solidus_auth_devise'
     bundle_command["install"]
     generate 'solidus:auth:install'
   end
