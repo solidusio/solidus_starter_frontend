@@ -18,7 +18,9 @@ commands:
       - checkout
       - run:
           name: Install libvips
-          command: sudo apt-get install -y libvips
+          command: |
+            sudo apt-get update
+            sudo apt-get install -yq libvips-dev
 
   test-branch:
     description:
