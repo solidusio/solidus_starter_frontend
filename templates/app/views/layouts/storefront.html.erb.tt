@@ -18,7 +18,7 @@
     <%%= favicon_link_tag 'favicon.ico' %>
     <%%= yield :head %>
   </head>
-  <body class="<%%= body_class %>" id="<%%= @body_id || 'default' %>">
+  <body class="<%%= body_class %>" id="<%%= @body_id || 'default' %>" data-turbo="false">
     <%%= render 'layouts/header', taxons: @taxons, taxon: @taxon %>
     <%%= flash_messages %>
     <%%= render BreadcrumbsComponent.new(@taxon) %>
