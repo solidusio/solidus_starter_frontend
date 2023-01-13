@@ -37,4 +37,12 @@ RSpec.describe 'Product', type: :request, with_signed_in_user: true do
       get product_path(product.to_param), headers: { 'HTTP_REFERER' => 'not|a$url' }
     end
   end
+
+  context "when invalid search params are passed" do
+    it "raises ActionController::BadRequest" do
+      expect {
+        get products_path, params: { search: "blurb" }
+      }.to raise_error(ActionController::BadRequest)
+    end
+  end
 end
