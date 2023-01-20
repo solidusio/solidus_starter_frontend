@@ -7,11 +7,11 @@ class CartsController < StoreController
 
   before_action :store_guest_token
   before_action :assign_order, only: :update
-  # note: do not lock the #edit action because that's where we redirect when we fail to acquire a lock
+  # note: do not lock the #show action because that's where we redirect when we fail to acquire a lock
   around_action :lock_order, only: :update
 
   # Shows the current incomplete order from the session
-  def edit
+  def show
     @order = current_order(build_order_if_necessary: true)
     authorize! :edit, @order, cookies.signed[:guest_token]
     if params[:id] && @order.number != params[:id]
@@ -35,7 +35,7 @@ class CartsController < StoreController
         end
       end
     else
-      respond_with(@order)
+      render action: :show
     end
   end
 

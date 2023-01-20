@@ -45,7 +45,7 @@ RSpec.describe 'Cart', type: :request do
         # email validation is only after address state
         order.update_column(:state, "delivery")
         patch cart_path, params: { order: { email: "" } }
-        expect(response).to render_template :edit
+        expect(response).to render_template :show
       end
 
       it "redirects to cart path (on success)" do

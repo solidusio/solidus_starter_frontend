@@ -79,6 +79,7 @@ For information about contributing to this project please refer to this
 * Docker development
 
 ## About
+
 [![Nebulab][nebulab-logo]][nebulab]
 
 `solidus_starter_frontend` is funded and maintained by the [Nebulab][nebulab]
