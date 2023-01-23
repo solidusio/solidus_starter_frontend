@@ -22,7 +22,7 @@
         <li><%= source.name %></li>
       </ul>
     <% elsif source.is_a?(Spree::StoreCredit) %>
-      <%= content_tag(:p, payment.payment_method.name) %>:
+      <%= content_tag(:p, "#{payment.payment_method.name}:") %>
       <%= content_tag(:p, payment.display_amount) %>
     <% else %>
       <%= content_tag(:p, payment.payment_method.name) %>
