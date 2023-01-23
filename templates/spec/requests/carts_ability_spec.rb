@@ -12,7 +12,7 @@ RSpec.describe 'Cart permissions', type: :request do
 
     context '#edit' do
       it 'checks if user is authorized for :read' do
-        get edit_cart_path
+        get cart_path
         expect(response).to redirect_to(login_path)
       end
     end

@@ -162,7 +162,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
         end
 
         specify do
-          visit edit_cart_path
+          visit cart_path
 
           fill_in "coupon_code", with: "onetwo"
           click_button "Apply Code"
@@ -194,7 +194,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           click_link "Spree Mug"
           click_button "add-to-cart-button"
 
-          visit edit_cart_path
+          visit cart_path
           fill_in "coupon_code", with: "onetwo"
           click_button "Apply Code"
 
@@ -235,7 +235,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           click_link "Spree Mug"
           click_button "add-to-cart-button"
 
-          visit edit_cart_path
+          visit cart_path
 
           within '.cart-footer__total' do
             expect(page).to have_content("$30.00")

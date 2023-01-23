@@ -16,7 +16,7 @@ class CartsController < StoreController
     authorize! :edit, @order, cookies.signed[:guest_token]
     if params[:id] && @order.number != params[:id]
       flash[:error] = t('spree.cannot_edit_orders')
-      redirect_to edit_cart_path
+      redirect_to cart_path
     end
   end
 
@@ -30,7 +30,7 @@ class CartsController < StoreController
           if params.key?(:checkout)
             redirect_to checkout_state_path(@order.checkout_steps.first)
           else
-            redirect_to edit_cart_path
+            redirect_to cart_path
           end
         end
       end
@@ -45,7 +45,7 @@ class CartsController < StoreController
       @order.empty!
     end
 
-    redirect_to edit_cart_path
+    redirect_to cart_path
   end
 
   private
