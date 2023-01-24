@@ -8,6 +8,10 @@ class ProductsController < StoreController
 
   respond_to :html
 
+  rescue_from Spree::Config.searcher_class::InvalidOptions do |error|
+    raise ActionController::BadRequest.new, error.message
+  end
+
   def index
     @searcher = build_searcher(params.merge(include_images: true))
     @products = @searcher.retrieve_products
