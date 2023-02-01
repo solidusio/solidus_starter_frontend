@@ -6,7 +6,7 @@
           <%= radio_button_tag(
             "order[payments_attributes][][payment_method_id]",
             method.id,
-            method == @order.available_payment_methods.first,
+            method == methods.first,
             id: id
           ) %>
 
