@@ -107,36 +107,26 @@ jobs:
         default: 'postgres'
 
 workflows:
-  "Run specs on supported Solidus versions":
+  "Run specs on development Solidus version":
     jobs:
       - run-specs:
           context: slack-secrets
-          name: run-specs-with-solidus-3-2-rails-7-ruby-3-1-postgres
+          name: run-specs-with-postgres
 
       - run-specs:
           context: slack-secrets
-          name: run-specs-but-with-solidus-latest
-          solidus_branch: 'master'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-rails-6
-          rails_version: '~> 6.1'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-ruby-3-0
-          ruby_version: '3.0'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-ruby-2
-          ruby_version: '2.7'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-mysql
+          name: run-specs-with-mysql
           database: 'mysql'
+
+      - run-specs:
+          context: slack-secrets
+          name: run-specs-with-postgres-ruby-3-1
+          ruby_version: '3.1'
+
+      - run-specs:
+          context: slack-secrets
+          name: run-specs-with-postgres-ruby-2-7
+          ruby_version: '2.7'
 
   "Weekly run specs against master":
     triggers:
