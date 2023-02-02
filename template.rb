@@ -172,6 +172,8 @@ with_log['installing routes'] do
 
       resources :products, only: [:index, :show]
 
+      resources :autocomplete_results, only: :index
+
       resources :cart_line_items, only: :create
 
       get '/locale/set', to: 'locale#set'

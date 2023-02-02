@@ -1,0 +1,36 @@
+<ul class="autocomplete-results__list">
+  <li class="autocomplete-results__title">
+    <%= t('spree.products') %>
+  </li>
+
+  <% if results[:products].any? %>
+    <% results[:products].each do |product| %>
+      <li class="autocomplete-results__item"
+          data-search-target="result">
+        <%= link_to product.name, product_path(product) %>
+      </li>
+    <% end %>
+
+    <li class="autocomplete-results__item"
+        data-search-target="result">
+      <%= link_to "See all results", products_path(keywords: params[:keywords]) %>
+    </li>
+  <% else %>
+    <li class="autocomplete-results__item autocomplete-results__item--empty">No results</li>
+  <% end %>
+
+  <li class="autocomplete-results__title">
+    <%= t('spree.taxons') %>
+  </li>
+
+  <% if results[:taxons].any? %>
+    <% results[:taxons].each do |taxon| %>
+      <li class="autocomplete-results__item"
+          data-search-target="result">
+        <%= link_to taxon.name, nested_taxons_path(taxon) %>
+      </li>
+    <% end %>
+  <% else %>
+    <li class="autocomplete-results__item autocomplete-results__item--empty">No results</li>
+  <% end %>
+</ul>

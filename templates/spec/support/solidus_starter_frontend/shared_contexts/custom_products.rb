@@ -3,17 +3,18 @@
 RSpec.shared_context "custom products" do
   before(:each) do
     create(:store)
-    taxonomy = FactoryBot.create(:taxonomy, name: 'Categories')
-    root = taxonomy.root
-    clothing_taxon = FactoryBot.create(:taxon, name: 'Clothing', parent_id: root.id)
-    bags_taxon = FactoryBot.create(:taxon, name: 'Bags', parent_id: root.id)
-    mugs_taxon = FactoryBot.create(:taxon, name: 'Mugs', parent_id: root.id)
 
-    taxonomy = FactoryBot.create(:taxonomy, name: 'Brands')
-    root = taxonomy.root
-    apache_taxon = FactoryBot.create(:taxon, name: 'Apache', parent_id: root.id)
-    rails_taxon = FactoryBot.create(:taxon, name: 'Ruby on Rails', parent_id: root.id)
-    ruby_taxon = FactoryBot.create(:taxon, name: 'Ruby', parent_id: root.id)
+    categories = FactoryBot.create(:taxonomy, name: 'Categories')
+    categories_root = categories.root
+    clothing_taxon = FactoryBot.create(:taxon, name: 'Clothing', parent_id: categories_root.id, taxonomy: categories)
+    bags_taxon = FactoryBot.create(:taxon, name: 'Bags', parent_id: categories_root.id, taxonomy: categories)
+    mugs_taxon = FactoryBot.create(:taxon, name: 'Mugs', parent_id: categories_root.id, taxonomy: categories)
+
+    brands = FactoryBot.create(:taxonomy, name: 'Brands')
+    brands_root = brands.root
+    apache_taxon = FactoryBot.create(:taxon, name: 'Apache', parent_id: brands_root.id, taxonomy: brands)
+    rails_taxon = FactoryBot.create(:taxon, name: 'Ruby on Rails', parent_id: brands_root.id, taxonomy: brands)
+    ruby_taxon = FactoryBot.create(:taxon, name: 'Ruby', parent_id: brands_root.id, taxonomy: brands)
 
     FactoryBot.create(:custom_product, name: 'Ruby on Rails Ringer T-Shirt', price: '19.99', taxons: [rails_taxon, clothing_taxon])
     FactoryBot.create(:custom_product, name: 'Ruby on Rails Mug', price: '15.99', taxons: [rails_taxon, mugs_taxon])

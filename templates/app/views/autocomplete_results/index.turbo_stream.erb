@@ -1,0 +1,5 @@
+<%= turbo_stream.replace 'autocomplete-results' do %>
+  <div id="autocomplete-results" class="autocomplete-results" data-search-target="results">
+    <%= render 'autocomplete_results', results: @results %>
+  </div>
+<% end %>
