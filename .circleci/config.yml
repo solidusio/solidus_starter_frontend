@@ -30,15 +30,6 @@ commands:
       branch:
         type: string
         default: master
-      command:
-        type: string
-        default: |
-          cd sandbox
-          bundle add rspec_junit_formatter --group test
-          bundle exec rspec --format progress --format RspecJunitFormatter --out $TEST_RESULTS_PATH
-      command_verb:
-        type: string
-        default: Runs tests
       rails_version:
         type: string
       ruby_version:
@@ -64,12 +55,14 @@ commands:
             SOLIDUS_BRANCH: <<parameters.branch>>
           when: always
       - run:
-          name: '<<parameters.command_verb>> on Solidus <<parameters.branch>>'
-          command: <<parameters.command>>
+          name: 'Runs tests on Solidus <<parameters.branch>>'
+          command: |
+            cd sandbox
+            bundle add rspec_junit_formatter --group test
+            bundle exec rspec --format progress --format RspecJunitFormatter --out ../test-results/ruby-<<parameters.rails_version>>-rails-<<parameters.rails_version>>-solidus-<<parameters.branch>>-<<parameters.database>>-results.xml
           environment:
             RAILS_VERSION: <<parameters.rails_version>>
             SOLIDUS_BRANCH: <<parameters.branch>>
-            TEST_RESULTS_PATH: ../test-results/ruby-<<parameters.rails_version>>-rails-<<parameters.rails_version>>-solidus-<<parameters.branch>>-<<parameters.database>>-results.xml
           when: always
       - run:
           command: rm -rf sandbox
