@@ -58,6 +58,20 @@ In addition, please note that it will add Solidus Auth Devise frontend
 components to your app. At the moment, you will need to manually remove the gem
 and its frontend components if you don't need them.
 
+## Compatibility
+
+Because this project copies files over the host application, and it is intended
+to be used only when Solidus is installed for the first time, we can guarantee
+the latest code only works with the latest available version of Solidus and Rails.
+
+This means that each Solidus version will have one specific supported version of
+the Starter Frontend. Each version is stored in a different branch of this repository.
+For example, Solidus `v3.3` will be working with Solidus Starter Frontend's templates
+coming from `v3.3` branch of this repository.
+
+This compatibility is also enforced in the Solidus installer. In fact, each Solidus
+version will point its installer to the template of the corresponding branch over here.
+
 ## Security updates
 
 To receive security announcements concerning Solidus Starter Frontend, please
@@ -77,6 +91,40 @@ For information about contributing to this project please refer to this
 * Updating the changelog
 * Releasing new versions
 * Docker development
+
+## CI Testing Strategy
+
+The following parameters are considered in the CI testing strategy:
+
+### Database
+
+We are testing this starter kit against PostgreSQL and MySQL.
+### Ruby Version
+
+We are testing this starter kit against the [currently supported
+Ruby versions](https://endoflife.date/ruby).
+
+### Rails version
+
+We are testing this starter kit against the last Rails version
+at the time the corresponding Solidus version has been released.
+Eg. Solidus v3.3 tests against Rails 7.0
+
+### Solidus Version
+
+- `main` branch will test installing itself over Solidus master only.
+- the branch corresponding to the latest Solidus release (with `vX.X`
+  format) will only test installing itself over the corresponding
+  Solidus version.
+- branches targetting older Solidus versions won't be tested.
+
+### Scheduled pipelines
+
+Daily, we are running a scheduled test suite run against the `main`
+branch and the branch corresponding to the latest Solidus release.
+This scheduled test will give us more confidence that this starter
+kit always works with the latest Solidus's released versions and
+the development version.
 
 ## About
 [![Nebulab][nebulab-logo]][nebulab]
