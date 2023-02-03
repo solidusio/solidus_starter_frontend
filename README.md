@@ -28,7 +28,7 @@ All of this while keeping and improving on the functionality of the current
 Just run:
 
 ```bash
-rails new store --skip-javascript
+rails new store
 cd store
 bundle add solidus
 bin/rails generate solidus:install --frontend=solidus_starter_frontend
