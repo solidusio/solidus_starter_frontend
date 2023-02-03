@@ -98,7 +98,7 @@ The following parameters are considered in the CI testing strategy:
 
 ### Database
 
-We are testing this starter kit against PostgreSQL and MySQL.
+We are testing this starter kit against PostgreSQL, MySQL and SQLite.
 ### Ruby Version
 
 We are testing this starter kit against the [currently supported

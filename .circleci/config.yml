@@ -118,6 +118,11 @@ workflows:
 
       - run-specs:
           context: slack-secrets
+          name: run-specs-with-sqlite
+          database: 'sqlite'
+
+      - run-specs:
+          context: slack-secrets
           name: run-specs-with-postgres-ruby-3-1
           ruby_version: '3.1'
 
