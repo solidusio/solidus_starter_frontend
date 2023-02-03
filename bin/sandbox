@@ -42,7 +42,6 @@ cd ./sandbox
 test -n "${host}" && replace_in_database_yml "host" "${host}"
 test -n "${username}" && replace_in_database_yml "username" "${username}"
 test -n "${password}" && replace_in_database_yml "password" "${password}"
-test -n "${SANDBOX_BUNDLE_PATH}" && bundle config --local path "${SANDBOX_BUNDLE_PATH}"
 
 unbundled bundle add solidus \
   --github "${SOLIDUS_REPO:-solidusio/solidus}" \

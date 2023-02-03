@@ -27,50 +27,46 @@ commands:
       Runs tests for a specific Solidus branch.
 
     parameters:
-      branch:
+      solidus_branch:
         type: string
         default: master
-      command:
-        type: string
-        default: |
-          cd sandbox
-          bundle add rspec_junit_formatter --group test
-          bundle exec rspec --format progress --format RspecJunitFormatter --out $TEST_RESULTS_PATH
-      command_verb:
-        type: string
-        default: Runs tests
       rails_version:
+        type: string
+      ruby_version:
+        type: string
+      database:
         type: string
 
     steps:
       - run:
-          name: 'Solidus <<parameters.branch>>:  Install gems'
+          name: 'Solidus <<parameters.solidus_branch>>:  Install gems'
           command: |
             bundle install
           environment:
             RAILS_VERSION: <<parameters.rails_version>>
-            SOLIDUS_BRANCH: <<parameters.branch>>
+            SOLIDUS_BRANCH: <<parameters.solidus_branch>>
           when: always
       - run:
-          name: 'Solidus <<parameters.branch>>:  Install sandbox with generated starter frontend'
+          name: 'Solidus <<parameters.solidus_branch>>:  Install sandbox with generated starter frontend'
           command: bin/sandbox --seed=false --sample=false
           environment:
             RAILS_ENV: development # if run in test mode will attempt to eager-load and break the sandbox
             RAILS_VERSION: <<parameters.rails_version>>
-            SANDBOX_BUNDLE_PATH: ../vendor/bundle/<<parameters.branch>>
-            SOLIDUS_BRANCH: <<parameters.branch>>
+            SOLIDUS_BRANCH: <<parameters.solidus_branch>>
           when: always
       - run:
-          name: '<<parameters.command_verb>> on Solidus <<parameters.branch>>'
-          command: <<parameters.command>>
+          name: 'Runs tests on Solidus <<parameters.solidus_branch>>'
+          command: |
+            cd sandbox
+            bundle add rspec_junit_formatter --group test
+            bundle exec rspec --format progress --format RspecJunitFormatter --out ../test-results/ruby-<<parameters.rails_version>>-rails-<<parameters.rails_version>>-solidus-<<parameters.solidus_branch>>-<<parameters.database>>-results.xml
           environment:
             RAILS_VERSION: <<parameters.rails_version>>
-            SOLIDUS_BRANCH: <<parameters.branch>>
-            TEST_RESULTS_PATH: ../test-results/gems-v3-ruby-v2-7-solidus-<<parameters.branch>>/results.xml
+            SOLIDUS_BRANCH: <<parameters.solidus_branch>>
           when: always
       - run:
           command: rm -rf sandbox
-          name: 'Solidus <<parameters.branch>>: Clean up'
+          name: 'Solidus <<parameters.solidus_branch>>: Clean up'
           when: always
 
   notify:
@@ -88,8 +84,10 @@ jobs:
     steps:
       - setup
       - test-branch:
-          branch: <<parameters.solidus_branch>>
+          solidus_branch: <<parameters.solidus_branch>>
           rails_version: <<parameters.rails_version>>
+          ruby_version: <<parameters.ruby_version>>
+          database: <<parameters.database>>
       - solidusio_extensions/store-test-results
       - notify
     parameters:
@@ -101,77 +99,38 @@ jobs:
         default: '~> 7.0'
       ruby_version:
         type: string
-        default: '3.1'
       database:
         type: string
-        default: 'postgres'
 
 workflows:
-  "Run specs on supported Solidus versions":
+  "Run specs on development Solidus version":
     jobs:
       - run-specs:
           context: slack-secrets
-          name: run-specs-with-solidus-3-2-rails-7-ruby-3-1-postgres
+          name: run-specs-with-postgres-ruby-3-2
+          database: 'postgres'
+          ruby_version: '3.2'
 
       - run-specs:
           context: slack-secrets
-          name: run-specs-but-with-solidus-latest
-          solidus_branch: 'master'
+          name: run-specs-with-postgres-ruby-3-1
+          database: 'postgres'
+          ruby_version: '3.1'
 
       - run-specs:
           context: slack-secrets
-          name: run-specs-but-with-rails-6
-          rails_version: '~> 6.1'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-ruby-3-0
-          ruby_version: '3.0'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-ruby-2
+          name: run-specs-with-postgres-ruby-3-0
+          database: 'postgres'
           ruby_version: '2.7'
 
       - run-specs:
           context: slack-secrets
-          name: run-specs-but-with-mysql
+          name: run-specs-with-mysql-ruby-3-2
           database: 'mysql'
-
-  "Weekly run specs against master":
-    triggers:
-      - schedule:
-          cron: "0 0 * * 4" # every Thursday
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-with-solidus-3-2-rails-7-ruby-3-1-postgres
+          ruby_version: '3.2'
 
       - run-specs:
           context: slack-secrets
-          name: run-specs-but-with-solidus-latest
-          solidus_branch: 'master'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-rails-6
-          rails_version: '~> 6.1'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-ruby-3-0
-          ruby_version: '3.0'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-ruby-2
-          ruby_version: '2.7'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-but-with-mysql
-          database: 'mysql'
+          name: run-specs-with-sqlite-ruby-3-2
+          database: 'sqlite'
+          ruby_version: '3.2'
