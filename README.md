@@ -114,6 +114,7 @@ kit always works with the latest Solidus's released versions and
 the development version.
 
 ## About
+
 [![Nebulab][nebulab-logo]][nebulab]
 
 `solidus_starter_frontend` is funded and maintained by the [Nebulab][nebulab]

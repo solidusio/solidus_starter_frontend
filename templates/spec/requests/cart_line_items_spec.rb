@@ -28,7 +28,7 @@ RSpec.describe 'Cart Line Items', type: :request do
         expect do
           post cart_line_items_path, params: { variant_id: variant.id, quantity: 5 }
         end.to change { user.orders.count }.by(1)
-        expect(response).to redirect_to edit_cart_path
+        expect(response).to redirect_to cart_path
         order = user.orders.first
         expect(order.line_items.size).to eq(1)
         line_item = order.line_items.first
@@ -57,7 +57,7 @@ RSpec.describe 'Cart Line Items', type: :request do
             post cart_line_items_path, params: { variant_id: variant.id, quantity: '' }
           end.to change { Spree::Order.count }.by(1)
           order = Spree::Order.last
-          expect(response).to redirect_to edit_cart_path
+          expect(response).to redirect_to cart_path
           expect(order.line_items.size).to eq(1)
           line_item = order.line_items.first
           expect(line_item.variant_id).to eq(variant.id)
@@ -71,7 +71,7 @@ RSpec.describe 'Cart Line Items', type: :request do
             post cart_line_items_path, params: { variant_id: variant.id, quantity: nil }
           end.to change { Spree::Order.count }.by(1)
           order = Spree::Order.last
-          expect(response).to redirect_to edit_cart_path
+          expect(response).to redirect_to cart_path
           expect(order.line_items.size).to eq(1)
           line_item = order.line_items.first
           expect(line_item.variant_id).to eq(variant.id)

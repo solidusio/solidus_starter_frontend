@@ -66,7 +66,7 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
       visit product_path(product)
       click_button "add-to-cart-button"
 
-      visit edit_cart_path
+      visit cart_path
       expect(page).to have_content(product.name)
     end
   end

@@ -436,7 +436,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
     context "and updates line item quantity and try to reach payment page" do
       before do
-        visit edit_cart_path
+        visit cart_path
         within '.cart-item__quantity' do
           fill_in first("input")["name"], with: 3
         end
