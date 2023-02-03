@@ -109,17 +109,7 @@ workflows:
     jobs:
       - run-specs:
           context: slack-secrets
-          name: run-specs-with-postgres
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-with-mysql
-          database: 'mysql'
-
-      - run-specs:
-          context: slack-secrets
-          name: run-specs-with-sqlite
-          database: 'sqlite'
+          name: run-specs-with-postgres-ruby-3-2
 
       - run-specs:
           context: slack-secrets
@@ -128,5 +118,15 @@ workflows:
 
       - run-specs:
           context: slack-secrets
-          name: run-specs-with-postgres-ruby-2-7
+          name: run-specs-with-postgres-ruby-3-0
           ruby_version: '2.7'
+
+      - run-specs:
+          context: slack-secrets
+          name: run-specs-with-mysql-ruby-3-2
+          database: 'mysql'
+
+      - run-specs:
+          context: slack-secrets
+          name: run-specs-with-sqlite-ruby-3-2
+          database: 'sqlite'
