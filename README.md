@@ -1,3 +1,6 @@
+![Solidus Starter Frontend Rails Storefront](https://user-images.githubusercontent.com/167946/216650338-6571185e-e88f-41dd-ba45-3c2907547aaa.png)
+
+
 # Solidus Starter Frontend
 [![CircleCI](https://circleci.com/gh/solidusio/solidus_starter_frontend.svg?style=shield)](https://circleci.com/gh/solidusio/solidus_starter_frontend)
 
