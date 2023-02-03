@@ -15,7 +15,7 @@ views items that don't exist here.
 Just run:
 
 ```bash
-rails new store --skip-javascript
+rails new store
 cd store
 bundle add solidus
 bin/rails generate solidus:install --frontend=solidus_starter_frontend
