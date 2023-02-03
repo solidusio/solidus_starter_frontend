@@ -99,10 +99,8 @@ jobs:
         default: '~> 7.0'
       ruby_version:
         type: string
-        default: '3.2'
       database:
         type: string
-        default: 'postgres'
 
 workflows:
   "Run specs on development Solidus version":
@@ -110,23 +108,29 @@ workflows:
       - run-specs:
           context: slack-secrets
           name: run-specs-with-postgres-ruby-3-2
+          database: 'postgres'
+          ruby_version: '3.2'
 
       - run-specs:
           context: slack-secrets
           name: run-specs-with-postgres-ruby-3-1
+          database: 'postgres'
           ruby_version: '3.1'
 
       - run-specs:
           context: slack-secrets
           name: run-specs-with-postgres-ruby-3-0
+          database: 'postgres'
           ruby_version: '2.7'
 
       - run-specs:
           context: slack-secrets
           name: run-specs-with-mysql-ruby-3-2
           database: 'mysql'
+          ruby_version: '3.2'
 
       - run-specs:
           context: slack-secrets
           name: run-specs-with-sqlite-ruby-3-2
           database: 'sqlite'
+          ruby_version: '3.2'
