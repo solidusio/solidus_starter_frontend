@@ -10,19 +10,6 @@ codebase for a more efficient bootstrapping experience.
 Frontend) will not work with this project because they rely on defacing some
 views items that don't exist here.
 
-## Objectives
-
-We aim to deliver:
-
-- a minimal, semantic and accessible HTML skeleton
-- a reusable component based architecture
-- simple SASS styling strictly based on BEM
-- the elimination of jQuery as a dependency by rewriting frontend functionality
-  in vanilla JavaScript
-
-All of this while keeping and improving on the functionality of the current
-[Solidus][solidus] frontend subcomponent.
-
 ## Installation
 
 Just run:
