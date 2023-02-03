@@ -29,7 +29,6 @@ commands:
     parameters:
       solidus_branch:
         type: string
-        default: master
       rails_version:
         type: string
       ruby_version:
