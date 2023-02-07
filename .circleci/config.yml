@@ -58,7 +58,7 @@ commands:
           command: |
             cd sandbox
             bundle add rspec_junit_formatter --group test
-            bundle exec rspec --format progress --format RspecJunitFormatter --out ../test-results/ruby-<<parameters.rails_version>>-rails-<<parameters.rails_version>>-solidus-<<parameters.solidus_branch>>-<<parameters.database>>-results.xml
+            bundle exec rspec --format progress --format RspecJunitFormatter --out ../test-results/results.xml
           environment:
             RAILS_VERSION: <<parameters.rails_version>>
             SOLIDUS_BRANCH: <<parameters.solidus_branch>>
