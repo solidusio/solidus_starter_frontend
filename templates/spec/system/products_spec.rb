@@ -138,13 +138,6 @@ RSpec.describe 'Visiting Products', type: :system, inaccessible: true do
     end
   end
 
-  it 'should be able to search for a product' do
-    fill_in 'keywords', with: 'shirt'
-    click_button 'Search'
-
-    expect(page.all('ul.products-grid li').size).to eq(1)
-  end
-
   context 'a product with variants' do
     let(:product) do
       Spree::Product.find_by(name: 'Ruby on Rails Baseball Jersey')

@@ -1,0 +1,45 @@
+.autocomplete-results {
+  background: $color-white;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 62px;
+  top: 100%;
+
+  &__title {
+    padding: 10px;
+    font-weight: $buttons-font-weight;
+    font-weight: bold;
+  }
+
+  &__list {
+    border: 1px solid $color-border-medium;
+    border-top: none;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__item {
+    a {
+      padding: 10px;
+      display: block;
+    }
+  }
+
+  &__item--current, &__item:hover {
+    a {
+      color: $link-color-hover;
+
+      &::after {
+        content: "⏎";
+        margin-left: 10px;
+        opacity: 0.6;
+      }
+    }
+  }
+
+  &__item--empty {
+    padding: 10px;
+  }
+}
