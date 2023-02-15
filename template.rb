@@ -6,12 +6,12 @@ with_log = ->(message, &block) {
 }
 
 with_log['checking versions'] do
-  if Rails.gem_version < Gem::Version.new('6.1')
-    say_status :unsupported, shell.set_color(
-      "You are installing solidus_starter_frontend on an outdated Rails version.\n" \
-      "Please keep in mind that some features might not work with it.", :bold
+  if Rails.gem_version < Gem::Version.new('7.0')
+    say_status :error, shell.set_color(
+      "You are trying to install solidus_starter_frontend on an outdated Rails version.\n" \
+      "This installation attempt has been aborted, please retry using at least Rails 7.", :bold
     ), :red
-    exit 1 if auto_accept || no?("Do you wish to proceed?")
+    exit 1
   end
 
   if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.7')
