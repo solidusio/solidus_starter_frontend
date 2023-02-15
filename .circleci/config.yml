@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  browser-tools: circleci/browser-tools@1.3.0
+  browser-tools: circleci/browser-tools@1.4.1
   slack: circleci/slack@4.9.3
 
   # Always take the latest version of the orb, this allows us to
@@ -13,9 +13,9 @@ orbs:
 commands:
   setup:
     steps:
+      - checkout
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
-      - checkout
       - run:
           name: Install libvips
           command: |
