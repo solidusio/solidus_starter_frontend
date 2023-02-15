@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   browser-tools: circleci/browser-tools@1.4.1
-  slack: circleci/slack@4.9.3
 
   # Always take the latest version of the orb, this allows us to
   # run specs against Solidus supported versions only without the need
@@ -68,13 +67,6 @@ commands:
           name: 'Solidus <<parameters.solidus_branch>>: Clean up'
           when: always
 
-  notify:
-    steps:
-      - slack/notify:
-          event: fail
-          template: basic_fail_1
-          branch_pattern: main, v[0-9]+\.[0-9]+
-
 jobs:
   run-specs:
     executor:
@@ -88,7 +80,6 @@ jobs:
           ruby_version: <<parameters.ruby_version>>
           database: <<parameters.database>>
       - solidusio_extensions/store-test-results
-      - notify
     parameters:
       solidus_branch:
         type: string
@@ -105,31 +96,26 @@ workflows:
   "Run specs on development Solidus version":
     jobs:
       - run-specs:
-          context: slack-secrets
           name: run-specs-with-postgres-ruby-3-2
           database: 'postgres'
           ruby_version: '3.2'
 
       - run-specs:
-          context: slack-secrets
           name: run-specs-with-postgres-ruby-3-1
           database: 'postgres'
           ruby_version: '3.1'
 
       - run-specs:
-          context: slack-secrets
           name: run-specs-with-postgres-ruby-3-0
           database: 'postgres'
           ruby_version: '2.7'
 
       - run-specs:
-          context: slack-secrets
           name: run-specs-with-mysql-ruby-3-2
           database: 'mysql'
           ruby_version: '3.2'
 
       - run-specs:
-          context: slack-secrets
           name: run-specs-with-sqlite-ruby-3-2
           database: 'sqlite'
           ruby_version: '3.2'
