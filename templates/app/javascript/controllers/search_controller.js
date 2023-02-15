@@ -39,6 +39,12 @@ export default class extends Controller {
     this.resultTargets[this.currentResultIndex].firstElementChild.click()
   }
 
+  focusOut(event) {
+    if (!this.formTarget.contains(event.target)) {
+      this.reset()
+    }
+  }
+
   reset() {
     this.currentResultIndex = 0
     if (this.hasResultsTarget) {
