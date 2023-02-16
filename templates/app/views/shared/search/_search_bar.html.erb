@@ -11,7 +11,8 @@
                     keydown.up->search#previousResult
                     keydown.enter->search#openResult:prevent:stop
                     keydown.esc->search#reset:prevent:stop
-                    focusout->search#reset",
+                    click@window->search#focusOut
+                    ",
     "data-search-target": "keywords" %>
 
   <%= button_tag class: "search-bar__button", title: 'Search' do %>

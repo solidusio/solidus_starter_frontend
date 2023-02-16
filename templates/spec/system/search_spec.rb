@@ -39,6 +39,15 @@ RSpec.describe 'searching products', type: :system do
       expect(page.all('[data-search-target="result"]')[0][:class]).to include('autocomplete-results__item--current')
     end
 
+    it 'allows mouse click on results' do
+      fill_in 'keywords', with: 'ruby'
+      # wait for the autocomplete to show up
+      expect(page.all('[data-search-target="result"]')[0][:class]).to include('autocomplete-results__item--current')
+      find_all('[data-search-target="result"]')[0].click
+
+      expect(page).to have_current_path('/products/ruby-on-rails-ringer-t-shirt')
+    end
+
     it 'clicks on a suggestion pressing enter' do
       fill_in 'keywords', with: 'ruby'
       # wait for the autocomplete to show up
