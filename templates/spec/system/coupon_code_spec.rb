@@ -94,14 +94,13 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
         end
 
         context 'with saved credit card' do
-          let(:bogus) { create(:credit_card_payment_method) }
+          let(:bogus) { create(:credit_card_payment_method, name: "Bogus Card") }
           let!(:credit_card) do
             create(:credit_card, user_id: user.id, payment_method: bogus, gateway_customer_profile_id: "BGS-WEFWF")
           end
+          let!(:wallet_source) { user.wallet.add(credit_card) }
 
           before do
-            user.wallet.add(credit_card)
-
             visit root_path
             click_link "RoR Mug"
             click_button "add-to-cart-button"
@@ -119,7 +118,8 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
             click_button "Apply Code"
 
             expect(page).to have_content("The coupon code you entered doesn't exist. Please try again.")
-            expect(page).to have_content("Use an existing card")
+            expect(page).to have_content("PAYMENT INFORMATION")
+            expect(page).to have_content("Bogus Card")
           end
         end
       end

@@ -312,17 +312,12 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
   end
 
   context "when several payment methods are available" do
-    let(:credit_cart_payment) { create(:credit_card_payment_method) }
+    let(:credit_card_payment) { create(:credit_card_payment_method) }
     let(:check_payment) { create(:check_payment_method) }
 
-    after do
-      Capybara.ignore_hidden_elements = true
-    end
-
-    before do
-      Capybara.ignore_hidden_elements = false
+    it "disables the details of other payment methods", js: true do
       order = Spree::TestingSupport::OrderWalkthrough.up_to(:delivery)
-      allow(order).to receive_messages(available_payment_methods: [check_payment, credit_cart_payment])
+      allow(order).to receive_messages(available_payment_methods: [check_payment, credit_card_payment])
       order.user = create(:user)
       order.recalculate
 
@@ -330,18 +325,22 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: order.user)
 
       visit checkout_state_path(:payment)
-    end
 
-    it "the first payment method should be selected", js: true do
-      payment_method_css = "#order_payments_attributes__payment_method_id_"
-      expect(find("#{payment_method_css}#{check_payment.id}")).to be_checked
-      expect(find("#{payment_method_css}#{credit_cart_payment.id}")).not_to be_checked
-    end
+      # Starts off with the first payment method being selected
+      expect(find_payment_radio(check_payment.id)).to be_checked
+      expect(find_payment_fieldset(check_payment.id)).not_to be_disabled
 
-    it "the fields for the other payment methods should be hidden", js: true do
-      payment_method_css = "#payment_method_"
-      expect(find("#{payment_method_css}#{check_payment.id}")).to be_visible
-      expect(find("#{payment_method_css}#{credit_cart_payment.id}")).not_to be_visible
+      expect(find_payment_radio(credit_card_payment.id)).not_to be_checked
+      expect(find_payment_fieldset(credit_card_payment.id)).to be_disabled
+
+      # Select the credit card
+      find_payment_radio(credit_card_payment.id).click
+
+      expect(find_payment_radio(check_payment.id)).not_to be_checked
+      expect(find_payment_fieldset(check_payment.id)).to be_disabled
+
+      expect(find_payment_radio(credit_card_payment.id)).to be_checked
+      expect(find_payment_fieldset(credit_card_payment.id)).not_to be_disabled
     end
   end
 
@@ -354,8 +353,9 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       create(:credit_card, user_id: user.id, payment_method: bogus, gateway_customer_profile_id: "BGS-WEFWF")
     end
 
+    let!(:wallet_source) { user.wallet.add(credit_card) }
+
     before do
-      user.wallet.add(credit_card)
       order = Spree::TestingSupport::OrderWalkthrough.up_to(:delivery, user: user)
 
       allow_any_instance_of(CheckoutsController).to receive_messages(current_order: order)
@@ -366,7 +366,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     end
 
     it "selects first source available and customer moves on" do
-      expect(find("#use_existing_card_yes")).to be_checked
+      expect(find_existing_payment_radio(wallet_source.id)).to be_checked
 
       click_on "Save and Continue"
       check 'Agree to Terms of Service'
@@ -378,7 +378,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     end
 
     it "allows user to enter a new source" do
-      choose "use_existing_card_no"
+      find_payment_radio(bogus.id).click
       fill_in_credit_card
 
       click_on "Save and Continue"
