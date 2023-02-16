@@ -1,5 +1,4 @@
 <%= wallet_payment_source.payment_source.name %><br>
 <%= wallet_payment_source.payment_source.cc_type %>
 <%= wallet_payment_source.payment_source.display_number %><br>
-(expires: <%= wallet_payment_source.payment_source.month %>/<%= wallet_payment_source.payment_source.year %>)<br>
-<%= radio_button_tag "order[wallet_payment_source_id]", wallet_payment_source.id, default, class: "existing-cc-radio" %>
+(expires: <%= wallet_payment_source.payment_source.month %>/<%= wallet_payment_source.payment_source.year %>)
