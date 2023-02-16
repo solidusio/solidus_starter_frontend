@@ -12,20 +12,21 @@
   <% order.payments.valid.each do |payment| %>
     <% source = payment.source %>
 
-    <% if source.is_a?(Spree::CreditCard) %>
-      <ul class="payment-info__info">
+    <ul class="payment-info__info">
+      <% if source.is_a?(Spree::CreditCard) %>
         <li>
           <% if source.last_digits %>
             <%= t('spree.ending_in') %> <%= source.last_digits %>
           <% end %>
         </li>
         <li><%= source.name %></li>
-      </ul>
-    <% elsif source.is_a?(Spree::StoreCredit) %>
-      <%= content_tag(:p, "#{payment.payment_method.name}:") %>
-      <%= content_tag(:p, payment.display_amount) %>
-    <% else %>
-      <%= content_tag(:p, payment.payment_method.name) %>
-    <% end %>
+      <% else %>
+        <li><%= payment.payment_method.name %></li>
+      <% end %>
+      <li>
+        <strong><%= payment.display_amount %></strong>
+        (<%= t(payment.state, scope: 'spree.payment_states') %>)
+      </li>
+    </ul>
   <% end %>
 </div>

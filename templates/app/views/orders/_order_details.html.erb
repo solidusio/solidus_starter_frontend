@@ -1,13 +1,5 @@
 <div class="order-details">
   <div class="order-details__info">
-    <% if order.has_checkout_step?("address") %>
-      <%= render(
-        'orders/address_overview',
-        address: order.bill_address,
-        title: t('spree.billing_address')
-      ) %>
-    <% end %>
-
     <% if order.has_checkout_step?("delivery") %>
       <%= render(
         'orders/address_overview',
@@ -19,6 +11,14 @@
         'orders/order_shipments',
         order: order,
         title: t('spree.shipments')
+      ) %>
+    <% end %>
+
+    <% if order.has_checkout_step?("address") %>
+      <%= render(
+        'orders/address_overview',
+        address: order.bill_address,
+        title: t('spree.billing_address')
       ) %>
     <% end %>
 
