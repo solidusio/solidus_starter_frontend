@@ -1,6 +1,5 @@
 //= require_self
 //= require checkout/address
-//= require checkout/payment
 
 Solidus.disableSaveOnClick = () => {
   const form = document.querySelector('form.edit_order');
@@ -30,6 +29,6 @@ window.addEventListener('DOMContentLoaded', () => {
         submitButton.classList.remove('disabled');
         return false;
       };
-    }; 
+    };
   };
 });

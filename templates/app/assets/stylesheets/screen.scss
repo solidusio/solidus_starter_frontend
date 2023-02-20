@@ -36,13 +36,9 @@
 @import 'components/checkout/checkout_header';
 @import 'components/checkout/checkout_summary';
 @import 'components/checkout/proposed_shipment';
-@import 'components/checkout/existing_cards';
-@import 'components/checkout/payment_method_controls';
-@import 'components/checkout/payment_method_selector';
 @import 'components/checkout/progress_steps';
 @import 'components/checkout/shipment_items';
 @import 'components/checkout/shipping_methods';
-@import 'components/checkout/payments/gateway_payment_method';
 @import 'components/checkout/steps/address_step';
 @import 'components/checkout/steps/confirm_step';
 @import 'components/checkout/steps/delivery_step';

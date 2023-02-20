@@ -1,2 +1,2 @@
-web: unset PORT && bin/rails-sandbox server
+web: bin/rails-sandbox server
 watch: bin/guard -i
