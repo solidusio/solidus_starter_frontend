@@ -48,6 +48,8 @@ class CheckoutsController < CheckoutBaseController
   end
 
   def transition_forward
+    @order.next if @order.has_checkout_step?("payment") && @order.payment?
+
     if @order.can_complete?
       @order.complete
     else
