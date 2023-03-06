@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'solidus_starter_frontend_helper'
+require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
-  include SystemHelpers
+  include  SolidusStarterFrontend::SystemHelpers
 
   include_context 'checkout setup'
 

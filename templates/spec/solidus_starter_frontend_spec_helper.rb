@@ -19,6 +19,9 @@ require 'spree/testing_support/caching'
 require 'spree/testing_support/order_walkthrough'
 require 'spree/testing_support/translations'
 
+# Define the namespace for the helpers.
+module SolidusStarterFrontend; end
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir["#{__dir__}/support/solidus_starter_frontend/**/*.rb"].sort.each { |f| require f }

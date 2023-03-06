@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'solidus_starter_frontend_helper'
+require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe UserRegistrationsController, type: :controller do
   before { @request.env['devise.mapping'] = Devise.mappings[:spree_user] }

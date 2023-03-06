@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FillAddressFields
+module SolidusStarterFrontend::FillAddressFields
   def fill_addresses_fields_with(address)
     fields = %w[
       address1
@@ -25,5 +25,5 @@ module FillAddressFields
 end
 
 RSpec.configure do |config|
-  config.include FillAddressFields, type: :system
+  config.include SolidusStarterFrontend::FillAddressFields, type: :system
 end

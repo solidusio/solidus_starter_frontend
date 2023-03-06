@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'solidus_starter_frontend_helper'
+require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe OrdersHelper, type: :helper do
   # Regression test for https://github.com/spree/spree/issues/2518 and https://github.com/spree/spree/issues/2323

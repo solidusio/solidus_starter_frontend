@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'solidus_starter_frontend_helper'
+require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe Spree::BaseController, type: :controller do
   describe '#unauthorized_redirect' do

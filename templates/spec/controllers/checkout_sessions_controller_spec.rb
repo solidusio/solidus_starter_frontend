@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'solidus_starter_frontend_helper'
+require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe CheckoutSessionsController, type: :controller do
   let(:order) { create(:order_with_line_items, email: nil, user: nil, guest_token: token) }
