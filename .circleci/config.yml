@@ -34,6 +34,8 @@ commands:
         type: string
       database:
         type: string
+      coverage:
+        type: boolean
 
     steps:
       - run:
@@ -46,7 +48,9 @@ commands:
           when: always
       - run:
           name: 'Solidus <<parameters.solidus_branch>>:  Install sandbox with generated starter frontend'
-          command: bin/sandbox --seed=false --sample=false
+          command: |
+            <<#parameters.coverage>>export COVERAGE=true<</parameters.coverage>>
+            bin/sandbox --seed=false --sample=false
           environment:
             RAILS_ENV: development # if run in test mode will attempt to eager-load and break the sandbox
             RAILS_VERSION: <<parameters.rails_version>>
@@ -57,6 +61,7 @@ commands:
           command: |
             cd sandbox
             bundle add rspec_junit_formatter --group test
+            <<#parameters.coverage>>export COVERAGE=true<</parameters.coverage>>
             bundle exec rspec --format progress --format RspecJunitFormatter --out ../test-results/results.xml
           environment:
             RAILS_VERSION: <<parameters.rails_version>>
@@ -79,6 +84,8 @@ jobs:
           rails_version: <<parameters.rails_version>>
           ruby_version: <<parameters.ruby_version>>
           database: <<parameters.database>>
+          coverage: <<parameters.coverage>>
+
       - solidusio_extensions/store-test-results
     parameters:
       solidus_branch:
@@ -91,6 +98,9 @@ jobs:
         type: string
       database:
         type: string
+      coverage:
+        type: boolean
+        default: false
 
 workflows:
   "Run specs on development Solidus version":
@@ -99,6 +109,7 @@ workflows:
           name: run-specs-with-postgres-ruby-3-2
           database: 'postgres'
           ruby_version: '3.2'
+          coverage: true
 
       - run-specs:
           name: run-specs-with-postgres-ruby-3-1
@@ -114,8 +125,10 @@ workflows:
           name: run-specs-with-mysql-ruby-3-2
           database: 'mysql'
           ruby_version: '3.2'
+          coverage: true
 
       - run-specs:
           name: run-specs-with-sqlite-ruby-3-2
           database: 'sqlite'
           ruby_version: '3.2'
+          coverage: true

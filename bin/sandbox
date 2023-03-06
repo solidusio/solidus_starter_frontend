@@ -39,6 +39,11 @@ fi
 
 cd ./sandbox
 
+# Add support for tracking coverage
+unbundled bundle add simplecov -v 0.22 --require=false --skip-install
+unbundled bundle add codecov --require=false
+echo "require_relative '../../coverage.rb' if ENV['COVERAGE']" >> config/boot.rb
+
 test -n "${host}" && replace_in_database_yml "host" "${host}"
 test -n "${username}" && replace_in_database_yml "username" "${username}"
 test -n "${password}" && replace_in_database_yml "password" "${password}"
