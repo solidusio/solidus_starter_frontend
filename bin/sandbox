@@ -15,7 +15,7 @@ replace_in_database_yml() {
 
 # Stay away from the bundler env of the containing extension.
 function unbundled {
-  ruby -rbundler -e'b = proc {system *ARGV}; Bundler.respond_to?(:with_unbundled_env) ? Bundler.with_unbundled_env(&b) : Bundler.with_clean_env(&b)' -- "$@"
+  ruby -rbundler -e'Bundler.with_unbundled_env { system *ARGV }' -- "$@"
 }
 
 # "sqlite" is set by the ORB extension instead of "sqlite3",
