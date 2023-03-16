@@ -15,7 +15,7 @@ replace_in_database_yml() {
 
 # Stay away from the bundler env of the containing extension.
 function unbundled {
-  ruby -rbundler -e'b = proc {system *ARGV}; Bundler.respond_to?(:with_unbundled_env) ? Bundler.with_unbundled_env(&b) : Bundler.with_clean_env(&b)' -- "$@"
+  ruby -rbundler -e'Bundler.with_unbundled_env { system *ARGV }' -- "$@"
 }
 
 # "sqlite" is set by the ORB extension instead of "sqlite3",
@@ -38,6 +38,11 @@ if [ ! -d "sandbox" ]; then
 fi
 
 cd ./sandbox
+
+# Add support for tracking coverage
+unbundled bundle add simplecov -v 0.22 --require=false --skip-install
+unbundled bundle add codecov --require=false
+echo "require_relative '../../coverage.rb' if ENV['COVERAGE']" >> config/boot.rb
 
 test -n "${host}" && replace_in_database_yml "host" "${host}"
 test -n "${username}" && replace_in_database_yml "username" "${username}"
