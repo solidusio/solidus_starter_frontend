@@ -1,0 +1,27 @@
+<li
+  class="product-card"
+  itemscope
+  itemtype="http://schema.org/Product"
+  id="product_<%= product.id %>"
+>
+  <article>
+    <section class="product-card_image">
+      <%= link_to product_path(product), itemprop: 'url' do %>
+        <%= render(ImageComponent.new(image: main_image, size: :small, itemprop: "image")) %>
+      <% end %>
+    </section>
+    <header class="product-card_header">
+      <h2>
+        <%= link_to truncate(product.name, length: 50), product_path(product), class: 'info', itemprop: "name", title: product.name %>
+      </h2>
+    </header>
+    <section class="product-card_price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <% if display_price %>
+        <span class="price selling" itemprop="price" content="<%= display_price.to_d %>">
+          <%= display_price.to_html %>
+        </span>
+        <span itemprop="priceCurrency" content="<%= display_price.currency %>"></span>
+      <% end %>
+    </section>
+  </article>
+</li>

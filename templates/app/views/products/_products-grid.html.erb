@@ -10,6 +10,11 @@
 
 <ul class="<%= class_names %>">
   <% products.each do |product| %>
-    <%= render 'products/product-card', product: product %>
+    <%= cache [I18n.locale, current_pricing_options, @taxon, product] do %>
+      <%= render ProductCardComponent.new(
+        product,
+        price: product.price_for_options(current_pricing_options),
+      ) %>
+    <% end %>
   <% end %>
 </ul>
