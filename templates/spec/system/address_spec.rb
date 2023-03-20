@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'solidus_starter_frontend_helper'
+require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Address', type: :system, inaccessible: true do
-  include SystemHelpers
+  include  SolidusStarterFrontend::SystemHelpers
 
   let!(:product) { create(:product, name: "RoR Mug") }
   let!(:order) { create(:order_with_totals, state: 'cart') }

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'solidus_starter_frontend_helper'
+require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Free shipping promotions', type: :system, js: true do
-  include SystemHelpers
+  include  SolidusStarterFrontend::SystemHelpers
 
   let!(:store) { create(:store) }
   let!(:country) { create(:country, name: "United States of America", states_required: true) }

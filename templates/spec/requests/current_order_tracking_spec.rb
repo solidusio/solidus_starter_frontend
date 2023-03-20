@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'solidus_starter_frontend_helper'
+require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'current order tracking', type: :request, with_signed_in_user: true do
   let!(:store) { create(:store) }

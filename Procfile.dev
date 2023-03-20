@@ -1,2 +1,2 @@
-web: bin/rails-sandbox server
+web: env RUBY_DEBUG_OPEN=true bin/rails-sandbox server
 watch: bin/guard -i

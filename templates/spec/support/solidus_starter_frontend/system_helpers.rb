@@ -1,4 +1,4 @@
-module SystemHelpers
+module SolidusStarterFrontend::SystemHelpers
   def checkout_as_guest
     click_button "Checkout"
 

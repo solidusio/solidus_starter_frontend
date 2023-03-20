@@ -1,4 +1,4 @@
-require "solidus_starter_frontend_helper"
+require "solidus_starter_frontend_spec_helper"
 
 RSpec.describe ImageComponent, type: :component do
   let(:page_image) { page.find('img') }

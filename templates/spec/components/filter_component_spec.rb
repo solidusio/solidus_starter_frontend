@@ -1,4 +1,4 @@
-require "solidus_starter_frontend_helper"
+require "solidus_starter_frontend_spec_helper"
 
 RSpec.describe FilterComponent, type: :component do
   let(:filter) { Spree::Core::ProductFilters.price_filter }
