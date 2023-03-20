@@ -6,13 +6,13 @@
 >
   <article>
     <section class="product-card_image">
-      <%= link_to url, itemprop: 'url' do %>
+      <%= link_to product_path(product), itemprop: 'url' do %>
         <%= render(ImageComponent.new(image: main_image, size: :small, itemprop: "image")) %>
       <% end %>
     </section>
     <header class="product-card_header">
       <h2>
-        <%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %>
+        <%= link_to truncate(product.name, length: 50), product_path(product), class: 'info', itemprop: "name", title: product.name %>
       </h2>
     </header>
     <section class="product-card_price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">

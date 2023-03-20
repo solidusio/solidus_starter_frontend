@@ -13,7 +13,6 @@
     <%= cache [I18n.locale, current_pricing_options, @taxon, product] do %>
       <%= render ProductCardComponent.new(
         product,
-        taxon: @taxon,
         price: product.price_for_options(current_pricing_options),
       ) %>
     <% end %>
