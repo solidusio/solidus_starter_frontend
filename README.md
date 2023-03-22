@@ -3,6 +3,7 @@
 
 # Solidus Starter Frontend
 [![CircleCI](https://circleci.com/gh/solidusio/solidus_starter_frontend.svg?style=shield)](https://circleci.com/gh/solidusio/solidus_starter_frontend)
+[![codecov](https://codecov.io/gh/solidusio/solidus_starter_frontend/branch/master/graph/badge.svg?token=54gge25dNh)](https://codecov.io/gh/solidusio/solidus_starter_frontend)
 
 `solidus_starter_frontend` is a new starter storefront for [Solidus][solidus].
 
