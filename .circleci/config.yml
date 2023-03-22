@@ -72,6 +72,12 @@ commands:
           condition: <<parameters.coverage>>
           steps: ["codecov/upload"]
           path: test-results
+      - store_artifacts:
+          path: /home/circleci/project/sandbox/tmp/capybara/
+          destination: capybara
+      - store_artifacts:
+          path: /home/circleci/project/coverage/
+          destination: coverage
       - run:
           command: rm -rf sandbox
           name: 'Solidus <<parameters.solidus_branch>>: Clean up'
