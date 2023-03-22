@@ -39,10 +39,12 @@ fi
 
 cd ./sandbox
 
-# Add support for tracking coverage
-unbundled bundle add simplecov -v 0.22 --require=false --skip-install
-unbundled bundle add codecov --require=false
+# Coverage
 echo "require_relative '../../coverage.rb' if ENV['COVERAGE']" >> config/boot.rb
+echo "gem 'rspec_junit_formatter', require: false" >> Gemfile
+echo "gem 'simplecov', '~> 0.22', require: false" >> Gemfile
+echo "gem 'simplecov-cobertura', require: false" >> Gemfile
+unbundled bundle install
 
 test -n "${host}" && replace_in_database_yml "host" "${host}"
 test -n "${username}" && replace_in_database_yml "username" "${username}"
