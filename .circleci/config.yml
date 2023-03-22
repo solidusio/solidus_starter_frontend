@@ -10,8 +10,11 @@ orbs:
   # or goes EOL.
   solidusio_extensions: solidusio/extensions@volatile
 
-commands:
-  setup:
+jobs:
+  run-specs:
+    executor:
+        name: solidusio_extensions/<<parameters.database>>
+        ruby_version: <<parameters.ruby_version>>
     steps:
       - checkout
       - browser-tools/install-chrome
@@ -21,24 +24,6 @@ commands:
           command: |
             sudo apt-get update
             sudo apt-get install -yq libvips-dev
-
-  test-branch:
-    description:
-      Runs tests for a specific Solidus branch.
-
-    parameters:
-      solidus_branch:
-        type: string
-      rails_version:
-        type: string
-      ruby_version:
-        type: string
-      database:
-        type: string
-      coverage:
-        type: boolean
-
-    steps:
       - run:
           name: 'Solidus <<parameters.solidus_branch>>:  Install gems'
           command: |
@@ -82,22 +67,8 @@ commands:
           command: rm -rf sandbox
           name: 'Solidus <<parameters.solidus_branch>>: Clean up'
           when: always
-
-jobs:
-  run-specs:
-    executor:
-        name: solidusio_extensions/<<parameters.database>>
-        ruby_version: <<parameters.ruby_version>>
-    steps:
-      - setup
-      - test-branch:
-          solidus_branch: <<parameters.solidus_branch>>
-          rails_version: <<parameters.rails_version>>
-          ruby_version: <<parameters.ruby_version>>
-          database: <<parameters.database>>
-          coverage: <<parameters.coverage>>
-
       - solidusio_extensions/store-test-results
+
     parameters:
       solidus_branch:
         type: string
