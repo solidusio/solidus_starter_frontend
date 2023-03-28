@@ -10,19 +10,14 @@
   ) unless @order.completed? %>
 
   <% order.payments.valid.each do |payment| %>
-    <% source = payment.source %>
-
     <ul class="payment-info__info">
-      <% if source.is_a?(Spree::CreditCard) %>
-        <li>
-          <% if source.last_digits %>
-            <%= t('spree.ending_in') %> <%= source.last_digits %>
-          <% end %>
-        </li>
-        <li><%= source.name %></li>
-      <% else %>
-        <li><%= payment.payment_method.name %></li>
-      <% end %>
+      <li>
+        <%= render partial_name_with_fallback(
+          'orders/payment_info',
+          payment.payment_method.partial_name,
+          'default'
+        ), payment: payment %>
+      </li>
       <li>
         <strong><%= payment.display_amount %></strong>
         (<%= t(payment.state, scope: 'spree.payment_states') %>)
