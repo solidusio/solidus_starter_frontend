@@ -127,10 +127,10 @@ team.
 We firmly believe in the power of open-source. [Contact us][contact-us] if you
 like our work and you need help with your project design or development.
 
-[solidus]: http://solidus.io/
-[nebulab]: http://nebulab.it/
-[nebulab-logo]: http://nebulab.it/assets/images/public/logo.svg
-[contact-us]: http://nebulab.it/contact-us/
+[solidus]: https://solidus.io/
+[nebulab]: https://nebulab.com/
+[nebulab-logo]: https://raw.githubusercontent.com/solidusio/brand/master/partners/Nebulab/logo-dark-light.svg
+[contact-us]: https://nebulab.com/contact-us/
 
 ## License
 Copyright (c) 2020 Nebulab SRLs, released under the New BSD License.
