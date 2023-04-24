@@ -103,7 +103,7 @@ Eg. Solidus v3.3 tests against Rails 7.0
 
 ### Solidus Version
 
-- `main` branch will test installing itself over Solidus master only.
+- `main` branch will test installing itself over Solidus main only.
 - the branch corresponding to the latest Solidus release (with `vX.X`
   format) will only test installing itself over the corresponding
   Solidus version.
