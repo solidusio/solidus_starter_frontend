@@ -72,7 +72,7 @@ jobs:
     parameters:
       solidus_branch:
         type: string
-        default: 'master'
+        default: 'v4.0'
       rails_version:
         type: string
         default: '~> 7.0'
