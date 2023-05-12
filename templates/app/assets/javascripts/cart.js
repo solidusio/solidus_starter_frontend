@@ -16,11 +16,3 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
-Solidus.fetch_cart = (cartLinkUrl) => {
-  fetch(cartLinkUrl || Solidus.pathFor('cart_link'))
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById('link-to-cart').innerHTML = html;
-    });
-};
