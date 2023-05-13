@@ -1,17 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const optionTypeSelector = document.querySelectorAll(".selection-items");
+  const optionTypeSelector = document.querySelectorAll(".selection-items")
   for (var i = 0; i < optionTypeSelector.length; i++) {
-    optionTypeSelector[i].addEventListener("click", onSelection);
+    optionTypeSelector[i].addEventListener("click", onSelection)
   }
-  selectFirstVariant();
-});
-
-function selectFirstVariant() {
-  const firstVariant = document.querySelector("[data-option-index]");
+  const firstVariant = document.querySelector("[data-option-index]")
   if (firstVariant) {
-    setTimeout(() => { firstVariant.click(); }, 1);
+    setTimeout(() => {
+      firstVariant.click()
+    }, 1)
   }
-}
+})
 
 function onSelection(event) {
   document.getElementById(`selected-${event.target.name}`).innerText = event.target.dataset.presentation;
@@ -68,15 +66,11 @@ function nextOptionValues(optionIndex) {
   return values;
 }
 
-function updateView(variant) {
-  document.querySelector('#product-price').innerHTML = variant.dataset.price;
-}
-
 function selectVariant() {
   this.variant = document.querySelector(`[data-option-value-ids="${JSON.stringify(this.currentSelection())}"]`);
   if (this.variant) {
     this.variant.click();
-    this.updateView(this.variant);
+    document.querySelector("#product-price").innerHTML = this.variant.dataset.price
   } else {
     this.priceTarget.innerText = "Not found, please select all optionTypeSelector";
   }
