@@ -24,16 +24,6 @@ function onSelection(event) {
   selectVariant();
 }
 
-function updateStockView(status) {
-  if (status) {
-    this.stockIndicatorTarget.classList.add("d-hide");
-    this.cartButtonTarget.disabled = false;
-  } else {
-    this.stockIndicatorTarget.classList.remove("d-hide");
-    this.cartButtonTarget.disabled = true;
-  }
-}
-
 function updateOptions(nextTypeName, optionIndex) {
   const nextOptionValues = this.nextOptionValues(optionIndex);
 
