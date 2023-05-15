@@ -62,6 +62,7 @@
   <%= button_tag(
     I18n.t("spree.save_and_continue"),
     class: 'button-primary',
-    name: :commit
+    name: :commit,
+    'data-checkout-target': 'submitButton',
   ) %>
 </div>

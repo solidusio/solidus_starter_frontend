@@ -2,6 +2,8 @@
   id: "checkout_form_#{order.state}",
   'data-controller': 'checkout',
   'data-checkout-step-value': order.state,
+  'data-checkout-submitting-value': 'Submitting...', # TODO: Use I18n
+  'data-checkout-terms-required-value': 'Please review and accept the Terms of Service', # TODO: Use I18n
   'data-action': 'submit->checkout#beforeSubmit',
 } do |form| %>
   <% if order.state == "address" || !order.email? %>

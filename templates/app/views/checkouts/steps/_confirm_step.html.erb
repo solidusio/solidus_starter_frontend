@@ -9,7 +9,7 @@
 
   <div class="terms_and_conditions">
     <%= render 'checkouts/terms_and_conditions' %>
-    <%= check_box_tag :accept_terms_and_conditions, 'accepted', false %>
+    <%= check_box_tag :accept_terms_and_conditions, 'accepted', false, 'data-checkout-target': 'termsCheckbox' %>
     <%= label_tag :accept_terms_and_conditions, t('spree.agree_to_terms_of_service') %>
   </div>
 
@@ -17,5 +17,6 @@
     I18n.t('spree.place_order'),
     class: 'button-primary',
     name: :commit,
+    'data-checkout-target': 'submitButton',
   ) %>
 </div>
