@@ -11,3 +11,5 @@ group :development do
   gem 'codecov'
   gem 'simplecov', '~> 0.22'
 end
+
+gem "erb-formatter", "~> 0.4.3", :group => :development
