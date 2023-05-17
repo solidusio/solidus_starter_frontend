@@ -1,4 +1,8 @@
-<fieldset class="address-step__<%= address_type %>" id="<%= address_type %>">
+<fieldset
+  class="address-step__<%= address_type %>"
+  id="<%= address_type %>"
+  data-controller="address"
+>
   <legend>
     <%= t("spree.#{address_type}_address") %>
   </legend>
@@ -6,7 +10,7 @@
   <%= form.fields_for fields_name do |form| %>
     <%= yield %>
 
-    <div class="address-inputs">
+    <fieldset class="address-inputs" data-address-target="inputs">
       <div class="text-input">
         <%= form.label :name, "#{I18n.t("spree.name")}:" %>
         <%= form.text_field(
@@ -57,48 +61,54 @@
           :name,
           {},
           autocomplete: "#{address_type} country-name",
-          class: "js-trigger-state-change",
           required: true,
-          "data-state-container": "##{address_type} .js-address-fields"
+          "data-address-target": "country",
+          "data-action": "change->address#updateState"
         ) %>
       </div>
 
       <% if Spree::Config[:address_requires_state] %>
-        <% have_states = !address.country.states.empty? %>
+        <span>
+          <% available_states = address.country&.states.presence %>
+          <% has_state_list = available_states.present? %>
 
-        <span class="js-address-fields" style="display: none;">
           <div class="select-input">
             <%= form.label :state_id, "#{I18n.t("spree.state")}:" %>
 
             <%= form.collection_select(
               :state_id,
-              address.country.states,
+              available_states,
               :id,
               :name,
               { include_blank: true },
               autocomplete: "#{address_type} address-level1",
+              required: address.country&.states_required,
+              style: available_states ? "" : "display: none;",
               class: "required",
-              disabled: !have_states,
-              required: false
+              disabled: !has_state_list,
+              required: false,
+              "data-address-target": "stateId"
             ) %>
           </div>
 
           <%= form.text_field(
             :state_name,
-            class: !have_states ? "required" : "",
-            style: have_states ? "display: none;" : "",
-            disabled: have_states,
-            autocomplete: "#{address_type} address-level1"
-          ) %>
-        </span>
-        <noscript>
-          <%= form.text_field(
-            :state_name,
-            class: "required",
+            class: !has_state_list ? "required" : "",
+            style: has_state_list ? "display: none;" : "",
+            disabled: has_state_list,
             autocomplete: "#{address_type} address-level1",
-            required: true
+            "data-address-target": "stateName"
           ) %>
-        </noscript>
+
+          <noscript>
+            <%= form.text_field(
+              :state_name,
+              class: "required",
+              autocomplete: "#{address_type} address-level1",
+              required: true
+            ) %>
+          </noscript>
+        </span>
       <% end %>
 
       <div class="text-input">
@@ -122,11 +132,11 @@
       </div>
 
       <% if Spree::Config[:alternative_shipping_phone] %>
-        <div class="text-input">
+        <fieldset class="text-input">
           <%= form.label :alternative_phone, "#{I18n.t("spree.alternative_phone")}:" %>
           <%= form.telephone_field :alternative_phone, autocomplete: "#{address_type} tel" %>
-        </div>
+        </di>
       <% end %>
-    </div>
+    </fieldset>
   <% end %>
 </fieldset>

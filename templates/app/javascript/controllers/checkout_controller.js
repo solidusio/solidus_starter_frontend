@@ -1,12 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ['submitButton']
+  static targets = ["submitButton", "billingAddressToggle"]
   static values = {
     step: String,
     submitting: String,
     termsRequired: String,
   }
+  static outlets = ["address"]
 
   beforeSubmit(event) {
     if (this.stepValue === 'payment') {
@@ -21,6 +22,20 @@ export default class extends Controller {
         submitButton.removeAttribute('disabled')
         submitButton.classList.remove('disabled')
       }
+    }
+  }
+
+  addressOutletConnected(outlet, element) {
+    this.toggleAddress()
+  }
+
+  toggleAddress() {
+    const useBillingAddressForShipping = this.billingAddressToggleTarget.checked
+
+    if (useBillingAddressForShipping) {
+      this.addressOutlet.disabledValue = true
+    } else {
+      this.addressOutlet.disabledValue = false
     }
   }
 }
