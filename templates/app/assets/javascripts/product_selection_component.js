@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  "use strict"
+
   const optionTypeSelector = document.querySelectorAll(".selection-items")
   for (var i = 0; i < optionTypeSelector.length; i++) {
     optionTypeSelector[i].addEventListener("click", onSelection)
@@ -12,76 +14,98 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function onSelection(event) {
-  document.getElementById(`selected-${event.target.name}`).innerText = event.target.dataset.presentation;
+  document.getElementById(`selected-${event.target.name}`).innerText =
+    event.target.dataset.presentation
 
-  const optionIndex = event.target.attributes["data-option-index"].value;
-  const nextType = document.querySelector(`[data-option-index="${parseInt(optionIndex, 10) + 1}"]`);
+  const optionIndex = event.target.attributes["data-option-index"].value
+  const nextType = document.querySelector(
+    `[data-option-index="${parseInt(optionIndex, 10) + 1}"]`,
+  )
   if (nextType) {
-    updateOptions(nextType.name, optionIndex);
+    updateOptions(nextType.name, optionIndex)
   }
-  selectVariant();
+  selectVariant()
 }
 
 function updateOptions(nextTypeName, optionIndex) {
-  const nextOptionValues = this.nextOptionValues(optionIndex);
+  const nextOptionValues = this.nextOptionValues(optionIndex)
 
-  let firstRadio = null;
-  const allNextOptions = [...document.querySelectorAll(`[name="${nextTypeName}"]`)];
+  let firstRadio = null
+  const allNextOptions = [
+    ...document.querySelectorAll(`[name="${nextTypeName}"]`),
+  ]
   allNextOptions.forEach((radio) => {
     if (!nextOptionValues.includes(parseInt(radio.value, 10))) {
-      radio.disabled = true;
-      radio.parentElement.classList.add("d-hide");
+      radio.disabled = true
+      radio.parentElement.classList.add("d-hide")
     } else {
-      radio.disabled = false;
-      radio.parentElement.classList.remove("d-hide");
-      if (!firstRadio) { firstRadio = radio; }
+      radio.disabled = false
+      radio.parentElement.classList.remove("d-hide")
+      if (!firstRadio) {
+        firstRadio = radio
+      }
     }
-  });
+  })
 
-  const nextSelectedRadio = document.querySelector(`[name="${nextTypeName}"]:checked`);
+  const nextSelectedRadio = document.querySelector(
+    `[name="${nextTypeName}"]:checked`,
+  )
   if (nextSelectedRadio.disabled) {
-    firstRadio.click();
+    firstRadio.click()
   } else {
-    nextSelectedRadio.click();
+    nextSelectedRadio.click()
   }
 }
 
 function nextOptionValues(optionIndex) {
-  const values = [];
-  const variantOptionsTargets = document.querySelectorAll('.product-variants__list > li > input');
+  const values = []
+  const variantOptionsTargets = document.querySelectorAll(
+    ".product-variants__list > li > input",
+  )
   variantOptionsTargets.forEach((option) => {
-    const optionValueIds = JSON.parse(option.attributes["data-option-value-ids"].value);
-    const selectedOptionIds = this.currentSelection();
-    let matched = true;
+    const optionValueIds = JSON.parse(
+      option.attributes["data-option-value-ids"].value,
+    )
+    const selectedOptionIds = this.currentSelection()
+    let matched = true
     for (let i = 0; i <= optionIndex; i += 1) {
       if (optionValueIds[i] !== selectedOptionIds[i]) {
-        matched = false;
-        break;
+        matched = false
+        break
       }
     }
     if (matched) {
-      values.push(optionValueIds[parseInt(optionIndex, 10) + 1]);
+      values.push(optionValueIds[parseInt(optionIndex, 10) + 1])
     }
-  });
-  return values;
+  })
+  return values
 }
 
 function selectVariant() {
-  this.variant = document.querySelector(`[data-option-value-ids="${JSON.stringify(this.currentSelection())}"]`);
+  this.variant = document.querySelector(
+    `[data-option-value-ids="${JSON.stringify(this.currentSelection())}"]`,
+  )
   if (this.variant) {
-    this.variant.click();
-    document.querySelector("#product-price").innerHTML = this.variant.dataset.price
+    this.variant.click()
+    document.querySelector("#product-price").innerHTML =
+      this.variant.dataset.price
   } else {
-    this.priceTarget.innerText = "Not found, please select all optionTypeSelector";
+    this.priceTarget.innerText =
+      "Not found, please select all optionTypeSelector"
   }
 }
 
 function currentSelection() {
-  let i = 0;
-  const selectionArr = [];
+  let i = 0
+  const selectionArr = []
   while (document.querySelector(`[data-option-index="${i}"]`)) {
-    selectionArr.push(parseInt(document.querySelector(`[data-option-index="${i}"]:checked`).value, 10));
-    i += 1;
+    selectionArr.push(
+      parseInt(
+        document.querySelector(`[data-option-index="${i}"]:checked`).value,
+        10,
+      ),
+    )
+    i += 1
   }
-  return selectionArr;
+  return selectionArr
 }
