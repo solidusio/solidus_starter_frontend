@@ -8,7 +8,7 @@
       <span
         itemprop="price"
         content="<%= product.price_for_options(current_pricing_options)&.money.to_d %>"
-        data-js="price"
+        data-product-target="price"
       ><%= display_price(product) %></span>
 
       <span

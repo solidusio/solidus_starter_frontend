@@ -2,14 +2,18 @@ class ProductController {
   constructor(element) {
     this.element = document.querySelector(".product-page")
 
-    this.radioTargets = this.element.querySelectorAll("[data-js='variant-radio']")
+    this.radioTargets = Array.from(
+      this.element.querySelectorAll(`[data-product-target="radio"]`),
+    )
     this.productImageTarget = this.element.querySelector(
-      "[data-js='product-main-image']",
+      `[data-product-target="productImage"]`,
     )
-    this.variantsThumbnailTargets = this.element.querySelectorAll(
-      "[data-js='variant-thumbnail']",
+    this.variantThumbnailTargets = Array.from(
+      this.element.querySelectorAll(`[data-product-target="variantThumbnail"]`),
     )
-    this.priceTarget = this.element.querySelector("[data-js='price']")
+    this.priceTarget = this.element.querySelector(
+      `[data-product-target="price"]`,
+    )
   }
 
   connected() {
@@ -26,7 +30,7 @@ class ProductController {
     console.log("radioSelected")
     if (this.radioTargets.length === 0) return
 
-    const selectedRadio = Array.from(this.radioTargets).filter((e) => e.checked)[0]
+    const selectedRadio = this.radioTargets.filter((e) => e.checked)[0]
     const variantPrice = selectedRadio.dataset.jsPrice
     const variantId = selectedRadio.value
 
@@ -36,11 +40,11 @@ class ProductController {
       this.priceTarget.innerHTML = variantPrice
     }
 
-    const variantsThumbnailsToDisplay = Array.from(this.variantsThumbnailTargets).filter(
+    const variantsThumbnailsToDisplay = this.variantThumbnailTargets.filter(
       (e) => e.dataset.jsId.toString() === variantId.toString(),
     )
 
-    this.variantsThumbnailTargets.forEach((thumbnail) => {
+    this.variantThumbnailTargets.forEach((thumbnail) => {
       thumbnail.style.display = "none"
     })
 

@@ -4,11 +4,9 @@ window.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".product-page"),
   )
 
-  Array.from(document.querySelectorAll(".selection-items")).forEach(
-    (optionType) => {
-      optionType.addEventListener("click", (e) => controller.onSelection(e))
-    },
-  )
+  controller.optionValueTargets.forEach((optionType) => {
+    optionType.addEventListener("click", (e) => controller.onSelection(e))
+  })
 
   const firstVariant = document.querySelector("[data-option-index]")
   if (firstVariant) {
@@ -21,6 +19,11 @@ window.addEventListener("DOMContentLoaded", () => {
 class ProductSelectionController {
   constructor(element) {
     this.element = element
+    this.optionValueTargets = Array.from(
+      this.element.querySelectorAll(
+        "[data-product-target]='option-value-input']",
+      ),
+    )
   }
 
   onSelection(event) {
