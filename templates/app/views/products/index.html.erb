@@ -7,14 +7,10 @@
     <% end %>
   </aside>
   <section class="products_section">
-    <% if params[:keywords] %>
-      <% if @products.empty? %>
-        <h6>
-          <%= t('spree.no_products_found') %>
-        </h6>
-      <% else %>
-        <%= render 'products', products: @products, taxon: @taxon %>
-      <% end %>
+    <% if params[:keywords] && @products.empty? %>
+      <h6>
+        <%= t('spree.no_products_found') %>
+      </h6>
     <% else %>
       <%= render 'products', products: @products, taxon: @taxon %>
     <% end %>

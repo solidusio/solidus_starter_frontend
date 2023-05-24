@@ -16,6 +16,12 @@ RSpec.describe 'searching products', type: :system do
     expect(page.all('ul.products-grid li').size).to eq(1)
   end
 
+  it 'shows a blank slate for empty searches' do
+    fill_in 'keywords', with: 'this-product-does-not-exist'
+    click_button 'Search'
+    expect(page).to have_content('No products found')
+  end
+
   context 'with JS enabled', :js do
     it 'shows autocomplete suggestions' do
       fill_in 'keywords', with: 'ruby'

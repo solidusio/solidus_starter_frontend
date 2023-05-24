@@ -1,7 +1,6 @@
 <%
   paginated_products = @searcher.retrieve_products if params.key?(:keywords)
   paginated_products ||= products
-  no_products_found = products.empty?
 %>
 
 <% content_for :head do %>
@@ -10,18 +9,18 @@
   <% end %>
 <% end %>
 
-<% if no_products_found %>
+<% if products.empty? %>
   <h2 class="products__results-title">
     <%= t('spree.no_products_found') %>
   </h2>
-<% elsif params.key?(:keywords) %>
-  <h1 class="products__results-title">
-    <%= t('spree.search_results', keywords: h(params[:keywords])) %>
-  </h1>
-<% end %>
+<% else %>
+  <% if params.key?(:keywords) %>
+    <h1 class="products__results-title">
+      <%= t('spree.search_results', keywords: h(params[:keywords])) %>
+    </h1>
+  <% end %>
 
-<% if !no_products_found %>
-  <%= render 'products/products-grid', products: products %>
+  <%= render 'products/products_grid', products: products %>
 <% end %>
 
 <% if paginated_products.respond_to?(:total_pages) %>
