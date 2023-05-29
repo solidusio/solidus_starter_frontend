@@ -14,9 +14,9 @@ RSpec.describe BreadcrumbsComponent, type: :component do
 
   context 'when rendered' do
     before do
-      allow(self.request).to receive(:path).and_return(request_url)
-
-      render_inline(described_class.new(taxon))
+      with_request_url(request_url) do
+        render_inline(described_class.new(taxon))
+      end
     end
 
     context 'when the taxon is nil' do
