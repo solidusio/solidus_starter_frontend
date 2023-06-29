@@ -64,6 +64,7 @@ with_log['installing gems'] do
     generate 'solidus:auth:install'
   end
 
+  gem 'responders'
   gem 'canonical-rails'
   gem 'solidus_support'
   gem 'truncate_html'

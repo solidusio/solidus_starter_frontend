@@ -26,7 +26,7 @@ class CartLineItemsController < StoreController
       end
     end
 
-    respond_with(@order) do |format|
+    respond_to do |format|
       format.html do
         if @order.errors.any?
           flash[:error] = @order.errors.full_messages.join(", ")
