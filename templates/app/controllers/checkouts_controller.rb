@@ -81,7 +81,11 @@ class CheckoutsController < CheckoutBaseController
         permitted_checkout_delivery_attributes
       )
     when :payment
-      massaged_params.require(:order).permit(
+      if @order.covered_by_store_credit?
+        massaged_params.fetch(:order, {})
+      else
+        massaged_params.require(:order)
+      end.permit(
         permitted_checkout_payment_attributes
       )
     else

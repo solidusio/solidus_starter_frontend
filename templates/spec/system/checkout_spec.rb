@@ -311,6 +311,37 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
     end
   end
 
+  context "when the order is fully covered by store credit" do
+    before do
+      create(:store_credit_payment_method)
+      credit_card_payment_method = create(:credit_card_payment_method)
+      check_payment_method = create(:check_payment_method)
+
+      user = create(:user)
+      create(:store_credit, user: user)
+      order = Spree::TestingSupport::OrderWalkthrough.up_to(:payment, user: user)
+
+      allow(order).to receive_messages(available_payment_methods: [check_payment_method, credit_card_payment_method])
+      allow_any_instance_of(CheckoutsController).to receive_messages(current_order: order)
+      allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: order.user)
+    end
+
+    it "allows the user to complete checkout using only store credit as the payment source" do
+      visit checkout_state_path(:payment)
+
+      expect(page).to have_content("Your order is fully covered by store credits, no additional payment method is required.")
+      expect(page).not_to match(/\bCheck\b/)
+      expect(page).not_to match(/\bCredit Card\b/)
+
+      click_button "Save and Continue"
+      expect(page).to have_content("Confirm")
+
+      check "Agree to Terms of Service"
+      click_on "Place Order"
+      expect(page).to have_content(I18n.t('spree.order_processed_successfully'))
+    end
+  end
+
   context "when several payment methods are available" do
     let(:credit_card_payment) { create(:credit_card_payment_method) }
     let(:check_payment) { create(:check_payment_method) }
