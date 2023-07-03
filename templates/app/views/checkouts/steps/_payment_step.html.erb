@@ -3,60 +3,63 @@
     <legend>
       <%= t('spree.payment_information') %>
     </legend>
+    <% if @order.covered_by_store_credit? %>
+      <p>Your order is fully covered by store credits, no additional payment method is required.</p>
+    <% else %>
+      <ul class="payment-step__selector">
+        <% @wallet_payment_sources&.each do |wallet_payment_source| %>
+          <% payment_method = wallet_payment_source.payment_source.payment_method %>
+          <% default = wallet_payment_source == @default_wallet_payment_source %>
+          <% fieldset_name = "wallet-source-#{wallet_payment_source.id}" %>
 
-    <ul class="payment-step__selector">
-      <% @wallet_payment_sources&.each do |wallet_payment_source| %>
-        <% payment_method = wallet_payment_source.payment_source.payment_method %>
-        <% default = wallet_payment_source == @default_wallet_payment_source %>
-        <% fieldset_name = "wallet-source-#{wallet_payment_source.id}" %>
+          <li>
+            <label>
+              <%= radio_button_tag(
+                "order[wallet_payment_source_id]",
+                wallet_payment_source.id,
+                default,
+                'data-action': 'checkout-payment#paymentSelected',
+                'data-checkout-payment-target': "paymentRadio",
+                'data-fieldset-name': fieldset_name,
+                id: ","
+              ) %>
+              <%= t(payment_method.name, scope: 'spree.payment_methods', default: payment_method.name) %>
+            </label>
+            <fieldset name="<%= fieldset_name %>" class="payment-step__details">
+              <%= render(
+                "checkouts/existing_payment/#{payment_method.partial_name}",
+                wallet_payment_source: wallet_payment_source,
+              ) %>
+            </fieldset>
+          </li>
+        <% end %>
 
-        <li>
-          <label>
-            <%= radio_button_tag(
-              "order[wallet_payment_source_id]",
-              wallet_payment_source.id,
-              default,
-              'data-action': 'checkout-payment#paymentSelected',
-              'data-checkout-payment-target': "paymentRadio",
-              'data-fieldset-name': fieldset_name,
-              id: ","
-            ) %>
-            <%= t(payment_method.name, scope: 'spree.payment_methods', default: payment_method.name) %>
-          </label>
-          <fieldset name="<%= fieldset_name %>" class="payment-step__details">
-            <%= render(
-              "checkouts/existing_payment/#{payment_method.partial_name}",
-              wallet_payment_source: wallet_payment_source,
-            ) %>
-          </fieldset>
-        </li>
-      <% end %>
+        <% @order.available_payment_methods.each.with_index do |payment_method, index| %>
+          <% default = !@default_wallet_payment_source && index.zero? %>
+          <% fieldset_name = "payment-method-#{payment_method.id}" %>
 
-      <% @order.available_payment_methods.each.with_index do |payment_method, index| %>
-        <% default = !@default_wallet_payment_source && index.zero? %>
-        <% fieldset_name = "payment-method-#{payment_method.id}" %>
-
-        <li>
-          <label>
-            <%= radio_button_tag(
-              "order[payments_attributes][][payment_method_id]",
-              payment_method.id,
-              default,
-              'data-action': 'checkout-payment#paymentSelected',
-              'data-checkout-payment-target': "paymentRadio",
-              'data-fieldset-name': fieldset_name,
-            ) %>
-            <%= t(payment_method.name, scope: 'spree.payment_method', default: payment_method.name) %>
-          </label>
-          <fieldset name="<%= fieldset_name %>" class="payment-step__details">
-            <%= render(
-              "checkouts/payment/#{payment_method.partial_name}",
-              payment_method: payment_method,
-            ) %>
-          </fieldset>
-        </li>
-      <% end %>
-    </ul>
+          <li>
+            <label>
+              <%= radio_button_tag(
+                "order[payments_attributes][][payment_method_id]",
+                payment_method.id,
+                default,
+                'data-action': 'checkout-payment#paymentSelected',
+                'data-checkout-payment-target': "paymentRadio",
+                'data-fieldset-name': fieldset_name,
+              ) %>
+              <%= t(payment_method.name, scope: 'spree.payment_method', default: payment_method.name) %>
+            </label>
+            <fieldset name="<%= fieldset_name %>" class="payment-step__details">
+              <%= render(
+                "checkouts/payment/#{payment_method.partial_name}",
+                payment_method: payment_method,
+              ) %>
+            </fieldset>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </fieldset>
 
   <%= button_tag(
