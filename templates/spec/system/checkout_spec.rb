@@ -3,7 +3,7 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
-  include  SolidusStarterFrontend::SystemHelpers
+  include  SolidusStarterFrontend::System::CheckoutHelpers
 
   include_context 'checkout setup'
 
