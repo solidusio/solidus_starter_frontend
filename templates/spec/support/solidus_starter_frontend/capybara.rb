@@ -8,15 +8,6 @@ require 'spree/testing_support/capybara_ext'
 
 Capybara.default_max_wait_time = 10
 
-# Fix a selenium deprecation warning.
-# Ref: https://github.com/rails/rails/pull/47117
-require 'action_dispatch/system_testing/driver'
-ActionDispatch::SystemTesting::Driver.class_eval do
-  def browser_options
-    @options.merge(options: @browser.options).compact
-  end
-end
-
 RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by((ENV['CAPYBARA_DRIVER'] || :rack_test).to_sym)
