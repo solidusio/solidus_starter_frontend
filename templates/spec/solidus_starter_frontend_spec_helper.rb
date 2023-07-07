@@ -85,6 +85,7 @@ RSpec.configure do |config|
 
     example.run
 
+    Rails.cache.clear
     ActionController::Base.cache_store = original_cache_store
   end
 end

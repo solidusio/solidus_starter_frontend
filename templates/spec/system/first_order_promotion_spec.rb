@@ -3,7 +3,7 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'First Order promotion', type: :system do
-  include  SolidusStarterFrontend::SystemHelpers
+  include  SolidusStarterFrontend::System::CheckoutHelpers
 
   let!(:promotion) do
     FactoryBot.create(

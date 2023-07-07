@@ -3,6 +3,8 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.feature 'Checkout', :js, type: :system do
+  include  SolidusStarterFrontend::System::CheckoutHelpers
+
   given!(:store) { create(:store) }
   given!(:country) { create(:country, name: 'United States', states_required: true) }
   given!(:state)   { create(:state, name: 'Maryland', country: country) }
