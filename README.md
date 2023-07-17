@@ -22,7 +22,7 @@ Just run:
 rails new store
 cd store
 bundle add solidus
-bin/rails generate solidus:install --frontend=solidus_starter_frontend
+bin/rails generate solidus:install --frontend=starter
 ```
 
 That will create a new Solidus application with SolidusStarterFrontend as its
