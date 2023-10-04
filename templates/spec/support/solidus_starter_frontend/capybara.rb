@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'selenium/webdriver'
-require 'webdrivers'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'spree/testing_support/capybara_ext'

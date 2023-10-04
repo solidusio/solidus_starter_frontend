@@ -77,7 +77,6 @@ with_log['installing gems'] do
     # add them only if they're not already in the Gemfile.
     gem "capybara" unless Bundler.locked_gems.dependencies['capybara']
     gem "selenium-webdriver" unless Bundler.locked_gems.dependencies['selenium-webdriver']
-    gem "webdrivers" unless Bundler.locked_gems.dependencies['webdrivers']
 
     gem 'capybara-screenshot', '~> 1.0'
     gem 'database_cleaner', '~> 1.7'
