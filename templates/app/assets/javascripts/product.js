@@ -1,56 +1,80 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const radios = document.querySelectorAll("[data-js='variant-radio']");
-  const thumbnailsLinks = document
-    .querySelectorAll("[data-js='product-thumbnail'] a, [data-js='variant-thumbnail'] a");
-  const productImage = document.querySelector("[data-js='product-main-image']");
-  const variantsThumbnails = document.querySelectorAll("[data-js='variant-thumbnail']");
+class ProductController {
+  constructor(element) {
+    this.element = document.querySelector(".product-page")
 
-  if (radios.length > 0) {
-    const selectedRadio = document.querySelector("[data-js='variant-radio'][checked='checked']");
-    updateVariantPrice(selectedRadio);
-    updateVariantImages(selectedRadio.value);
+    this.radioTargets = Array.from(
+      this.element.querySelectorAll(`[data-product-target="radio"]`),
+    )
+    this.productImageTarget = this.element.querySelector(
+      `[data-product-target="productImage"]`,
+    )
+    this.variantThumbnailTargets = Array.from(
+      this.element.querySelectorAll(`[data-product-target="variantThumbnail"]`),
+    )
+    this.priceTarget = this.element.querySelector(
+      `[data-product-target="price"]`,
+    )
   }
 
-  radios.forEach(radio => {
-    radio.addEventListener('click', () => {
-      updateVariantPrice(radio);
-      updateVariantImages(radio.value);
-    });
-  });
+  connected() {
+    this.radioSelected()
+  }
 
-  thumbnailsLinks.forEach(thumbnailLink => {
-    thumbnailLink.addEventListener('click', (event) => {
-      event.preventDefault();
-      updateProductImage(thumbnailLink.href);
-    });
-  });
+  selectThumbnail(event) {
+    console.log("selectThumbnail", event)
+    event.preventDefault()
+    this.productImageTarget.src = event.currentTarget.href
+  }
 
-  function updateVariantPrice(variant) {
-    const variantPrice = variant.dataset.jsPrice;
+  radioSelected() {
+    console.log("radioSelected")
+    if (this.radioTargets.length === 0) return
+
+    const selectedRadio = this.radioTargets.filter((e) => e.checked)[0]
+    const variantPrice = selectedRadio.dataset.jsPrice
+    const variantId = selectedRadio.value
+
+    console.log("selectedRadio", selectedRadio)
+
     if (variantPrice) {
-      document.querySelector("[data-js='price']").innerHTML = variantPrice;
+      this.priceTarget.innerHTML = variantPrice
     }
-  };
 
-  function updateVariantImages(variantId) {
-    selector = "[data-js='variant-thumbnail'][data-js-id='" + variantId + "']";
-    variantsThumbnailsToDisplay = document.querySelectorAll(selector);
+    const variantsThumbnailsToDisplay = this.variantThumbnailTargets.filter(
+      (e) => e.dataset.jsId.toString() === variantId.toString(),
+    )
 
-    variantsThumbnails.forEach(thumbnail => {
-      thumbnail.style.display = 'none';
-    });
+    this.variantThumbnailTargets.forEach((thumbnail) => {
+      thumbnail.style.display = "none"
+    })
 
-    variantsThumbnailsToDisplay.forEach(thumbnail => {
-      thumbnail.style.display = 'list-item';
-    });
+    variantsThumbnailsToDisplay.forEach((thumbnail) => {
+      thumbnail.style.display = "list-item"
+    })
 
-    if(variantsThumbnailsToDisplay.length) {
-      variantFirstImage = variantsThumbnailsToDisplay[0].querySelector('a').href
-      updateProductImage(variantFirstImage);
+    if (variantsThumbnailsToDisplay.length) {
+      const variantFirstImage =
+        variantsThumbnailsToDisplay[0].querySelector("a").href
+      this.productImageTarget.src = variantFirstImage
     }
-  };
-
-  function updateProductImage(imageSrc) {
-    productImage.src = imageSrc;
   }
-});
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const controller = new ProductController()
+  console.log(controller)
+
+  controller.radioTargets.forEach((radio) =>
+    radio.addEventListener("click", () => controller.radioSelected()),
+  )
+
+  document
+    .querySelectorAll(
+      "[data-js='product-thumbnail'] a, [data-js='variant-thumbnail'] a",
+    )
+    .forEach((thumbnailLink) => {
+      thumbnailLink.addEventListener("click", (e) =>
+        controller.selectThumbnail(e),
+      )
+    })
+})
