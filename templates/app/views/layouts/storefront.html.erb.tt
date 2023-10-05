@@ -10,6 +10,7 @@
 
     <%%= javascript_include_tag 'solidus_starter_frontend' %>
     <%%= stylesheet_link_tag 'solidus_starter_frontend', media: 'screen' %>
+    <%%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
 <% if Rails.application.respond_to? :importmap -%>
     <%%= javascript_importmap_tags %>
