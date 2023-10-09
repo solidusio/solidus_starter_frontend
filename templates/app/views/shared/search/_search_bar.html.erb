@@ -5,7 +5,7 @@
     "data-search-current-class": "autocomplete-results__item--current",
     "data-search-target": "form" do %>
 
-  <%= search_field_tag :keywords, params[:keywords], placeholder: "Search", class: "search-bar__input", autocomplete: "off",
+  <%= search_field_tag :keywords, params[:keywords], placeholder: "Search", class: "w-full border-0 border-b border-[#D8D8DD] text-[14px] focus:border-[#D8D8DD] focus:ring-0", autocomplete: "off",
     "data-action": "input->search#fetchResults
                     keydown.down->search#nextResult
                     keydown.up->search#previousResult
