@@ -1,3 +1,3 @@
 web: env RUBY_DEBUG_OPEN=true bin/rails server
 watch: bin/guard -i
-css: mkdir -p sandbox/app/assets/builds && touch sandbox/app/assets/builds/tailwind.css && bin/rails tailwindcss:watch
+css: bin/rails tailwindcss:watch
