@@ -7,7 +7,7 @@ RSpec.feature 'Checkout', :js, type: :system do
 
   given!(:store) { create(:store) }
   given!(:country) { create(:country, name: 'United States', states_required: true) }
-  given!(:state)   { create(:state, name: 'Maryland', country: country) }
+  given!(:state) { create(:state, name: 'Alabama', country: country) }
   given!(:shipping_method) do
     shipping_method = create(:shipping_method)
     calculator = Spree::Calculator::Shipping::PerItem.create!(calculable: shipping_method, preferred_amount: 10)
@@ -16,23 +16,23 @@ RSpec.feature 'Checkout', :js, type: :system do
   end
 
   given!(:zone)    { create(:zone) }
-  given!(:address) { create(:address, state: state, country: country) }
+  given!(:address) { create(:address) }
   given!(:payment_method){ create :check_payment_method }
 
   background do
-    @product = create(:product, name: 'RoR Mug')
+    @product = create(:product, name: 'Solidus hoodie')
     @product.master.stock_items.first.set_count_on_hand(1)
 
     # Bypass gateway error on checkout | ..or stub a gateway
     stub_spree_preferences(allow_checkout_on_gateway_error: true)
 
-    visit root_path
+    visit products_path
   end
 
   # Regression test for https://github.com/solidusio/solidus/issues/1588
   scenario 'leaving and returning to address step' do
     stub_spree_preferences(Spree::Auth::Config, registration_step: true)
-    click_link 'RoR Mug'
+    click_link 'Solidus hoodie'
     click_button 'Add To Cart'
     within('h1') { expect(page).to have_text 'Shopping Cart' }
     click_button 'Checkout'
@@ -51,7 +51,7 @@ RSpec.feature 'Checkout', :js, type: :system do
 
   context 'without payment being required' do
     scenario 'allow a visitor to checkout as guest, without registration' do
-      click_link 'RoR Mug'
+      click_link 'Solidus hoodie'
       click_button 'Add To Cart'
       within('h1') { expect(page).to have_text 'Shopping Cart' }
       click_button 'Checkout'
@@ -77,7 +77,7 @@ RSpec.feature 'Checkout', :js, type: :system do
 
     scenario 'associate an uncompleted guest order with user after logging in' do
       user = create(:user, email: 'email@person.com', password: 'password', password_confirmation: 'password')
-      click_link 'RoR Mug'
+      click_link 'Solidus hoodie'
       click_button 'Add To Cart'
 
       visit login_path
@@ -86,7 +86,7 @@ RSpec.feature 'Checkout', :js, type: :system do
       click_button 'Login'
       click_link 'Cart'
 
-      expect(page).to have_text 'RoR Mug'
+      expect(page).to have_text 'Solidus hoodie'
       within('h1') { expect(page).to have_text 'Shopping Cart' }
 
       click_button 'Checkout'
@@ -106,7 +106,7 @@ RSpec.feature 'Checkout', :js, type: :system do
     # Regression test for #890
     scenario 'associate an incomplete guest order with user after successful password reset' do
       create(:user, email: 'email@person.com', password: 'password', password_confirmation: 'password')
-      click_link 'RoR Mug'
+      click_link 'Solidus hoodie'
       click_button 'Add To Cart'
 
       visit login_path
@@ -135,7 +135,7 @@ RSpec.feature 'Checkout', :js, type: :system do
     end
 
     scenario 'allow a user to register during checkout' do
-      click_link 'RoR Mug'
+      click_link 'Solidus hoodie'
       click_button 'Add To Cart'
       click_button 'Checkout'
 

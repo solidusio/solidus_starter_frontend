@@ -1,15 +1,17 @@
 <div class="address-overview">
-  <h3 class="address-overview__title">
-    <%= title %>
-  </h3>
+  <div class="flex items-center gap-x-3 mb-6">
+    <h3 class="address-overview__title font-sans-md text-body lg:text-body-md">
+      <%= title %>
+    </h3>
+    
+    <%= link_to(
+      t('spree.actions.edit'),
+      checkout_state_path(:address),
+      { class: 'address-overview__edit underline text-body-md' }
+    ) unless @order.completed? %>
+  </div>
 
-  <%= link_to(
-    "[#{t('spree.actions.edit')}]",
-    checkout_state_path(:address),
-    { class: 'address-overview__edit' }
-  ) unless @order.completed? %>
-
-  <ul class="address-overview__info">
+  <ul class="address-overview__info flex flex-col gap-y-2">
     <li><%= address.name %></li>
     <% unless address.company.blank? %>
       <li><%= address.company %></li>

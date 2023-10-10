@@ -21,7 +21,7 @@ RSpec.describe TaxonsTreeComponent, type: :component do
   let(:root_taxon) { taxon_with_descendants }
   let(:current_taxon) { nil }
   let(:max_level) { 1 }
-  let(:base_class) { 'some_base_class' }
+  let(:current_item_classes) { 'underline' }
 
   let(:local_assigns) do
     {
@@ -29,7 +29,7 @@ RSpec.describe TaxonsTreeComponent, type: :component do
       root_taxon: root_taxon,
       current_taxon: current_taxon,
       max_level: max_level,
-      base_class: base_class
+      current_item_classes: current_item_classes
     }
   end
 
@@ -94,7 +94,7 @@ RSpec.describe TaxonsTreeComponent, type: :component do
         let(:current_taxon) { nil }
 
         it 'does not mark any taxon as "current"' do
-          expect(page).to have_no_css('li.current')
+          expect(page).to have_no_css('li', class: current_item_classes)
         end
       end
 
@@ -103,7 +103,7 @@ RSpec.describe TaxonsTreeComponent, type: :component do
           let(:current_taxon) { root_taxon.children.first }
 
           it 'marks the current taxon as "current"' do
-            expect(page.find('li.current')).to have_text('child 1')
+            expect(page.find('li', class: current_item_classes)).to have_text('child 1')
           end
         end
 
@@ -111,20 +111,8 @@ RSpec.describe TaxonsTreeComponent, type: :component do
           let(:current_taxon) { create(:taxon) }
 
           it 'does not mark any taxon as "current"' do
-            expect(page).to have_no_css('li.current')
+            expect(page).to have_no_css('li', class: current_item_classes)
           end
-        end
-      end
-    end
-
-    describe 'concerning base_class' do
-      let(:title) { 'some_title' }
-      let(:base_class) { 'some_base_class' }
-
-      it 'uses the base class as prefix for the list and title classes' do
-        aggregate_failures do
-          expect(page).to have_css('h6.some_base_class__title')
-          expect(page).to have_css('ul.some_base_class__list')
         end
       end
     end
@@ -133,10 +121,10 @@ RSpec.describe TaxonsTreeComponent, type: :component do
       let(:base_class) { 'some_base_class' }
 
       context 'when a title is provided' do
-        let(:title) { 'some_title' }
+        let(:title) { 'some title' }
 
         it 'renders the title' do
-          expect(page).to have_css('h6.some_base_class__title')
+          expect(page).to have_content('some title')
         end
       end
 
@@ -144,7 +132,7 @@ RSpec.describe TaxonsTreeComponent, type: :component do
         let(:title) { nil }
 
         it 'does not render the title' do
-          expect(page).to have_no_css('h6.some_base_class__title')
+          expect(page).to_not have_content('some title')
         end
       end
     end

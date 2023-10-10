@@ -1,4 +1,4 @@
-<div class="gateway-payment-method">
+<div class="gateway-payment-method flex flex-col gap-y-6 w-full">
   <% param_prefix = "payment_source[#{payment_method.id}]" %>
 
   <div class="text-input">
@@ -26,27 +26,29 @@
     <% end %>
   </div>
 
-  <div class="text-input">
-    <% "card_expiry_#{payment_method.id}".tap do |id| %>
-      <%= label_tag id, "#{t('spree.expiration')}:" %>
+  <div class="flex flex-col gap-6 sm:flex-row">
+    <div class="text-input w-full">
+      <% "card_expiry_#{payment_method.id}".tap do |id| %>
+        <%= label_tag id, "#{t('spree.expiration')}:" %>
 
-      <%= text_field_tag "#{param_prefix}[expiry]",
-        nil,
-        id: id,
-        placeholder: "MM / YY"
-      %>
-    <% end %>
-  </div>
+        <%= text_field_tag "#{param_prefix}[expiry]",
+          nil,
+          id: id,
+          placeholder: "MM / YY"
+        %>
+      <% end %>
+    </div>
 
-  <div class="text-input">
-    <% "card_code_#{payment_method.id}".tap do |id| %>
-      <%= label_tag id, "#{t('spree.card_code')}:" %>
+    <div class="text-input w-full">
+      <% "card_code_#{payment_method.id}".tap do |id| %>
+        <%= label_tag id, "#{t('spree.card_code')}:" %>
 
-      <%= text_field_tag "#{param_prefix}[verification_value]",
-        nil,
-        id: id
-      %>
-    <% end %>
+        <%= text_field_tag "#{param_prefix}[verification_value]",
+          nil,
+          id: id
+        %>
+      <% end %>
+    </div>
   </div>
 
   <% if @order.bill_address %>

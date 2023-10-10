@@ -2,7 +2,7 @@
 
 class FilterComponent < ViewComponent::Base
   BASE_CLASS = 'filter'.freeze
-  CSS_CLASS = "#{BASE_CLASS}__list".freeze
+  CSS_CLASS = "#{BASE_CLASS}__list mt-6".freeze
 
   attr_reader :filter, :search_params
 
@@ -18,7 +18,7 @@ class FilterComponent < ViewComponent::Base
   private
 
   def filter_list_title
-    content_tag(:h6, title, class: "#{BASE_CLASS}__title") if title
+    content_tag(:h6, title, class: "#{BASE_CLASS}__title font-sans-md") if title
   end
 
   def filter_list
@@ -33,7 +33,7 @@ class FilterComponent < ViewComponent::Base
   def filter_list_item(name:, value:)
     id = filter_list_item_id(name)
 
-    content_tag :li do
+    content_tag(:li, class: 'checkbox-input mb-3') do
       concat check_box_tag(
         "search[#{filter[:scope].to_s}][]",
         value,

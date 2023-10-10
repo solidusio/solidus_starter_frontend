@@ -1,0 +1,50 @@
+$graphik-font-path: './graphik/';
+$bradford-font-path: './bradford/';
+
+@font-face {
+  font-family: 'Graphik';
+  src: url('#{$graphik-font-path}graphik-regular-web.woff2') format('woff2'),
+    url('#{$graphik-font-path}graphik-regular-web.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik Medium';
+  src: url('#{$graphik-font-path}graphik-medium-web.woff2') format('woff2'),
+    url('#{$graphik-font-path}graphik-medium-web.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik Semibold';
+  src: url('#{$graphik-font-path}graphik-semibold-web.woff2') format('woff2'),
+    url('#{$graphik-font-path}graphik-semibold-web.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BradFordLL';
+  src: url('#{$bradford-font-path}bradford-ll-web-regular.woff2') format('woff2'),
+    url('#{$bradford-font-path}bradford-ll-web-regular.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BradFordLL Medium';
+  src: url('#{$bradford-font-path}bradford-ll-web-medium.woff2') format('woff2'),
+    url('#{$bradford-font-path}bradford-ll-web-medium.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BradfordLL Book';
+  src: url('#{$bradford-font-path}bradford-ll-web-book') format('woff2'),
+    url('#{$bradford-font-path}bradford-ll-web-book.woff') format('woff');
+  font-display: swap;
+}

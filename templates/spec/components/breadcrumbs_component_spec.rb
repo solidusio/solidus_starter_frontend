@@ -10,7 +10,7 @@ RSpec.describe BreadcrumbsComponent, type: :component do
   context 'when rendered' do
     before do
       with_request_url(request_url) do
-        render_inline(described_class.new(taxon))
+        render_inline(described_class.new(taxon: taxon))
       end
     end
 

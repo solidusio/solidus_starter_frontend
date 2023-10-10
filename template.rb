@@ -102,6 +102,7 @@ end
 
 with_log['installing files'] do
   directory 'app', 'app', verbose: false
+  directory 'public', 'public'
 
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
   copy_file 'config/initializers/canonical_rails.rb'
@@ -175,6 +176,7 @@ end
 
 with_log['patching asset files'] do
   append_file 'config/initializers/assets.rb', "Rails.application.config.assets.precompile += ['solidus_starter_frontend_manifest.js']"
+  append_file 'config/initializers/assets.rb', "\nRails.application.config.assets.paths << Rails.root.join('app', 'assets', 'stylesheets', 'fonts')"
   gsub_file 'app/assets/stylesheets/application.css', '*= require_tree', '* OFF require_tree'
 end
 

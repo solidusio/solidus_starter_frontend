@@ -10,17 +10,17 @@
 <% end %>
 
 <% if products.empty? %>
-  <h2 class="products__results-title">
+  <h2 class="products__results-title font-serif-md text-body-20 mb-6 lg:text-body-lg">
     <%= t('spree.no_products_found') %>
   </h2>
 <% else %>
   <% if params.key?(:keywords) %>
-    <h1 class="products__results-title">
+    <h1 class="products__results-title font-serif-md text-body-20 mb-6 lg:text-body-lg">
       <%= t('spree.search_results', keywords: h(params[:keywords])) %>
     </h1>
   <% end %>
 
-  <%= render 'products/products_grid', products: products %>
+  <%= render 'products/products_grid', products: products, taxon: taxon %>
 <% end %>
 
 <% if paginated_products.respond_to?(:total_pages) %>

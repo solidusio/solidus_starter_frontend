@@ -17,7 +17,7 @@ RSpec.describe 'First Order promotion', type: :system do
   before do
     create(:store)
     product = FactoryBot.create(:product)
-    visit root_path
+    visit products_path
     click_link product.name
     click_button "Add To Cart"
   end
@@ -42,7 +42,7 @@ RSpec.describe 'First Order promotion', type: :system do
     click_button "Apply Code"
     expect(page).to have_content("The coupon code was successfully applied to your order")
     checkout_as_guest
-    fill_in "Customer E-Mail", with: "sam@tom.com"
+    fill_in "Customer email", with: "sam@tom.com"
     fill_in_address
     click_on "Save and Continue"
     expect(page).to_not have_content("#summary-order-charges")

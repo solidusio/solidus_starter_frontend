@@ -3,6 +3,8 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.feature 'Sign In', type: :system do
+  include_context "featured products"
+  
   background do
     @user = create(:user, email: 'email@person.com', password: 'secret', password_confirmation: 'secret')
     visit login_path
@@ -14,8 +16,8 @@ RSpec.feature 'Sign In', type: :system do
     click_button 'Login'
 
     expect(page).to have_text 'Logged in successfully'
-    expect(page).not_to have_text 'Login'
-    expect(page).to have_text 'My Account'
+    expect(page).not_to have_link nil, href: '/login'
+    expect(page).to have_link nil, href: '/account'
     expect(current_path).to eq '/'
   end
 

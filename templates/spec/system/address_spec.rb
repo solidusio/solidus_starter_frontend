@@ -4,14 +4,15 @@ require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Address', type: :system, inaccessible: true do
   include  SolidusStarterFrontend::System::CheckoutHelpers
+  include_context 'featured products'
 
-  let!(:product) { create(:product, name: "RoR Mug") }
+  let!(:product) { create(:product, name: "Solidus mug set") }
   let!(:order) { create(:order_with_totals, state: 'cart') }
 
   before do
-    visit root_path
+    visit products_path
 
-    click_link 'RoR Mug'
+    click_link 'Solidus mug set'
     click_button 'add-to-cart-button'
 
     address = 'order_bill_address_attributes'

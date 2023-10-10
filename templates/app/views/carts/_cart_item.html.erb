@@ -1,8 +1,8 @@
 <% variant = line_item.variant %>
 
 <%= order_form.fields_for :line_items, line_item do |item_form| %>
-  <article class="cart-item">
-    <div class="cart-item__image">
+  <article class="cart-item py-6 border-b-[1px] border-b-gray-200 grid-container">
+    <div class="flex justify-center items-center col-span-1 bg-gray-50 rounded-lg p-2 min-w-[60px] min-h-[60px] aspect-square md:rounded-xl md:col-span-3 lg:rounded-2xl">
       <%= link_to(
         render(ImageComponent.new(
           image: variant.gallery.images.first || variant.product.gallery.images.first,
@@ -12,37 +12,36 @@
       ) %>
     </div>
 
-    <%= render(
-      'orders/item_info',
-      line_item: line_item,
-      variant: variant,
-      classes: ['cart-item__info']
-    ) %>
-
-    <div class="cart-item__price-single">
-      <%= line_item.single_money.to_html %>
-    </div>
-
-    <div class="cart-item__quantity">
-      <div class="text-input">
-        <%= item_form.text_field :quantity, type: 'number', min: 0 %>
+    <div class="flex justify-between items-start col-span-3 md:col-span-5">
+      <%= render(
+        'orders/item_info',
+        line_item: line_item,
+        variant: variant,
+        classes: ['cart-item__info']
+      ) %>
+      <div class="cart-item__price md:hidden col-span-2">
+        <p class="font-sans-md"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
       </div>
     </div>
 
-    <div class="cart-item__price">
-      <strong><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></strong>
-    </div>
-
-    <div class="cart-item__remove">
-      <%= order_form.submit(
-        'Remove',
-        class: 'delete',
-        id: "delete_#{dom_id(line_item)}",
-        data: { disable_with: 'Remove' },
-        'data-action': 'click->cart-page#setQuantityToZero',
-        # FIXME: `index: nil` is required because otherwise rails will double the index
-        'data-cart-page-quantity-id-param': item_form.field_id(:quantity, index: nil),
-      ) %>
+    <div class="flex flex-row-reverse justify-between col-span-full sm:col-span-4 sm:flex-col">
+      <div class="flex items-center justify-between w-full">
+        <div class="cart-item__quantity select-input [&>select]:min-w-[100px]">
+          <%= item_form.select :quantity, (0..variant.total_on_hand).to_a %>
+        </div>
+        
+        <div class="cart-item__price hidden md:block col-span-2">
+          <p class="font-sans-md"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
+        </div>
+        
+        <div class="flex items-center justify-end md:hidden gap-x-2">
+          <%= render 'carts/cart_item_remove', order_form: order_form, item_form: item_form, line_item: line_item %>
+        </div>
+      </div>
+      
+      <div class="hidden md:flex items-center justify-end gap-x-2">
+        <%= render 'carts/cart_item_remove', order_form: order_form, item_form: item_form, line_item: line_item %>
+      </div>
     </div>
   </article>
 <% end %>

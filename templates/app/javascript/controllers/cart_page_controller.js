@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ['updateButton']
 
   setQuantityToZero(e) {
-    this.element.querySelector(`#${e.params.quantityId}`).setAttribute('value', 0)
+    this.element.querySelector(`#${e.params.quantityId}`).value = '0'
   }
 
   disableUpdateButton() {

@@ -3,14 +3,14 @@
 %>
 
 <% if variants.any? %>
-  <section class="product-variants d-hide">
+  <section class="product-variants hidden">
     <h2 class="product-variants__title">
       <%= t('spree.variants') %>
     </h2>
 
     <ul class="product-variants__list">
       <% variants.each_with_index do |variant, index| %>
-        <li class='d-hide'>
+        <li class='hidden'>
           <%= radio_button_tag(
             'variant_id',
             variant.id,
