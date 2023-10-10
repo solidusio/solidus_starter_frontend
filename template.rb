@@ -106,6 +106,7 @@ with_log['installing files'] do
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
   copy_file 'config/initializers/canonical_rails.rb'
   copy_file 'config/tailwind.config.js'
+  create_file 'app/assets/builds/tailwind.css'
 
   append_file 'config/initializers/devise.rb', <<~RUBY
     Devise.setup do |config|
