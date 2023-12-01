@@ -1,8 +1,8 @@
 <div class="modules_product-display-page_product-selection">
-  <div class = "optionType<%= option_type.presentation %>">
+  <div class="optionType<%= option_type.presentation %>">
     <%= option_type.presentation %>:
 
-    <span class="selected-value" id='<%= "selected-#{option_type.name}" %>' >
+    <span class="selected-value" id='<%= "selected-#{option_type.name}" %>'>
       <%= option_values(product: product, option_type: option_type).first&.presentation %>
     </span>
 
