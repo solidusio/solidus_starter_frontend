@@ -9,7 +9,7 @@ class CouponCodesController < StoreController
 
     if params[:coupon_code].present?
       @order.coupon_code = params[:coupon_code]
-      handler = Spree::PromotionHandler::Coupon.new(@order).apply
+      handler = Spree::Config.coupon_code_handler_class.new(@order).apply
 
       respond_to do |format|
         format.html do
