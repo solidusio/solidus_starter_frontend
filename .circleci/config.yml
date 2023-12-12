@@ -100,7 +100,7 @@ workflows:
       - run-specs:
           name: run-specs-with-postgres-ruby-3-0
           database: 'postgres'
-          ruby_version: '2.7'
+          ruby_version: '3.0'
 
       - run-specs:
           name: run-specs-with-mysql-ruby-3-2
