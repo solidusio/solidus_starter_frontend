@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', ENV['RAILS_VERSION'] || '~> 7.0'
+gem 'rails', ENV['RAILS_VERSION'] || '~> 7.0.0'
 
 group :development do
   gem 'guard'

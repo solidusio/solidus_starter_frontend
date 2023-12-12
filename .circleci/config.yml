@@ -75,7 +75,7 @@ jobs:
         default: 'main'
       rails_version:
         type: string
-        default: '~> 7.0'
+        default: '~> 7.0.0'
       ruby_version:
         type: string
       database:
