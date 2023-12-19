@@ -110,6 +110,8 @@ with_log['installing files'] do
   copy_file 'config/tailwind.config.js'
   create_file 'app/assets/builds/tailwind.css'
 
+  insert_into_file 'config/environments/test.rb', "\n  config.assets.css_compressor = nil\n", after: 'config.active_support.disallowed_deprecation_warnings = []'
+
   append_file 'config/initializers/devise.rb', <<~RUBY
     Devise.setup do |config|
       config.parent_controller = 'StoreDeviseController'
