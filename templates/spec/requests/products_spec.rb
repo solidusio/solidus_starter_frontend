@@ -8,9 +8,9 @@ RSpec.describe 'Product', type: :request, with_signed_in_user: true do
 
   context 'when not admin user' do
     it "cannot view non-active products" do
-      expect do
-        get product_path(product.to_param)
-      end.to raise_error(ActiveRecord::RecordNotFound)
+      get product_path(product.to_param)
+
+      expect(response.status).to eq(404)
     end
 
     it "provides the current user to the searcher class" do
@@ -40,9 +40,8 @@ RSpec.describe 'Product', type: :request, with_signed_in_user: true do
 
   context "when invalid search params are passed" do
     it "raises ActionController::BadRequest" do
-      expect {
-        get products_path, params: { search: "blurb" }
-      }.to raise_error(ActionController::BadRequest)
+      get products_path, params: { search: "blurb" }
+      expect(response.status).to eq(400)
     end
   end
 end
