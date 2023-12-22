@@ -230,10 +230,9 @@ RSpec.describe 'Checkouts', type: :request, with_signed_in_user: true do
           before { payment_method.update!(available_to_users: false) }
 
           it 'sets the payment amount' do
-            expect do
-              patch update_checkout_path(params)
-            end.to raise_error(ActiveRecord::RecordNotFound)
+            patch update_checkout_path(params)
 
+            expect(response.status).to eq(404)
             expect(order.state).to eq('payment')
             expect(order.payments).to be_empty
           end

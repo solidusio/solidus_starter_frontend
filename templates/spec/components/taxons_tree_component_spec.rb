@@ -1,5 +1,4 @@
 require "solidus_starter_frontend_spec_helper"
-require 'spree/taxon'
 
 RSpec.describe TaxonsTreeComponent, type: :component do
   let(:taxon_without_descendants) { create(:taxon, children: []) }

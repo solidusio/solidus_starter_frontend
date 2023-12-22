@@ -2,7 +2,6 @@
 
 class UsersController < StoreController
   skip_before_action :set_current_order, only: :show, raise: false
-  prepend_before_action :authorize_actions, only: :new
 
   include Taxonomies
 
@@ -49,6 +48,10 @@ class UsersController < StoreController
     end
   end
 
+  def new
+    authorize! params[:action].to_sym, Spree::User.new
+  end
+
   private
 
   def user_params
@@ -58,10 +61,6 @@ class UsersController < StoreController
   def load_object
     @user ||= Spree::User.find_by(id: spree_current_user&.id)
     authorize! params[:action].to_sym, @user
-  end
-
-  def authorize_actions
-    authorize! params[:action].to_sym, Spree::User.new
   end
 
   def accurate_title
