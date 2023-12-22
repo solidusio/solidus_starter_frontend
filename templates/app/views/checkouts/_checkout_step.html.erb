@@ -1,7 +1,7 @@
 <%= form_for order, url: update_checkout_path(order.state), html: { id: "checkout_form_#{order.state}" } do |form| %>
   <% if order.state == "address" || !order.email? %>
-    <div class="text-input">
-      <%= form.label :email, 'Customer E-Mail:' %>
+    <div class="text-input mb-6">
+      <%= form.label :email, 'Customer email' %>
       <%= form.email_field :email, required: true, placeholder: 'name@example.com' %>
     </div>
   <% end %>

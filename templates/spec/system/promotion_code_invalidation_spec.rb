@@ -14,14 +14,14 @@ RSpec.describe 'Promotion Code Invalidation', type: :system, js: true do
 
   before do
     create(:store)
-    FactoryBot.create(:product, name: "DL-44")
-    FactoryBot.create(:product, name: "E-11")
+    FactoryBot.create(:product_in_stock, name: "DL-44")
+    FactoryBot.create(:product_in_stock, name: "E-11")
 
-    visit root_path
+    visit products_path
     click_link "DL-44"
     click_button "Add To Cart"
 
-    visit root_path
+    visit products_path
     click_link "E-11"
     click_button "Add To Cart"
   end
@@ -37,14 +37,14 @@ RSpec.describe 'Promotion Code Invalidation', type: :system, js: true do
     end
 
     # Remove an item
-    fill_in "order_line_items_attributes_0_quantity", with: 0
+    select '0', from: "order_line_items_attributes_0_quantity"
     click_button "Update"
     within("#cart_adjustments") do
       expect(page).to have_content("-$5.00")
     end
 
     # Add it back
-    visit root_path
+    visit products_path
     click_link "DL-44"
     click_button "Add To Cart"
     within("#cart_adjustments") do

@@ -3,6 +3,8 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.feature 'Sign Up', type: :system do
+  include_context "featured products"
+
   context 'with valid data' do
     scenario 'create a new user' do
       visit signup_path

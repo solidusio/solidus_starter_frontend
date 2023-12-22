@@ -7,23 +7,22 @@ RSpec.shared_context "custom products" do
     categories = FactoryBot.create(:taxonomy, name: 'Categories')
     categories_root = categories.root
     clothing_taxon = FactoryBot.create(:taxon, name: 'Clothing', parent_id: categories_root.id, taxonomy: categories)
-    bags_taxon = FactoryBot.create(:taxon, name: 'Bags', parent_id: categories_root.id, taxonomy: categories)
-    mugs_taxon = FactoryBot.create(:taxon, name: 'Mugs', parent_id: categories_root.id, taxonomy: categories)
-
-    brands = FactoryBot.create(:taxonomy, name: 'Brands')
-    brands_root = brands.root
-    apache_taxon = FactoryBot.create(:taxon, name: 'Apache', parent_id: brands_root.id, taxonomy: brands)
-    rails_taxon = FactoryBot.create(:taxon, name: 'Ruby on Rails', parent_id: brands_root.id, taxonomy: brands)
-    ruby_taxon = FactoryBot.create(:taxon, name: 'Ruby', parent_id: brands_root.id, taxonomy: brands)
-
-    FactoryBot.create(:custom_product, name: 'Ruby on Rails Ringer T-Shirt', price: '19.99', taxons: [rails_taxon, clothing_taxon])
-    FactoryBot.create(:custom_product, name: 'Ruby on Rails Mug', price: '15.99', taxons: [rails_taxon, mugs_taxon])
-    FactoryBot.create(:custom_product, name: 'Ruby on Rails Tote', price: '15.99', taxons: [rails_taxon, bags_taxon])
-    FactoryBot.create(:custom_product, name: 'Ruby on Rails Bag', price: '22.99', taxons: [rails_taxon, bags_taxon])
-    FactoryBot.create(:custom_product, name: 'Ruby on Rails Baseball Jersey', price: '19.99', taxons: [rails_taxon, clothing_taxon])
-    FactoryBot.create(:custom_product, name: 'Ruby on Rails Stein', price: '16.99', taxons: [rails_taxon, mugs_taxon])
-    FactoryBot.create(:custom_product, name: 'Ruby on Rails Jr. Spaghetti', price: '19.99', taxons: [rails_taxon, clothing_taxon])
-    FactoryBot.create(:custom_product, name: 'Ruby Baseball Jersey', price: '19.99', taxons: [ruby_taxon, clothing_taxon])
-    FactoryBot.create(:custom_product, name: 'Apache Baseball Jersey', price: '19.99', taxons: [apache_taxon, clothing_taxon])
+    accessories_taxon = FactoryBot.create(:taxon, name: 'Accessories', parent_id: categories_root.id, taxonomy: categories)
+    stickers_taxon = FactoryBot.create(:taxon, name: 'Stickers', parent_id: categories_root.id, taxonomy: categories)
+    image = FactoryBot.create(:image)
+    variant = FactoryBot.create(:variant, images: [image, image])
+  
+    FactoryBot.create(:custom_product, name: 'Solidus hoodie', price: '29.99', taxons: [clothing_taxon], variants: [variant])
+    FactoryBot.create(:custom_product, name: 'Solidus Water Bottle', price: '19.99', taxons: [accessories_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus tote', price: '19.99', taxons: [clothing_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus mug set', price: '19.99', taxons: [accessories_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus winter hat', price: '22.99', taxons: [clothing_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus circle sticker', price: '5.99', taxons: [stickers_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus notebook', price: '26.99', taxons: [accessories_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus t-shirt', price: '9.99', taxons: [clothing_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus long sleeve tee', price: '15.99', taxons: [clothing_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus dark tee', price: '15.99', taxons: [clothing_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus canvas tote bag', price: '15.99', taxons: [accessories_taxon])
+    FactoryBot.create(:custom_product, name: 'Solidus cap', price: '24.00', taxons: [clothing_taxon])
   end
 end

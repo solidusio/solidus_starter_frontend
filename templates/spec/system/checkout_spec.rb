@@ -424,7 +424,6 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
   # regression for https://github.com/spree/spree/issues/2921
   context "goes back from payment to add another item", js: true do
-    let!(:store) { FactoryBot.create(:store) }
     let!(:bag) { create(:product, name: "RoR Bag") }
 
     it "transit nicely through checkout steps again" do
@@ -436,7 +435,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       click_on "Save and Continue"
       expect(page).to have_current_path(checkout_state_path("payment"))
 
-      visit root_path
+      visit products_path
       click_link bag.name
       click_button "add-to-cart-button"
 
@@ -467,9 +466,10 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
 
     context "and updates line item quantity and try to reach payment page" do
       before do
+        stock_location.stock_items.update_all(count_on_hand: 5)
         visit cart_path
         within '.cart-item__quantity' do
-          fill_in first("input")["name"], with: 3
+          select 3, from: "order_line_items_attributes_0_quantity"
         end
 
         click_on "Update"
@@ -493,7 +493,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       let!(:bag) { create(:product, name: "RoR Bag") }
 
       before do
-        visit root_path
+        visit products_path
         click_link bag.name
         click_button "add-to-cart-button"
       end
@@ -679,7 +679,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
         end
 
         fill_in_address
-        fill_in 'Customer E-Mail', with: 'test@example.com'
+        fill_in 'Customer email', with: 'test@example.com'
 
         state_name_css = "order_bill_address_attributes_state_name"
 
@@ -757,7 +757,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
   end
 
   def add_mug_to_cart
-    visit root_path
+    visit products_path
     click_link mug.name
     click_button "add-to-cart-button"
   end

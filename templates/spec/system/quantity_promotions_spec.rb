@@ -15,11 +15,11 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
 
   before do
     create(:store)
-    FactoryBot.create(:product, name: "DL-44")
-    FactoryBot.create(:product, name: "E-11")
+    FactoryBot.create(:product_in_stock, name: "DL-44")
+    FactoryBot.create(:product_in_stock, name: "E-11")
     promotion.actions << action
 
-    visit root_path
+    visit products_path
     click_link "DL-44"
     click_button "Add To Cart"
   end
@@ -31,7 +31,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     expect(page).to have_content("This coupon code could not be applied to the cart at this time")
 
     # Add another item to our cart.
-    visit root_path
+    visit products_path
     click_link "DL-44"
     click_button "Add To Cart"
 
@@ -44,19 +44,19 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     end
 
     # Reduce quantity by 1, making promotion not apply.
-    fill_in "order_line_items_attributes_0_quantity", with: 1
+    select "1", from: "order_line_items_attributes_0_quantity"
     click_button "Update"
     expect(page).to_not have_content("#cart_adjustments")
 
     # Bump quantity to 3, making promotion apply "once."
-    fill_in "order_line_items_attributes_0_quantity", with: 3
+    select "3", from: "order_line_items_attributes_0_quantity"
     click_button "Update"
     within("#cart_adjustments") do
       expect(page).to have_content("-$10.00")
     end
 
     # Bump quantity to 4, making promotion apply "twice."
-    fill_in "order_line_items_attributes_0_quantity", with: 4
+    select "4", from: "order_line_items_attributes_0_quantity"
     click_button "Update"
     within("#cart_adjustments") do
       expect(page).to have_content("-$20.00")
@@ -66,7 +66,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
   # Catches an earlier issue with quantity calculation.
   it 'adding odd numbers of items to the cart' do
     # Bump quantity to 3
-    fill_in "order_line_items_attributes_0_quantity", with: 3
+    select "3", from: "order_line_items_attributes_0_quantity"
     click_button "Update"
 
     # Apply the promo code and see a $10 discount (for 2 of the 3 items)
@@ -78,9 +78,9 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     end
 
     # Add a different product to our cart with quantity of 2.
-    visit root_path
+    visit products_path
     click_link "E-11"
-    fill_in "quantity", with: "2"
+    select "2", from: "quantity"
     click_button "Add To Cart"
 
     # We now have 5 items total, so discount should increase.
@@ -100,7 +100,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     before { FactoryBot.create(:product, name: 'DC-15A') }
 
     it 'odd number of changes to quantities' do
-      fill_in "order_line_items_attributes_0_quantity", with: 3
+      select "3", from: "order_line_items_attributes_0_quantity"
       click_button "Update"
 
       # Apply the promo code and see a $15 discount
@@ -112,7 +112,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
       end
 
       # Add two different products to our cart
-      visit root_path
+      visit products_path
       click_link "E-11"
       click_button "Add To Cart"
       within("#cart_adjustments") do
@@ -120,7 +120,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
       end
 
       # Reduce quantity of first item to 2
-      fill_in "order_line_items_attributes_0_quantity", with: 2
+      select "2", from: "order_line_items_attributes_0_quantity"
       click_button "Update"
       within("#cart_adjustments") do
         expect(page).to have_content("-$15.00")

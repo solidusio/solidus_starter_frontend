@@ -3,15 +3,15 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Coupon code promotions', type: :system, js: true do
+  include_context 'featured products'
   include  SolidusStarterFrontend::System::CheckoutHelpers
 
   let!(:store) { create(:store) }
-  let!(:country) { create(:country, name: "United States of America", states_required: true) }
-  let!(:state) { create(:state, name: "Alabama", country: country) }
   let!(:zone) { create(:zone) }
   let!(:shipping_method) { create(:shipping_method) }
   let!(:payment_method) { create(:check_payment_method) }
-  let!(:product) { create(:product, name: "RoR Mug", price: 20) }
+  let!(:product) { create(:product_in_stock, name: "Solidus mug set", price: 20) }
+  let!(:address) { create(:address) }
 
   context "visitor makes checkout" do
     def create_basic_coupon_promotion(code)
@@ -39,18 +39,11 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
     context "on the payment page" do
       context "as guest without registration" do
         before do
-          visit root_path
-          click_link "RoR Mug"
+          visit products_path
+          click_link "Solidus mug set"
           click_button "add-to-cart-button"
           checkout_as_guest
-          fill_in "order_email", with: "spree@example.com"
-          fill_in "Name", with: "John Smith"
-          fill_in 'Street Address:', with: '1 John Street'
-          fill_in "City", with: "City of John"
-          fill_in "Zip", with: "01337"
-          select country.name, from: "Country"
-          select state.name, from: "order[bill_address_attributes][state_id]"
-          fill_in "Phone", with: "555-555-5555"
+          fill_addresses_fields_with(address)
 
           # To shipping method screen
           click_button "Save and Continue"
@@ -101,8 +94,8 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           let!(:wallet_source) { user.wallet.add(credit_card) }
 
           before do
-            visit root_path
-            click_link "RoR Mug"
+            visit products_path
+            click_link "Solidus mug set"
             click_button "add-to-cart-button"
             # To Cart
             click_button "Checkout"
@@ -118,7 +111,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
             click_button "Apply Code"
 
             expect(page).to have_content("The coupon code you entered doesn't exist. Please try again.")
-            expect(page).to have_content("PAYMENT INFORMATION")
+            expect(page).to have_content("Payment Information")
             expect(page).to have_content("Bogus Card")
           end
         end
@@ -128,8 +121,8 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
     # CheckoutsController
     context "on the cart page" do
       before do
-        visit root_path
-        click_link "RoR Mug"
+        visit products_path
+        click_link "Solidus mug set"
         click_button "add-to-cart-button"
       end
 
@@ -186,20 +179,20 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           promotion.actions.first.calculator = calculator
           promotion.save
 
-          create(:product, name: "Spree Mug", price: 10)
+          create(:product_in_stock, name: "Solidus cap", price: 10)
         end
 
         specify do
-          visit root_path
-          click_link "Spree Mug"
+          visit products_path
+          click_link "Solidus cap"
           click_button "add-to-cart-button"
 
           visit cart_path
           fill_in "coupon_code", with: "onetwo"
           click_button "Apply Code"
 
-          fill_in "order_line_items_attributes_0_quantity", with: 2
-          fill_in "order_line_items_attributes_1_quantity", with: 2
+          select "2", from: "order_line_items_attributes_0_quantity"
+          select "2", from: "order_line_items_attributes_1_quantity"
           click_button "Update"
 
           within '#cart_adjustments' do
@@ -227,12 +220,12 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
             promotion: promotion
           )
 
-          create(:product, name: "Spree Mug", price: 10)
+          create(:product_in_stock, name: "Solidus cap", price: 10)
         end
 
         specify do
-          visit root_path
-          click_link "Spree Mug"
+          visit products_path
+          click_link "Solidus cap"
           click_button "add-to-cart-button"
 
           visit cart_path
@@ -252,8 +245,8 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
             expect(page).to have_content("$0.00")
           end
 
-          fill_in "order_line_items_attributes_0_quantity", with: 2
-          fill_in "order_line_items_attributes_1_quantity", with: 2
+          select "2", from: "order_line_items_attributes_0_quantity"
+          select "2", from: "order_line_items_attributes_1_quantity"
           click_button "Update"
 
           within '#cart_adjustments' do

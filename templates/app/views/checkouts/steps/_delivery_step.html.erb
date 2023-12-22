@@ -1,9 +1,5 @@
 <div class="delivery-step">
   <fieldset class="delivery-step__delivery">
-    <legend>
-      <%= t('spree.delivery') %>
-    </legend>
-
     <%= form.fields_for :shipments do |ship_form| %>
       <%= render 'checkouts/steps/delivery_step/proposed_shipment', ship_form: ship_form %>
     <% end %>
@@ -20,9 +16,11 @@
     <% end %>
   </fieldset>
 
-  <%= form.button(
-    I18n.t("spree.save_and_continue"),
-    class: 'button-primary',
-    name: :commit
-  ) %>
+  <div class="flex justify-end py-6">
+    <%= form.button(
+      I18n.t("spree.save_and_continue"),
+      class: 'button-primary',
+      name: :commit
+    ) %>
+  </div>
 </div>

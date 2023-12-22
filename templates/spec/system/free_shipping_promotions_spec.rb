@@ -17,7 +17,7 @@ RSpec.describe 'Free shipping promotions', type: :system, js: true do
   end
 
   let!(:payment_method) { create(:check_payment_method) }
-  let!(:product) { create(:product, name: "RoR Mug", price: 20) }
+  let!(:product) { create(:product, name: "Solidus mug set", price: 20) }
   let!(:promotion) do
     create(
       :promotion,
@@ -31,8 +31,8 @@ RSpec.describe 'Free shipping promotions', type: :system, js: true do
 
   context "free shipping promotion automatically applied" do
     before do
-      visit root_path
-      click_link "RoR Mug"
+      visit products_path
+      click_link "Solidus mug set"
       click_button "add-to-cart-button"
       checkout_as_guest
       fill_in "order_email", with: "spree@example.com"

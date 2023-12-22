@@ -1,15 +1,17 @@
 <div class="order-shipments">
-  <h3 class="order-shipments__title">
-    <%= title %>
-  </h3>
+  <div class="flex items-center gap-x-3 mb-6">
+    <h3 class="order-shipments__title font-sans-md text-body lg:text-body-md">
+      <%= title %>
+    </h3>
 
-  <%= link_to(
-    "[#{t('spree.actions.edit')}]",
-    checkout_state_path(:delivery),
-    { class: 'order-shipments__edit' }
-  ) unless @order.completed? %>
+    <%= link_to(
+      t('spree.actions.edit'),
+      checkout_state_path(:delivery),
+      { class: 'order-shipments__edit  underline text-body-md' }
+    ) unless @order.completed? %>
+  </div>
 
-  <ul class="order-shipments__info">
+  <ul class="order-shipments__info flex flex-col gap-y-2">
     <% order.shipments.each do |shipment| %>
       <li>
         <%= t(
