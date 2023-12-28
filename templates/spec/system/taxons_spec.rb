@@ -64,7 +64,9 @@ RSpec.describe 'viewing products', type: :system do
   end
 
   context "taxon pages" do
-    include_context "custom products"
+    include SolidusStarterFrontend::System::CheckoutHelpers
+
+    before { setup_custom_products }
 
     let(:product_names) do
       page.all('ul.products-grid li a').map(&:text).flatten.reject(&:blank?).sort

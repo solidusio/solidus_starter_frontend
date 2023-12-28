@@ -4,8 +4,8 @@ require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'Visiting Products', type: :system do
   include  SolidusStarterFrontend::System::CheckoutHelpers
-  include_context "custom products"
 
+  before { setup_custom_products }
   let(:store_name) { Spree::Store.first.try(:name) }
 
   before(:each) do

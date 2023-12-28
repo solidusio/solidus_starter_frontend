@@ -3,9 +3,10 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'searching products', :js, type: :system do
-  include_context "custom products"
+  include SolidusStarterFrontend::System::CheckoutHelpers
 
-  before(:each) do
+  before do
+    setup_custom_products
     visit root_path
   end
 
