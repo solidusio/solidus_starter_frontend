@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_spec_helper'
 
-RSpec.describe 'viewing products', type: :system, inaccessible: true do
+RSpec.describe 'viewing products', type: :system do
   let!(:taxonomy) { create(:taxonomy, name: "Category") }
   let!(:super_clothing) { create(:taxon, name: "Super Clothing", parent: taxonomy.root, taxonomy: taxonomy) }
   let!(:t_shirts) { create(:taxon, name: "T-Shirts", parent: super_clothing, taxonomy: taxonomy) }
@@ -64,7 +64,9 @@ RSpec.describe 'viewing products', type: :system, inaccessible: true do
   end
 
   context "taxon pages" do
-    include_context "custom products"
+    include SolidusStarterFrontend::System::CheckoutHelpers
+
+    before { setup_custom_products }
 
     let(:product_names) do
       page.all('ul.products-grid li a').map(&:text).flatten.reject(&:blank?).sort

@@ -3,7 +3,9 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.feature 'Accounts', type: :system do
-  include_context "custom products"
+  include SolidusStarterFrontend::System::CheckoutHelpers
+
+  before { setup_custom_products }
 
   context 'editing' do
     scenario 'can edit an admin user' do

@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_spec_helper'
 
-RSpec.describe 'Cart', type: :system, inaccessible: true do
+RSpec.describe 'Cart', type: :system do
   include_context 'featured products'
 
   before { create(:store) }
@@ -64,7 +64,7 @@ RSpec.describe 'Cart', type: :system, inaccessible: true do
 
     before { variant.option_values.destroy_all }
 
-    it "still adds product to cart", inaccessible: true do
+    it "still adds product to cart" do
       visit product_path(product)
       click_button "add-to-cart-button"
 
