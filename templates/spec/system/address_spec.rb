@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_spec_helper'
 
-RSpec.describe 'Address', type: :system, inaccessible: true do
+RSpec.describe 'Address', type: :system do
   include  SolidusStarterFrontend::System::CheckoutHelpers
   include_context 'featured products'
 

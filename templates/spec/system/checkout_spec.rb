@@ -2,7 +2,7 @@
 
 require 'solidus_starter_frontend_spec_helper'
 
-RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
+RSpec.describe 'Checkout', :js, type: :system do
   include  SolidusStarterFrontend::System::CheckoutHelpers
 
   include_context 'checkout setup'
@@ -19,7 +19,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
         click_button "Checkout"
       end
 
-      it 'should default checkbox to checked', js: true, inaccessible: true do
+      it 'should default checkbox to checked', js: true do
         expect(find('input#order_use_billing')).to be_checked
       end
 
@@ -250,7 +250,7 @@ RSpec.describe 'Checkout', :js, type: :system, inaccessible: true do
       allow_any_instance_of(CheckoutsController).to receive_messages(spree_current_user: user)
     end
 
-    it "redirects to payment page", inaccessible: true do
+    it "redirects to payment page" do
       visit checkout_state_path(:delivery)
       click_button "Save and Continue"
       choose "Credit Card"
