@@ -81,7 +81,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     # Add a different product to our cart with quantity of 2.
     visit products_path
     click_link "E-11"
-    select "2", from: "quantity"
+    fill_in "quantity", with: 2
     click_button "Add To Cart"
 
     # We now have 5 items total, so discount should increase.
