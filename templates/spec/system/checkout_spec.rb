@@ -469,7 +469,7 @@ RSpec.describe 'Checkout', :js, type: :system do
         stock_location.stock_items.update_all(count_on_hand: 5)
         visit cart_path
         within '.cart-item__quantity' do
-          select 3, from: "order_line_items_attributes_0_quantity"
+          fill_in "order_line_items_attributes_0_quantity", with: 3
         end
 
         click_on "Update"

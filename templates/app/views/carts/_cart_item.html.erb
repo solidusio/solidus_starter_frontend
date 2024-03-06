@@ -26,19 +26,19 @@
 
     <div class="flex flex-row-reverse justify-between col-span-full sm:col-span-4 sm:flex-col">
       <div class="flex items-center justify-between w-full">
-        <div class="cart-item__quantity select-input [&>select]:min-w-[100px]">
-          <%= item_form.select :quantity, (0..variant.total_on_hand).to_a %>
+        <div class="cart-item__quantity text-input mr-4">
+          <%= item_form.number_field :quantity %>
         </div>
-        
+
         <div class="cart-item__price hidden md:block col-span-2">
           <p class="font-sans-md"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
         </div>
-        
+
         <div class="flex items-center justify-end md:hidden gap-x-2">
           <%= render 'carts/cart_item_remove', order_form: order_form, item_form: item_form, line_item: line_item %>
         </div>
       </div>
-      
+
       <div class="hidden md:flex items-center justify-end gap-x-2">
         <%= render 'carts/cart_item_remove', order_form: order_form, item_form: item_form, line_item: line_item %>
       </div>

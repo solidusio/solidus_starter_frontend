@@ -191,8 +191,8 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           fill_in "coupon_code", with: "onetwo"
           click_button "Apply Code"
 
-          select "2", from: "order_line_items_attributes_0_quantity"
-          select "2", from: "order_line_items_attributes_1_quantity"
+          fill_in "order_line_items_attributes_0_quantity", with: 2
+          fill_in "order_line_items_attributes_1_quantity", with: 2
           click_button "Update"
 
           within '#cart_adjustments' do
@@ -245,8 +245,8 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
             expect(page).to have_content("$0.00")
           end
 
-          select "2", from: "order_line_items_attributes_0_quantity"
-          select "2", from: "order_line_items_attributes_1_quantity"
+          fill_in "order_line_items_attributes_0_quantity", with: 2
+          fill_in "order_line_items_attributes_1_quantity", with: 2
           click_button "Update"
 
           within '#cart_adjustments' do
