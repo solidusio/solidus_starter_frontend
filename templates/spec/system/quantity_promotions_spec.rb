@@ -44,19 +44,20 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     end
 
     # Reduce quantity by 1, making promotion not apply.
-    select "1", from: "order_line_items_attributes_0_quantity"
+
+    fill_in "order_line_items_attributes_0_quantity", with: 1
     click_button "Update"
     expect(page).to_not have_content("#cart_adjustments")
 
     # Bump quantity to 3, making promotion apply "once."
-    select "3", from: "order_line_items_attributes_0_quantity"
+    fill_in "order_line_items_attributes_0_quantity", with: 3
     click_button "Update"
     within("#cart_adjustments") do
       expect(page).to have_content("-$10.00")
     end
 
     # Bump quantity to 4, making promotion apply "twice."
-    select "4", from: "order_line_items_attributes_0_quantity"
+    fill_in "order_line_items_attributes_0_quantity", with: 4
     click_button "Update"
     within("#cart_adjustments") do
       expect(page).to have_content("-$20.00")
@@ -66,7 +67,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
   # Catches an earlier issue with quantity calculation.
   it 'adding odd numbers of items to the cart' do
     # Bump quantity to 3
-    select "3", from: "order_line_items_attributes_0_quantity"
+    fill_in "order_line_items_attributes_0_quantity", with: 3
     click_button "Update"
 
     # Apply the promo code and see a $10 discount (for 2 of the 3 items)
@@ -100,7 +101,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
     before { FactoryBot.create(:product, name: 'DC-15A') }
 
     it 'odd number of changes to quantities' do
-      select "3", from: "order_line_items_attributes_0_quantity"
+      fill_in "order_line_items_attributes_0_quantity", with: 3
       click_button "Update"
 
       # Apply the promo code and see a $15 discount
@@ -120,7 +121,7 @@ RSpec.describe 'Quantity Promotions', type: :system, js: true do
       end
 
       # Reduce quantity of first item to 2
-      select "2", from: "order_line_items_attributes_0_quantity"
+      fill_in "order_line_items_attributes_0_quantity", with: 2
       click_button "Update"
       within("#cart_adjustments") do
         expect(page).to have_content("-$15.00")
