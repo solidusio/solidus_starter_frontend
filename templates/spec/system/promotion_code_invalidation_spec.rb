@@ -37,7 +37,8 @@ RSpec.describe 'Promotion Code Invalidation', type: :system, js: true do
     end
 
     # Remove an item
-    select '0', from: "order_line_items_attributes_0_quantity"
+
+    fill_in "order_line_items_attributes_0_quantity", with: 0
     click_button "Update"
     within("#cart_adjustments") do
       expect(page).to have_content("-$5.00")
