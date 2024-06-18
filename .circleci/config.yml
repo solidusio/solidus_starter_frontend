@@ -24,6 +24,7 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -yq libvips-dev
+          when: always
       - run:
           name: 'Solidus <<parameters.solidus_branch>>:  Install gems'
           command: |
