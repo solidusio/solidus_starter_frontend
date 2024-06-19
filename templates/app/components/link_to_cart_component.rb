@@ -4,7 +4,7 @@ class LinkToCartComponent < ViewComponent::Base
   delegate :current_order, :spree, to: :helpers
 
   def call
-    link_to text.html_safe, cart_path, class: "cart-info block #{css_class} w-6 h-6", title: 'Cart'
+    link_to text.html_safe, cart_path, class: "cart-info block #{css_class} w-6 h-6", title: I18n.t('spree.cart')
   end
 
   private

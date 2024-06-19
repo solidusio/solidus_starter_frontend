@@ -3,25 +3,19 @@
 require 'solidus_starter_frontend_spec_helper'
 
 RSpec.describe 'setting locale', type: :system do
-  include_context 'featured products'
-  
+  include_context 'fr locale'
+
   let!(:store) { create(:store) }
-  def with_locale(locale)
-    I18n.locale = locale
-    yield
-  ensure
-    I18n.locale = I18n.default_locale
-  end
 
-  context 'shopping cart link and page' do
-    include_context "fr locale"
-
+  context 'shopping cart link and page', :js do
     it 'should be in french' do
-      with_locale('fr') do
-        visit root_path
-        click_link 'Panier'
-        expect(page).to have_content('Panier')
-      end
+      visit root_path
+
+      expect(page).to have_link('Cart')
+      select('Français', from: 'Language:')
+      expect(page).to have_content('Paramètres régionaux changés')
+      click_link 'Panier'
+      expect(page).to have_content('Votre panier est vide')
     end
   end
 end
