@@ -21,11 +21,11 @@
       end.sort
     %>
     <% if available_locales.many? %>
-      <div class="locale-selector">
+      <div class="locale-selector"  data-controller="locale-selector">
         <%= form_tag select_locale_path do %>
           <div class="locale-selector__select-input select-input">
             <%= label_tag :switch_to_locale, "#{t('spree.i18n.language')}:" %>
-            <%= select_tag(:switch_to_locale, options_for_select(available_locales, I18n.locale)) %>
+            <%= select_tag(:switch_to_locale, options_for_select(available_locales, I18n.locale), data: { action: "locale-selector#submitForm", "locale-selector-target" => "selector" }) %>
           </div>
         <% end %>
       </div>

@@ -4,6 +4,6 @@ export default class extends Controller {
   static targets = ['selector']
 
   submitForm() {
-    this.selectorTarget.form.submit
+    this.selectorTarget.form.submit()
   }
 }

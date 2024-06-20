@@ -5,6 +5,8 @@ class StoreController < Spree::BaseController
   include Spree::Core::ControllerHelpers::Order
   include Taxonomies
 
+  etag { config_locale }
+
   layout 'storefront'
 
   def unauthorized
@@ -13,7 +15,7 @@ class StoreController < Spree::BaseController
 
   def cart_link
     render partial: 'shared/cart/link_to_cart'
-    fresh_when(current_order, template: 'shared/cart/_link_to_cart')
+    fresh_when(etag: current_order, template: 'shared/cart/_link_to_cart')
   end
 
   private
