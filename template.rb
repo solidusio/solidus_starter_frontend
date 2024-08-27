@@ -101,7 +101,7 @@ with_log['installing gems'] do
 end
 
 with_log['installing files'] do
-  directory 'app', 'app', verbose: false
+  directory 'app', 'app', verbose: auto_accept, force: auto_accept
   directory 'public', 'public'
 
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
