@@ -4,6 +4,10 @@ RSpec.describe ImageComponent, type: :component do
   let(:page_image) { page.find('img') }
 
   context 'when rendered' do
+    def assets_prefix
+      @assets_prefix ||= Rails.application.config.assets.prefix
+    end
+
     before do
       render_inline(described_class.new(arguments))
     end
@@ -26,7 +30,7 @@ RSpec.describe ImageComponent, type: :component do
 
         it 'renders the image' do
           expect(page_image['alt']).to eq(alt)
-          expect(page_image['src']).to match(%r{/assets/noimage/mini-.*.png})
+          expect(page_image['src']).to match(%r{#{assets_prefix}/noimage/mini-.*.png})
         end
       end
 
@@ -35,7 +39,7 @@ RSpec.describe ImageComponent, type: :component do
 
         it 'renders the image' do
           expect(page_image['alt']).to be_nil
-          expect(page_image['src']).to match(%r{/assets/noimage/mini-.*.png})
+          expect(page_image['src']).to match(%r{#{assets_prefix}/noimage/mini-.*.png})
         end
       end
     end
@@ -55,7 +59,7 @@ RSpec.describe ImageComponent, type: :component do
         expect(page_image['class']).to eq('some-class')
         expect(page_image['itemprop']).to eq('some-itemprop')
         expect(page_image['data-key']).to eq('value')
-        expect(page_image['src']).to match(%r{/assets/noimage/small-.*.png})
+        expect(page_image['src']).to match(%r{#{assets_prefix}/noimage/small-.*.png})
       end
     end
   end
