@@ -65,7 +65,8 @@ with_log['installing gems'] do
   end
 
   gem 'responders'
-  gem 'canonical-rails'
+  # Necessary for Rails > 7.1 support
+  gem 'canonical-rails', github: 'jumph4x/canonical-rails', branch: 'master'
   gem 'solidus_support'
   gem 'truncate_html'
   gem 'view_component', '~> 3.0'
