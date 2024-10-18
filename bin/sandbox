@@ -52,8 +52,8 @@ test -n "${username}" && replace_in_database_yml "username" "${username}"
 test -n "${password}" && replace_in_database_yml "password" "${password}"
 
 unbundled bundle add solidus \
-  --github "${SOLIDUS_REPO:-solidusio/solidus}" \
-  --branch "${SOLIDUS_BRANCH:-main}" \
+  --github "${SOLIDUS_REPO:-tvdeyen/solidus}" \
+  --branch "${SOLIDUS_BRANCH:-rails-7.2}" \
   --version '> 0.a'
 
 unbundled bundle exec rake db:drop db:create
