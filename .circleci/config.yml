@@ -13,8 +13,8 @@ orbs:
 jobs:
   run-specs:
     executor:
-        name: solidusio_extensions/<<parameters.database>>
-        ruby_version: <<parameters.ruby_version>>
+      name: solidusio_extensions/<<parameters.database>>
+      ruby_version: <<parameters.ruby_version>>
     steps:
       - checkout
       - browser-tools/install-chrome
@@ -26,7 +26,7 @@ jobs:
             sudo apt-get install -yq libvips-dev
           when: always
       - run:
-          name: 'Solidus <<parameters.solidus_branch>>:  Install gems'
+          name: "Solidus <<parameters.solidus_branch>>:  Install gems"
           command: |
             bundle install
           environment:
@@ -34,7 +34,7 @@ jobs:
             SOLIDUS_BRANCH: <<parameters.solidus_branch>>
           when: always
       - run:
-          name: 'Solidus <<parameters.solidus_branch>>:  Install sandbox with generated starter frontend'
+          name: "Solidus <<parameters.solidus_branch>>:  Install sandbox with generated starter frontend"
           command: |
             <<#parameters.coverage>>export COVERAGE=true<</parameters.coverage>>
             bin/sandbox --seed=false --sample=false
@@ -44,7 +44,7 @@ jobs:
             SOLIDUS_BRANCH: <<parameters.solidus_branch>>
           when: always
       - run:
-          name: 'Runs tests on Solidus <<parameters.solidus_branch>>'
+          name: "Runs tests on Solidus <<parameters.solidus_branch>>"
           command: |
             cd sandbox
             bundle add rspec_junit_formatter --group test
@@ -66,17 +66,17 @@ jobs:
           destination: coverage
       - run:
           command: rm -rf sandbox
-          name: 'Solidus <<parameters.solidus_branch>>: Clean up'
+          name: "Solidus <<parameters.solidus_branch>>: Clean up"
           when: always
       - solidusio_extensions/store-test-results
 
     parameters:
       solidus_branch:
         type: string
-        default: 'main'
+        default: "main"
       rails_version:
         type: string
-        default: '~> 7.1.0'
+        default: "~> 7.1.0"
       ruby_version:
         type: string
       database:
@@ -90,26 +90,26 @@ workflows:
     jobs:
       - run-specs:
           name: run-specs-with-postgres-ruby-3-2
-          database: 'postgres'
-          ruby_version: '3.2'
+          database: "postgres"
+          ruby_version: "3.2"
 
       - run-specs:
           name: run-specs-with-postgres-ruby-3-1
-          database: 'postgres'
-          ruby_version: '3.1'
+          database: "postgres"
+          ruby_version: "3.1"
 
       - run-specs:
           name: run-specs-with-postgres-ruby-3-0
-          database: 'postgres'
-          ruby_version: '3.0'
+          database: "postgres"
+          ruby_version: "3.0"
 
       - run-specs:
           name: run-specs-with-mysql-ruby-3-2
-          database: 'mysql'
-          ruby_version: '3.2'
+          database: "mysql"
+          ruby_version: "3.2"
 
       - run-specs:
           name: run-specs-with-sqlite-ruby-3-2
-          database: 'sqlite'
-          ruby_version: '3.2'
+          database: "sqlite"
+          ruby_version: "3.2"
           coverage: true
