@@ -76,7 +76,7 @@ jobs:
         default: "main"
       rails_version:
         type: string
-        default: "~> 7.1.0"
+        default: "~> 7.2.0"
       ruby_version:
         type: string
       database:
@@ -99,9 +99,21 @@ workflows:
           ruby_version: "3.1"
 
       - run-specs:
+          name: run-specs-with-postgres-ruby-3-1-rails-7-1
+          database: "postgres"
+          ruby_version: "3.1"
+          rails_version: "~> 7.1.0"
+
+      - run-specs:
           name: run-specs-with-postgres-ruby-3-0
           database: "postgres"
           ruby_version: "3.0"
+
+      - run-specs:
+          name: run-specs-with-postgres-ruby-3-0-rails-7-0
+          database: "postgres"
+          ruby_version: "3.0"
+          rails_version: "~> 7.0.0"
 
       - run-specs:
           name: run-specs-with-mysql-ruby-3-2
