@@ -5,9 +5,9 @@
       size: :full,
       class: 'w-full object-cover aspect-square md:aspect-auto'
     )) %>
-    <div class="absolute bottom-0 left-0 right-0 text-center pb-14">
-      <span class="rounded-full px-3 py-1 bg-white text-sm text-black mb-2">New</span>
-      <h4 class="text-h3 font-serif-md mb-6 text-white md:mb-11 md:text-h2.5"><%= product.name %></h4>
+    <div class="grid-rows-3	absolute bottom-0 left-0 right-0 text-center pb-14">
+      <span class="w-fit py-3 px-7 rounded-full text-body-sm font-sans-md tracking-wider leading-none uppercase whitespace-nowrap transition-colors duration-200 false bg-white text-black hover:bg-gray-200 dark:text-sand dark:bg-gray-800 dark:hover:bg-gray-700 false justify-items-center">New</span>
+      <span class="grid grid-rows-subgrid row-2 text-h3 font-serif-md mb-7 text-white md:text-h2.5 mt-4"><%= product.name %></span>
       <%= render "shared/call_to_action", { label: "Shop Now", type: 'secondary', url: product } %>
     </div>
   </div>
