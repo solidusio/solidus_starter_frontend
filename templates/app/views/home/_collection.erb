@@ -1,7 +1,7 @@
 <% if products.length > 0 %>
   <section class="wrapper mb-12">
     <div class="flex items-center justify-between mb-7">
-      <h3 class="font-serif text-h4 md:text-h3"><%= title %></h3>
+      <span class="font-serif text-h4 md:text-h3"><%= title %></span>
       <%= render "shared/call_to_action", { label: "Shop All", type: 'secondary', url: products_path } %>
     </div>
 
