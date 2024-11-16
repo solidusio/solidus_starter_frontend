@@ -1,11 +1,9 @@
-$intel-font-path: './graphik/';
-$source-serif-font-path: './bradford/';
-$intel-font-path: './inter/';
+$inter-font-path: './inter/';
 $source-serif-font-path: './source-serif/'; 
 
 @font-face {
   font-family: 'Inter Regular';
-  src: url('#{$intel-font-path}inter-v18-latin-regular.woff2') format('woff2');
+  src: url('#{$inter-font-path}inter-v18-latin-regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -13,7 +11,7 @@ $source-serif-font-path: './source-serif/';
 
 @font-face {
   font-family: 'Inter Medium';
-  src: url('#{$intel-font-path}inter-v18-latin-500.woff2') format('woff2');
+  src: url('#{$inter-font-path}inter-v18-latin-500.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -21,7 +19,7 @@ $source-serif-font-path: './source-serif/';
 
 @font-face {
   font-family: 'Inter Semibold';
-  src: url('#{$intel-font-path}inter-v18-latin-600.woff2') format('woff2');
+  src: url('#{$inter-font-path}inter-v18-latin-600.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
