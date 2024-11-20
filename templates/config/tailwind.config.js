@@ -18,11 +18,10 @@ module.exports = {
       '3xl': '1536px',
     },
     fontFamily: {
-      sans: ['Graphik', 'system-ui', 'sans-serif'],
-      'sans-md': ['"Graphik Medium"', 'system-ui', 'sans-serif'],
+      sans: ['Inter Regular', 'system-ui', 'sans-serif'],
+      'sans-md': ['"Inter Medium"', 'system-ui', 'sans-serif'],
       serif: ['BradFordLL', 'system-ui', 'sans-serif'],
-      'serif-md': ['"BradFordLL Medium"', 'system-ui', 'sans-serif'],
-      'serif-book': ['"BradFordLL Book"', 'system-ui', 'sans-serif'],
+      'serif-md': ['"Source Serif Medium"', 'system-ui', 'sans-serif'],
     },
     fontSize: {
       h1: ['4rem', '120%'],
