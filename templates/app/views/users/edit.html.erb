@@ -2,7 +2,7 @@
   <%= render 'shared/error_messages', target: @user %>
 
   <div class="col-span-full space-y-4">
-    <h1 class="font-serif text-h4 md:text-h3">My account</h1>
+    <h1 class="font-serif text-h4 md:text-h3"><%= I18n.t('spree.my_account') %></h1>
     <div class="flex flex-wrap flex-auto gap-4">
       <%= @user.email %>
       <%= form_with(url: logout_path, method: Devise.sign_out_via, local: true) do %>
