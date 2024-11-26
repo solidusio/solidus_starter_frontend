@@ -5,7 +5,7 @@
 
 <div class="wrapper grid-container py-12 space-y-10 md:space-y-14">
   <div class="col-span-full space-y-4">
-    <h1 class="font-serif text-h4 md:text-h3">My account</h1>
+    <h1 class="font-serif text-h4 md:text-h3"><%= t('spree.my_account') %></h1>
     <div class="flex flex-wrap flex-auto gap-4">
       <%= @user.email %>
       <%= form_with(url: logout_path, method: Devise.sign_out_via, local: true) do %>
