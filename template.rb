@@ -65,7 +65,6 @@ with_log['installing gems'] do
   end
 
   gem 'responders'
-  gem 'canonical-rails'
   gem 'solidus_support', '>= 0.12.0'
   gem 'truncate_html'
   gem 'view_component', '~> 3.0'
@@ -105,7 +104,6 @@ with_log['installing files'] do
   directory 'public', 'public'
 
   copy_file 'config/initializers/solidus_auth_devise_unauthorized_redirect.rb'
-  copy_file 'config/initializers/canonical_rails.rb'
   copy_file 'config/routes/storefront.rb'
   copy_file 'config/tailwind.config.js'
   create_file 'app/assets/builds/tailwind.css'
