@@ -20,7 +20,7 @@ module.exports = {
     fontFamily: {
       sans: ['Inter Regular', 'system-ui', 'sans-serif'],
       'sans-md': ['"Inter Medium"', 'system-ui', 'sans-serif'],
-      serif: ['BradFordLL', 'system-ui', 'sans-serif'],
+      serif: ['Source Serif', 'system-ui', 'sans-serif'],
       'serif-md': ['"Source Serif Medium"', 'system-ui', 'sans-serif'],
     },
     fontSize: {
