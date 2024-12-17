@@ -66,7 +66,7 @@ with_log['installing gems'] do
 
   gem 'responders'
   gem 'canonical-rails'
-  gem 'solidus_support'
+  gem 'solidus_support', '>= 0.12.0'
   gem 'truncate_html'
   gem 'view_component', '~> 3.0'
   gem 'tailwindcss-rails'
