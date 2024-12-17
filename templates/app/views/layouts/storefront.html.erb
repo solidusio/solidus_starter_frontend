@@ -5,7 +5,7 @@
     <title><%= title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%== meta_data_tags %>
-    <%= canonical_tag(current_store.url) %>
+    <%= simple_canonical_tag %>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
