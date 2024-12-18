@@ -20,8 +20,8 @@ module.exports = {
     fontFamily: {
       sans: ['Inter Regular', 'system-ui', 'sans-serif'],
       'sans-md': ['"Inter Medium"', 'system-ui', 'sans-serif'],
-      serif: ['Source Serif', 'system-ui', 'sans-serif'],
-      'serif-md': ['"Source Serif Medium"', 'system-ui', 'sans-serif'],
+      serif: ['Source Serif', 'system-ui', 'serif'],
+      'serif-md': ['"Source Serif Medium"', 'system-ui', 'serif'],
     },
     fontSize: {
       h1: ['4rem', '120%'],
