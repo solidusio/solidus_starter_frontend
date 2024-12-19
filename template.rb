@@ -145,7 +145,13 @@ with_log['installing files'] do
     end
   RUBY
 
-  directory 'spec', verbose: false
+  # Allows to skip frontend specs generation from extensions CI pipelines
+  if ENV.fetch("FRONTEND_SPECS", "all") == "all"
+    directory 'spec', verbose: false
+  else
+    # This file is always necessary in order to run frontend specs from extensions
+    copy_file 'spec/solidus_starter_frontend_spec_helper.rb', verbose: auto_accept, force: auto_accept
+  end
 
   # In CI, the Rails environment is test. In that Rails environment,
   # `Solidus::InstallGenerator#setup_assets` adds `solidus_frontend` assets to
