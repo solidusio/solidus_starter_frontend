@@ -7,7 +7,7 @@
       <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.create_a_new_account"), signup_path, class:"transition-all duration-300 text-black hover:!text-red-500 dark:text-sand underline" %>
     </div>
 
-    <%= form_for Spree::User.new, as: :spree_user, url: create_new_session_path, html: { class: "space-y-6 mb-12" } do |f| %>
+    <%= form_for Spree::User.new, as: :spree_user, url: create_new_session_path, html: { class: "space-y-6" } do |f| %>
       <div class="text-input">
         <%= f.label :email, "#{t("spree.email")}:" %>
         <%= f.email_field :email, placeholder: 'name@example.com' %>
@@ -19,7 +19,7 @@
       </div>
 
       <div class="flex justify-between">
-        <div class="items-center leading-none">
+        <div class="items-center leading-none py-1">
           <%= f.check_box :remember_me, tabindex: 3 %>
           <%= f.label :remember_me, I18n.t("spree.remember_me"), class: "mb-0" %>
         </div>
@@ -34,6 +34,7 @@
           name: :commit
         ) %>
       </div>
+
     <% end %>
   </div>
 </article>
