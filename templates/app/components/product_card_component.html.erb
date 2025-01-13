@@ -40,7 +40,7 @@
       class="dark:text-black <%= text_flex_classes %>"
     >
       <header class="product-card_header <%= title_text_classes %>">
-        <h2>
+        <span>
           <%= link_to(
             truncate(product.name, length: 50),
             product_path(product),
@@ -48,7 +48,7 @@
             itemprop: "name",
             title: product.name
           ) %>
-        </h2>
+        </span>
       </header>
       <section 
         class="product-card_price font-sans-md mt-1 lg:mt-0 <%= price_classes %>"

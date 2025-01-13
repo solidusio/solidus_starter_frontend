@@ -1,8 +1,8 @@
 <% if !product.taxons.blank? %>
   <section class="product-taxons">
-    <h2 class="product-taxons__title">
+    <h1 class="product-taxons__title">
       <%= t('spree.look_for_similar_items') %>:
-    </h2>
+    </h1>
 
     <ul class="product-taxons__list">
       <% product.taxons.each do |taxon| %>
