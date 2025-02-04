@@ -46,6 +46,10 @@ class ProductsController < StoreController
       @products = Spree::Product.available
     end
     @product = @products.friendly.find(params[:id])
+
+    # Redirects to the correct product URL if the requested slug does not match the current product's slug.
+    # This ensures that outdated or ID URLs always resolve to the latest canonical URL.
+    redirect_to @product, status: :moved_permanently if params[:id] != @product.slug
   end
 
   def load_taxon
