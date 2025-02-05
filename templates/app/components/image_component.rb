@@ -12,7 +12,7 @@ class ImageComponent < ViewComponent::Base
 
   def call
     if image
-      image_tag image.url(size), default_options.merge(options)
+      image_tag url_for(image.attachment.variant(size)), default_options.merge(options)
     else
       content_tag :div, nil, class: ['image-placeholder', size].join(' ')
     end
