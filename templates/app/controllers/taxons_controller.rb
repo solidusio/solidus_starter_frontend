@@ -15,7 +15,8 @@ class TaxonsController < StoreController
   private
 
   def load_taxon
-    @taxon = Spree::Taxon.find_by!(permalink: params[:id])
+    @taxon = Spree::Taxon.friendly.find(params[:id])
+    redirect_to nested_taxons_path(@taxon), status: :moved_permanently if params[:id] != @taxon.permalink
   end
 
   def accurate_title
