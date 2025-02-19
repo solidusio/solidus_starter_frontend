@@ -34,7 +34,8 @@
           item_classes: 'text-body-xs text-gray-500',
           separator_classes: 'text-body-xs text-gray-500 ml-2',
           container_classes: 'flex gap-2',
-          wrapper_classes: 'wrapper mt-4'
+          wrapper_classes: 'wrapper mt-4',
+          order: @order
         ) %>
         <% if flash_messages.present? %>
           <%= flash_messages %>
