@@ -69,7 +69,7 @@ with_log['installing gems'] do
   gem 'responders'
   gem 'solidus_support', '>= 0.12.0'
   gem 'view_component', '~> 3.0'
-  gem 'tailwindcss-rails'
+  gem 'tailwindcss-rails', '~> 3.0'
 
   gem_group :test do
     # We need to add capybara along with a javascript driver to support the provided system specs.
