@@ -4,7 +4,7 @@ require 'solidus_starter_frontend_spec_helper'
 
 RSpec.feature 'Sign In', type: :system do
   include_context "featured products"
-  
+
   background do
     @user = create(:user, email: 'email@person.com', password: 'secret', password_confirmation: 'secret')
     visit login_path
@@ -21,7 +21,7 @@ RSpec.feature 'Sign In', type: :system do
     expect(current_path).to eq '/'
   end
 
-  scenario 'show validation erros' do
+  scenario 'show validation errors' do
     fill_in 'Email', with: @user.email
     fill_in 'Password:', with: 'wrong_password'
     click_button 'Login'
