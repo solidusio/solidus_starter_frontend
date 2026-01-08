@@ -21,6 +21,14 @@ Just run:
 rails new store
 cd store
 bundle add solidus
+
+mkdir -p app/assets/config
+cat <<MANIFEST > app/assets/config/manifest.js
+//= link_tree ../images
+//= link_directory ../javascripts .js
+//= link_directory ../stylesheets .css
+MANIFEST
+
 bin/rails generate solidus:install --frontend=starter
 ```
 
