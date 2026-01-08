@@ -66,10 +66,11 @@ with_log['installing gems'] do
     generate 'solidus:auth:install'
   end
 
+  gem "flickwerk", "~> 0.3.5"
   gem 'responders'
   gem 'solidus_support', '>= 0.12.0'
-  gem 'view_component', '~> 3.0'
   gem 'tailwindcss-rails', '~> 3.0'
+  gem 'view_component', '~> 3.0'
 
   gem_group :test do
     # We need to add capybara along with a javascript driver to support the provided system specs.
@@ -120,6 +121,8 @@ with_log['installing files'] do
   RUBY
 
   application <<~RUBY
+    include Flickwerk
+    
     if defined?(FactoryBotRails)
       initializer after: "factory_bot.set_factory_paths" do
         require 'spree/testing_support/factory_bot'

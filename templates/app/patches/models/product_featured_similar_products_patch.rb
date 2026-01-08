@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ProductFeaturedSimilarProducts
+module ProductFeaturedSimilarProductsPatch
   def self.prepended(base)
     base.scope :featured, -> { where(featured: true) }
   end
