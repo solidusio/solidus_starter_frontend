@@ -19,7 +19,7 @@
       </div>
 
       <% if order.line_item_adjustments.nonzero.exists? %>
-        <% order.line_item_adjustments.nonzero.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+        <% order.line_item_adjustments.nonzero.promotion.group_by(&:label).each do |label, adjustments| %>
           <div class="checkout-summary__entry <%= dl_classes %>">
             <dt><%= label %></dt>
             <dd><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency).to_html %></dd>
@@ -27,7 +27,7 @@
         <% end %>
       <% end %>
 
-      <% order.all_adjustments.nonzero.tax.eligible.group_by(&:label).each do |label, adjustments| %>
+      <% order.all_adjustments.nonzero.tax.group_by(&:label).each do |label, adjustments| %>
         <div class="checkout-summary__entry <%= dl_classes %>">
           <dt><%= label %></dt>
           <dd><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency).to_html %></dd>
@@ -41,7 +41,7 @@
         </div>
 
         <% if order.shipment_adjustments.nonzero.exists? %>
-          <% order.shipment_adjustments.nonzero.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+          <% order.shipment_adjustments.nonzero.promotion.group_by(&:label).each do |label, adjustments| %>
             <div class="checkout-summary__entry <%= dl_classes %>">
               <dt><%= label %>:</dt>
               <dd><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency).to_html %></dd>
@@ -50,9 +50,9 @@
         <% end %>
       <% end %>
 
-      <% if order.adjustments.nonzero.non_tax.eligible.exists? %>
+      <% if order.adjustments.nonzero.non_tax.exists? %>
         <div class="checkout-summary__entry <%= dl_classes %> font-sans-md" id="summary-order-charges">
-          <% order.adjustments.nonzero.non_tax.eligible.each do |adjustment| %>
+          <% order.adjustments.nonzero.non_tax.each do |adjustment| %>
             <dt><%= adjustment.label %>:</dt>
             <dd class="text-primary"><%= adjustment.display_amount.to_html %></dd>
           <% end %>
