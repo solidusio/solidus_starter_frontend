@@ -47,8 +47,10 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
 
           # To shipping method screen
           click_button "Save and Continue"
+          expect(page).to have_content("Shipping Method")
           # To payment screen
           click_button "Save and Continue"
+          expect(page).to have_content("Payment Information")
         end
 
         it "informs about an invalid coupon code" do
@@ -102,8 +104,10 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
             # To shipping method screen, address is auto-populated
             # with user's saved addresses
             click_button "Save and Continue"
+            expect(page).to have_content("Shipping Method")
             # To payment screen
             click_button "Save and Continue"
+            expect(page).to have_content("Payment Information")
           end
 
           it "shows wallet payments on coupon code errors" do
