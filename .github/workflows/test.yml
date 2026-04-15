@@ -25,9 +25,9 @@ jobs:
           - "3.3"
           - "3.4"
         solidus-branch:
-          - "v4.4"
           - "v4.5"
           - "v4.6"
+          - "v4.7"
         database:
           - "postgresql"
           - "mysql"
