@@ -6,7 +6,7 @@ module TaxonCustomQueries
   end
 
   def all_products_except(product_ids)
-    all_products.where.not(id: product_ids)
+    all_products.available.where.not(id: product_ids)
   end
 
   Spree::Taxon.prepend self
