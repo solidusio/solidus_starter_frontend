@@ -17,9 +17,9 @@
   </div>
 
   <% if order.line_item_adjustments.exists? %>
-    <% if order.line_item_adjustments.promotion.eligible.exists? %>
+    <% if order.line_item_adjustments.promotion.exists? %>
       <div id="price-adjustments" class="<%= line_class_names %>">
-        <% order.line_item_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+        <% order.line_item_adjustments.promotion.group_by(&:label).each do |label, adjustments| %>
           <dt><%= t('spree.promotion') %></dt>
           <dd class="font-sans-md"><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency) %></dd>
         <% end %>
@@ -50,7 +50,7 @@
     </div>
   <% end %>
 
-  <% order.adjustments.eligible.each do |adjustment| %>
+  <% order.adjustments.each do |adjustment| %>
   <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
     <div id="order-charges" class="<%= line_class_names %> font-sans-md">
       <dt><%= adjustment.label %></dt>

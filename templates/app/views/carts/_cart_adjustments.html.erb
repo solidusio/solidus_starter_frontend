@@ -6,7 +6,7 @@
   ) %>
 
   <% if @order.line_item_adjustments.exists? %>
-    <% @order.line_item_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+    <% @order.line_item_adjustments.promotion.group_by(&:label).each do |label, adjustments| %>
       <% if adjustments.sum(&:amount) != 0 %>
         <%= render(
           "cart_adjustment",
@@ -18,7 +18,7 @@
     <% end %>
   <% end %>
 
-  <% @order.all_adjustments.tax.eligible.group_by(&:label).each do |label, adjustments| %>
+  <% @order.all_adjustments.tax.group_by(&:label).each do |label, adjustments| %>
     <%= render(
       "carts/cart_adjustment",
       type: t('spree.tax'),
@@ -36,7 +36,7 @@
     ) %>
   <% end %>
 
-  <% @order.adjustments.eligible.group_by(&:label).each do |label, adjustments| %>
+  <% @order.adjustments.group_by(&:label).each do |label, adjustments| %>
     <%= render(
       "carts/cart_adjustment",
       type: t('spree.adjustment'),
