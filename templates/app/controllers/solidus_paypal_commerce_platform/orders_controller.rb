@@ -77,7 +77,9 @@ module SolidusPaypalCommercePlatform
     end
 
     def order_params
-      params.require(:order).permit(permitted_order_attributes)
+      params.require(:order).permit(
+        line_items_attributes: permitted_line_item_attributes
+      )
     end
 
     def load_order
