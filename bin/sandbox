@@ -58,7 +58,7 @@ cd ./sandbox
 if [ -n "$DB_HOST" ]; then
   echo "~~~> Configuring database.yml for DB_HOST=$DB_HOST"
   ruby -i -pe '
-    if $_ =~ /^  pool:/
+    if $_ =~ /^  (pool|max_connections):/
       $_ += "  host: <%= ENV.fetch(\"DB_HOST\", \"localhost\") %>\n"
       $_ += "  username: <%= ENV[\"DB_USERNAME\"] %>\n"
     end
@@ -73,6 +73,9 @@ gem 'solidus_auth_devise', github: "solidusio/solidus_auth_devise"
 
 # Ruby 4.0 removed benchmark from default gems, but ActiveSupport requires it.
 gem 'benchmark' if RUBY_VERSION >= '4.0'
+
+# ActiveSupport < 8.1 passes quirks_mode to JSON.generate, which json 3 rejects.
+gem 'json', '< 3' if Gem::Version.new('$rails_version') < Gem::Version.new('8.1')
 
 group :test, :development do
   platforms :mri do
