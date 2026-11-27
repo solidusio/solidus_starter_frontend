@@ -58,7 +58,7 @@ cd ./sandbox
 if [ -n "$DB_HOST" ]; then
   echo "~~~> Configuring database.yml for DB_HOST=$DB_HOST"
   ruby -i -pe '
-    if $_ =~ /^  pool:/
+    if $_ =~ /^  (pool|max_connections):/
       $_ += "  host: <%= ENV.fetch(\"DB_HOST\", \"localhost\") %>\n"
       $_ += "  username: <%= ENV[\"DB_USERNAME\"] %>\n"
     end
