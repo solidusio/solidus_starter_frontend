@@ -15,3 +15,5 @@ permissions:
 jobs:
   rspec:
     uses: solidusio/test-solidus-extension/.github/workflows/test.yml@main
+    with:
+      solidus_branches: '["v4.7"]'
