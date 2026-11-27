@@ -14,9 +14,9 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do |example|
     screen_size = example.metadata[:screen_size] || [1800, 1400]
-    driven_by(:selenium, using: :headless_chrome, screen_size: screen_size) do |capabilities|
-      capabilities.add_argument("--disable-search-engine-choice-screen")
-    end
+    using = (ENV["CAPYBARA_DRIVER"] == "selenium") ? :firefox : :headless_firefox
+
+    driven_by(:selenium, using: using, screen_size: screen_size)
   end
 end
 
